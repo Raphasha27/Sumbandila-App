@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  auth-service:
+    build: ../backend/auth-service
+    ports: ['8001:8001']
+  verification-service:
+    build: ../backend/verification-service
+    ports: ['8002:8002']
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: sumbandila
+      POSTGRES_USER: sumbandila
+      POSTGRES_PASSWORD: changeme
+    ports: ['5432:5432']

@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "Sumbandila",
+    "slug": "sumbandila",
+    "version": "0.1.0",
+    "sdkVersion": "54.0.6",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

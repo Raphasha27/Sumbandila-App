@@ -1,0 +1,7 @@
+{
+  "name": "sumbandila-admin",
+  "private": true,
+  "scripts": {
+    "start": "vite"
+  }
+}

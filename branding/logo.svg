@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="100%" height="100%" fill="#0b5cff"/>
+  <g transform="translate(96,96)">
+    <circle cx="160" cy="80" r="72" fill="#fff"/>
+    <rect x="0" y="200" width="320" height="80" rx="16" fill="#fff" />
+    <text x="160" y="290" font-size="48" text-anchor="middle" fill="#0b5cff" font-family="Arial">Sumbandila</text>
+  </g>
+</svg>

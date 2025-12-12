@@ -1,0 +1,1 @@
+Sumbandila Expo frontend (SDK 54) - placeholder screens. Run `npm install` then `expo start`.
