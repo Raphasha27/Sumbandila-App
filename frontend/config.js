@@ -6,7 +6,7 @@ import { Platform } from 'react-native';
 
 const backendUrl = Platform.OS === 'web'
     ? 'http://localhost:5000'
-    : 'http://172.20.6.208:5000'; // Local IP for Physical Device
+    : 'https://sumbandila-app-production.up.railway.app'; // Railway Backend
 
 export default {
     apiBase: backendUrl
