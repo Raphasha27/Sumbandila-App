@@ -114,7 +114,4 @@ app.get('/', (req, res) => res.send('Sumbandila verification microservice'));
 
 app.listen(PORT, () => {
   console.log(`Backend running on port ${PORT}`);
-  // Open browser automatically (Windows)
-  const { exec } = require('child_process');
-  exec(`start http://localhost:${PORT}`);
 });
