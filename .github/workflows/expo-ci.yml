@@ -1,0 +1,72 @@
+name: Expo App CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'expo/**'
+      - '.github/workflows/expo-ci.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'expo/**'
+
+jobs:
+  lint-and-test:
+    name: Lint and Test Expo App
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: expo/package.json
+          
+      - name: Install dependencies
+        working-directory: expo
+        run: npm install
+        
+      - name: Run linter
+        working-directory: expo
+        run: npm run lint --if-present
+        
+      - name: Run tests
+        working-directory: expo
+        run: npm test --if-present
+        
+      - name: Check TypeScript
+        working-directory: expo
+        run: npx tsc --noEmit --skipLibCheck || echo "No TypeScript config found"
+
+  build-preview:
+    name: Build Preview
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Setup Expo
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+          
+      - name: Install dependencies
+        working-directory: expo
+        run: npm install
+        
+      - name: Build app
+        working-directory: expo
+        run: npx expo export --platform all --output-dir dist

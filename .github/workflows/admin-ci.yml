@@ -1,0 +1,56 @@
+name: Admin Dashboard CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'admin-dashboard/**'
+      - '.github/workflows/admin-ci.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'admin-dashboard/**'
+
+jobs:
+  lint-and-test:
+    name: Lint and Test Admin Dashboard
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Check for package.json
+        id: check_package
+        working-directory: admin-dashboard
+        run: |
+          if [ -f "package.json" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Install dependencies
+        if: steps.check_package.outputs.exists == 'true'
+        working-directory: admin-dashboard
+        run: npm install
+        
+      - name: Run linter
+        if: steps.check_package.outputs.exists == 'true'
+        working-directory: admin-dashboard
+        run: npm run lint --if-present
+        
+      - name: Run tests
+        if: steps.check_package.outputs.exists == 'true'
+        working-directory: admin-dashboard
+        run: npm test --if-present
+        
+      - name: Build
+        if: steps.check_package.outputs.exists == 'true'
+        working-directory: admin-dashboard
+        run: npm run build --if-present
