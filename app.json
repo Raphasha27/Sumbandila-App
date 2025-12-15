@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Sumbandila",
-    "slug": "sumbandila-app",
+    "slug": "sumbandila_app",
     "version": "1.0.0",
     "sdkVersion": "54.0.0",
     "platforms": [
@@ -13,12 +13,23 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "extra": {
+      "eas": {
+        "projectId": "99c06b95-ede2-40e8-8697-a7344d664e0f"
+      }
+    },
     "android": {
       "package": "com.raphasha27.sumbandila",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.raphasha27.sumbandila",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "plugins": [
