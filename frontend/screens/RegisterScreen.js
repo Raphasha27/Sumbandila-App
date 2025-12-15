@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import config from '../config';
+import { storeToken, storeUser } from '../utils/auth';
 
 export default function RegisterScreen({ navigation }) {
     const [name, setName] = useState('');
@@ -32,10 +33,14 @@ export default function RegisterScreen({ navigation }) {
             const data = await res.json();
             setLoading(false);
 
-            if (data.success) {
+            if (data.success && data.token) {
+                // Store JWT token and user data
+                await storeToken(data.token);
+                await storeUser(data.user);
+
                 navigation.replace('Dashboard', { user: data.user });
             } else {
-                setError(data.error);
+                setError(data.error || 'Registration failed');
             }
         } catch (e) {
             setLoading(false);

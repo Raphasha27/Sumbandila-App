@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import config from '../config';
+import { storeToken, storeUser } from '../utils/auth';
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('');
@@ -36,14 +37,19 @@ export default function LoginScreen({ navigation }) {
             const data = await res.json();
             setLoading(false);
 
-            if (data.success) {
+            if (data.success && data.token) {
+                // Store JWT token and user data
+                await storeToken(data.token);
+                await storeUser(data.user);
+
+                // Navigate based on role
                 if (data.user.role === 'admin') {
                     navigation.replace('AdminDashboard', { user: data.user });
                 } else {
                     navigation.replace('Dashboard', { user: data.user });
                 }
             } else {
-                setError(data.error);
+                setError(data.error || 'Login failed');
             }
         } catch (e) {
             setLoading(false);
