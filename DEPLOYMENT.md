@@ -36,26 +36,7 @@ The backend consists of Node.js/Express microservices that can be deployed to va
    git subtree push --prefix backend heroku main
    ```
 
-### Option 2: Railway
-
-1. **Install Railway CLI**
-   ```bash
-   npm install -g @railway/cli
-   ```
-
-2. **Login and deploy**
-   ```bash
-   railway login
-   railway init
-   railway up
-   ```
-
-3. **Add database**
-   - Go to Railway dashboard
-   - Add PostgreSQL plugin
-   - Connect to your service
-
-### Option 3: AWS (Elastic Beanstalk)
+### Option 2: AWS (Elastic Beanstalk)
 
 1. **Install EB CLI**
    ```bash
@@ -70,7 +51,7 @@ The backend consists of Node.js/Express microservices that can be deployed to va
    eb deploy
    ```
 
-### Option 4: Docker (Self-hosted)
+### Option 3: Docker (Self-hosted)
 
 1. **Build and run with Docker Compose**
    ```bash
@@ -243,9 +224,6 @@ Add these secrets to your GitHub repository (Settings > Secrets and variables > 
 **For AWS:**
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
-
-**For Railway:**
-- `RAILWAY_TOKEN`
 
 **For Vercel:**
 - `VERCEL_TOKEN`

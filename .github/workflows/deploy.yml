@@ -63,14 +63,6 @@ jobs:
       #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       #     aws-region: us-east-1
       
-      # For Railway:
-      # - name: Deploy to Railway
-      #   run: |
-      #     npm install -g @railway/cli
-      #     railway up --service backend
-      #   env:
-      #     RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      
       - name: Deployment placeholder
         run: echo "Configure your deployment provider in this workflow"
 
