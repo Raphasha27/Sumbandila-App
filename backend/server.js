@@ -1,117 +1,412 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const app = express();
-app.use(cors());
-app.use(express.json());
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
+const { supabase } = require('./config/database');
+const { verifyToken, isAdmin } = require('./middleware/auth');
+const { validateRegister, validateLogin, validateFraudReport } = require('./middleware/validation');
+const errorHandler = require('./middleware/errorHandler');
+
+const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Mock dataset -- replace with real database or API calls in production
-// Mock dataset -- Realistic SA Data
-const schools = [
-  { id: 'SCH-1001', name: 'University of Cape Town (UCT)', status: true, details: 'Registered: DHET (001). Accredited: CHE. Courses: All Degree Programs.', address: 'Rondebosch, Cape Town', contact: '021 650 9111' },
-  { id: 'SCH-1002', name: 'University of the Witwatersrand (Wits)', status: true, details: 'Registered: DHET (002). Accredited: CHE. Courses: Sci, Eng, Hum.', address: '1 Jan Smuts Ave, Braamfontein', contact: '011 717 1000' },
-  { id: 'SCH-1003', name: 'University of Johannesburg (UJ)', status: true, details: 'Registered: DHET (003). Accredited: CHE.', address: 'Kingsway Campus, Auckland Park', contact: '011 559 4555' },
-  { id: 'SCH-1004', name: 'Stellenbosch University', status: true, details: 'Registered: DHET (004). Accredited: CHE.', address: 'Stellenbosch Central', contact: '021 808 9111' },
-  { id: 'SCH-1005', name: 'University of Pretoria (UP)', status: true, details: 'Registered: DHET (005). Accredited: CHE.', address: 'Lynnwood Rd, Hatfield', contact: '012 420 3111' },
-  { id: 'SCH-1006', name: 'Damelin (Randburg)', status: false, details: 'Registration Cancelled / Lapsed. Not currently accredited for degrees.', address: 'Randburg, Johannesburg', contact: '011 796 2000' },
-  { id: 'SCH-1007', name: 'Rosebank College (Braamfontein)', status: true, details: 'Registered: DHET. Accredited: IIE.', address: 'Braamfontein, Johannesburg', contact: '011 403 2437' },
-  { id: 'SCH-1008', name: 'Sumbandila High School', status: true, details: 'Registered: Dept. of Education. Quintile 5.', address: 'Ridgeway, Johannesburg', contact: '011 123 4567' }
-];
+// ========================================
+// SECURITY MIDDLEWARE
+// ========================================
 
-const doctors = [
-  { id: 'DOC-2001', name: 'Dr. Thabo Mokoena', status: true, details: 'HPCSA Reg: MP 0123456. Specialty: General Practitioner.', address: 'Sandton Medi-Clinic, Bryanston', contact: '011 709 2000' },
-  { id: 'DOC-2002', name: 'Dr. Sarah Pillay', status: true, details: 'HPCSA Reg: MP 0765432. Specialty: Cardiologist.', address: 'Netcare Milpark, Parktown', contact: '011 480 5600' },
-  { id: 'DOC-2003', name: 'Dr. James Smith', status: true, details: 'HPCSA Reg: MP 0987654. Specialty: Pediatrician.', address: 'Life Fourways Hospital', contact: '011 875 1000' },
-  { id: 'DOC-2004', name: 'Mr. Bogus Doctor', status: false, details: 'ALERT: Not found in HPCSA Registry. Do not consult.', address: 'Unknown Location', contact: 'N/A' }
-];
+// Security headers
+app.use(helmet());
 
-const lawyers = [
-  { id: 'LAW-3001', name: 'Adv. Lerato Kgosi', status: true, details: 'LPC Reg: 12345. Admitted: High Court of SA.', address: 'Chambers, Sandton', contact: '011 883 1234' },
-  { id: 'LAW-3002', name: 'Mkhize Attorneys', status: true, details: 'LPC Firm Reg: F12345. Good Standing.', address: 'Marshalltown, JHB', contact: '011 333 4444' },
-  { id: 'LAW-3003', name: 'Fake Law Firm', status: false, details: 'ALERT: Practice number not valid.', address: 'Online Only', contact: '0800 FAKE' }
-];
-// Mock User Store
-const users = [
-  { id: 999, name: 'System Admin', email: 'admin@sumbandila.com', password: 'admin123', role: 'admin' }
-];
+// CORS configuration
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production'
+    ? ['https://sumbandila-app-production.up.railway.app']
+    : '*',
+  credentials: true
+}));
 
-// Mock Resources
-const resources = [
-  { id: 1, title: 'Maths Guide Grade 12', type: 'PDF', url: '#' },
-  { id: 2, title: 'Career Paths in Tech', type: 'Article', url: '#' },
-  { id: 3, title: 'Bursary Application Tips', type: 'Video', url: '#' }
-];
-
-app.post('/api/register', (req, res) => {
-  const { name, email, password, studentId } = req.body;
-  if (!email || !password) return res.json({ error: 'Missing fields' });
-  const exists = users.find(u => u.email === email);
-  if (exists) return res.json({ error: 'User already exists' });
-
-  const newUser = { id: Date.now(), name, email, password, studentId, role: 'student' };
-  users.push(newUser);
-  res.json({ success: true, user: { name, email, role: 'student' } });
+// Rate limiting - prevent brute force attacks
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.'
 });
+app.use('/api/', limiter);
 
-app.post('/api/login', (req, res) => {
-  const { email, password } = req.body;
-  const user = users.find(u => u.email === email && u.password === password);
-  if (user) {
-    res.json({ success: true, user: { name: user.name, email: user.email, role: user.role } });
-  } else {
-    res.json({ error: 'Invalid credentials' });
+// Body parsing
+app.use(express.json());
+
+// ========================================
+// AUTHENTICATION ROUTES
+// ========================================
+
+/**
+ * POST /api/register
+ * Register a new user with hashed password
+ */
+app.post('/api/register', validateRegister, async (req, res, next) => {
+  try {
+    const { name, email, password, studentId } = req.body;
+
+    // Check if user already exists
+    const { data: existingUser } = await supabase
+      .from('users')
+      .select('id')
+      .eq('email', email)
+      .single();
+
+    if (existingUser) {
+      return res.status(400).json({ error: 'User already exists with this email' });
+    }
+
+    // Hash password
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    // Insert new user
+    const { data: newUser, error } = await supabase
+      .from('users')
+      .insert([{
+        name,
+        email,
+        password_hash: passwordHash,
+        student_id: studentId || null,
+        role: 'student'
+      }])
+      .select('id, name, email, role')
+      .single();
+
+    if (error) throw error;
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: newUser.id, email: newUser.email, role: newUser.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.status(201).json({
+      success: true,
+      user: {
+        name: newUser.name,
+        email: newUser.email,
+        role: newUser.role
+      },
+      token
+    });
+  } catch (error) {
+    next(error);
   }
 });
 
-app.get('/api/resources', (req, res) => res.json(resources));
+/**
+ * POST /api/login
+ * Authenticate user and return JWT token
+ */
+app.post('/api/login', validateLogin, async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
 
-app.get('/api/users', (req, res) => {
-  res.json(users.filter(u => u.role === 'student'));
+    // Find user
+    const { data: user, error } = await supabase
+      .from('users')
+      .select('id, name, email, password_hash, role')
+      .eq('email', email)
+      .single();
+
+    if (error || !user) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    // Verify password
+    const isValidPassword = await bcrypt.compare(password, user.password_hash);
+    if (!isValidPassword) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: user.id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.json({
+      success: true,
+      user: {
+        name: user.name,
+        email: user.email,
+        role: user.role
+      },
+      token
+    });
+  } catch (error) {
+    next(error);
+  }
 });
-// Mock Events
-const events = [
-  { id: 1, title: 'Science Fair Registration', date: '2025-12-12', time: '09:00 AM', location: 'Main Hall' },
-  { id: 2, title: 'Math Olympiad', date: '2025-12-15', time: '10:00 AM', location: 'Room 3B' },
-  { id: 3, title: 'End of Year Hike', date: '2025-12-20', time: '07:00 AM', location: 'Mountain Trail' }
-];
 
-// Mock Chat Messages
-const messages = [
-  { id: 1, sender: 'Mr. Smith', text: 'Don\'t forget your assignment due tomorrow!', time: '10:30 AM' },
-  { id: 2, sender: 'Thabo', text: 'Are we meeting for study group?', time: '11:00 AM' }
-];
+// ========================================
+// VERIFICATION ROUTES (PUBLIC)
+// ========================================
 
-app.get('/api/events', (req, res) => res.json(events));
-app.get('/api/messages', (req, res) => res.json(messages));
+/**
+ * GET /api/verify
+ * Verify professional or institution by ID or name
+ */
+app.get('/api/verify', async (req, res, next) => {
+  try {
+    const { type, q } = req.query;
 
-app.post('/api/messages', (req, res) => {
-  const { text, user } = req.body;
-  if (!text) return res.json({ error: 'No text' });
-  const newMsg = { id: Date.now(), sender: user || 'Me', text, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) };
-  messages.push(newMsg);
-  res.json({ success: true, message: newMsg });
+    if (!type || !q) {
+      return res.status(400).json({ error: 'Missing type or query parameter' });
+    }
+
+    const query = q.toLowerCase();
+    let result = null;
+
+    // Search in appropriate table
+    if (type === 'school') {
+      const { data } = await supabase
+        .from('institutions')
+        .select('*')
+        .or(`institution_id.ilike.%${query}%,name.ilike.%${query}%`)
+        .limit(1)
+        .single();
+      result = data;
+    } else if (type === 'doctor' || type === 'lawyer') {
+      const { data } = await supabase
+        .from('professionals')
+        .select('*')
+        .eq('type', type)
+        .or(`professional_id.ilike.%${query}%,name.ilike.%${query}%`)
+        .limit(1)
+        .single();
+      result = data;
+    } else {
+      return res.status(400).json({ error: 'Invalid type. Must be: school, doctor, or lawyer' });
+    }
+
+    if (result) {
+      return res.json({
+        name: result.name,
+        status: result.status,
+        details: result.details,
+        ...(result.address && { address: result.address }),
+        ...(result.contact && { contact: result.contact }),
+        ...(result.specialty && { specialty: result.specialty })
+      });
+    }
+
+    res.json({
+      name: q,
+      status: false,
+      details: 'No matching registered record found.'
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
-app.get('/api/verify', (req, res) => {
-  const { type, q } = req.query;
-  if (!type || !q) return res.json({ error: 'Missing type or q parameter' });
-  const dataset = type === 'doctor' ? doctors : type === 'lawyer' ? lawyers : schools;
-  const qlower = q.toLowerCase();
-  // find by id or name contains
-  const found = dataset.find(x => x.id.toLowerCase() === qlower || x.name.toLowerCase().includes(qlower));
-  if (found) return res.json(found);
-  return res.json({ name: q, status: false, details: 'No matching registered record found.' });
+// ========================================
+// RESOURCES & EVENTS (PUBLIC)
+// ========================================
+
+/**
+ * GET /api/resources
+ * Get all educational resources
+ */
+app.get('/api/resources', async (req, res, next) => {
+  try {
+    const { data, error } = await supabase
+      .from('resources')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    res.json(data || []);
+  } catch (error) {
+    next(error);
+  }
 });
 
-app.post('/api/report', (req, res) => {
-  const { entityName, description } = req.body;
-  console.log(`[REPORT] Fraud reported for ${entityName}: ${description}`);
-  res.json({ success: true });
+/**
+ * GET /api/events
+ * Get all upcoming events
+ */
+app.get('/api/events', async (req, res, next) => {
+  try {
+    const { data, error } = await supabase
+      .from('events')
+      .select('*')
+      .order('date', { ascending: true });
+
+    if (error) throw error;
+    res.json(data || []);
+  } catch (error) {
+    next(error);
+  }
 });
 
-app.get('/', (req, res) => res.send('Sumbandila verification microservice'));
+// ========================================
+// CHAT MESSAGES (AUTHENTICATED)
+// ========================================
 
-app.listen(PORT, () => {
-  console.log(`Backend running on port ${PORT}`);
+/**
+ * GET /api/messages
+ * Get recent messages (requires authentication)
+ */
+app.get('/api/messages', verifyToken, async (req, res, next) => {
+  try {
+    const { data, error } = await supabase
+      .from('messages')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(50);
+
+    if (error) throw error;
+    res.json(data || []);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * POST /api/messages
+ * Send a message (requires authentication)
+ */
+app.post('/api/messages', verifyToken, async (req, res, next) => {
+  try {
+    const { text } = req.body;
+
+    if (!text || !text.trim()) {
+      return res.status(400).json({ error: 'Message text is required' });
+    }
+
+    const { data, error } = await supabase
+      .from('messages')
+      .insert([{
+        sender: req.user.name || 'User',
+        text: text.trim(),
+        user_id: req.user.id
+      }])
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    res.json({
+      success: true,
+      message: {
+        id: data.id,
+        sender: data.sender,
+        text: data.text,
+        time: new Date(data.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// ========================================
+// FRAUD REPORTING (PUBLIC)
+// ========================================
+
+/**
+ * POST /api/report
+ * Submit a fraud report
+ */
+app.post('/api/report', validateFraudReport, async (req, res, next) => {
+  try {
+    const { entityName, description, entityType, reporterEmail } = req.body;
+
+    const { error } = await supabase
+      .from('fraud_reports')
+      .insert([{
+        entity_name: entityName,
+        entity_type: entityType || null,
+        description,
+        reporter_email: reporterEmail || null,
+        status: 'pending'
+      }]);
+
+    if (error) throw error;
+
+    res.json({
+      success: true,
+      message: 'Fraud report submitted successfully. Our team will investigate.'
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// ========================================
+// ADMIN ROUTES (ADMIN ONLY)
+// ========================================
+
+/**
+ * GET /api/users
+ * Get all users (admin only)
+ */
+app.get('/api/users', verifyToken, isAdmin, async (req, res, next) => {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .select('id, name, email, student_id, role, created_at')
+      .eq('role', 'student')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    res.json(data || []);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// ========================================
+// HEALTH CHECK
+// ========================================
+
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Sumbandila API - Production Ready',
+    version: '2.0.0',
+    status: 'healthy',
+    endpoints: {
+      auth: ['/api/login', '/api/register'],
+      verification: ['/api/verify'],
+      resources: ['/api/resources', '/api/events'],
+      communication: ['/api/messages'],
+      reporting: ['/api/report']
+    }
+  });
+});
+
+// ========================================
+// ERROR HANDLING
+// ========================================
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Endpoint not found',
+    path: req.path
+  });
+});
+
+// Global error handler (must be last)
+app.use(errorHandler);
+
+// ========================================
+// START SERVER
+// ========================================
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Sumbandila Backend (Production) running on port ${PORT}`);
+  console.log(`   Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`   Database: ${process.env.SUPABASE_URL ? 'Connected' : 'Not configured'}`);
 });

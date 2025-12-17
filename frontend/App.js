@@ -20,6 +20,8 @@ import EventsScreen from './screens/EventsScreen';
 import ChatScreen from './screens/ChatScreen';
 import AdminDashboard from './screens/AdminDashboard';
 import ReportFraudScreen from './screens/ReportFraudScreen';
+import AIAssistantScreen from './screens/AIAssistantScreen';
+import ContactScreen from './screens/ContactScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -52,10 +54,9 @@ export default function App() {
         <Stack.Screen name="Chat" component={ChatScreen} />
         <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
         <Stack.Screen name="ReportFraud" component={ReportFraudScreen} />
-        
-        {/* Legacy aliases */}
-        <Stack.Screen name="PublicHome" component={HomeScreen} />
 
+        {/* Keep original Home name for compatibility if needed, but Login is now entry */}
+        <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

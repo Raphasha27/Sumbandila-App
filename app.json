@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "Sumbandila",
+    "slug": "sumbandila_app",
+    "version": "1.0.0",
+    "sdkVersion": "54.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "jsEngine": "jsc",
+    "orientation": "portrait",
+    "icon": "./assets/logo_new.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo_new.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "99c06b95-ede2-40e8-8697-a7344d664e0f"
+      }
+    },
+    "android": {
+      "package": "com.raphasha27.sumbandila",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo_new.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.raphasha27.sumbandila",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Sumbandila to access your camera to scan QR codes."
+        }
+      ]
+    ]
+  }
+}
