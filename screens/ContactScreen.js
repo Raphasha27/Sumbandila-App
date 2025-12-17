@@ -12,11 +12,15 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather, Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import { useTheme } from '../context/ThemeContext';
 
 const PHONE_NUMBER = '0781172470';
 const WHATSAPP_NUMBER = '27781172470'; // International format for WhatsApp
 
 export default function ContactScreen({ navigation }) {
+    const { theme, isDarkMode } = useTheme();
+    const styles = createStyles(theme);
+
     const handlePhoneCall = () => {
         const phoneUrl = `tel:${PHONE_NUMBER}`;
         Linking.canOpenURL(phoneUrl)
@@ -54,10 +58,13 @@ export default function ContactScreen({ navigation }) {
     };
 
     return (
-        <LinearGradient colors={['#fff7ed', '#ffffff', '#f0fdf4']} style={styles.container}>
+        <LinearGradient
+            colors={[theme.colors.background, theme.colors.background]}
+            style={styles.container}
+        >
             {/* Header */}
             <LinearGradient
-                colors={['#ea580c', '#16a34a']}
+                colors={[theme.colors.gradientStart, theme.colors.gradientEnd]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 style={styles.header}
@@ -77,7 +84,7 @@ export default function ContactScreen({ navigation }) {
                 {/* Hero Section */}
                 <View style={styles.heroSection}>
                     <View style={styles.iconCircle}>
-                        <Ionicons name="headset" size={48} color="#ea580c" />
+                        <Ionicons name="headset" size={48} color={theme.colors.primary} />
                     </View>
                     <Text style={styles.heroTitle}>We're Here to Help</Text>
                     <Text style={styles.heroSubtitle}>
@@ -88,13 +95,13 @@ export default function ContactScreen({ navigation }) {
                 {/* Main Call Card */}
                 <TouchableOpacity onPress={handlePhoneCall} activeOpacity={0.9}>
                     <LinearGradient
-                        colors={['#ea580c', '#16a34a']}
+                        colors={[theme.colors.gradientStart, theme.colors.gradientEnd]}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
                         style={styles.callCard}
                     >
                         <View style={styles.callIconWrapper}>
-                            <Ionicons name="call" size={32} color="#ea580c" />
+                            <Ionicons name="call" size={32} color={theme.colors.primary} />
                         </View>
                         <View style={styles.callInfo}>
                             <Text style={styles.callLabel}>Call Us Directly</Text>
@@ -136,7 +143,7 @@ export default function ContactScreen({ navigation }) {
                 {/* Business Hours */}
                 <View style={styles.hoursCard}>
                     <View style={styles.hoursHeader}>
-                        <Ionicons name="time-outline" size={24} color="#ea580c" />
+                        <Ionicons name="time-outline" size={24} color={theme.colors.primary} />
                         <Text style={styles.hoursTitle}>Operating Hours</Text>
                     </View>
                     <View style={styles.hoursList}>
@@ -160,7 +167,7 @@ export default function ContactScreen({ navigation }) {
                 {/* Location Info */}
                 <View style={styles.locationCard}>
                     <View style={styles.locationHeader}>
-                        <Ionicons name="location-outline" size={24} color="#16a34a" />
+                        <Ionicons name="location-outline" size={24} color={theme.colors.success} />
                         <Text style={styles.locationTitle}>Visit Us</Text>
                     </View>
                     <Text style={styles.locationAddress}>
@@ -171,7 +178,7 @@ export default function ContactScreen({ navigation }) {
 
                 {/* Emergency Notice */}
                 <View style={styles.noticeCard}>
-                    <Feather name="alert-circle" size={20} color="#1e40af" />
+                    <Feather name="alert-circle" size={20} color={theme.colors.info} />
                     <Text style={styles.noticeText}>
                         For urgent fraud reports, please call us directly or use the in-app reporting feature for fastest response.
                     </Text>
@@ -183,7 +190,7 @@ export default function ContactScreen({ navigation }) {
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (theme) => StyleSheet.create({
     container: {
         flex: 1,
     },
@@ -221,22 +228,22 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 50,
-        backgroundColor: '#fff7ed',
+        backgroundColor: theme.colors.surface,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 16,
         borderWidth: 3,
-        borderColor: '#fed7aa',
+        borderColor: theme.mode === 'dark' ? theme.colors.border : '#fed7aa',
     },
     heroTitle: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#1f2937',
+        color: theme.colors.text,
         marginBottom: 8,
     },
     heroSubtitle: {
         fontSize: 16,
-        color: '#6b7280',
+        color: theme.colors.textSecondary,
         textAlign: 'center',
         lineHeight: 24,
     },
@@ -283,7 +290,7 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 18,
         fontWeight: '700',
-        color: '#1f2937',
+        color: theme.colors.text,
         marginBottom: 16,
     },
     optionsGrid: {
@@ -293,7 +300,7 @@ const styles = StyleSheet.create({
     },
     optionCard: {
         width: '31%',
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.surface,
         padding: 16,
         borderRadius: 16,
         alignItems: 'center',
@@ -314,15 +321,15 @@ const styles = StyleSheet.create({
     optionTitle: {
         fontSize: 14,
         fontWeight: '600',
-        color: '#1f2937',
+        color: theme.colors.text,
         marginBottom: 2,
     },
     optionSubtitle: {
         fontSize: 12,
-        color: '#6b7280',
+        color: theme.colors.textSecondary,
     },
     hoursCard: {
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.surface,
         borderRadius: 16,
         padding: 20,
         marginBottom: 16,
@@ -340,10 +347,9 @@ const styles = StyleSheet.create({
     hoursTitle: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#1f2937',
+        color: theme.colors.text,
         marginLeft: 12,
     },
-    hoursList: {},
     hoursRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -351,24 +357,24 @@ const styles = StyleSheet.create({
     },
     hoursDay: {
         fontSize: 15,
-        color: '#4b5563',
+        color: theme.colors.text,
     },
     hoursTime: {
         fontSize: 15,
         fontWeight: '600',
-        color: '#16a34a',
+        color: theme.colors.success,
     },
     hoursTimeClosed: {
         fontSize: 15,
         fontWeight: '600',
-        color: '#ef4444',
+        color: theme.colors.error,
     },
     hoursDivider: {
         height: 1,
-        backgroundColor: '#f3f4f6',
+        backgroundColor: theme.colors.border,
     },
     locationCard: {
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.surface,
         borderRadius: 16,
         padding: 20,
         marginBottom: 16,
@@ -386,17 +392,17 @@ const styles = StyleSheet.create({
     locationTitle: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#1f2937',
+        color: theme.colors.text,
         marginLeft: 12,
     },
     locationAddress: {
         fontSize: 15,
-        color: '#4b5563',
+        color: theme.colors.textSecondary,
         lineHeight: 24,
     },
     noticeCard: {
         flexDirection: 'row',
-        backgroundColor: '#eff6ff',
+        backgroundColor: theme.mode === 'dark' ? 'rgba(59, 130, 246, 0.2)' : '#eff6ff',
         padding: 16,
         borderRadius: 12,
         gap: 12,
@@ -404,7 +410,7 @@ const styles = StyleSheet.create({
     noticeText: {
         flex: 1,
         fontSize: 14,
-        color: '#1e40af',
+        color: theme.colors.info,
         lineHeight: 20,
     },
 });
