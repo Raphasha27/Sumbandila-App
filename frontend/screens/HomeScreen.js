@@ -203,6 +203,12 @@ export default function HomeScreen({ navigation }) {
                 <Text style={styles.headerTitle}>Sumbandila</Text>
               </View>
               <View style={styles.headerActions}>
+                <TouchableOpacity onPress={() => navigation.navigate('AIAssistant')} style={styles.iconButton}>
+                  <Ionicons name="sparkles" size={24} color="white" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Contact')} style={styles.iconButton}>
+                  <Ionicons name="call-outline" size={24} color="white" />
+                </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Scanner')} style={styles.iconButton}>
                   <Ionicons name="qr-code-outline" size={24} color="white" />
                 </TouchableOpacity>

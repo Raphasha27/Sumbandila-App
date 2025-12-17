@@ -9,7 +9,15 @@
       "android",
       "web"
     ],
+    "jsEngine": "jsc",
     "orientation": "portrait",
+    "icon": "./assets/logo_new.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo_new.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -22,7 +30,7 @@
       "package": "com.raphasha27.sumbandila",
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
+        "foregroundImage": "./assets/logo_new.png",
         "backgroundColor": "#ffffff"
       }
     },

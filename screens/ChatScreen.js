@@ -1,104 +1,222 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform, FlatList, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, Text, StyleSheet, Platform, FlatList, TouchableOpacity, TextInput, KeyboardAvoidingView, Image, ActivityIndicator } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTheme } from '../context/ThemeContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import config from '../config';
-
-export default function ChatScreen({ route }) {
+export default function ChatScreen({ navigation, route }) {
+    const { theme, isDarkMode } = useTheme();
     const { user } = route.params || {};
-    const [messages, setMessages] = useState([]);
-    const [text, setText] = useState('');
-    const apiBase = config.apiBase;
-
-    useEffect(() => {
-        fetch(`${apiBase}/api/messages`)
-            .then(res => res.json())
-            .then(data => setMessages(data))
-            .catch(err => console.error(err));
-    }, []);
-
-    const sendMessage = async () => {
-        if (!inputText.trim()) return;
-        try {
-            const res = await fetch(`${apiBase}/api/messages`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: inputText, user: user?.name })
-            });
-            const data = await res.json();
-            if (data.success) {
-                setMessages([...messages, data.message]);
-                setInputText('');
-            }
-        } catch (e) {
-            console.error(e);
+    const [messages, setMessages] = useState([
+        {
+            id: '1',
+            text: `Hello ${user?.name || 'there'}! 👋\nI'm the Sumbandila AI Assistant.\n\nI can help you with:\n• Verifying institutions\n• Reporting fraud\n• Account status\n\nHow can I assist you today?`,
+            sender: 'AI',
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
+    ]);
+    const [inputText, setInputText] = useState('');
+    const [isTyping, setIsTyping] = useState(false);
+    const flatListRef = useRef();
+
+    const styles = createStyles(theme, isDarkMode);
+
+    const generateResponse = async (query) => {
+        setIsTyping(true);
+
+        // Simulate thinking delay
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        let responseText = "I'm sorry, I didn't quite understand that. Could you try rephrasing?";
+        const q = query.toLowerCase();
+
+        if (q.includes('verify') || q.includes('check') || q.includes('search')) {
+            responseText = "To verify an institution or professional:\n1. Go to the Home Dashboard\n2. Select a category (Education, Medical, Legal)\n3. Enter the name or registration number.\n\nWould you like me to take you there?";
+        } else if (q.includes('fraud') || q.includes('scam') || q.includes('fake')) {
+            responseText = "We take fraud very seriously. You can report suspicious activity immediately using the 'Report Fraud' feature found in the dashboard menu or search results.";
+        } else if (q.includes('hello') || q.includes('hi')) {
+            responseText = "Hello! Ready to verify specifics? Just ask.";
+        } else if (q.includes('school') || q.includes('college')) {
+            responseText = "For schools and colleges, look for the 'Education' category on the main screen. We verify against the Department of Higher Education database.";
+        } else if (q.includes('doctor') || q.includes('medical')) {
+            responseText = "You can verify doctors using their MP number or practice number in the 'Medical' section.";
+        } else if (q.includes('thank')) {
+            responseText = "You're welcome! Stay safe and verified. 🛡️";
+        }
+
+        const aiMsg = {
+            id: Date.now().toString(),
+            text: responseText,
+            sender: 'AI',
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+
+        setMessages(prev => [...prev, aiMsg]);
+        setIsTyping(false);
     };
 
-    const renderMessage = ({ item }) => {
-        const isMe = item.sender === (user?.name || 'Me');
-        return (
-            <View style={[styles.msgContainer, isMe ? styles.msgRight : styles.msgLeft]}>
-                <View style={[styles.bubble, isMe ? styles.bubbleRight : styles.bubbleLeft]}>
-                    {!isMe && <Text style={styles.sender}>{item.sender}</Text>}
-                    <Text style={[styles.text, isMe ? styles.textRight : styles.textLeft]}>{item.text}</Text>
-                    <Text style={[styles.time, isMe ? styles.timeRight : styles.timeLeft]}>{item.time}</Text>
-                </View>
-            </View>
-        );
+    const sendMessage = () => {
+        if (!inputText.trim()) return;
+
+        const newMsg = {
+            id: Date.now().toString(),
+            text: inputText,
+            sender: 'Me',
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+
+        setMessages(prev => [...prev, newMsg]);
+        const query = inputText;
+        setInputText('');
+
+        generateResponse(query);
     };
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                    <Text style={styles.backText}>← Back</Text>
-                </TouchableOpacity>
-                <Text style={styles.headerTitle}>Messages</Text>
-            </View>
+            <LinearGradient
+                colors={[theme.colors.gradientStart, theme.colors.gradientEnd]}
+                style={styles.header}
+            >
+                <SafeAreaView edges={['top']}>
+                    <View style={styles.headerContent}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                            <Ionicons name="arrow-back" size={24} color="white" />
+                        </TouchableOpacity>
+                        <View style={styles.headerTitleContainer}>
+                            <View style={styles.botAvatar}>
+                                <MaterialCommunityIcons name="robot" size={24} color={theme.colors.primary} />
+                            </View>
+                            <View>
+                                <Text style={styles.headerTitle}>Sumbandila AI</Text>
+                                <Text style={styles.headerSubtitle}>Always here to help</Text>
+                            </View>
+                        </View>
+                    </View>
+                </SafeAreaView>
+            </LinearGradient>
+
             <FlatList
+                ref={flatListRef}
                 data={messages}
-                renderItem={renderMessage}
-                keyExtractor={item => item.id.toString()}
+                renderItem={({ item }) => (
+                    <View style={[styles.msgWrapper, item.sender === 'Me' ? styles.msgWrapperRight : styles.msgWrapperLeft]}>
+                        {item.sender === 'AI' && (
+                            <View style={styles.tinyAvatar}>
+                                <MaterialCommunityIcons name="robot" size={16} color="white" />
+                            </View>
+                        )}
+                        <View style={[styles.bubble, item.sender === 'Me' ? styles.bubbleRight : styles.bubbleLeft]}>
+                            <Text style={[styles.text, item.sender === 'Me' ? styles.textRight : styles.textLeft]}>
+                                {item.text}
+                            </Text>
+                            <Text style={[styles.time, item.sender === 'Me' ? styles.timeRight : styles.timeLeft]}>
+                                {item.time}
+                            </Text>
+                        </View>
+                    </View>
+                )}
+                keyExtractor={item => item.id}
                 contentContainerStyle={styles.list}
+                onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
             />
 
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.inputContainer}>
+            {isTyping && (
+                <View style={styles.typingContainer}>
+                    <ActivityIndicator size="small" color={theme.colors.primary} />
+                    <Text style={styles.typingText}>AI is thinking...</Text>
+                </View>
+            )}
+
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={styles.inputContainer}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+            >
                 <TextInput
                     style={styles.input}
-                    placeholder="Type a message..."
+                    placeholder="Ask about verification..."
                     value={inputText}
                     onChangeText={setInputText}
+                    placeholderTextColor="#9ca3af"
+                    onSubmitEditing={sendMessage}
                 />
-                <TouchableOpacity onPress={sendMessage} style={styles.sendBtn}>
-                    <Text style={styles.sendText}>Send</Text>
+                <TouchableOpacity onPress={sendMessage} style={styles.sendBtn} disabled={!inputText.trim()}>
+                    <LinearGradient
+                        colors={[theme.colors.primary, theme.colors.primaryDark]}
+                        style={styles.sendGradient}
+                    >
+                        <Ionicons name="send" size={20} color="white" />
+                    </LinearGradient>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#f0f2f5' },
-    header: { padding: 20, paddingTop: 50, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#eee', flexDirection: 'row', alignItems: 'center' },
-    backButton: { marginRight: 16 },
-    backText: { fontSize: 16, color: '#0066cc', fontWeight: '600' },
-    headerTitle: { fontSize: 20, fontWeight: 'bold' },
-    list: { padding: 20 },
-    msgContainer: { flexDirection: 'row', marginBottom: 16 },
-    msgLeft: { justifyContent: 'flex-start' },
-    msgRight: { justifyContent: 'flex-end' },
-    bubble: { padding: 12, borderRadius: 16, maxWidth: '80%' },
-    bubbleLeft: { backgroundColor: 'white', borderBottomLeftRadius: 4 },
-    bubbleRight: { backgroundColor: '#0066cc', borderBottomRightRadius: 4 },
-    sender: { fontSize: 12, fontWeight: 'bold', color: '#666', marginBottom: 4 },
-    text: { fontSize: 16 },
-    textLeft: { color: '#333' },
+const createStyles = (theme, isDarkMode) => StyleSheet.create({
+    container: { flex: 1, backgroundColor: theme.colors.background },
+    header: { paddingBottom: 16 },
+    headerContent: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingTop: 10 },
+    backButton: { marginRight: 16, backgroundColor: 'rgba(255,255,255,0.2)', padding: 8, borderRadius: 12 },
+    headerTitleContainer: { flexDirection: 'row', alignItems: 'center' },
+    botAvatar: {
+        width: 40, height: 40, borderRadius: 20, backgroundColor: 'white',
+        justifyContent: 'center', alignItems: 'center', marginRight: 12
+    },
+    headerTitle: { color: 'white', fontSize: 18, fontWeight: 'bold' },
+    headerSubtitle: { color: 'rgba(255,255,255,0.8)', fontSize: 12 },
+
+    list: { padding: 20, paddingBottom: 10 },
+    msgWrapper: { flexDirection: 'row', marginBottom: 20, alignItems: 'flex-end' },
+    msgWrapperLeft: { justifyContent: 'flex-start' },
+    msgWrapperRight: { justifyContent: 'flex-end' },
+
+    tinyAvatar: {
+        width: 28, height: 28, borderRadius: 14, backgroundColor: theme.colors.primary,
+        justifyContent: 'center', alignItems: 'center', marginRight: 8, marginBottom: 4
+    },
+
+    bubble: { padding: 16, borderRadius: 20, maxWidth: '80%' },
+    bubbleLeft: {
+        backgroundColor: theme.colors.surface,
+        borderBottomLeftRadius: 4,
+        borderWidth: isDarkMode ? 1 : 0,
+        borderColor: theme.colors.border,
+        ...theme.shadows.default
+    },
+    bubbleRight: {
+        backgroundColor: theme.colors.primary,
+        borderBottomRightRadius: 4,
+        ...theme.shadows.default
+    },
+
+    text: { fontSize: 16, lineHeight: 24 },
+    textLeft: { color: theme.colors.text },
     textRight: { color: 'white' },
-    time: { fontSize: 10, marginTop: 4, textAlign: 'right' },
-    timeLeft: { color: '#999' },
-    timeRight: { color: '#e3f2fd' },
-    inputContainer: { flexDirection: 'row', padding: 10, backgroundColor: 'white', alignItems: 'center', borderTopWidth: 1, borderTopColor: '#eee' },
-    input: { flex: 1, backgroundColor: '#f8f9fa', borderRadius: 20, padding: 12, marginRight: 10, borderWidth: 1, borderColor: '#eee' },
-    sendBtn: { backgroundColor: '#0066cc', borderRadius: 20, paddingVertical: 12, paddingHorizontal: 20 },
-    sendText: { color: 'white', fontWeight: 'bold' }
+
+    time: { fontSize: 10, marginTop: 6, textAlign: 'right' },
+    timeLeft: { color: theme.colors.textSecondary },
+    timeRight: { color: 'rgba(255,255,255,0.7)' },
+
+    typingContainer: { flexDirection: 'row', alignItems: 'center', marginLeft: 56, marginBottom: 16 },
+    typingText: { marginLeft: 8, color: theme.colors.textSecondary, fontSize: 12 },
+
+    inputContainer: {
+        flexDirection: 'row', padding: 16,
+        backgroundColor: theme.colors.surface,
+        borderTopWidth: 1, borderTopColor: theme.colors.border
+    },
+    input: {
+        flex: 1, backgroundColor: theme.colors.background,
+        borderRadius: 24, paddingHorizontal: 20, paddingVertical: 12,
+        marginRight: 12, fontSize: 16, color: theme.colors.text,
+        borderWidth: 1, borderColor: theme.colors.border
+    },
+    sendBtn: {},
+    sendGradient: {
+        width: 48, height: 48, borderRadius: 24,
+        justifyContent: 'center', alignItems: 'center'
+    },
 });

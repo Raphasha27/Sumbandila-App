@@ -3,19 +3,37 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, StatusBar 
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import config from '../config';
-import { theme } from '../theme';
+import { useTheme } from '../context/ThemeContext';
+import VerificationHistoryService from '../services/VerificationHistoryService';
 
 export default function StudentDashboard({ navigation, route }) {
     const { user } = route.params || {};
+    const { theme, isDarkMode } = useTheme();
     const [resources, setResources] = useState([]);
+    const [recentHistory, setRecentHistory] = useState([]);
     const apiBase = config.apiBase;
 
+    const styles = createStyles(theme);
+
     useEffect(() => {
-        fetch(`${apiBase}/api/resources`)
-            .then(res => res.json())
-            .then(data => setResources(data))
-            .catch(err => console.error(err));
+        loadData();
     }, []);
+
+    const loadData = async () => {
+        try {
+            // Load resources
+            fetch(`${apiBase}/api/resources`)
+                .then(res => res.json())
+                .then(data => setResources(data))
+                .catch(err => console.error(err));
+
+            // Load history
+            const history = await VerificationHistoryService.getRecentHistory();
+            setRecentHistory(history);
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
     const getTimeGreeting = () => {
         const hour = new Date().getHours();
@@ -35,9 +53,11 @@ export default function StudentDashboard({ navigation, route }) {
                     <View>
                         <Text style={styles.greetingSub}>{getTimeGreeting()},</Text>
                         <Text style={styles.greetingMain}>{user?.name || 'Student'}</Text>
+                        <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12, marginTop: 4 }}>Student ID: {user?.studentNo || '21800432'}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => navigation.replace('Login')} style={styles.logoutBtn}>
-                        <Ionicons name="log-out-outline" size={24} color="white" />
+                    <TouchableOpacity onPress={() => navigation.replace('Landing')} style={styles.logoutBtn}>
+                        <Ionicons name="log-out-outline" size={20} color="white" />
+                        <Text style={{ color: 'white', fontWeight: '600', marginLeft: 4 }}>Logout</Text>
                     </TouchableOpacity>
                 </View>
             </LinearGradient>
@@ -55,20 +75,39 @@ export default function StudentDashboard({ navigation, route }) {
                             <Text style={styles.actionText}>Calendar</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.actionCard}>
-                            <LinearGradient colors={['#10B981', '#059669']} style={styles.iconBox}>
-                                <Ionicons name="stats-chart" size={24} color="white" />
+                        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.actionCard}>
+                            <LinearGradient colors={['#F59E0B', '#D97706']} style={styles.iconBox}>
+                                <Ionicons name="shield-checkmark" size={24} color="white" />
                             </LinearGradient>
-                            <Text style={styles.actionText}>Grades</Text>
+                            <Text style={styles.actionText}>Verify</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => navigation.navigate('Chat', { user })} style={styles.actionCard}>
-                            <LinearGradient colors={['#3B82F6', '#2563EB']} style={styles.iconBox}>
-                                <Ionicons name="chatbubbles" size={24} color="white" />
+                        <TouchableOpacity onPress={() => navigation.navigate('ReportFraud')} style={styles.actionCard}>
+                            <LinearGradient colors={['#EF4444', '#B91C1C']} style={styles.iconBox}>
+                                <Ionicons name="alert-circle" size={24} color="white" />
                             </LinearGradient>
-                            <Text style={styles.actionText}>Chat</Text>
+                            <Text style={styles.actionText}>Report Fraud</Text>
                         </TouchableOpacity>
                     </View>
+
+                    {/* Recent Verification Activity */}
+                    {recentHistory.length > 0 && (
+                        <View>
+                            <Text style={styles.sectionTitle}>Recent Checks</Text>
+                            <View style={styles.activityCard}>
+                                {recentHistory.slice(0, 3).map((item, i) => (
+                                    <View key={i} style={[styles.activityRow, i < recentHistory.length - 1 && styles.activityBorder]}>
+                                        <View style={[styles.statusDot, { backgroundColor: item.isVerified ? theme.colors.success : theme.colors.error }]} />
+                                        <View style={{ flex: 1, marginLeft: 12 }}>
+                                            <Text style={styles.activityTitle} numberOfLines={1}>{item.query}</Text>
+                                            <Text style={styles.activitySub}>{item.category} • {new Date(item.timestamp).toLocaleDateString()}</Text>
+                                        </View>
+                                        <Ionicons name={item.isVerified ? "checkmark-circle" : "close-circle"} size={20} color={item.isVerified ? theme.colors.success : theme.colors.error} />
+                                    </View>
+                                ))}
+                            </View>
+                        </View>
+                    )}
 
                     {/* Upcoming Event Hero Card */}
                     <Text style={styles.sectionTitle}>Up Next</Text>
@@ -130,7 +169,7 @@ export default function StudentDashboard({ navigation, route }) {
     );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (theme) => StyleSheet.create({
     container: { flex: 1, backgroundColor: theme.colors.background },
     headerBackground: {
         paddingTop: 60,
@@ -148,8 +187,11 @@ const styles = StyleSheet.create({
     greetingMain: { fontSize: 28, color: 'white', fontWeight: 'bold' },
     logoutBtn: {
         backgroundColor: 'rgba(255,255,255,0.2)',
-        padding: 10,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
         borderRadius: 12,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     contentContainer: {
         flex: 1,
@@ -182,7 +224,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     actionCard: {
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.surface,
         width: '31%',
         paddingVertical: 20,
         borderRadius: 20,
@@ -234,7 +276,7 @@ const styles = StyleSheet.create({
     heroDetailRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 4 },
     heroDetailText: { color: 'rgba(255,255,255,0.9)', fontSize: 14, marginLeft: 6 },
     resourceCard: {
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.surface,
         flexDirection: 'row',
         padding: 16,
         borderRadius: 16,
@@ -253,4 +295,10 @@ const styles = StyleSheet.create({
     resourceInfo: { flex: 1 },
     resourceTitle: { fontWeight: '600', color: theme.colors.text, fontSize: 16, marginBottom: 4 },
     resourceType: { color: theme.colors.textLight, fontSize: 13 },
+    activityCard: { backgroundColor: theme.colors.surface, borderRadius: 16, padding: 16, ...theme.shadows.default },
+    activityRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12 },
+    activityBorder: { borderBottomWidth: 1, borderBottomColor: theme.colors.border },
+    statusDot: { width: 8, height: 8, borderRadius: 4 },
+    activityTitle: { fontWeight: '600', color: theme.colors.text, fontSize: 14 },
+    activitySub: { color: theme.colors.textSecondary, fontSize: 12, marginTop: 2 }
 });
