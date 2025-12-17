@@ -405,7 +405,7 @@ app.use(errorHandler);
 // START SERVER
 // ========================================
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Sumbandila Backend (Production) running on port ${PORT}`);
   console.log(`   Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`   Database: ${process.env.SUPABASE_URL ? 'Connected' : 'Not configured'}`);

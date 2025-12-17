@@ -1,12 +1,21 @@
+import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
-// For Android Emulator, use 'http://10.0.2.2:5000'
-// For Physical Android Device, use your machine's LAN IP, e.g., 'http://192.168.1.50:5000'
-// For Web, use 'http://localhost:5000'
+const getBackendUrl = () => {
+    if (Platform.OS === 'web') return 'http://localhost:5000';
 
-const backendUrl = Platform.OS === 'web'
-    ? 'http://localhost:5000'
-    : 'https://sumbandila-app-production.up.railway.app'; // Railway Backend
+    // For physical devices, use the IP address of the machine running Expo
+    const hostUri = Constants.expoConfig?.hostUri;
+    if (hostUri) {
+        const ipAddress = hostUri.split(':')[0];
+        return `http://${ipAddress}:5000`;
+    }
+
+    // Fallback for emulator if hostUri is missing
+    return 'http://10.0.2.2:5000';
+};
+
+const backendUrl = getBackendUrl();
 
 export default {
     apiBase: backendUrl
