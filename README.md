@@ -22,27 +22,36 @@ A comprehensive platform for professional verification and accreditation managem
 
 ### Quick Start
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Raphasha27/sumbandila-app.git
-   cd sumbandila-app
-   ```
+### 1. Clone & Install
+```bash
+git clone https://github.com/Raphasha27/Sumbandila-App.git
+cd Sumbandila-App
 
-2. **Install dependencies**
-   ```bash
-   # Expo app
-   cd expo && npm install
-   
-   # Backend services
-   cd ../backend
-   pip install -r requirements.txt
-   ```
+# Install dependencies (Root)
+npm install
 
-3. **Run the application**
-   
-   **Mobile App (Expo):**
-   ```bash
-   cd expo
+# Backend setup
+cd backend
+npm install
+cd ..
+```
+
+### 2. Run the Application
+We have configured a concurrent script to run both backend and frontend:
+```bash
+# For LAN development (Recommended for physical devices)
+npm run start:lan
+
+# For Tunnel (If LAN fails)
+npm run start:tunnel
+```
+
+### 🚀 Free Tier Deployment Info
+- **Backend (Railway)**: `https://sumbandila-app-production.up.railway.app`
+- **Frontend (Expo)**: Run locally or use Expo Go.
+- **Sleep Mode**: Backend sleeps after 5min inactivity. First request takes 10-30s.
+
+### Configuration Note
    npm start
    # Or for tunnel access: npx expo start --tunnel
    ```

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
-import { theme } from '../theme';
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, SafeAreaView } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Feather } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
+import config from '../config';
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('');
@@ -14,8 +16,20 @@ export default function LoginScreen({ navigation }) {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-            navigation.replace('Home');
-        }, 1000);
+
+            if (data.success) {
+                if (data.user.role === 'admin') {
+                    navigation.replace('AdminDashboard', { user: data.user });
+                } else {
+                    navigation.replace('Dashboard', { user: data.user });
+                }
+            } else {
+                setError(data.error);
+            }
+        } catch (e) {
+            setLoading(false);
+            setError('Connection failed. Please check your internet or try again later.');
+        }
     };
 
     return (
