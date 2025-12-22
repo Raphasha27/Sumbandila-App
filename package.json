@@ -9,7 +9,8 @@
     "start": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"npm start --prefix frontend\"",
     "android": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"npm run android --prefix frontend\"",
     "start:tunnel": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"npm run tunnel --prefix frontend\"",
-    "start:lan": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"cd frontend && npx expo start --lan -c\""
+    "start:lan": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"cd frontend && npx expo start --lan -c\"",
+    "start:usb": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"cd frontend && npx expo start --localhost\""
   },
   "keywords": [],
   "author": "Raphasha27",

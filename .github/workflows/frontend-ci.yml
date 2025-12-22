@@ -1,19 +1,19 @@
-name: Expo App CI/CD
+name: Frontend CI/CD
 
 on:
   push:
     branches: [ main, develop ]
     paths:
-      - 'expo/**'
-      - '.github/workflows/expo-ci.yml'
+      - 'frontend/**'
+      - '.github/workflows/frontend-ci.yml'
   pull_request:
     branches: [ main, develop ]
     paths:
-      - 'expo/**'
+      - 'frontend/**'
 
 jobs:
   lint-and-test:
-    name: Lint and Test Expo App
+    name: Lint and Test Frontend
     runs-on: ubuntu-latest
     
     steps:
@@ -25,22 +25,22 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: expo/package.json
+          cache-dependency-path: frontend/package.json
           
       - name: Install dependencies
-        working-directory: expo
+        working-directory: frontend
         run: npm install
         
       - name: Run linter
-        working-directory: expo
+        working-directory: frontend
         run: npm run lint --if-present
         
       - name: Run tests
-        working-directory: expo
+        working-directory: frontend
         run: npm test --if-present
         
       - name: Check TypeScript
-        working-directory: expo
+        working-directory: frontend
         run: npx tsc --noEmit --skipLibCheck || echo "No TypeScript config found"
 
   build-preview:
@@ -64,9 +64,9 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
           
       - name: Install dependencies
-        working-directory: expo
+        working-directory: frontend
         run: npm install
         
       - name: Build app
-        working-directory: expo
+        working-directory: frontend
         run: npx expo export --platform all --output-dir dist
