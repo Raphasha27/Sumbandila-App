@@ -66,8 +66,8 @@ jobs:
       - name: Deployment placeholder
         run: echo "Configure your deployment provider in this workflow"
 
-  deploy-expo:
-    name: Deploy Expo App
+  deploy-frontend:
+    name: Deploy Frontend App
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment || 'production' }}
     
@@ -88,12 +88,12 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
           
       - name: Install dependencies
-        working-directory: expo
+        working-directory: frontend
         run: npm install
         
       # For Expo ApplicationServices (EAS) Build
       - name: Build on EAS
-        working-directory: expo
+        working-directory: frontend
         run: |
           # Install EAS CLI if not using expo-github-action
           # npm install -g eas-cli
@@ -107,7 +107,7 @@ jobs:
           
       # For Expo Updates (OTA)
       - name: Publish Expo Update
-        working-directory: expo
+        working-directory: frontend
         run: |
           # npx expo publish --release-channel production
           echo "Configure expo publish or EAS Update"

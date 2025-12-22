@@ -63,7 +63,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd backend && npm ci && cd ..
-          cd expo && npm install && cd ..
+          cd frontend && npm install && cd ..
           
       - name: Run E2E tests
         run: echo "E2E tests not yet configured"
