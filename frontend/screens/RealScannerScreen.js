@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import { theme } from '../theme';
+import { useTheme } from '../context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function RealScannerScreen({ navigation }) {
+    const { theme, isDarkMode } = useTheme();
     const [permission, requestPermission] = useCameraPermissions();
     const [scanned, setScanned] = useState(false);
 
@@ -17,40 +18,33 @@ export default function RealScannerScreen({ navigation }) {
     const handleBarCodeScanned = ({ type, data }) => {
         if (scanned) return;
         setScanned(true);
-        // Simulate checking if the code is valid
-        // Assuming data from QR is just an ID or JSON
-        console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
         
-        // Mock verification result based on scan
         setTimeout(() => {
             navigation.navigate('Result', { 
                 data: {
                     name: 'Scanned Institution', 
                     status: true, 
-                    regNumber: data, // Use scanned data as ID
+                    regNumber: data, 
                     type: 'education'
                 }
             });
-            // Reset scan state after navigation so we can scan again on return? 
-            // Better typically to reset on mount or having a 'scan again' button, 
-            // but for now this is fine as screens stack.
             setTimeout(() => setScanned(false), 2000); 
         }, 500);
     };
 
-    if (!permission) return <View style={styles.container} />; // Loading
+    if (!permission) return <View style={[styles.container, { backgroundColor: theme.colors.background }]} />; 
 
     if (!permission.granted) {
         return (
-            <View style={styles.container}>
-                <View style={[styles.messageBox, theme.shadows.default]}>
+            <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+                <View style={[styles.messageBox, theme.shadows.default, { backgroundColor: theme.colors.surface }]}>
                     <Ionicons name="camera-outline" size={64} color={theme.colors.textLight} style={{marginBottom: 16}} />
-                    <Text style={styles.message}>We need permission to access your camera to scan certificates.</Text>
-                    <TouchableOpacity onPress={requestPermission} style={styles.button}>
+                    <Text style={[styles.message, { color: theme.colors.text }]}>We need permission to access your camera to scan certificates.</Text>
+                    <TouchableOpacity onPress={requestPermission} style={[styles.button, { backgroundColor: theme.colors.primary }]}>
                         <Text style={styles.buttonText}>Grant Permission</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.cancelButton}>
-                        <Text style={styles.cancelText}>Cancel</Text>
+                        <Text style={[styles.cancelText, { color: theme.colors.textLight }]}>Cancel</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -68,7 +62,6 @@ export default function RealScannerScreen({ navigation }) {
                 }}
             />
             
-            {/* Overlay */}
             <View style={styles.overlay}>
                 <View style={styles.header}>
                      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
@@ -78,7 +71,7 @@ export default function RealScannerScreen({ navigation }) {
                 </View>
 
                 <View style={styles.scanFrameContainer}>
-                     <View style={styles.scanFrame} />
+                     <View style={[styles.scanFrame, { borderColor: theme.colors.primary }]} />
                      <Text style={styles.instructionText}>Align code within frame</Text>
                 </View>
 
@@ -99,7 +92,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     messageBox: {
-        backgroundColor: 'white',
         borderRadius: 16,
         padding: 24,
         width: '85%',
@@ -108,11 +100,9 @@ const styles = StyleSheet.create({
     message: {
         fontSize: 16,
         textAlign: 'center',
-        color: theme.colors.text,
         marginBottom: 24,
     },
     button: {
-        backgroundColor: theme.colors.primary,
         paddingVertical: 12,
         paddingHorizontal: 24,
         borderRadius: 8,
@@ -130,7 +120,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     cancelText: {
-        color: theme.colors.textLight,
         fontSize: 16,
     },
     overlay: {
@@ -160,7 +149,6 @@ const styles = StyleSheet.create({
         width: frameSize,
         height: frameSize,
         borderWidth: 2,
-        borderColor: theme.colors.primary, // Orange frame
         backgroundColor: 'transparent',
     },
     instructionText: {
@@ -171,9 +159,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 8,
         borderRadius: 20,
-        overflow: 'hidden',
     },
     footer: {
         height: 100,
     }
 });
+

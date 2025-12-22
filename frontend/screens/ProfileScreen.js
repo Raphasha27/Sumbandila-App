@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
-import { theme } from '../theme';
+import { useTheme } from '../context/ThemeContext';
 import GradientHeader from '../components/GradientHeader';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function ProfileScreen({ navigation }) {
+    const { theme, isDarkMode } = useTheme();
     // Mock user data - in real app would come from context/auth
     const user = {
         name: 'Rapha Sha',
@@ -21,99 +22,111 @@ export default function ProfileScreen({ navigation }) {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
             <GradientHeader title="My Profile" showBack={true} onBack={() => navigation.goBack()} />
             
             <ScrollView contentContainerStyle={styles.content}>
                 
                 <View style={styles.avatarContainer}>
-                    <View style={styles.avatarCircle}>
+                    <View style={[styles.avatarCircle, { backgroundColor: theme.colors.primary, borderColor: theme.colors.surface }]}>
                         <Ionicons name="person" size={64} color="white" />
                     </View>
-                    <Text style={styles.userName}>{user.name}</Text>
-                    <Text style={styles.userRole}>{user.role}</Text>
+                    <Text style={[styles.userName, { color: theme.colors.text }]}>{user.name}</Text>
+                    <Text style={[styles.userRole, { color: theme.colors.textLight }]}>{user.role}</Text>
                 </View>
 
-                <View style={[styles.card, theme.shadows.default]}>
-                    <Text style={styles.sectionTitle}>Verification History</Text>
+                <View style={[styles.card, theme.shadows.default, { backgroundColor: theme.colors.surface }]}>
+                    <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Verification History</Text>
                     
                     <View style={styles.historyItem}>
                         <View style={[styles.historyIcon, {backgroundColor: 'rgba(16, 185, 129, 0.1)'}]}>
                             <Ionicons name="checkmark-circle" size={20} color="#10B981" />
                         </View>
                         <View style={styles.historyInfo}>
-                            <Text style={styles.historyTitle}>Dr. Sarah Smith</Text>
-                            <Text style={styles.historySubtitle}>Medical • Verified • Today</Text>
+                            <Text style={[styles.historyTitle, { color: theme.colors.text }]}>Dr. Sarah Smith</Text>
+                            <Text style={[styles.historySubtitle, { color: theme.colors.textLight }]}>Medical • Verified • Today</Text>
                         </View>
                     </View>
 
-                    <View style={styles.divider} />
+                    <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
 
                     <View style={styles.historyItem}>
                          <View style={[styles.historyIcon, {backgroundColor: 'rgba(59, 130, 246, 0.1)'}]}>
                             <Ionicons name="checkmark-circle" size={20} color="#3B82F6" />
                         </View>
                          <View style={styles.historyInfo}>
-                            <Text style={styles.historyTitle}>Dozal School</Text>
-                            <Text style={styles.historySubtitle}>Education • Verified • Yesterday</Text>
+                            <Text style={[styles.historyTitle, { color: theme.colors.text }]}>Dozal School</Text>
+                            <Text style={[styles.historySubtitle, { color: theme.colors.textLight }]}>Education • Verified • Yesterday</Text>
                         </View>
                     </View>
                 </View>
 
-                <View style={[styles.card, theme.shadows.default]}>
-                    <Text style={styles.sectionTitle}>Personal Information</Text>
+                <View style={[styles.card, theme.shadows.default, { backgroundColor: theme.colors.surface }]}>
+                    <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Personal Information</Text>
                     
                     <View style={styles.row}>
-                        <View style={styles.iconBox}>
+                        <View style={[styles.iconBox, { backgroundColor: isDarkMode ? theme.colors.background : '#FFF7ED' }]}>
                             <Ionicons name="mail-outline" size={20} color={theme.colors.primary} />
                         </View>
                         <View style={styles.infoContent}>
-                            <Text style={styles.label}>Email Address</Text>
-                            <Text style={styles.value}>{user.email}</Text>
+                            <Text style={[styles.label, { color: theme.colors.textLight }]}>Email Address</Text>
+                            <Text style={[styles.value, { color: theme.colors.text }]}>{user.email}</Text>
                         </View>
                     </View>
 
-                    <View style={styles.divider} />
+                    <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
 
                     <View style={styles.row}>
-                        <View style={styles.iconBox}>
+                        <View style={[styles.iconBox, { backgroundColor: isDarkMode ? theme.colors.background : '#FFF7ED' }]}>
                             <Ionicons name="id-card-outline" size={20} color={theme.colors.primary} />
                         </View>
                         <View style={styles.infoContent}>
-                            <Text style={styles.label}>User ID</Text>
-                            <Text style={styles.value}>{user.id}</Text>
+                            <Text style={[styles.label, { color: theme.colors.textLight }]}>User ID</Text>
+                            <Text style={[styles.value, { color: theme.colors.text }]}>{user.id}</Text>
                         </View>
                     </View>
                 </View>
 
-                <View style={[styles.card, theme.shadows.default]}>
+                <View style={[styles.card, theme.shadows.default, { backgroundColor: theme.colors.surface }]}>
                     <TouchableOpacity style={styles.menuItem}>
                         <Ionicons name="settings-outline" size={24} color={theme.colors.text} />
-                        <Text style={styles.menuText}>Settings</Text>
+                        <Text style={[styles.menuText, { color: theme.colors.text }]}>Settings</Text>
                         <Ionicons name="chevron-forward" size={24} color={theme.colors.textLight} />
                     </TouchableOpacity>
                     
-                    <View style={styles.divider} />
+                    <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
 
                     <TouchableOpacity 
                         style={styles.menuItem} 
                         onPress={() => navigation.navigate('PrivacySecurity')}
                     >
                         <Ionicons name="shield-half-outline" size={24} color={theme.colors.text} />
-                        <Text style={styles.menuText}>Privacy & Security</Text>
+                        <Text style={[styles.menuText, { color: theme.colors.text }]}>Privacy & Security</Text>
                         <Ionicons name="chevron-forward" size={24} color={theme.colors.textLight} />
                     </TouchableOpacity>
 
-                    <View style={styles.divider} />
+                     <TouchableOpacity 
+                        style={styles.menuItem}
+                        onPress={() => navigation.navigate('AIAssistant')}
+                     >
+                        <Ionicons name="chatbubbles-outline" size={24} color={theme.colors.text} />
+                        <Text style={[styles.menuText, { color: theme.colors.text }]}>AI Assistant</Text>
+                        <Ionicons name="chevron-forward" size={24} color={theme.colors.textLight} />
+                    </TouchableOpacity>
 
-                     <TouchableOpacity style={styles.menuItem}>
+                    <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
+
+                     <TouchableOpacity 
+                        style={styles.menuItem}
+                        onPress={() => navigation.navigate('Contact')}
+                     >
                         <Ionicons name="help-circle-outline" size={24} color={theme.colors.text} />
-                        <Text style={styles.menuText}>Help & Support</Text>
+                        <Text style={[styles.menuText, { color: theme.colors.text }]}>Help & Support</Text>
                         <Ionicons name="chevron-forward" size={24} color={theme.colors.textLight} />
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+                <TouchableOpacity style={[styles.logoutButton, { backgroundColor: isDarkMode ? 'rgba(239, 68, 68, 0.2)' : '#FEE2E2' }]} onPress={handleLogout}>
                     <Text style={styles.logoutText}>Log Out</Text>
                 </TouchableOpacity>
 
@@ -125,49 +138,41 @@ export default function ProfileScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.background,
     },
     content: {
-        padding: theme.spacing.m,
-        paddingBottom: theme.spacing.xl,
+        padding: 16,
+        paddingBottom: 32,
     },
     avatarContainer: {
         alignItems: 'center',
-        marginBottom: theme.spacing.l,
-        marginTop: -theme.spacing.xl, // overlap header slightly
+        marginBottom: 24,
+        marginTop: -32, 
     },
     avatarCircle: {
         width: 100,
         height: 100,
         borderRadius: 50,
-        backgroundColor: theme.colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 4,
-        borderColor: 'white',
-        marginBottom: theme.spacing.s,
-        ...theme.shadows.default,
+        marginBottom: 8,
     },
     userName: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: theme.colors.text,
     },
     userRole: {
         fontSize: 16,
-        color: theme.colors.textLight,
     },
     card: {
-        backgroundColor: 'white',
-        borderRadius: theme.borderRadius.l,
-        padding: theme.spacing.l,
-        marginBottom: theme.spacing.m,
+        borderRadius: 16,
+        padding: 24,
+        marginBottom: 16,
     },
     sectionTitle: {
         fontSize: 18,
         fontWeight: '600',
-        color: theme.colors.text,
-        marginBottom: theme.spacing.m,
+        marginBottom: 16,
     },
     row: {
         flexDirection: 'row',
@@ -177,28 +182,24 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: 20,
-        backgroundColor: '#FFF7ED',
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: theme.spacing.m,
+        marginRight: 16,
     },
     infoContent: {
         flex: 1,
     },
     label: {
         fontSize: 12,
-        color: theme.colors.textLight,
         marginBottom: 2,
     },
     value: {
         fontSize: 16,
-        color: theme.colors.text,
         fontWeight: '500',
     },
     divider: {
         height: 1,
-        backgroundColor: theme.colors.border,
-        marginVertical: theme.spacing.m,
+        marginVertical: 16,
     },
     menuItem: {
         flexDirection: 'row',
@@ -208,15 +209,13 @@ const styles = StyleSheet.create({
     menuText: {
         flex: 1,
         fontSize: 16,
-        color: theme.colors.text,
-        marginLeft: theme.spacing.m,
+        marginLeft: 16,
     },
     logoutButton: {
-        backgroundColor: '#FEE2E2',
-        borderRadius: theme.borderRadius.m,
-        padding: theme.spacing.m,
+        borderRadius: 12,
+        padding: 16,
         alignItems: 'center',
-        marginTop: theme.spacing.s,
+        marginTop: 8,
     },
     logoutText: {
         color: '#DC2626',
@@ -234,7 +233,7 @@ const styles = StyleSheet.create({
         borderRadius: 18,
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: theme.spacing.m,
+        marginRight: 16,
     },
     historyInfo: {
         flex: 1,
@@ -242,11 +241,10 @@ const styles = StyleSheet.create({
     historyTitle: {
         fontSize: 16,
         fontWeight: '600',
-        color: theme.colors.text,
     },
     historySubtitle: {
         fontSize: 12,
-        color: theme.colors.textLight,
         marginTop: 2,
     }
 });
+

@@ -1,52 +1,89 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
+import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTheme } from '../context/ThemeContext';
 
 export default function ScannerScreen({ navigation }) {
-  const [permission, requestPermission] = useCameraPermissions();
-  const [scanned, setScanned] = useState(false);
+    const { theme, isDarkMode } = useTheme();
+    const [permission, requestPermission] = useCameraPermissions();
+    const [scanned, setScanned] = useState(false);
 
-  useEffect(() => {
-    if (!permission) {
-      requestPermission();
+    useEffect(() => {
+        if (!permission) {
+            requestPermission();
+        }
+    }, [permission]);
+
+    const handleBarCodeScanned = ({ data }) => {
+        setScanned(true);
+        navigation.navigate('Home', { scannedData: data });
+    };
+
+    if (!permission) return <View style={{ flex: 1, backgroundColor: theme.colors.background }} />;
+
+    if (!permission.granted) {
+        return (
+            <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+                <View style={[styles.permissionBox, { backgroundColor: theme.colors.surface }]}>
+                    <MaterialCommunityIcons name="camera-off" size={64} color={theme.colors.textLight} />
+                    <Text style={[styles.permissionText, { color: theme.colors.text }]}>Camera permission is required to scan codes</Text>
+                    <TouchableOpacity onPress={requestPermission} style={[styles.btn, { backgroundColor: theme.colors.primary }]}>
+                        <Text style={styles.btnText}>Grant Permission</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
     }
-  }, [permission]);
 
-  const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    // data expected to be query string like "type=doctor&q=12345"
-    navigation.navigate('Home', { scannedData: data });
-    alert(`Scanned: ${data}`);
-  };
-
-  if (!permission) return <View />;
-  if (!permission.granted) {
     return (
-      <View style={styles.container}>
-        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
-        <TouchableOpacity onPress={requestPermission} style={styles.btn}>
-          <Text style={styles.text}>Grant Permission</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+        <View style={styles.container}>
+            <CameraView
+                style={StyleSheet.absoluteFillObject}
+                facing="back"
+                onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
+            />
+            
+            <SafeAreaView style={styles.overlay}>
+                <View style={styles.header}>
+                    <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                        <Feather name="x" size={24} color="white" />
+                    </TouchableOpacity>
+                    <Text style={styles.headerTitle}>Scan Code</Text>
+                    <View style={{ width: 40 }} />
+                </View>
 
-  return (
-    <View style={styles.container}>
-      <CameraView
-        style={StyleSheet.absoluteFillObject}
-        facing="back"
-        onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
-      />
-      <View style={{ position: 'absolute', bottom: 40, left: 20, right: 20 }}>
-        <TouchableOpacity style={styles.btn} onPress={() => navigation.goBack()}><Text style={{ color: '#fff' }}>Cancel</Text></TouchableOpacity>
-      </View>
-    </View>
-  );
+                <View style={styles.scannerFrameContainer}>
+                    <View style={styles.scannerFrame}>
+                        <View style={[styles.corner, styles.topLeft]} />
+                        <View style={[styles.corner, styles.topRight]} />
+                        <View style={[styles.corner, styles.bottomLeft]} />
+                        <View style={[styles.corner, styles.bottomRight]} />
+                    </View>
+                    <Text style={styles.hint}>Align code within the frame</Text>
+                </View>
+            </SafeAreaView>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center' },
-  btn: { backgroundColor: '#111', padding: 12, alignItems: 'center', borderRadius: 8 },
-  text: { fontSize: 18, fontWeight: 'bold', color: 'white' }
-})
+    container: { flex: 1, justifyContent: 'center' },
+    permissionBox: { margin: 24, padding: 32, borderRadius: 24, alignItems: 'center', elevation: 4 },
+    permissionText: { fontSize: 16, textAlign: 'center', marginVertical: 20, lineHeight: 24 },
+    btn: { paddingHorizontal: 32, paddingVertical: 14, borderRadius: 12 },
+    btnText: { color: 'white', fontWeight: 'bold', fontSize: 16 },
+    overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' },
+    header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 16 },
+    backButton: { width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(0,0,0,0.3)', justifyContent: 'center', alignItems: 'center' },
+    headerTitle: { fontSize: 18, fontWeight: 'bold', color: 'white' },
+    scannerFrameContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+    scannerFrame: { width: 250, height: 250, position: 'relative' },
+    corner: { position: 'absolute', width: 40, height: 40, borderColor: '#16a34a', borderWidth: 4 },
+    topLeft: { top: 0, left: 0, borderRightWidth: 0, borderBottomWidth: 0 },
+    topRight: { top: 0, right: 0, borderLeftWidth: 0, borderBottomWidth: 0 },
+    bottomLeft: { bottom: 0, left: 0, borderRightWidth: 0, borderTopWidth: 0 },
+    bottomRight: { bottom: 0, right: 0, borderLeftWidth: 0, borderTopWidth: 0 },
+    hint: { color: 'white', marginTop: 32, fontSize: 16, fontWeight: '500', backgroundColor: 'rgba(0,0,0,0.5)', paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20 }
+});
+

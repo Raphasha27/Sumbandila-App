@@ -14,6 +14,9 @@ import RealScannerScreen from './screens/RealScannerScreen';
 import ChatSupportScreen from './screens/ChatSupportScreen';
 import PrivacySecurityScreen from './screens/PrivacySecurityScreen';
 
+// Theme Context
+import { ThemeProvider } from './context/ThemeContext';
+
 // Legacy/Other Screens
 import StudentDashboard from './screens/StudentDashboard';
 import EventsScreen from './screens/EventsScreen';
@@ -27,37 +30,38 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StatusBar style="dark" />
-      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-        
-        {/* Auth */}
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
+    <ThemeProvider>
+      <NavigationContainer>
+        <StatusBar style="auto" />
+        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+          
+          {/* Auth */}
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
 
-        {/* Main App Flow */}
-        <Stack.Screen name="Home" component={HomeScreen} />
-        
-        {/* Verification Logic */}
-        <Stack.Screen name="Scanner" component={VerificationFormScreen} />
-        <Stack.Screen name="RealScanner" component={RealScannerScreen} />
-        <Stack.Screen name="Result" component={ResultScreen} />
-        
-        {/* User Profile & Support */}
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="ChatSupport" component={ChatSupportScreen} />
-        <Stack.Screen name="PrivacySecurity" component={PrivacySecurityScreen} />
+          {/* Main App Flow */}
+          <Stack.Screen name="Home" component={HomeScreen} />
+          
+          {/* Verification Logic */}
+          <Stack.Screen name="Scanner" component={VerificationFormScreen} />
+          <Stack.Screen name="RealScanner" component={RealScannerScreen} />
+          <Stack.Screen name="Result" component={ResultScreen} />
+          
+          {/* User Profile & Support */}
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="ChatSupport" component={ChatSupportScreen} />
+          <Stack.Screen name="PrivacySecurity" component={PrivacySecurityScreen} />
 
-        {/* Other Features */}
-        <Stack.Screen name="Dashboard" component={StudentDashboard} />
-        <Stack.Screen name="Events" component={EventsScreen} />
-        <Stack.Screen name="Chat" component={ChatScreen} />
-        <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
-        <Stack.Screen name="ReportFraud" component={ReportFraudScreen} />
-
-        {/* Keep original Home name for compatibility if needed, but Login is now entry */}
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+          {/* Other Features */}
+          <Stack.Screen name="Dashboard" component={StudentDashboard} />
+          <Stack.Screen name="Events" component={EventsScreen} />
+          <Stack.Screen name="Chat" component={ChatScreen} />
+          <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
+          <Stack.Screen name="ReportFraud" component={ReportFraudScreen} />
+          <Stack.Screen name="AIAssistant" component={AIAssistantScreen} />
+          <Stack.Screen name="Contact" component={ContactScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }

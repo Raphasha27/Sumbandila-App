@@ -12,56 +12,24 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather, Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import { useTheme } from '../context/ThemeContext';
 
 const PHONE_NUMBER = '0781172470';
-const WHATSAPP_NUMBER = '27781172470'; // International format for WhatsApp
+const WHATSAPP_NUMBER = '27781172470';
 
 export default function ContactScreen({ navigation }) {
-    const handlePhoneCall = () => {
-        const phoneUrl = `tel:${PHONE_NUMBER}`;
-        Linking.canOpenURL(phoneUrl)
-            .then((supported) => {
-                if (supported) {
-                    Linking.openURL(phoneUrl);
-                } else {
-                    Alert.alert('Error', 'Phone calls are not supported on this device');
-                }
-            })
-            .catch((err) => console.error('Error opening phone:', err));
-    };
+    const { theme, isDarkMode } = useTheme();
 
-    const handleWhatsApp = () => {
-        const whatsappUrl = `whatsapp://send?phone=${WHATSAPP_NUMBER}&text=Hello, I need assistance with Sumbandila verification.`;
-        Linking.canOpenURL(whatsappUrl)
-            .then((supported) => {
-                if (supported) {
-                    Linking.openURL(whatsappUrl);
-                } else {
-                    Alert.alert('WhatsApp Not Installed', 'Please install WhatsApp to use this feature');
-                }
-            })
-            .catch((err) => console.error('Error opening WhatsApp:', err));
-    };
-
-    const handleEmail = () => {
-        const emailUrl = 'mailto:support@sumbandila.co.za?subject=Support Request&body=Hello, I need assistance with...';
-        Linking.openURL(emailUrl).catch((err) => console.error('Error opening email:', err));
-    };
-
-    const handleSMS = () => {
-        const smsUrl = `sms:${PHONE_NUMBER}`;
-        Linking.openURL(smsUrl).catch((err) => console.error('Error opening SMS:', err));
+    const handleAction = (url, errorMsg) => {
+        Linking.canOpenURL(url).then(supported => {
+            if (supported) Linking.openURL(url);
+            else Alert.alert('Error', errorMsg);
+        }).catch(err => console.error(err));
     };
 
     return (
-        <LinearGradient colors={['#fff7ed', '#ffffff', '#f0fdf4']} style={styles.container}>
-            {/* Header */}
-            <LinearGradient
-                colors={['#ea580c', '#16a34a']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={styles.header}
-            >
+        <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+            <LinearGradient colors={isDarkMode ? [theme.colors.background, theme.colors.background] : ['#ea580c', '#16a34a']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.header}>
                 <SafeAreaView>
                     <View style={styles.headerContent}>
                         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
@@ -74,337 +42,79 @@ export default function ContactScreen({ navigation }) {
             </LinearGradient>
 
             <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-                {/* Hero Section */}
                 <View style={styles.heroSection}>
-                    <View style={styles.iconCircle}>
-                        <Ionicons name="headset" size={48} color="#ea580c" />
+                    <View style={[styles.iconCircle, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]}>
+                        <Ionicons name="headset" size={48} color={theme.colors.primary} />
                     </View>
-                    <Text style={styles.heroTitle}>We're Here to Help</Text>
-                    <Text style={styles.heroSubtitle}>
-                        Get in touch with our support team for any questions about verification services
-                    </Text>
+                    <Text style={[styles.heroTitle, { color: theme.colors.text }]}>We're Here to Help</Text>
+                    <Text style={[styles.heroSubtitle, { color: theme.colors.textLight }]}>Get in touch with our support team</Text>
                 </View>
 
-                {/* Main Call Card */}
-                <TouchableOpacity onPress={handlePhoneCall} activeOpacity={0.9}>
-                    <LinearGradient
-                        colors={['#ea580c', '#16a34a']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={styles.callCard}
-                    >
+                <TouchableOpacity onPress={() => handleAction(`tel:${PHONE_NUMBER}`, 'Not supported')}>
+                    <LinearGradient colors={[theme.colors.primary, theme.colors.secondary]} style={styles.callCard}>
                         <View style={styles.callIconWrapper}>
-                            <Ionicons name="call" size={32} color="#ea580c" />
+                            <Ionicons name="call" size={32} color={theme.colors.primary} />
                         </View>
                         <View style={styles.callInfo}>
                             <Text style={styles.callLabel}>Call Us Directly</Text>
                             <Text style={styles.callNumber}>{PHONE_NUMBER}</Text>
-                            <Text style={styles.callHint}>Tap to call now</Text>
                         </View>
                         <Feather name="phone-call" size={24} color="white" />
                     </LinearGradient>
                 </TouchableOpacity>
 
-                {/* Contact Options Grid */}
-                <Text style={styles.sectionTitle}>More Ways to Reach Us</Text>
                 <View style={styles.optionsGrid}>
-                    <TouchableOpacity style={styles.optionCard} onPress={handleWhatsApp}>
+                    <TouchableOpacity style={[styles.optionCard, { backgroundColor: theme.colors.surface }]} onPress={() => handleAction(`whatsapp://send?phone=${WHATSAPP_NUMBER}`, 'WhatsApp not installed')}>
                         <View style={[styles.optionIcon, { backgroundColor: '#dcfce7' }]}>
                             <FontAwesome5 name="whatsapp" size={24} color="#16a34a" />
                         </View>
-                        <Text style={styles.optionTitle}>WhatsApp</Text>
-                        <Text style={styles.optionSubtitle}>Quick chat</Text>
+                        <Text style={[styles.optionTitle, { color: theme.colors.text }]}>WhatsApp</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.optionCard} onPress={handleSMS}>
-                        <View style={[styles.optionIcon, { backgroundColor: '#dbeafe' }]}>
-                            <Ionicons name="chatbubble-ellipses" size={24} color="#2563eb" />
-                        </View>
-                        <Text style={styles.optionTitle}>SMS</Text>
-                        <Text style={styles.optionSubtitle}>Text us</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.optionCard} onPress={handleEmail}>
+                    <TouchableOpacity style={[styles.optionCard, { backgroundColor: theme.colors.surface }]} onPress={() => handleAction(`mailto:support@sumbandila.co.za`, 'Email not configured')}>
                         <View style={[styles.optionIcon, { backgroundColor: '#fef3c7' }]}>
                             <Ionicons name="mail" size={24} color="#d97706" />
                         </View>
-                        <Text style={styles.optionTitle}>Email</Text>
-                        <Text style={styles.optionSubtitle}>Write to us</Text>
+                        <Text style={[styles.optionTitle, { color: theme.colors.text }]}>Email</Text>
                     </TouchableOpacity>
                 </View>
 
-                {/* Business Hours */}
-                <View style={styles.hoursCard}>
-                    <View style={styles.hoursHeader}>
-                        <Ionicons name="time-outline" size={24} color="#ea580c" />
-                        <Text style={styles.hoursTitle}>Operating Hours</Text>
-                    </View>
-                    <View style={styles.hoursList}>
-                        <View style={styles.hoursRow}>
-                            <Text style={styles.hoursDay}>Monday - Friday</Text>
-                            <Text style={styles.hoursTime}>08:00 AM - 05:00 PM</Text>
-                        </View>
-                        <View style={styles.hoursDivider} />
-                        <View style={styles.hoursRow}>
-                            <Text style={styles.hoursDay}>Saturday</Text>
-                            <Text style={styles.hoursTime}>09:00 AM - 01:00 PM</Text>
-                        </View>
-                        <View style={styles.hoursDivider} />
-                        <View style={styles.hoursRow}>
-                            <Text style={styles.hoursDay}>Sunday & Holidays</Text>
-                            <Text style={styles.hoursTimeClosed}>Closed</Text>
-                        </View>
+                <View style={[styles.hoursCard, { backgroundColor: theme.colors.surface }]}>
+                    <Text style={[styles.hoursTitle, { color: theme.colors.text }]}>Business Hours</Text>
+                    <View style={styles.hoursRow}>
+                        <Text style={[styles.hoursDay, { color: theme.colors.textLight }]}>Mon - Fri</Text>
+                        <Text style={[styles.hoursTime, { color: theme.colors.success }]}>08:00 - 17:00</Text>
                     </View>
                 </View>
-
-                {/* Location Info */}
-                <View style={styles.locationCard}>
-                    <View style={styles.locationHeader}>
-                        <Ionicons name="location-outline" size={24} color="#16a34a" />
-                        <Text style={styles.locationTitle}>Visit Us</Text>
-                    </View>
-                    <Text style={styles.locationAddress}>
-                        Sumbandila Verification Services{'\n'}
-                        Johannesburg, South Africa
-                    </Text>
-                </View>
-
-                {/* Emergency Notice */}
-                <View style={styles.noticeCard}>
-                    <Feather name="alert-circle" size={20} color="#1e40af" />
-                    <Text style={styles.noticeText}>
-                        For urgent fraud reports, please call us directly or use the in-app reporting feature for fastest response.
-                    </Text>
-                </View>
-
-                <View style={{ height: 40 }} />
             </ScrollView>
-        </LinearGradient>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    header: {
-        paddingTop: Platform.OS === 'android' ? 40 : 20,
-        paddingBottom: 16,
-        paddingHorizontal: 16,
-    },
-    headerContent: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    backButton: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        backgroundColor: 'rgba(255,255,255,0.2)',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    headerTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    scrollContent: {
-        padding: 24,
-    },
-    heroSection: {
-        alignItems: 'center',
-        marginBottom: 32,
-    },
-    iconCircle: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        backgroundColor: '#fff7ed',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 16,
-        borderWidth: 3,
-        borderColor: '#fed7aa',
-    },
-    heroTitle: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#1f2937',
-        marginBottom: 8,
-    },
-    heroSubtitle: {
-        fontSize: 16,
-        color: '#6b7280',
-        textAlign: 'center',
-        lineHeight: 24,
-    },
-    callCard: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 20,
-        borderRadius: 20,
-        marginBottom: 32,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.15,
-        shadowRadius: 12,
-        elevation: 8,
-    },
-    callIconWrapper: {
-        width: 56,
-        height: 56,
-        borderRadius: 28,
-        backgroundColor: 'white',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginRight: 16,
-    },
-    callInfo: {
-        flex: 1,
-    },
-    callLabel: {
-        fontSize: 14,
-        color: 'rgba(255,255,255,0.8)',
-        marginBottom: 4,
-    },
-    callNumber: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: 'white',
-        letterSpacing: 1,
-    },
-    callHint: {
-        fontSize: 12,
-        color: 'rgba(255,255,255,0.7)',
-        marginTop: 4,
-    },
-    sectionTitle: {
-        fontSize: 18,
-        fontWeight: '700',
-        color: '#1f2937',
-        marginBottom: 16,
-    },
-    optionsGrid: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 32,
-    },
-    optionCard: {
-        width: '31%',
-        backgroundColor: 'white',
-        padding: 16,
-        borderRadius: 16,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
-        elevation: 3,
-    },
-    optionIcon: {
-        width: 56,
-        height: 56,
-        borderRadius: 16,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 12,
-    },
-    optionTitle: {
-        fontSize: 14,
-        fontWeight: '600',
-        color: '#1f2937',
-        marginBottom: 2,
-    },
-    optionSubtitle: {
-        fontSize: 12,
-        color: '#6b7280',
-    },
-    hoursCard: {
-        backgroundColor: 'white',
-        borderRadius: 16,
-        padding: 20,
-        marginBottom: 16,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
-        elevation: 3,
-    },
-    hoursHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 16,
-    },
-    hoursTitle: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#1f2937',
-        marginLeft: 12,
-    },
-    hoursList: {},
-    hoursRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingVertical: 12,
-    },
-    hoursDay: {
-        fontSize: 15,
-        color: '#4b5563',
-    },
-    hoursTime: {
-        fontSize: 15,
-        fontWeight: '600',
-        color: '#16a34a',
-    },
-    hoursTimeClosed: {
-        fontSize: 15,
-        fontWeight: '600',
-        color: '#ef4444',
-    },
-    hoursDivider: {
-        height: 1,
-        backgroundColor: '#f3f4f6',
-    },
-    locationCard: {
-        backgroundColor: 'white',
-        borderRadius: 16,
-        padding: 20,
-        marginBottom: 16,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
-        elevation: 3,
-    },
-    locationHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 12,
-    },
-    locationTitle: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#1f2937',
-        marginLeft: 12,
-    },
-    locationAddress: {
-        fontSize: 15,
-        color: '#4b5563',
-        lineHeight: 24,
-    },
-    noticeCard: {
-        flexDirection: 'row',
-        backgroundColor: '#eff6ff',
-        padding: 16,
-        borderRadius: 12,
-        gap: 12,
-    },
-    noticeText: {
-        flex: 1,
-        fontSize: 14,
-        color: '#1e40af',
-        lineHeight: 20,
-    },
+    container: { flex: 1 },
+    header: { paddingBottom: 16, paddingHorizontal: 16 },
+    headerContent: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+    backButton: { width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.2)', justifyContent: 'center', alignItems: 'center' },
+    headerTitle: { fontSize: 20, fontWeight: 'bold', color: 'white' },
+    scrollContent: { padding: 24 },
+    heroSection: { alignItems: 'center', marginBottom: 32 },
+    iconCircle: { width: 100, height: 100, borderRadius: 50, justifyContent: 'center', alignItems: 'center', marginBottom: 16, borderWidth: 1 },
+    heroTitle: { fontSize: 28, fontWeight: 'bold', marginBottom: 8 },
+    heroSubtitle: { fontSize: 16, textAlign: 'center' },
+    callCard: { flexDirection: 'row', alignItems: 'center', padding: 20, borderRadius: 20, marginBottom: 32 },
+    callIconWrapper: { width: 56, height: 56, borderRadius: 28, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center', marginRight: 16 },
+    callInfo: { flex: 1 },
+    callLabel: { fontSize: 14, color: 'rgba(255,255,255,0.8)', marginBottom: 4 },
+    callNumber: { fontSize: 24, fontWeight: 'bold', color: 'white' },
+    optionsGrid: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 32 },
+    optionCard: { width: '48%', padding: 16, borderRadius: 16, alignItems: 'center', elevation: 2 },
+    optionIcon: { width: 56, height: 56, borderRadius: 16, justifyContent: 'center', alignItems: 'center', marginBottom: 12 },
+    optionTitle: { fontSize: 14, fontWeight: '600' },
+    hoursCard: { borderRadius: 16, padding: 20, elevation: 2 },
+    hoursTitle: { fontSize: 18, fontWeight: '600', marginBottom: 16 },
+    hoursRow: { flexDirection: 'row', justifyContent: 'space-between' },
+    hoursDay: { fontSize: 15 },
+    hoursTime: { fontSize: 15, fontWeight: '600' }
 });
+

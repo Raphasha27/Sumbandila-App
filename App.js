@@ -47,6 +47,7 @@ function AppNavigator() {
         <Stack.Screen name="PublicHome" component={HomeScreen} />
         <Stack.Screen name="Scanner" component={ScannerScreen} />
         <Stack.Screen name="ReportFraud" component={ReportFraudScreen} />
+        {/* Home is also registered as PublicHome above, but keeping one as 'Home' for default compatibility */}
         <Stack.Screen name="Home" component={HomeScreen} />
 
         {/* New Phase 1 Screens */}

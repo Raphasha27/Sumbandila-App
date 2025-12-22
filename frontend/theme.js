@@ -1,32 +1,46 @@
+const commonColors = {
+    primary: '#F97316', // Orange 500
+    primaryLight: '#FB923C', // Orange 400
+    primaryDark: '#EA580C', // Orange 600
+    secondary: '#10B981', // Emerald 500
+    secondaryLight: '#34D399', // Emerald 400
+    
+    // Gradients
+    gradientStart: '#F97316',
+    gradientEnd: '#22C55E',
+
+    // Category Colors (Keep these vibrant in both modes)
+    education: '#3B82F6', 
+    medical: '#22C55E', 
+    legal: '#A855F7', 
+
+    success: '#10B981', 
+    error: '#EF4444', 
+    warning: '#F59E0B', 
+    info: '#3B82F6', 
+};
+
+export const lightColors = {
+    ...commonColors,
+    background: '#F8FAFC', // Slate 50
+    surface: '#FFFFFF',
+    text: '#1F2937', // Gray 800
+    textLight: '#6B7280', // Gray 500
+    textInverse: '#FFFFFF',
+    border: '#E2E8F0',
+};
+
+export const darkColors = {
+    ...commonColors,
+    background: '#0F172A', // Slate 900
+    surface: '#1E293B',    // Slate 800
+    text: '#F8FAFC',       // Slate 50
+    textLight: '#94A3B8',  // Slate 400
+    textInverse: '#FFFFFF',
+    border: '#334155',     // Slate 700
+};
+
 export const theme = {
-    colors: {
-        primary: '#F97316', // Orange 500
-        primaryLight: '#FB923C', // Orange 400
-        primaryDark: '#EA580C', // Orange 600
-        secondary: '#10B981', // Emerald 500
-        secondaryLight: '#34D399', // Emerald 400
-        
-        // Gradients
-        gradientStart: '#F97316',
-        gradientEnd: '#22C55E',
-
-        // Category Colors
-        education: '#3B82F6', // Blue 500
-        medical: '#22C55E', // Green 500
-        legal: '#A855F7', // Purple 500
-
-        background: '#F8FAFC', // Slate 50
-        surface: '#FFFFFF',
-        text: '#1F2937', // Gray 800
-        textLight: '#6B7280', // Gray 500
-        textInverse: '#FFFFFF',
-        
-        success: '#10B981', 
-        error: '#EF4444', 
-        warning: '#F59E0B', 
-        info: '#3B82F6', 
-        border: '#E2E8F0',
-    },
     spacing: {
         xs: 4,
         s: 8,
@@ -43,7 +57,7 @@ export const theme = {
     },
     shadows: {
         default: {
-            shadowColor: '#64748B',
+            shadowColor: '#000000',
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.1,
             shadowRadius: 8,
@@ -57,7 +71,7 @@ export const theme = {
             elevation: 8,
         },
         card: {
-             shadowColor: '#94A3B8',
+             shadowColor: '#000000',
              shadowOffset: { width: 0, height: 2 },
              shadowOpacity: 0.05,
              shadowRadius: 4,
@@ -73,15 +87,18 @@ export const theme = {
         title: {
             fontSize: 20,
             fontWeight: '600',
-            color: '#1F2937',
         },
         body: {
             fontSize: 16,
-            color: '#4B5563',
         },
         caption: {
             fontSize: 14,
-            color: '#9CA3AF',
         }
     }
 };
+
+export const getTheme = (isDark) => ({
+    ...theme,
+    colors: isDark ? darkColors : lightColors,
+});
+
