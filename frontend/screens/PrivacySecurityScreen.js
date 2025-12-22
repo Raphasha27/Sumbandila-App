@@ -1,16 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { theme } from '../theme';
+import { useTheme } from '../context/ThemeContext';
 import GradientHeader from '../components/GradientHeader';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function PrivacySecurityScreen({ navigation }) {
+    const { theme, isDarkMode } = useTheme();
     
     const Section = ({ title, icon, children }) => (
-        <View style={styles.section}>
+        <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
             <View style={styles.sectionHeader}>
                 <Ionicons name={icon} size={24} color={theme.colors.primary} style={styles.icon} />
-                <Text style={styles.sectionTitle}>{title}</Text>
+                <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>{title}</Text>
             </View>
             <View style={styles.sectionContent}>
                 {children}
@@ -19,39 +20,29 @@ export default function PrivacySecurityScreen({ navigation }) {
     );
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
             <GradientHeader title="Trust Center" showBack={true} onBack={() => navigation.goBack()} />
             
             <ScrollView contentContainerStyle={styles.content}>
                 
-                <View style={styles.introBox}>
+                <View style={[styles.introBox, { backgroundColor: isDarkMode ? 'rgba(16, 185, 129, 0.1)' : '#ECFDF5', borderColor: isDarkMode ? theme.colors.success : '#A7F3D0' }]}>
                     <Ionicons name="shield-checkmark" size={32} color={theme.colors.success} style={{marginBottom: 8}} />
-                    <Text style={styles.introTitle}>Your Trust is Our Priority</Text>
-                    <Text style={styles.introText}>
+                    <Text style={[styles.introTitle, { color: isDarkMode ? theme.colors.success : '#065F46' }]}>Your Trust is Our Priority</Text>
+                    <Text style={[styles.introText, { color: isDarkMode ? theme.colors.text : '#047857' }]}>
                         Sumbandila is committed to protecting your data and ensuring the integrity of all verifications.
                     </Text>
                 </View>
 
                 <Section title="Data Privacy" icon="lock-closed-outline">
-                    <Text style={styles.text}>
+                    <Text style={[styles.text, { color: theme.colors.textLight }]}>
                         We collect minimal personal data required for account management. 
                         Verification queries are anonymous where possible.
-                        We do not sell your personal data to third parties.
                     </Text>
                 </Section>
 
-                <Section title="Verification Integrity" icon="ribbon-outline">
-                     <Text style={styles.text}>
-                        All data provided by Sumbandila is sourced directly from official government registrars (DHET, HPCSA, LPC).
-                        Our algorithms constantly cross-reference these sources to ensure accuracy.
-                    </Text>
-                </Section>
-
-                <Section title="Security Measures" icon="server-outline">
-                     <Text style={styles.text}>
-                        - End-to-end encryption for all sensitive data transfers.
-                        - Regular security audits by independent firms.
-                        - Secure data centers compliant with international standards.
+                <Section title="Verification" icon="ribbon-outline">
+                     <Text style={[styles.text, { color: theme.colors.textLight }]}>
+                        All data provided is sourced directly from official government registrars (DHET, HPCSA, LPC).
                     </Text>
                 </Section>
 
@@ -68,71 +59,63 @@ export default function PrivacySecurityScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.background,
     },
     content: {
-        padding: theme.spacing.m,
-        paddingBottom: theme.spacing.xl,
+        padding: 16,
+        paddingBottom: 32,
     },
     introBox: {
-        backgroundColor: '#ECFDF5', // Light green
-        borderRadius: theme.borderRadius.l,
-        padding: theme.spacing.l,
+        borderRadius: 16,
+        padding: 24,
         alignItems: 'center',
-        marginBottom: theme.spacing.l,
+        marginBottom: 24,
         borderWidth: 1,
-        borderColor: '#A7F3D0',
     },
     introTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#065F46',
         marginBottom: 4,
     },
     introText: {
         textAlign: 'center',
-        color: '#047857',
         fontSize: 14,
     },
     section: {
-        backgroundColor: 'white',
-        borderRadius: theme.borderRadius.l,
-        padding: theme.spacing.m,
-        marginBottom: theme.spacing.m,
-        ...theme.shadows.default,
+        borderRadius: 16,
+        padding: 16,
+        marginBottom: 16,
     },
     sectionHeader: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: theme.spacing.s,
+        marginBottom: 8,
     },
     icon: {
-        marginRight: theme.spacing.s,
+        marginRight: 8,
     },
     sectionTitle: {
         fontSize: 18,
         fontWeight: '600',
-        color: theme.colors.text,
     },
     sectionContent: {
-        paddingLeft: 32, // align with text start
+        paddingLeft: 32,
     },
     text: {
         fontSize: 15,
-        color: theme.colors.textLight,
         lineHeight: 22,
     },
     policyLink: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: theme.spacing.m,
-        padding: theme.spacing.m,
+        marginTop: 16,
+        padding: 16,
     },
     linkText: {
-        color: theme.colors.primary,
+        color: '#F97316', // Primary
         fontSize: 16,
         fontWeight: '600',
         marginRight: 8,
     }
 });
+

@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform, Animated } from 'react-native';
-import { theme } from '../theme';
+import { useTheme } from '../context/ThemeContext';
 import GradientHeader from '../components/GradientHeader';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 export default function ChatSupportScreen() {
     const navigation = useNavigation();
+    const { theme, isDarkMode } = useTheme();
     const [messages, setMessages] = useState([
         { id: 1, text: "Hello! I'm your Sumbandila AI assistant. How can I help you today?", sender: 'system' }
     ]);
@@ -27,7 +28,6 @@ export default function ChatSupportScreen() {
         setMessages(prev => [...prev, userMsg]);
         setInputText('');
 
-        // Simulate AI response
         setTimeout(() => {
             const response = generateAIResponse(userMsg.text);
             setMessages(prev => [...prev, { id: Date.now() + 1, text: response.text, sender: 'system', action: response.action }]);
@@ -46,18 +46,15 @@ export default function ChatSupportScreen() {
     const generateAIResponse = (text) => {
         const lower = text.toLowerCase();
         if (lower.includes('doctor') || lower.includes('medical')) {
-            return { text: "To verify a medical professional, verify under the Medical category. Shall I take you there?", action: { label: "Go to Medical Verification", route: 'Scanner', params: { category: 'medical' } } };
+            return { text: "To verify a medical professional, verify under the Medical category. Shall I take you there?", action: { label: "Go to Medical", route: 'Scanner', params: { category: 'medical' } } };
         }
         if (lower.includes('school') || lower.includes('education') || lower.includes('college')) {
-            return { text: "You can check accreditation status in the Education section.", action: { label: "Go to Education Verification", route: 'Scanner', params: { category: 'education' } } };
+            return { text: "You can check accreditation status in the Education section.", action: { label: "Go to Education", route: 'Scanner', params: { category: 'education' } } };
         }
         if (lower.includes('legal') || lower.includes('lawyer')) {
-            return { text: "For lawyers, use the Legal verification tool.", action: { label: "Go to Legal Verification", route: 'Scanner', params: { category: 'legal' } } };
+            return { text: "For lawyers, use the Legal verification tool.", action: { label: "Go to Legal", route: 'Scanner', params: { category: 'legal' } } };
         }
-        if (lower.includes('scan') || lower.includes('qr')) {
-           return { text: "You can scan QR codes using the scanner icon in the top right.", action: { label: "Open Scanner", route: 'RealScanner' } };
-        }
-        return { text: "I can help you verify professionals, find institutions, or navigate the app. Try asking 'How do I verify a doctor?'" };
+        return { text: "I can help you verify professionals, find institutions, or navigate the app." };
     };
 
     const handleAction = (action) => {
@@ -67,7 +64,7 @@ export default function ChatSupportScreen() {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
             <GradientHeader title="AI Assistant" showBack={true} onBack={() => navigation.goBack()} />
             
             <KeyboardAvoidingView 
@@ -84,21 +81,21 @@ export default function ChatSupportScreen() {
                     {messages.map((msg) => (
                         <View key={msg.id} style={[
                             styles.messageBubble, 
-                            msg.sender === 'user' ? styles.userBubble : styles.systemBubble
+                            msg.sender === 'user' ? styles.userBubble : [styles.systemBubble, { backgroundColor: theme.colors.surface }]
                         ]}>
                             {msg.sender === 'system' && (
-                                <View style={styles.botIcon}>
+                                <View style={[styles.botIcon, { backgroundColor: theme.colors.primary }]}>
                                     <Ionicons name="sparkles" size={16} color="white" />
                                 </View>
                             )}
-                            <View>
+                            <View style={{ flex: 1 }}>
                                 <Text style={[
                                     styles.messageText, 
-                                    msg.sender === 'user' ? styles.userText : styles.systemText
+                                    msg.sender === 'user' ? styles.userText : [styles.systemText, { color: theme.colors.text }]
                                 ]}>{msg.text}</Text>
                                 
                                 {msg.action && (
-                                    <TouchableOpacity style={styles.actionButton} onPress={() => handleAction(msg.action)}>
+                                    <TouchableOpacity style={[styles.actionButton, { backgroundColor: theme.colors.secondary }]} onPress={() => handleAction(msg.action)}>
                                         <Text style={styles.actionButtonText}>{msg.action.label}</Text>
                                         <Ionicons name="arrow-forward" size={16} color="white" />
                                     </TouchableOpacity>
@@ -111,26 +108,26 @@ export default function ChatSupportScreen() {
                 <View style={styles.suggestionsContainer}>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{paddingHorizontal: 16}}>
                         {suggestions.map((s, index) => (
-                            <TouchableOpacity key={index} style={styles.suggestionChip} onPress={s.action}>
-                                <Text style={styles.suggestionText}>{s.label}</Text>
+                            <TouchableOpacity key={index} style={[styles.suggestionChip, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]} onPress={s.action}>
+                                <Text style={[styles.suggestionText, { color: theme.colors.primary }]}>{s.label}</Text>
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
                 </View>
 
-                <View style={styles.inputContainer}>
+                <View style={[styles.inputContainer, { backgroundColor: theme.colors.surface, borderTopColor: theme.colors.border }]}>
                     <TextInput 
-                        style={styles.input}
+                        style={[styles.input, { backgroundColor: isDarkMode ? theme.colors.background : '#F3F4F6', color: theme.colors.text }]}
                         placeholder="Ask me anything..."
+                        placeholderTextColor={theme.colors.textLight}
                         value={inputText}
                         onChangeText={setInputText}
                         onSubmitEditing={sendMessage}
                     />
-                    <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+                    <TouchableOpacity style={[styles.sendButton, { backgroundColor: theme.colors.primary }]} onPress={sendMessage}>
                         <Ionicons name="send" size={20} color="white" />
                     </TouchableOpacity>
                 </View>
-                {/* Add bottom padding for SafeArea on iOS/Android if needed, sticking to simple View for now */}
                 <View style={{height: 20}} /> 
             </KeyboardAvoidingView>
         </View>
@@ -140,7 +137,6 @@ export default function ChatSupportScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.background,
     },
     keyboardContainer: {
         flex: 1,
@@ -149,11 +145,11 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     messagesContent: {
-        padding: theme.spacing.m,
-        paddingBottom: theme.spacing.xl,
+        padding: 16,
+        paddingBottom: 24,
     },
     messageBubble: {
-        maxWidth: '80%',
+        maxWidth: '85%',
         padding: 12,
         borderRadius: 16,
         marginBottom: 12,
@@ -161,13 +157,11 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
     systemBubble: {
-        backgroundColor: 'white',
         alignSelf: 'flex-start',
         borderBottomLeftRadius: 4,
-        ...theme.shadows.default,
     },
     userBubble: {
-        backgroundColor: theme.colors.primary,
+        backgroundColor: '#F97316', // Primary color hardcoded or theme
         alignSelf: 'flex-end',
         borderBottomRightRadius: 4,
     },
@@ -176,7 +170,6 @@ const styles = StyleSheet.create({
         lineHeight: 22,
     },
     systemText: {
-        color: theme.colors.text,
     },
     userText: {
         color: 'white',
@@ -185,15 +178,12 @@ const styles = StyleSheet.create({
         width: 24,
         height: 24,
         borderRadius: 12,
-        backgroundColor: theme.colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 8,
-        marginTop: 0,
     },
     actionButton: {
         marginTop: 8,
-        backgroundColor: theme.colors.secondary,
         paddingVertical: 8,
         paddingHorizontal: 12,
         borderRadius: 8,
@@ -212,9 +202,7 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
     suggestionChip: {
-        backgroundColor: 'white', // '#EFF6FF',
         borderWidth: 1,
-        borderColor: theme.colors.primaryLight, // '#BFDBFE',
         paddingHorizontal: 12,
         paddingVertical: 6,
         borderRadius: 16,
@@ -223,7 +211,6 @@ const styles = StyleSheet.create({
         height: 36,
     },
     suggestionText: {
-        color: theme.colors.primary, // '#1E40AF',
         fontSize: 14,
         fontWeight: '500',
     },
@@ -233,13 +220,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingTop: 8,
         paddingBottom: 8,
-        backgroundColor: 'white',
         borderTopWidth: 1,
-        borderTopColor: theme.colors.border,
     },
     input: {
         flex: 1,
-        backgroundColor: '#F3F4F6',
         borderRadius: 24,
         paddingHorizontal: 16,
         paddingVertical: 10,
@@ -251,8 +235,8 @@ const styles = StyleSheet.create({
         width: 44,
         height: 44,
         borderRadius: 22,
-        backgroundColor: theme.colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
     }
 });
+

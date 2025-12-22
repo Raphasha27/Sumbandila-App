@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "jsEngine": "jsc",
+    "jsEngine": "hermes",
     "orientation": "portrait",
     "icon": "./assets/logo_new.png",
     "userInterfaceStyle": "light",
@@ -21,18 +21,17 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "extra": {
-      "eas": {
-        "projectId": "99c06b95-ede2-40e8-8697-a7344d664e0f"
-      }
-    },
     "android": {
       "package": "com.raphasha27.sumbandila",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo_new.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "ios": {
       "bundleIdentifier": "com.raphasha27.sumbandila",
@@ -47,6 +46,12 @@
           "cameraPermission": "Allow Sumbandila to access your camera to scan QR codes."
         }
       ]
-    ]
+    ],
+    "owner": "mokoka",
+    "extra": {
+      "eas": {
+        "projectId": "99c06b95-ede2-40e8-8697-a7344d664e0f"
+      }
+    }
   }
 }

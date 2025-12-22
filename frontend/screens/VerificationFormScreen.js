@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
-import { theme } from '../theme';
+import { useTheme } from '../context/ThemeContext';
 import GradientHeader from '../components/GradientHeader';
 import { Ionicons } from '@expo/vector-icons';
-import axios from 'axios';
-import { config } from '../config';
-
-// Reusing the 'ScannerScreen' file or creating a new VerificationFormScreen?
-// The user has 'VerificationFormScreen.js' in the open docs list in context, 
-// but App.js navigated to 'Scanner'. 
-// I'll assume I should update 'VerificationFormScreen.js' and maybe update App.js or assume 'Scanner' was refactored.
-// Let's write to VerificationFormScreen.js as it's the most descriptive.
 
 export default function VerificationFormScreen({ route, navigation }) {
+    const { theme, isDarkMode } = useTheme();
     const { category } = route.params || { category: 'education' }; // Default to education
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(false);
@@ -29,16 +22,11 @@ export default function VerificationFormScreen({ route, navigation }) {
         if (!query.trim()) return;
         setLoading(true);
         try {
-            // Simulate API call or real one
-             // const response = await axios.get(`${config.API_URL}/api/verify?type=${category === 'education' ? 'school' : category === 'medical' ? 'doctor' : 'lawyer'}&q=${query}`);
-             
-             // Mock delay
              setTimeout(() => {
                  setLoading(false);
-                 // Mock result for demo
                  navigation.navigate('Result', { 
                      data: {
-                         name: query, // Use input as name
+                         name: query, 
                          status: true,
                          regNumber: '2001/HE07/006',
                          type: category
@@ -48,27 +36,27 @@ export default function VerificationFormScreen({ route, navigation }) {
 
         } catch (error) {
             setLoading(false);
-            console.error(error);
         }
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
             <GradientHeader title="Sumbandila" showBack={true} onBack={() => navigation.goBack()} />
             
             <View style={styles.content}>
                  <TouchableOpacity onPress={() => navigation.goBack()} style={styles.subBack}>
                     <Ionicons name="arrow-back" size={20} color={theme.colors.text} />
-                    <Text style={styles.subBackText}>Back to Categories</Text>
+                    <Text style={[styles.subBackText, { color: theme.colors.text }]}>Back to Categories</Text>
                 </TouchableOpacity>
 
-                <View style={[styles.card, theme.shadows.default]}>
-                    <Text style={styles.cardTitle}>{getCategoryTitle()}</Text>
+                <View style={[styles.card, theme.shadows.default, { backgroundColor: theme.colors.surface }]}>
+                    <Text style={[styles.cardTitle, { color: theme.colors.text }]}>{getCategoryTitle()}</Text>
                     
-                    <View style={styles.inputContainer}>
+                    <View style={[styles.inputContainer, { borderColor: theme.colors.border, backgroundColor: isDarkMode ? theme.colors.background : '#FAFAFA' }]}>
                         <TextInput 
-                            style={styles.input}
+                            style={[styles.input, { color: theme.colors.text }]}
                             placeholder="Enter name or registration number"
+                            placeholderTextColor={theme.colors.textLight}
                             value={query}
                             onChangeText={setQuery}
                         />
@@ -76,23 +64,25 @@ export default function VerificationFormScreen({ route, navigation }) {
                     </View>
 
                     <TouchableOpacity 
-                        style={styles.verifyButton}
+                        style={[styles.verifyButton, { backgroundColor: query.trim() ? theme.colors.primary : (isDarkMode ? theme.colors.background : '#E2E8F0') }]}
                         onPress={handleVerify}
-                        disabled={loading}
+                        disabled={loading || !query.trim()}
                     >
-                        <Text style={styles.verifyButtonText}>{loading ? 'Verifying...' : 'Verify Now'}</Text>
+                        <Text style={[styles.verifyButtonText, { color: query.trim() ? 'white' : '#94A3B8' }]}>
+                            {loading ? 'Verifying...' : 'Verify Now'}
+                        </Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={[styles.card, theme.shadows.default, styles.sampleCard]}>
-                    <Text style={styles.sampleTitle}>Try these sample searches:</Text>
+                <View style={[styles.card, theme.shadows.default, styles.sampleCard, { backgroundColor: theme.colors.surface }]}>
+                    <Text style={[styles.sampleTitle, { color: theme.colors.text }]}>Try these sample searches:</Text>
                     
-                    <TouchableOpacity style={styles.sampleItem} onPress={() => setQuery("Boston City Campus")}>
-                        <Text style={styles.sampleText}>Boston City Campus</Text>
+                    <TouchableOpacity style={[styles.sampleItem, { backgroundColor: isDarkMode ? theme.colors.background : '#F8FAFC' }]} onPress={() => setQuery("Boston City Campus")}>
+                        <Text style={[styles.sampleText, { color: theme.colors.text }]}>Boston City Campus</Text>
                     </TouchableOpacity>
                      
-                     <TouchableOpacity style={styles.sampleItem} onPress={() => setQuery("Damelin")}>
-                        <Text style={styles.sampleText}>Damelin</Text>
+                     <TouchableOpacity style={[styles.sampleItem, { backgroundColor: isDarkMode ? theme.colors.background : '#F8FAFC' }]} onPress={() => setQuery("Damelin")}>
+                        <Text style={[styles.sampleText, { color: theme.colors.text }]}>Damelin</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -104,83 +94,70 @@ export default function VerificationFormScreen({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.background,
     },
     content: {
-        padding: theme.spacing.l,
+        padding: 24,
     },
     subBack: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: theme.spacing.m,
+        marginBottom: 16,
     },
     subBackText: {
         marginLeft: 8,
         fontSize: 16,
-        color: theme.colors.text,
     },
     card: {
-        backgroundColor: 'white',
-        borderRadius: theme.borderRadius.l,
-        padding: theme.spacing.l,
-        marginBottom: theme.spacing.l,
+        borderRadius: 16,
+        padding: 24,
+        marginBottom: 24,
     },
     cardTitle: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: theme.colors.text,
-        marginBottom: theme.spacing.l,
+        marginBottom: 24,
     },
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: theme.colors.border,
-        borderRadius: theme.borderRadius.m,
-        paddingHorizontal: theme.spacing.m,
+        borderRadius: 12,
+        paddingHorizontal: 16,
         height: 56,
-        marginBottom: theme.spacing.l,
-         backgroundColor: '#FAFAFA'
+        marginBottom: 24,
     },
     input: {
         flex: 1,
         fontSize: 16,
-        color: theme.colors.text,
     },
     searchIcon: {
-        marginLeft: theme.spacing.s,
+        marginLeft: 8,
     },
     verifyButton: {
-        backgroundColor: '#E2E8F0', // Light gray as per screenshot (or maybe it fills color when active?)
-        // Screenshot shows gray button "Verify Now". It might turn colored when input is filled.
-        // Let's use gray for now as inactive state or default.
-        borderRadius: theme.borderRadius.m,
+        borderRadius: 12,
         height: 56,
         justifyContent: 'center',
         alignItems: 'center',
     },
     verifyButtonText: {
-        color: '#94A3B8', // Gray text
         fontSize: 18,
         fontWeight: '600',
     },
     sampleCard: {
-        marginTop: theme.spacing.s,
+        marginTop: 8,
     },
     sampleTitle: {
         fontSize: 16,
         fontWeight: '600',
-        color: theme.colors.text,
-        marginBottom: theme.spacing.m,
+        marginBottom: 16,
     },
     sampleItem: {
-        backgroundColor: '#F8FAFC',
-        padding: theme.spacing.m,
-        borderRadius: theme.borderRadius.s,
-        marginBottom: theme.spacing.s,
+        padding: 16,
+        borderRadius: 8,
+        marginBottom: 8,
     },
     sampleText: {
-        color: theme.colors.text,
         fontSize: 16,
     }
 });
+

@@ -1,131 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
-import { theme } from '../theme';
-import GradientHeader from '../components/GradientHeader';
+import { useTheme } from '../context/ThemeContext';
+import { Ionicons, Feather } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { StatusBar } from 'expo-status-bar';
 import CategoryCard from '../components/CategoryCard';
 import StatsCard from '../components/StatsCard';
 
 export default function HomeScreen({ navigation }) {
-    
+    const { theme, isDarkMode, toggleTheme } = useTheme();
+
     const navigateToVerification = (category) => {
         navigation.navigate('Scanner', { category }); 
-        // Note: Using 'Scanner' route for now as per App.js stack, but typically we'd rename this to 'VerificationForm'
-        // The user screenshots imply a form based verification, not just scanner. 
-        // I should probably rename/fix the route in a real refactor, but for UI match 'Scanner' screen will be updated to be the form.
     };
 
     return (
-      <View style={[styles.card, styles.successCard]}>
-        <View style={styles.cardHeader}>
-          <Feather name="check-circle" size={32} color="#22c55e" />
-          <View>
-            <Text style={styles.cardTitle}>Verified & Registered</Text>
-            <Text style={styles.cardSubtitle}>Valid registration confirmed</Text>
-          </View>
-        </View>
-
-        <View style={styles.cardBody}>
-          <View style={styles.fieldGroup}>
-            <Text style={styles.label}>Name</Text>
-            <Text style={styles.value}>{result.name}</Text>
-          </View>
-
-          <View style={styles.row}>
-            <View style={[styles.fieldGroup, { flex: 1 }]}>
-              <Text style={styles.label}>Registration Number</Text>
-              <Text style={styles.value}>{result.regNumber}</Text>
-            </View>
-            <View style={[styles.fieldGroup, { flex: 1 }]}>
-              <Text style={styles.label}>Status</Text>
-              <View style={styles.badge}>
-                <Text style={styles.badgeText}>{result.status}</Text>
-              </View>
-            </View>
-          </View>
-
-          {result.specialty && (
-            <View style={styles.fieldGroup}>
-              <Text style={styles.label}>Specialty</Text>
-              <Text style={styles.value}>{result.specialty}</Text>
-            </View>
-          )}
-
-          {result.accreditation && (
-            <View style={styles.fieldGroup}>
-              <Text style={styles.label}>Accreditation</Text>
-              <Text style={styles.value}>{result.accreditation}</Text>
-            </View>
-          )}
-
-          {result.courses && (
-            <View style={styles.fieldGroup}>
-              <Text style={styles.label}>Accredited Courses</Text>
-              <View style={styles.tagContainer}>
-                {result.courses.map((course, idx) => (
-                  <View key={idx} style={styles.tag}>
-                    <Text style={styles.tagText}>{course}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          )}
-
-          {result.council && (
-            <View style={styles.fieldGroup}>
-              <Text style={styles.label}>Registered With</Text>
-              <Text style={styles.value}>{result.council}</Text>
-            </View>
-          )}
-
-          <View style={styles.fieldGroup}>
-            <Text style={styles.label}>Valid Until</Text>
-            <Text style={styles.value}>{result.validUntil}</Text>
-          </View>
-        </View>
-
-        <View style={styles.warningBox}>
-          <Feather name="alert-circle" size={20} color="#1e40af" style={{ marginTop: 2 }} />
-          <Text style={styles.warningText}>
-            Always verify credentials directly with the institution or professional before making important decisions.
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
-  return (
-    <LinearGradient colors={['#fff7ed', '#ffffff', '#f0fdf4']} style={styles.container}>
-      <StatusBar style="light" />
-
-      {/* Header */}
-      <LinearGradient colors={['#ea580c', '#16a34a']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.header}>
-        <SafeAreaView>
-          <View style={styles.headerContent}>
-            <View style={styles.headerTop}>
-              <View style={styles.titleRow}>
-                <Feather name="shield" size={32} color="white" />
-                <Text style={styles.headerTitle}>Sumbandila</Text>
-              </View>
-              <View style={styles.headerActions}>
-                <TouchableOpacity onPress={() => navigation.navigate('Scanner')} style={styles.iconButton}>
-                  <Ionicons name="qr-code-outline" size={24} color="white" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.iconButton}>
-                  <Feather name="user" size={24} color="white" />
-                </TouchableOpacity>
-              </View>
-            </View>
-            <Text style={styles.headerSubtitle}>Verification in the palm of your hand</Text>
-          </View>
-        </SafeAreaView>
-      </LinearGradient>
-
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {!activeCategory ? (
-          /* Category Selection */
-          <View>
-            <Text style={styles.sectionTitle}>What would you like to verify?</Text>
-            <Text style={styles.sectionSubtitle}>Select a category to begin verification</Text>
+        <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+            <StatusBar style="light" />
+            <LinearGradient 
+                colors={[theme.colors.gradientStart, theme.colors.gradientEnd]} 
+                start={{ x: 0, y: 0 }} 
+                end={{ x: 1, y: 0 }} 
+                style={styles.header}
+            >
+                <SafeAreaView>
+                    <View style={styles.headerContent}>
+                        <View style={styles.headerTop}>
+                            <View style={styles.titleRow}>
+                                <Feather name="shield" size={32} color="white" />
+                                <Text style={styles.headerTitle}>Sumbandila</Text>
+                            </View>
+                            <View style={styles.headerActions}>
+                                <TouchableOpacity onPress={toggleTheme} style={styles.iconButton}>
+                                    <Ionicons name={isDarkMode ? "sunny" : "moon"} size={24} color="white" />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => navigation.navigate('RealScanner')} style={styles.iconButton}>
+                                    <Ionicons name="qr-code-outline" size={24} color="white" />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.iconButton}>
+                                    <Feather name="user" size={24} color="white" />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        <Text style={styles.headerSubtitle}>Verification in the palm of your hand</Text>
+                    </View>
+                </SafeAreaView>
+            </LinearGradient>
+            
+            <ScrollView contentContainerStyle={[styles.scrollContent, { paddingTop: 32 }]} showsVerticalScrollIndicator={false}>
+                <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>What would you like to verify?</Text>
+                <Text style={[styles.sectionSubtitle, { color: theme.colors.textLight }]}>Select a category to begin verification</Text>
 
                 <View style={styles.categoriesContainer}>
                     <CategoryCard 
@@ -171,7 +95,6 @@ export default function HomeScreen({ navigation }) {
                         iconColor="#F97316"
                     />
                 </View>
-
             </ScrollView>
 
             <TouchableOpacity 
@@ -187,19 +110,55 @@ export default function HomeScreen({ navigation }) {
                     <Ionicons name="chatbubbles-outline" size={28} color="white" />
                 </LinearGradient>
             </TouchableOpacity>
-
         </View>
     );
 }
 
+
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.background,
+    },
+    header: {
+        paddingBottom: 20,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
+    },
+    headerContent: {
+        paddingHorizontal: 20,
+        paddingTop: 20,
+    },
+    headerTop: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    titleRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    headerTitle: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: 'white',
+        marginLeft: 10,
+    },
+    headerSubtitle: {
+        fontSize: 14,
+        color: 'rgba(255,255,255,0.8)',
+        marginTop: 5,
+    },
+    headerActions: {
+        flexDirection: 'row',
+    },
+    iconButton: {
+        marginLeft: 15,
+        padding: 5,
     },
     scrollContent: {
-        paddingHorizontal: theme.spacing.l,
-        paddingBottom: theme.spacing.xl + 80, // Extra padding for FAB
+        paddingHorizontal: 24,
+        paddingBottom: 104,
     },
     fab: {
         position: 'absolute',
@@ -208,7 +167,11 @@ const styles = StyleSheet.create({
         width: 64,
         height: 64,
         borderRadius: 32,
-        ...theme.shadows.hover,
+        elevation: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
     },
     fabGradient: {
         flex: 1,
@@ -219,20 +182,18 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: theme.colors.text,
         textAlign: 'center',
-        marginTop: theme.spacing.s,
+        marginTop: 20,
     },
     sectionSubtitle: {
         fontSize: 16,
-        color: theme.colors.textLight,
         textAlign: 'center',
-        marginBottom: theme.spacing.l,
+        marginBottom: 24,
     },
     categoriesContainer: {
-        marginBottom: theme.spacing.l,
+        marginBottom: 24,
     },
     statsContainer: {
-        marginBottom: theme.spacing.l,
+        marginBottom: 24,
     }
 });
