@@ -40,71 +40,75 @@ export default function LoginScreen({ navigation }) {
         <SafeAreaView style={[styles.container, { backgroundColor: isDarkMode ? theme.colors.background : '#FFFBF7' }]}>
             <StatusBar style={isDarkMode ? "light" : "dark"} />
             
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.content}>
-                
-                <View style={styles.iconContainer}>
-                     <View style={[styles.iconCircle, { backgroundColor: isDarkMode ? theme.colors.surface : '#FFEDD5', borderColor: theme.colors.border }]}>
-                        <Ionicons name="person-outline" size={48} color={theme.colors.primary} />
-                     </View>
-                </View>
-
-                <Text style={[styles.title, { color: theme.colors.text }]}>Welcome Back</Text>
-                <Text style={[styles.subtitle, { color: theme.colors.textLight }]}>Sign in to your Sumbandila account</Text>
-
-                {error && (
-                    <View style={styles.errorContainer}>
-                        <Text style={styles.errorText}>{error}</Text>
-                    </View>
-                )}
-
-                <View style={[styles.card, theme.shadows.default, { backgroundColor: theme.colors.surface }]}>
-                    <Text style={[styles.label, { color: theme.colors.text }]}>Email Address</Text>
-                    <View style={[styles.inputContainer, { borderColor: theme.colors.border, backgroundColor: isDarkMode ? theme.colors.background : '#F9FAFB' }]}>
-                        <Ionicons name="mail-outline" size={20} color={theme.colors.textLight} style={styles.inputIcon} />
-                        <TextInput 
-                            style={[styles.input, { color: theme.colors.text }]}
-                            placeholder="Enter your email"
-                            placeholderTextColor={theme.colors.textLight}
-                            value={email}
-                            onChangeText={setEmail}
-                            autoCapitalize="none"
-                        />
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex: 1}}>
+                <ScrollView 
+                    contentContainerStyle={styles.scrollContent} 
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="handled"
+                >
+                    <View style={styles.iconContainer}>
+                         <View style={[styles.iconCircle, { backgroundColor: isDarkMode ? theme.colors.surface : '#FFEDD5', borderColor: theme.colors.border }]}>
+                            <Ionicons name="person-outline" size={48} color={theme.colors.primary} />
+                         </View>
                     </View>
 
-                    <Text style={[styles.label, { color: theme.colors.text }]}>Password</Text>
-                    <View style={[styles.inputContainer, { borderColor: theme.colors.border, backgroundColor: isDarkMode ? theme.colors.background : '#F9FAFB' }]}>
-                        <Ionicons name="lock-closed-outline" size={20} color={theme.colors.textLight} style={styles.inputIcon} />
-                        <TextInput 
-                            style={[styles.input, { color: theme.colors.text }]}
-                            placeholder="Enter your password"
-                            placeholderTextColor={theme.colors.textLight}
-                            value={password}
-                            onChangeText={setPassword}
-                            secureTextEntry
-                        />
+                    <Text style={[styles.title, { color: theme.colors.text }]}>Welcome Back</Text>
+                    <Text style={[styles.subtitle, { color: theme.colors.textLight }]}>Sign in to your Sumbandila account</Text>
+
+                    {error && (
+                        <View style={styles.errorContainer}>
+                            <Text style={styles.errorText}>{error}</Text>
+                        </View>
+                    )}
+
+                    <View style={[styles.card, theme.shadows.default, { backgroundColor: theme.colors.surface }]}>
+                        <Text style={[styles.label, { color: theme.colors.text }]}>Email Address</Text>
+                        <View style={[styles.inputContainer, { borderColor: theme.colors.border, backgroundColor: isDarkMode ? theme.colors.background : '#F9FAFB' }]}>
+                            <Ionicons name="mail-outline" size={20} color={theme.colors.textLight} style={styles.inputIcon} />
+                            <TextInput 
+                                style={[styles.input, { color: theme.colors.text }]}
+                                placeholder="Enter your email"
+                                placeholderTextColor={theme.colors.textLight}
+                                value={email}
+                                onChangeText={setEmail}
+                                autoCapitalize="none"
+                            />
+                        </View>
+
+                        <Text style={[styles.label, { color: theme.colors.text }]}>Password</Text>
+                        <View style={[styles.inputContainer, { borderColor: theme.colors.border, backgroundColor: isDarkMode ? theme.colors.background : '#F9FAFB' }]}>
+                            <Ionicons name="lock-closed-outline" size={20} color={theme.colors.textLight} style={styles.inputIcon} />
+                            <TextInput 
+                                style={[styles.input, { color: theme.colors.text }]}
+                                placeholder="Enter your password"
+                                placeholderTextColor={theme.colors.textLight}
+                                value={password}
+                                onChangeText={setPassword}
+                                secureTextEntry
+                            />
+                        </View>
+
+                        <TouchableOpacity 
+                            style={[styles.loginButton, { backgroundColor: theme.colors.primaryDark }]}
+                            onPress={handleLogin}
+                        >
+                            <Text style={styles.loginButtonText}>{loading ? 'Signing In...' : 'Sign In'}</Text>
+                        </TouchableOpacity>
+
+                        <View style={styles.divider}>
+                            <View style={[styles.line, { backgroundColor: theme.colors.border }]} />
+                            <Text style={styles.orText}>OR</Text>
+                            <View style={[styles.line, { backgroundColor: theme.colors.border }]} />
+                        </View>
+
+                        <TouchableOpacity 
+                            style={[styles.createAccountButton, { borderColor: theme.colors.border }]}
+                            onPress={() => navigation.navigate('Register')}
+                        >
+                            <Text style={[styles.createAccountText, { color: theme.colors.text }]}>Create New Account</Text>
+                        </TouchableOpacity>
                     </View>
-
-                    <TouchableOpacity 
-                        style={[styles.loginButton, { backgroundColor: theme.colors.primaryDark }]}
-                        onPress={handleLogin}
-                    >
-                        <Text style={styles.loginButtonText}>{loading ? 'Signing In...' : 'Sign In'}</Text>
-                    </TouchableOpacity>
-
-                    <View style={styles.divider}>
-                        <View style={[styles.line, { backgroundColor: theme.colors.border }]} />
-                        <Text style={styles.orText}>OR</Text>
-                        <View style={[styles.line, { backgroundColor: theme.colors.border }]} />
-                    </View>
-
-                    <TouchableOpacity 
-                        style={[styles.createAccountButton, { borderColor: theme.colors.border }]}
-                        onPress={() => navigation.navigate('Register')}
-                    >
-                        <Text style={[styles.createAccountText, { color: theme.colors.text }]}>Create New Account</Text>
-                    </TouchableOpacity>
-                </View>
-
+                </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
@@ -116,6 +120,9 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
+    },
+    scrollContent: {
+        flexGrow: 1,
         justifyContent: 'center',
         paddingHorizontal: 24,
     },

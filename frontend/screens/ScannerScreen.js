@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
+import { verifyCode } from '../services/verification';
 
 export default function ScannerScreen({ navigation }) {
     const { theme, isDarkMode } = useTheme();
     const [permission, requestPermission] = useCameraPermissions();
     const [scanned, setScanned] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (!permission) {
@@ -15,9 +17,23 @@ export default function ScannerScreen({ navigation }) {
         }
     }, [permission]);
 
-    const handleBarCodeScanned = ({ data }) => {
+    const handleBarCodeScanned = async ({ data }) => {
         setScanned(true);
-        navigation.navigate('Home', { scannedData: data });
+        setLoading(true);
+        try {
+            console.log('Scanned data:', data);
+            const result = await verifyCode(data);
+            navigation.navigate('Result', { data: result });
+        } catch (error) {
+            console.error(error);
+            Alert.alert(
+                "Verification Failed",
+                "Unable to verify this code. It may be invalid or you are offline.",
+                [{ text: "OK", onPress: () => setScanned(false) }]
+            );
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (!permission) return <View style={{ flex: 1, backgroundColor: theme.colors.background }} />;
@@ -43,6 +59,13 @@ export default function ScannerScreen({ navigation }) {
                 facing="back"
                 onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
             />
+            
+            {loading && (
+                <View style={[styles.loadingOverlay, { backgroundColor: 'rgba(0,0,0,0.7)' }]}>
+                    <ActivityIndicator size="large" color={theme.colors.primary} />
+                    <Text style={{ color: 'white', marginTop: 10 }}>Verifying...</Text>
+                </View>
+            )}
             
             <SafeAreaView style={styles.overlay}>
                 <View style={styles.header}>
@@ -84,6 +107,7 @@ const styles = StyleSheet.create({
     topRight: { top: 0, right: 0, borderLeftWidth: 0, borderBottomWidth: 0 },
     bottomLeft: { bottom: 0, left: 0, borderRightWidth: 0, borderTopWidth: 0 },
     bottomRight: { bottom: 0, right: 0, borderLeftWidth: 0, borderTopWidth: 0 },
-    hint: { color: 'white', marginTop: 32, fontSize: 16, fontWeight: '500', backgroundColor: 'rgba(0,0,0,0.5)', paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20 }
+    hint: { color: 'white', marginTop: 32, fontSize: 16, fontWeight: '500', backgroundColor: 'rgba(0,0,0,0.5)', paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20 },
+    loadingOverlay: { ...StyleSheet.absoluteFillObject, justifyContent: 'center', alignItems: 'center', zIndex: 10 }
 });
 

@@ -8,10 +8,10 @@ export default function ResultScreen({ route, navigation }) {
     const { theme, isDarkMode } = useTheme();
     const { data } = route.params || { 
         data: { 
-            name: 'Boston City Campus', 
-            status: true, 
-            regNumber: '2001/HE07/006',
-            type: 'education'
+            name: 'Unknown Entity', 
+            status: false, 
+            details: 'No data provided',
+            type: 'unknown'
         } 
     };
 
@@ -21,7 +21,7 @@ export default function ResultScreen({ route, navigation }) {
         <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
              <GradientHeader title="Sumbandila" showBack={true} onBack={() => navigation.goBack()} />
              
-             <ScrollView contentContainerStyle={styles.content}>
+             <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
                  
                 <View style={[styles.card, theme.shadows.default, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]}>
                     <View style={styles.headerRow}>
@@ -47,8 +47,8 @@ export default function ResultScreen({ route, navigation }) {
 
                     <View style={styles.row}>
                         <View style={styles.col}>
-                            <Text style={[styles.label, { color: theme.colors.textLight }]}>Registration Number</Text>
-                            <Text style={[styles.value, { color: theme.colors.text }]}>{data.regNumber || 'N/A'}</Text>
+                            <Text style={[styles.label, { color: theme.colors.textLight }]}>Details</Text>
+                            <Text style={[styles.value, { color: theme.colors.text, fontSize: 16 }]}>{data.details || 'N/A'}</Text>
                         </View>
                         <View style={styles.col}>
                             <Text style={[styles.label, { color: theme.colors.textLight }]}>Status</Text>
@@ -60,24 +60,28 @@ export default function ResultScreen({ route, navigation }) {
                         </View>
                     </View>
 
-                    <View style={styles.fieldGroup}>
-                        <Text style={[styles.label, { color: theme.colors.textLight }]}>Accreditation</Text>
-                        <Text style={[styles.value, { color: theme.colors.text }]}>CHE Accredited</Text>
-                    </View>
-
-                    <View style={styles.fieldGroup}>
-                        <Text style={[styles.label, { color: theme.colors.textLight }]}>Accredited Courses</Text>
-                        <View style={styles.tags}>
-                            <View style={[styles.tag, { backgroundColor: isDarkMode ? theme.colors.background : '#EFF6FF' }]}><Text style={[styles.tagText, { color: isDarkMode ? theme.colors.primary : '#1E40AF' }]}>Business Management</Text></View>
-                            <View style={[styles.tag, { backgroundColor: isDarkMode ? theme.colors.background : '#EFF6FF' }]}><Text style={[styles.tagText, { color: isDarkMode ? theme.colors.primary : '#1E40AF' }]}>IT</Text></View>
-                            <View style={[styles.tag, { backgroundColor: isDarkMode ? theme.colors.background : '#EFF6FF' }]}><Text style={[styles.tagText, { color: isDarkMode ? theme.colors.primary : '#1E40AF' }]}>Marketing</Text></View>
+                    {data.specialty && (
+                        <View style={styles.fieldGroup}>
+                            <Text style={[styles.label, { color: theme.colors.textLight }]}>Specialty</Text>
+                            <Text style={[styles.value, { color: theme.colors.text }]}>{data.specialty}</Text>
                         </View>
-                    </View>
+                    )}
 
-                     <View style={styles.fieldGroup}>
-                        <Text style={[styles.label, { color: theme.colors.textLight }]}>Valid Until</Text>
-                        <Text style={[styles.value, { color: theme.colors.text }]}>2026-12-31</Text>
-                    </View>
+                    {data.contact && (
+                        <View style={styles.fieldGroup}>
+                            <Text style={[styles.label, { color: theme.colors.textLight }]}>Contact</Text>
+                            <Text style={[styles.value, { color: theme.colors.text }]}>{data.contact}</Text>
+                        </View>
+                    )}
+
+                    {data.address && (
+                        <View style={styles.fieldGroup}>
+                            <Text style={[styles.label, { color: theme.colors.textLight }]}>Address</Text>
+                            <Text style={[styles.value, { color: theme.colors.text }]}>{data.address}</Text>
+                        </View>
+                    )}
+
+
 
                     <View style={[styles.infoBox, { backgroundColor: isDarkMode ? theme.colors.background : '#EFF6FF' }]}>
                          <Ionicons name="information-circle-outline" size={24} color={isDarkMode ? theme.colors.primary : '#1E40AF'} style={{marginRight: 8}} />

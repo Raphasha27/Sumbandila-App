@@ -23,7 +23,7 @@ export default function PrivacySecurityScreen({ navigation }) {
         <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
             <GradientHeader title="Trust Center" showBack={true} onBack={() => navigation.goBack()} />
             
-            <ScrollView contentContainerStyle={styles.content}>
+            <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
                 
                 <View style={[styles.introBox, { backgroundColor: isDarkMode ? 'rgba(16, 185, 129, 0.1)' : '#ECFDF5', borderColor: isDarkMode ? theme.colors.success : '#A7F3D0' }]}>
                     <Ionicons name="shield-checkmark" size={32} color={theme.colors.success} style={{marginBottom: 8}} />

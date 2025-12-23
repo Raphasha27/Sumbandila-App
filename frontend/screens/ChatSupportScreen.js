@@ -76,6 +76,7 @@ export default function ChatSupportScreen() {
                     ref={scrollViewRef}
                     style={styles.messagesContainer}
                     contentContainerStyle={styles.messagesContent}
+                    showsVerticalScrollIndicator={false}
                     onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
                 >
                     {messages.map((msg) => (

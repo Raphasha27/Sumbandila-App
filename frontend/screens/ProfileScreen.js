@@ -25,7 +25,7 @@ export default function ProfileScreen({ navigation }) {
         <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
             <GradientHeader title="My Profile" showBack={true} onBack={() => navigation.goBack()} />
             
-            <ScrollView contentContainerStyle={styles.content}>
+            <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
                 
                 <View style={styles.avatarContainer}>
                     <View style={[styles.avatarCircle, { backgroundColor: theme.colors.primary, borderColor: theme.colors.surface }]}>

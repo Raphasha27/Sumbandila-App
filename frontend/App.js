@@ -25,6 +25,8 @@ import AdminDashboard from './screens/AdminDashboard';
 import ReportFraudScreen from './screens/ReportFraudScreen';
 import AIAssistantScreen from './screens/AIAssistantScreen';
 import ContactScreen from './screens/ContactScreen';
+import CrimeAnalyticsScreen from './screens/CrimeAnalyticsScreen';
+import NearbyVerificationScreen from './screens/NearbyVerificationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +62,10 @@ export default function App() {
           <Stack.Screen name="ReportFraud" component={ReportFraudScreen} />
           <Stack.Screen name="AIAssistant" component={AIAssistantScreen} />
           <Stack.Screen name="Contact" component={ContactScreen} />
+          
+          {/* Crime Prevention & Location */}
+          <Stack.Screen name="CrimeAnalytics" component={CrimeAnalyticsScreen} />
+          <Stack.Screen name="NearbyVerification" component={NearbyVerificationScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>
