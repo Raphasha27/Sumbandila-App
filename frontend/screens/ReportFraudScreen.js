@@ -27,7 +27,11 @@ export default function ReportFraudScreen({ navigation, route }) {
             <GradientHeader title="Report Issue" showBack={true} onBack={() => navigation.goBack()} />
             
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex: 1}}>
-                <ScrollView contentContainerStyle={styles.content}>
+                <ScrollView 
+                    contentContainerStyle={styles.content} 
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="handled"
+                >
                     
                     <View style={[styles.card, { backgroundColor: isDarkMode ? 'rgba(239, 68, 68, 0.1)' : '#FEF2F2', borderColor: isDarkMode ? theme.colors.error : '#FECaca' }]}>
                         <View style={styles.alertHeader}>

@@ -24,6 +24,7 @@ export const lightColors = {
     ...commonColors,
     background: '#F8FAFC', // Slate 50
     surface: '#FFFFFF',
+    card: '#FFFFFF',
     text: '#1F2937', // Gray 800
     textLight: '#6B7280', // Gray 500
     textInverse: '#FFFFFF',
@@ -34,6 +35,7 @@ export const darkColors = {
     ...commonColors,
     background: '#0F172A', // Slate 900
     surface: '#1E293B',    // Slate 800
+    card: '#1E293B',       // Slate 800
     text: '#F8FAFC',       // Slate 50
     textLight: '#94A3B8',  // Slate 400
     textInverse: '#FFFFFF',

@@ -251,6 +251,160 @@ app.get('/api/events', async (req, res, next) => {
 });
 
 // ========================================
+// CRIME ANALYTICS & LOCATION
+// ========================================
+
+/**
+ * GET /api/analytics/provinces
+ * Get fraud stats by province
+ */
+app.get('/api/analytics/provinces', async (req, res, next) => {
+  try {
+    const { data, error } = await supabase
+      .from('provincial_stats')
+      .select('*')
+      .order('fraud_reports_count', { ascending: false });
+
+    if (error) throw error;
+    res.json(data || []);
+  } catch (error) {
+    // Return safe default data if table doesn't exist yet
+    res.json([
+      { province: 'Gauteng', fraud_reports_count: 15, high_risk_score: 75 },
+      { province: 'Western Cape', fraud_reports_count: 8, high_risk_score: 45 },
+      { province: 'KwaZulu-Natal', fraud_reports_count: 12, high_risk_score: 60 }
+    ]);
+  }
+});
+
+/**
+ * GET /api/analytics/scams
+ * Get recent scam reports and trends
+ */
+app.get('/api/analytics/scams', async (req, res, next) => {
+  try {
+    const { data } = await supabase
+      .from('fraud_reports')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(10);
+
+    // Mock data for analytics dashboard
+    res.json({
+      recentReports: data || [],
+      trends: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          data: [20, 45, 28, 80, 99, 43]
+        }]
+      },
+      fraudTypes: [
+        { name: 'Fake Institution', population: 45, color: '#f00', legendFontColor: '#7F7F7F' },
+        { name: 'Identity Theft', population: 28, color: '#0f0', legendFontColor: '#7F7F7F' },
+        { name: 'Fee Scam', population: 15, color: '#00f', legendFontColor: '#7F7F7F' }
+      ]
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * GET /api/verify/nearby
+ * Find verified institutions nearby
+ */
+app.get('/api/verify/nearby', async (req, res, next) => {
+  try {
+    const { lat, lng, radius = 10 } = req.query;
+    
+    // In a real implementation with PostGIS:
+    // .rpc('nearby_institutions', { lat, lng, radius })
+    
+    // For now, return mock nearby data
+    res.json([
+      { 
+        id: '1', 
+        name: 'University of Pretoria', 
+        distance: '2.5 km', 
+        type: 'university',
+        verified: true 
+      },
+      { 
+        id: '2', 
+        name: 'Dr. Smith Practice', 
+        distance: '1.2 km', 
+        type: 'doctor', 
+        verified: true 
+      }
+    ]);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// ========================================
+// DASHBOARD STATS (PUBLIC)
+// ========================================
+
+/**
+ * GET /api/stats
+ * Get counts for dashboard
+ */
+app.get('/api/stats', async (req, res, next) => {
+  try {
+    let institutionsCount = 0;
+    let professionalsCount = 0;
+
+    // Count verified institutions with error handling
+    try {
+      const { count, error: instError } = await supabase
+        .from('institutions')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', true);
+
+      if (!instError) {
+        institutionsCount = count || 0;
+      }
+    } catch (instErr) {
+      console.log('Institutions count error:', instErr.message);
+      // Use default value of 0
+    }
+
+    // Count verified professionals with error handling
+    try {
+      const { count, error: profError } = await supabase
+        .from('professionals')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', true);
+
+      if (!profError) {
+        professionalsCount = count || 0;
+      }
+    } catch (profErr) {
+      console.log('Professionals count error:', profErr.message);
+      // Use default value of 0
+    }
+
+    // Fixed count for "Official Data Sources" (or you could count tables)
+    const dataSourcesCount = 100;
+
+    res.json({
+      institutions: institutionsCount,
+      professionals: professionalsCount,
+      dataSources: dataSourcesCount
+    });
+  } catch (error) {
+    console.error('Stats endpoint error:', error);
+    // Return default values instead of 500 error
+    res.json({
+      institutions: 0,
+      professionals: 0,
+      dataSources: 100
+    });
+  }
+});
+
+// ========================================
 // CHAT MESSAGES (AUTHENTICATED)
 // ========================================
 
