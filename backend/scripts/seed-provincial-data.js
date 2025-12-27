@@ -25,59 +25,39 @@ const provincialStats = [
 
 const fraudReports = [
     {
-        province: 'Gauteng',
-        city: 'Johannesburg',
-        fraud_type: 'fake_institution',
-        severity: 'high',
         entity_name: 'Jozi Tech College',
-        description: 'Unregistered college claiming DHET accreditation. Taking registration fees without classes.',
-        verified: true,
-        latitude: -26.2041,
-        longitude: 28.0473
+        entity_type: 'institution',
+        description: 'Unregistered college claiming DHET accreditation. Taking registration fees without classes. Location: Johannesburg, Gauteng.',
+        reporter_email: 'system@sumbandila.com',
+        status: 'investigating'
     },
     {
-        province: 'KwaZulu-Natal',
-        city: 'Durban',
-        fraud_type: 'fake_professional',
-        severity: 'high',
-        entity_name: 'Dr. James Naidoo (Fake)',
-        description: 'Practicing without HPCSA registration. Using stolen credentials.',
-        verified: true,
-        latitude: -29.8587,
-        longitude: 31.0218
+        entity_name: 'Dr. James Naidoo',
+        entity_type: 'professional',
+        description: 'Practicing without HPCSA registration. Using stolen credentials. Location: Durban, KwaZulu-Natal.',
+        reporter_email: 'system@sumbandila.com',
+        status: 'investigating'
     },
     {
-        province: 'Western Cape',
-        city: 'Cape Town',
-        fraud_type: 'fee_scam',
-        severity: 'medium',
         entity_name: 'Study Visa Agents',
-        description: 'Charging students for fake visa facilitation services.',
-        verified: true,
-        latitude: -33.9249,
-        longitude: 18.4241
+        entity_type: 'institution',
+        description: 'Charging students for fake visa facilitation services. Location: Cape Town, Western Cape.',
+        reporter_email: 'system@sumbandila.com',
+        status: 'pending'
     },
     {
-        province: 'Gauteng',
-        city: 'Pretoria',
-        fraud_type: 'document_forgery',
-        severity: 'medium',
         entity_name: 'Certificates R Us',
-        description: 'Selling fake matric certificates and university degrees.',
-        verified: true,
-        latitude: -25.7479,
-        longitude: 28.2293
+        entity_type: 'other',
+        description: 'Selling fake matric certificates and university degrees. Location: Pretoria, Gauteng.',
+        reporter_email: 'system@sumbandila.com',
+        status: 'resolved'
     },
     {
-        province: 'Limpopo',
-        city: 'Polokwane',
-        fraud_type: 'fake_institution',
-        severity: 'medium',
         entity_name: 'Limpopo Nursing School',
-        description: 'Illegal nursing school operating in CBD.',
-        verified: true,
-        latitude: -23.9045,
-        longitude: 29.4688
+        entity_type: 'institution',
+        description: 'Illegal nursing school operating in CBD. Location: Polokwane, Limpopo.',
+        reporter_email: 'system@sumbandila.com',
+        status: 'investigating'
     }
 ];
 

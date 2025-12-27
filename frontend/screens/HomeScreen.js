@@ -250,136 +250,6 @@ export default function HomeScreen({ navigation }) {
                 </View>
             </ScrollView>
 
-            {/* Loading Indicator */}
-            {loading && (
-                <View style={styles.loadingContainer}>
-                    <ActivityIndicator size="large" color={theme.colors.primary} />
-                    <Text style={[styles.loadingText, { color: theme.colors.textLight }]}>Loading dashboard...</Text>
-                </View>
-            )}
-
-            {/* Error Message */}
-            {error && !loading && (
-                <View style={[styles.errorContainer, { backgroundColor: theme.colors.error + '20' }]}>
-                    <Ionicons name="alert-circle-outline" size={24} color={theme.colors.error} />
-                    <Text style={[styles.errorText, { color: theme.colors.error }]}>{error}</Text>
-                </View>
-            )}
-
-            {/* Fraud Alert Banner */}
-            <TouchableOpacity 
-                style={[styles.fraudAlert, { backgroundColor: '#FEF2F2', borderColor: '#FECACA' }]}
-                onPress={() => navigation.navigate('CrimeAnalytics')}
-            >
-                <View style={styles.fraudAlertContent}>
-                    <Ionicons name="warning" size={24} color="#DC2626" />
-                    <View style={styles.fraudAlertText}>
-                        <Text style={[styles.fraudAlertTitle, { color: '#991B1B' }]}>Crime Alert: CBD Area</Text>
-                        <Text style={[styles.fraudAlertBody, { color: '#B91C1C' }]}>High report of fake colleges. Tap to view map.</Text>
-                    </View>
-                    <Ionicons name="chevron-forward" size={20} color="#991B1B" />
-                </View>
-            </TouchableOpacity>
-
-            {/* Quick Actions */}
-            <View style={styles.quickActionsContainer}>
-                <Text style={[styles.sectionLabel, { color: theme.colors.text }]}>Quick Actions</Text>
-                <View style={styles.quickActionsRow}>
-                    <QuickActionButton 
-                        icon="stats-chart"
-                        label="Crime Stats"
-                        colors={['#EF4444', '#B91C1C']}
-                        onPress={() => navigation.navigate('CrimeAnalytics')}
-                    />
-                    <QuickActionButton 
-                        icon="location"
-                        label="Nearby"
-                        colors={['#3B82F6', '#2563EB']}
-                        onPress={() => navigation.navigate('NearbyVerification')}
-                    />
-                    <QuickActionButton 
-                        icon="qr-code-outline"
-                        label="Scan QR"
-                        colors={['#8B5CF6', '#7C3AED']}
-                        onPress={() => navigation.navigate('RealScanner')}
-                    />
-                    <QuickActionButton 
-                        icon="shield-checkmark-outline"
-                        label="Verify"
-                        colors={['#10B981', '#059669']}
-                        onPress={() => navigation.navigate('Scanner')}
-                    />
-                    <QuickActionButton 
-                        icon="alert-circle-outline"
-                        label="Report"
-                        colors={['#F59E0B', '#D97706']}
-                        onPress={() => navigation.navigate('ReportFraud')}
-                    />
-                    <QuickActionButton 
-                        icon="help-circle-outline"
-                        label="Help"
-                        colors={['#6366F1', '#4F46E5']}
-                        onPress={() => navigation.navigate('ChatSupport')}
-                    />
-                </View>
-            </View>
-            
-            <ScrollView 
-                contentContainerStyle={[styles.scrollContent, { paddingTop: 16 }]} 
-                showsVerticalScrollIndicator={false}
-                refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={theme.colors.primary} />
-                }
-            >
-                <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Verification Categories</Text>
-                <Text style={[styles.sectionSubtitle, { color: theme.colors.textLight }]}>Select a category to begin verification</Text>
-
-                <View style={styles.categoriesContainer}>
-                    <CategoryCard 
-                        title="Education" 
-                        subtitle="Schools, Colleges & Courses" 
-                        icon="school-outline" 
-                        color={theme.colors.education}
-                        onPress={() => navigateToVerification('education')}
-                    />
-                    <CategoryCard 
-                        title="Medical" 
-                        subtitle="Doctors & Healthcare Professionals" 
-                        icon="medkit-outline" 
-                        color={theme.colors.medical}
-                        onPress={() => navigateToVerification('medical')}
-                    />
-                     <CategoryCard 
-                        title="Legal" 
-                        subtitle="Lawyers & Legal Professionals" 
-                        icon="scale-outline" 
-                        color={theme.colors.legal}
-                        onPress={() => navigateToVerification('legal')}
-                    />
-                </View>
-
-                <View style={styles.statsContainer}>
-                    <StatsCard 
-                        icon="business-outline" 
-                        number={stats.institutions.toLocaleString() + "+"} 
-                        label="Registered Institutions" 
-                        iconColor="#3B82F6"
-                    />
-                    <StatsCard 
-                        icon="people-outline" 
-                        number={stats.professionals.toLocaleString() + "+"} 
-                        label="Verified Professionals" 
-                        iconColor="#10B981"
-                    />
-                     <StatsCard 
-                        icon="shield-checkmark-outline" 
-                        number={stats.dataSources.toLocaleString() + "%"} 
-                        label="Official Data Sources" 
-                        iconColor="#F97316"
-                    />
-                </View>
-            </ScrollView>
-
             <TouchableOpacity 
                 style={styles.fab}
                 onPress={() => navigation.navigate('ChatSupport')}
@@ -466,7 +336,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 20,
+        marginTop: 90,
     },
     sectionSubtitle: {
         fontSize: 16,
@@ -504,6 +374,7 @@ const styles = StyleSheet.create({
     quickActionsContainer: {
         paddingHorizontal: 20,
         paddingVertical: 16,
+        marginBottom: 24,
     },
     sectionLabel: {
         fontSize: 18,
@@ -513,7 +384,7 @@ const styles = StyleSheet.create({
     quickActionsRow: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        marginHorizontal: -6,
+        justifyContent: 'space-between',
     },
     fraudAlert: {
         marginHorizontal: 20,
