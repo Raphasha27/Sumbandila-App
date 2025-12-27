@@ -23,8 +23,9 @@ export default function QuickActionButton({ icon, label, onPress, colors = ['#3B
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        margin: 6,
+        width: '30%',
+        margin: '1.5%',
+        aspectRatio: 1.1,
         borderRadius: 16,
         overflow: 'hidden',
         shadowColor: '#000',
@@ -34,17 +35,21 @@ const styles = StyleSheet.create({
         elevation: 6,
     },
     gradient: {
-        paddingVertical: 20,
-        paddingHorizontal: 12,
+        flex: 1,
+        paddingVertical: 10,
+        paddingHorizontal: 8,
         alignItems: 'center',
         justifyContent: 'center',
     },
     iconContainer: {
         marginBottom: 8,
+        backgroundColor: 'rgba(255,255,255,0.2)',
+        padding: 8,
+        borderRadius: 12,
     },
     label: {
         color: 'white',
-        fontSize: 12,
+        fontSize: 11,
         fontWeight: '600',
         textAlign: 'center',
     },
