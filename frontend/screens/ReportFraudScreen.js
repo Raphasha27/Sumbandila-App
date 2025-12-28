@@ -1,25 +1,60 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform, Alert, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform, Alert, ScrollView, KeyboardAvoidingView, Image } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 import GradientHeader from '../components/GradientHeader';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import axios from 'axios';
+import config from '../config';
 
 export default function ReportFraudScreen({ navigation, route }) {
     const { theme, isDarkMode } = useTheme();
     const { entityName, entityId } = route.params || {};
     const [description, setDescription] = useState('');
     const [contact, setContact] = useState('');
+    const [image, setImage] = useState(null);
+    const [uploading, setUploading] = useState(false);
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 0.5,
+            base64: true,
+        });
+
+        if (!result.canceled) {
+            setImage(result.assets[0]);
+        }
+    };
 
     const submitReport = async () => {
         if (!description) {
-            alert('Please provide a description.');
+            Alert.alert('Missing Information', 'Please provide a description.');
             return;
         }
 
-        setTimeout(() => {
-            alert('Report Submitted! Thank you for helping keep our data accurate.');
-            navigation.goBack();
-        }, 1000);
+        setUploading(true);
+        try {
+            const reportData = {
+                entityName: entityName || 'General Issue',
+                description,
+                reporterEmail: contact,
+                evidenceData: image ? `data:image/jpeg;base64,${image.base64}` : null
+            };
+
+            await axios.post(`${config.apiBase}/api/report`, reportData);
+            
+            Alert.alert('Report Submitted', 'Thank you for helping keep our data accurate. Our team will investigate.', [
+                { text: 'OK', onPress: () => navigation.goBack() }
+            ]);
+        } catch (error) {
+            console.error(error);
+            Alert.alert('Error', 'Failed to submit report. Please try again.');
+        } finally {
+            setUploading(false);
+        }
     };
 
     return (
@@ -56,6 +91,23 @@ export default function ReportFraudScreen({ navigation, route }) {
                         onChangeText={setDescription}
                     />
 
+                    <Text style={[styles.label, { color: theme.colors.text }]}>Evidence (Optional)</Text>
+                    <TouchableOpacity onPress={pickImage} style={[styles.uploadButton, { borderColor: theme.colors.border, borderStyle: 'dashed' }]}>
+                        {image ? (
+                            <Image source={{ uri: image.uri }} style={styles.previewImage} />
+                        ) : (
+                            <View style={styles.uploadPlaceholder}>
+                                <Ionicons name="cloud-upload-outline" size={24} color={theme.colors.primary} />
+                                <Text style={[styles.uploadText, { color: theme.colors.primary }]}>Tap to attach photo/screenshot</Text>
+                            </View>
+                        )}
+                    </TouchableOpacity>
+                    {image && (
+                         <TouchableOpacity onPress={() => setImage(null)} style={{alignItems: 'center', marginBottom: 16}}>
+                            <Text style={{color: '#EF4444'}}>Remove Image</Text>
+                        </TouchableOpacity>
+                    )}
+
                     <Text style={[styles.label, { color: theme.colors.text }]}>Your Contact Details (Optional)</Text>
                     <TextInput
                         style={[styles.input, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: theme.colors.border }]}
@@ -65,8 +117,12 @@ export default function ReportFraudScreen({ navigation, route }) {
                         onChangeText={setContact}
                     />
 
-                    <TouchableOpacity onPress={submitReport} style={[styles.submitButton, { backgroundColor: '#DC2626' }]}>
-                        <Text style={styles.submitButtonText}>Submit Secure Report</Text>
+                    <TouchableOpacity 
+                        onPress={submitReport} 
+                        style={[styles.submitButton, { backgroundColor: '#DC2626', opacity: uploading ? 0.7 : 1 }]}
+                        disabled={uploading}
+                    >
+                        <Text style={styles.submitButtonText}>{uploading ? 'Submitting...' : 'Submit Secure Report'}</Text>
                         <Ionicons name="lock-closed" size={16} color="white" style={{marginLeft: 8}} />
                     </TouchableOpacity>
 
@@ -123,6 +179,27 @@ const styles = StyleSheet.create({
     textArea: {
         height: 120,
         textAlignVertical: 'top',
+    },
+    uploadButton: {
+        borderWidth: 2,
+        borderRadius: 12,
+        height: 150,
+        marginBottom: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+    },
+    uploadPlaceholder: {
+        alignItems: 'center',
+    },
+    uploadText: {
+        marginTop: 8,
+        fontSize: 14,
+        fontWeight: '600',
+    },
+    previewImage: {
+        width: '100%',
+        height: '100%',
     },
     submitButton: {
         borderRadius: 12,

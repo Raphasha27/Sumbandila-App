@@ -27,6 +27,7 @@ import AIAssistantScreen from './screens/AIAssistantScreen';
 import ContactScreen from './screens/ContactScreen';
 import CrimeAnalyticsScreen from './screens/CrimeAnalyticsScreen';
 import NearbyVerificationScreen from './screens/NearbyVerificationScreen';
+import CommunityAlertsScreen from './screens/CommunityAlertsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +67,7 @@ export default function App() {
           {/* Crime Prevention & Location */}
           <Stack.Screen name="CrimeAnalytics" component={CrimeAnalyticsScreen} />
           <Stack.Screen name="NearbyVerification" component={NearbyVerificationScreen} />
+          <Stack.Screen name="CommunityAlerts" component={CommunityAlertsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>
