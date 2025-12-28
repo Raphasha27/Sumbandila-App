@@ -33,6 +33,15 @@ const institutions = [
     { institution_id: 'UL001', name: 'University of Limpopo', status: true, address: 'Polokwane, Limpopo', details: 'Comprehensive university' },
     { institution_id: 'UMP001', name: 'University of Mpumalanga', status: true, address: 'Mbombela, Mpumalanga', details: 'Newest university, established 2014' },
     { institution_id: 'UFH001', name: 'University of Fort Hare', status: true, address: 'Alice, Eastern Cape', details: 'Historic university founded 1916' },
+    { institution_id: 'SPU001', name: 'Sol Plaatje University', status: true, address: 'Kimberley, Northern Cape', details: 'Established in 2014' },
+    { institution_id: 'UNIVEN001', name: 'University of Venda', status: true, address: 'Thohoyandou, Limpopo', details: 'Comprehensive rural-based university' },
+    { institution_id: 'MUT001', name: 'Mangosuthu University of Technology', status: true, address: 'Umlazi, KwaZulu-Natal', details: 'University of technology' },
+    { institution_id: 'CUT001', name: 'Central University of Technology', status: true, address: 'Bloemfontein, Free State', details: 'University of technology' },
+    { institution_id: 'RGI001', name: 'Richfield Graduate Institute of Technology', status: true, address: 'National', details: 'Private higher education institution' },
+    { institution_id: 'VEGA001', name: 'Vega School', status: true, address: 'National', details: 'Private higher education institution' },
+    { institution_id: 'BC001', name: 'Boston City Campus', status: true, address: 'National', details: 'Private higher education institution' },
+    { institution_id: 'RC001', name: 'Rosebank College', status: true, address: 'National', details: 'Part of the IIE' },
+    { institution_id: 'VC001', name: 'Varsity College', status: true, address: 'National', details: 'Part of the IIE' }
 ];
 
 // South African Medical Professionals
@@ -52,6 +61,11 @@ const doctors = [
     { professional_id: 'MP013456', name: 'Dr. Kabelo Maseko', type: 'doctor', status: true, specialty: 'Internal Medicine', details: 'HPCSA Registered - Johannesburg' },
     { professional_id: 'MP014567', name: 'Dr. Ruan Erasmus', type: 'doctor', status: true, specialty: 'Emergency Medicine', details: 'HPCSA Registered - Pretoria' },
     { professional_id: 'MP015678', name: 'Dr. Nkosi Zulu', type: 'doctor', status: true, specialty: 'Family Medicine', details: 'HPCSA Registered - Polokwane' },
+    { professional_id: 'MP016789', name: 'Dr. Fatima Patel', type: 'doctor', status: true, specialty: 'Ophthalmology', details: 'HPCSA Registered - Lenasia' },
+    { professional_id: 'MP017890', name: 'Dr. Yaseen Ally', type: 'doctor', status: true, specialty: 'General Practice', details: 'HPCSA Registered - Durban' },
+    { professional_id: 'MP018901', name: 'Dr. Susan Jenkins', type: 'doctor', status: true, specialty: 'Pediatrics', details: 'HPCSA Registered - Sandton' },
+    { professional_id: 'MP019012', name: 'Dr. Vusi Mahlangu', type: 'doctor', status: true, specialty: 'Sports Medicine', details: 'HPCSA Registered - Soweto' },
+    { professional_id: 'MP020123', name: 'Dr. Charlene Nasoo', type: 'doctor', status: true, specialty: 'Dermatology', details: 'HPCSA Registered - Cape Town' }
 ];
 
 // South African Legal Professionals
@@ -71,6 +85,11 @@ const lawyers = [
     { professional_id: 'LP113456', name: 'Adv. Hennie van Zyl', type: 'lawyer', status: true, specialty: 'Banking Law', details: 'Law Society Registered - Sandton' },
     { professional_id: 'LP114567', name: 'Adv. Nokuthula Dube', type: 'lawyer', status: true, specialty: 'Immigration Law', details: 'Law Society Registered - Pretoria' },
     { professional_id: 'LP115678', name: 'Adv. Willem Pretorius', type: 'lawyer', status: true, specialty: 'Contract Law', details: 'Law Society Registered - Cape Town' },
+    { professional_id: 'LP116789', name: 'Adv. Rajesh Pillay', type: 'lawyer', status: true, specialty: 'Conveyancing', details: 'Law Society Registered - Durban' },
+    { professional_id: 'LP117890', name: 'Adv. Tshepo Mokoena', type: 'lawyer', status: true, specialty: 'Litigation', details: 'Law Society Registered - Soweto' },
+    { professional_id: 'LP118901', name: 'Adv. Gerrie Nel (Example)', type: 'lawyer', status: true, specialty: 'Criminal Law', details: 'Law Society Registered - Pretoria' },
+    { professional_id: 'LP119012', name: 'Adv. Dali Mpofu (Example)', type: 'lawyer', status: true, specialty: 'Constitutional Law', details: 'Law Society Registered - Johannesburg' },
+    { professional_id: 'LP120123', name: 'Adv. Thuli Madonsela (Example)', type: 'lawyer', status: true, specialty: 'Administrative Law', details: 'Law Society Registered - Stellenbosch' }
 ];
 
 async function seedDatabase() {
