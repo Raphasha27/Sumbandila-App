@@ -135,30 +135,39 @@ export default function HomeScreen({ navigation }) {
                     </View>
                 )}
 
-                {/* Fraud Alert Banner */}
-                <TouchableOpacity 
-                    style={[styles.fraudAlert, { backgroundColor: '#FEF2F2', borderColor: '#FECACA' }]}
-                    onPress={() => navigation.navigate('CrimeAnalytics')}
-                >
-                    <View style={styles.fraudAlertContent}>
-                        <Ionicons name="warning" size={24} color="#DC2626" />
-                        <View style={styles.fraudAlertText}>
-                            <Text style={[styles.fraudAlertTitle, { color: '#991B1B' }]}>Crime Alert: CBD Area</Text>
-                            <Text style={[styles.fraudAlertBody, { color: '#B91C1C' }]}>High report of fake colleges. Tap to view map.</Text>
-                        </View>
-                        <Ionicons name="chevron-forward" size={20} color="#991B1B" />
-                    </View>
-                </TouchableOpacity>
+                {/* Verification Categories - Swapped Up */}
+                <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Verification Categories</Text>
+                <Text style={[styles.sectionSubtitle, { color: theme.colors.textLight }]}>Select a category to begin verification</Text>
+                <View style={styles.categoriesContainer}>
+                    <CategoryCard 
+                        title="Education" 
+                        subtitle="Schools, Colleges & Courses" 
+                        icon="school-outline" 
+                        color={theme.colors.education}
+                        onPress={() => navigateToVerification('education')}
+                    />
+                    <CategoryCard 
+                        title="Medical" 
+                        subtitle="Doctors & Healthcare Professionals" 
+                        icon="medkit-outline" 
+                        color={theme.colors.medical}
+                        onPress={() => navigateToVerification('medical')}
+                    />
+                    <CategoryCard 
+                        title="Legal" 
+                        subtitle="Lawyers & Legal Professionals" 
+                        icon="scale-outline" 
+                        color={theme.colors.legal}
+                        onPress={() => navigateToVerification('legal')}
+                    />
+                </View>
 
-                {/* Embedded Analytics */}
-                <HomeAnalytics data={scamData} />
-                
                 {/* Embedded Nearby Places */}
                 <View style={{ paddingHorizontal: 20 }}>
                     <HomeNearby navigation={navigation} />
                 </View>
 
-                {/* Quick Actions */}
+                {/* Quick Actions - Swapped Down */}
                 <View style={styles.quickActionsContainer}>
                     <Text style={[styles.sectionLabel, { color: theme.colors.text }]}>Quick Actions</Text>
                     <View style={styles.quickActionsRow}>
@@ -201,33 +210,7 @@ export default function HomeScreen({ navigation }) {
                     </View>
                 </View>
 
-                <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Verification Categories</Text>
-                <Text style={[styles.sectionSubtitle, { color: theme.colors.textLight }]}>Select a category to begin verification</Text>
-
-                <View style={styles.categoriesContainer}>
-                    <CategoryCard 
-                        title="Education" 
-                        subtitle="Schools, Colleges & Courses" 
-                        icon="school-outline" 
-                        color={theme.colors.education}
-                        onPress={() => navigateToVerification('education')}
-                    />
-                    <CategoryCard 
-                        title="Medical" 
-                        subtitle="Doctors & Healthcare Professionals" 
-                        icon="medkit-outline" 
-                        color={theme.colors.medical}
-                        onPress={() => navigateToVerification('medical')}
-                    />
-                     <CategoryCard 
-                        title="Legal" 
-                        subtitle="Lawyers & Legal Professionals" 
-                        icon="scale-outline" 
-                        color={theme.colors.legal}
-                        onPress={() => navigateToVerification('legal')}
-                    />
-                </View>
-
+                {/* Stats Cards */}
                 <View style={styles.statsContainer}>
                     <StatsCard 
                         icon="business-outline" 
@@ -248,6 +231,25 @@ export default function HomeScreen({ navigation }) {
                         iconColor="#F97316"
                     />
                 </View>
+
+                {/* Crime Alert Banner */}
+                <TouchableOpacity 
+                    style={[styles.fraudAlert, { backgroundColor: '#FEF2F2', borderColor: '#FECACA' }]}
+                    onPress={() => navigation.navigate('CrimeAnalytics')}
+                >
+                    <View style={styles.fraudAlertContent}>
+                        <Ionicons name="warning" size={24} color="#DC2626" />
+                        <View style={styles.fraudAlertText}>
+                            <Text style={[styles.fraudAlertTitle, { color: '#991B1B' }]}>Crime Alert: CBD Area</Text>
+                            <Text style={[styles.fraudAlertBody, { color: '#B91C1C' }]}>High report of fake colleges. Tap to view map.</Text>
+                        </View>
+                        <Ionicons name="chevron-forward" size={20} color="#991B1B" />
+                    </View>
+                </TouchableOpacity>
+
+                {/* Fraud Trends Chart */}
+                <HomeAnalytics data={scamData} />
+
             </ScrollView>
 
             <TouchableOpacity 

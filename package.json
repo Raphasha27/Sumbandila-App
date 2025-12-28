@@ -10,7 +10,9 @@
     "android": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"npm run android --prefix frontend\"",
     "start:tunnel": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"npm run tunnel --prefix frontend\"",
     "start:lan": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"cd frontend && npx expo start --lan -c\"",
-    "start:usb": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"cd frontend && npx expo start --localhost\""
+    "start:usb": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"cd frontend && npx expo start --localhost\"",
+    "start:braai": "concurrently --kill-others-on-fail false \"npm start --prefix mzansi_braai_hub/backend\" \"npm run dev --prefix mzansi_braai_hub/frontend\"",
+    "start:mzansi": "concurrently --kill-others-on-fail false \"npm start --prefix mzansi_braai_hub/backend\" \"cd mzansi_mobile && npx expo start --localhost --port 8085\""
   },
   "keywords": [],
   "author": "Raphasha27",
