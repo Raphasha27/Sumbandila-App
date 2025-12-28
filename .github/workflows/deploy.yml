@@ -20,7 +20,7 @@ jobs:
   deploy-backend:
     name: Deploy Backend Services
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment || 'production' }}
+    environment: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'production' }}
     
     steps:
       - name: Checkout code
@@ -69,7 +69,7 @@ jobs:
   deploy-frontend:
     name: Deploy Frontend App
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment || 'production' }}
+    environment: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'production' }}
     
     steps:
       - name: Checkout code
@@ -117,7 +117,7 @@ jobs:
   deploy-admin:
     name: Deploy Admin Dashboard
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment || 'production' }}
+    environment: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'production' }}
     
     steps:
       - name: Checkout code

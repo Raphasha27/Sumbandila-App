@@ -4,6 +4,7 @@ import { CameraView, useCameraPermissions } from 'expo-camera';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { verifyCode } from '../services/verification';
+import { CacheService } from '../services/cache';
 
 export default function ScannerScreen({ navigation }) {
     const { theme, isDarkMode } = useTheme();
@@ -23,6 +24,15 @@ export default function ScannerScreen({ navigation }) {
         try {
             console.log('Scanned data:', data);
             const result = await verifyCode(data);
+            
+            // Save to history
+            await CacheService.addVerificationToHistory({
+                name: result.name || 'Unknown',
+                type: result.type || 'scan',
+                status: result.status || false,
+                details: result.details || '',
+            });
+            
             navigation.navigate('Result', { data: result });
         } catch (error) {
             console.error(error);

@@ -3,7 +3,6 @@
     "name": "Sumbandila",
     "slug": "sumbandila-app",
     "version": "1.0.1",
-    "sdkVersion": "54.0.0",
     "platforms": [
       "ios",
       "android",
@@ -13,8 +12,6 @@
     "icon": "./assets/icon.png",
     "android": {
       "package": "com.raphasha27.sumbandila",
-      "versionCode": 2,
-      "usesCleartextTraffic": true,
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
@@ -32,6 +29,7 @@
       "eas": {
         "projectId": "f2ab287c-4f23-420f-99ac-4d7f7e41d136"
       }
-    }
+    },
+    "owner": "mokoka"
   }
 }

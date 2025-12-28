@@ -202,10 +202,10 @@ export default function HomeScreen({ navigation }) {
                             onPress={() => navigation.navigate('ReportFraud')}
                         />
                         <QuickActionButton 
-                            icon="help-circle-outline"
-                            label="Help"
-                            colors={['#6366F1', '#4F46E5']}
-                            onPress={() => navigation.navigate('ChatSupport')}
+                            icon="megaphone-outline"
+                            label="Alerts"
+                            colors={['#EC4899', '#DB2777']}
+                            onPress={() => navigation.navigate('CommunityAlerts')}
                         />
                     </View>
                 </View>
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 90,
+        marginTop: 24,
     },
     sectionSubtitle: {
         fontSize: 16,

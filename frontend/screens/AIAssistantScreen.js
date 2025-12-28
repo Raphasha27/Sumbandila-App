@@ -14,6 +14,8 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
+import axios from 'axios';
+import config from '../config';
 
 const knowledgeBase = {
     greetings: ["Hello! 👋 I'm your Sumbandila Assistant. How can I help you today?"],
@@ -32,14 +34,6 @@ const quickSuggestions = [
     { id: 4, text: "Contact support", icon: "phone" },
 ];
 
-const getAIResponse = (message) => {
-    const lowerMsg = message.toLowerCase();
-    if (lowerMsg.includes('doctor') || lowerMsg.includes('medical')) return knowledgeBase.verification.medical;
-    if (lowerMsg.includes('school') || lowerMsg.includes('education')) return knowledgeBase.verification.education;
-    if (lowerMsg.includes('legal') || lowerMsg.includes('lawyer')) return knowledgeBase.verification.legal;
-    return knowledgeBase.help;
-};
-
 export default function AIAssistantScreen({ navigation }) {
     const { theme, isDarkMode } = useTheme();
     const [messages, setMessages] = useState([
@@ -50,15 +44,25 @@ export default function AIAssistantScreen({ navigation }) {
     const scrollViewRef = useRef();
     const typingAnimation = useRef(new Animated.Value(0)).current;
 
-    const sendMessage = (text = inputText) => {
+    const sendMessage = async (text = inputText) => {
         if (!text.trim()) return;
-        setMessages(prev => [...prev, { id: Date.now(), text: text.trim(), isAI: false, time: 'Now' }]);
+        
+        const userMsg = { id: Date.now(), text: text.trim(), isAI: false, time: 'Now' };
+        setMessages(prev => [...prev, userMsg]);
         setInputText('');
         setIsTyping(true);
-        setTimeout(() => {
-            setMessages(prev => [...prev, { id: Date.now() + 1, text: getAIResponse(text), isAI: true, time: 'Now' }]);
+
+        try {
+            const res = await axios.post(`${config.apiBase}/api/ai`, { message: text });
+            const aiMsg = { id: Date.now() + 1, text: res.data.response, isAI: true, time: 'Now' };
+            setMessages(prev => [...prev, aiMsg]);
+        } catch (error) {
+            console.error(error);
+            const errorMsg = { id: Date.now() + 1, text: "I'm having trouble connecting to the server. Please try again.", isAI: true, time: 'Now' };
+            setMessages(prev => [...prev, errorMsg]);
+        } finally {
             setIsTyping(false);
-        }, 1000);
+        }
     };
 
     return (

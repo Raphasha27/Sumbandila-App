@@ -21,6 +21,8 @@ import VerificationHistoryScreen from './screens/VerificationHistoryScreen';
 import AIAssistantScreen from './screens/AIAssistantScreen';
 import ContactScreen from './screens/ContactScreen';
 
+import CommunityAlertsScreen from './screens/CommunityAlertsScreen';
+
 const Stack = createNativeStackNavigator();
 
 function AppNavigator() {
@@ -42,6 +44,7 @@ function AppNavigator() {
         <Stack.Screen name="Events" component={EventsScreen} />
         <Stack.Screen name="Chat" component={ChatScreen} />
         <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
+        <Stack.Screen name="CommunityAlerts" component={CommunityAlertsScreen} />
 
         {/* Public Flow */}
         <Stack.Screen name="PublicHome" component={HomeScreen} />
