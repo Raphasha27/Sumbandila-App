@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import { theme } from '../constants/theme';
 import { Ionicons } from '@expo/vector-icons';
 import GradientHeader from '../components/GradientHeader';
@@ -52,7 +52,10 @@ export default function VerificationFormScreen({ route, navigation }) {
     const fillSample = (text) => setQuery(text);
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView 
+            style={styles.container} 
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
             <GradientHeader 
                 title="Back to Categories" 
                 showBack={true} 
@@ -60,7 +63,7 @@ export default function VerificationFormScreen({ route, navigation }) {
                 showProfile={true}
             />
             
-            <ScrollView contentContainerStyle={styles.scrollContent}>
+            <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>{categoryTitle} Verification</Text>
                     
@@ -70,9 +73,9 @@ export default function VerificationFormScreen({ route, navigation }) {
                             style={styles.input}
                             value={query}
                             onChangeText={setQuery}
-                            placeholderTextColor="#9CA3AF"
+                            placeholderTextColor={theme.colors.textSecondary}
                         />
-                        <Ionicons name="search" size={24} color="#9CA3AF" />
+                        <Ionicons name="search" size={24} color={theme.colors.textSecondary} />
                     </View>
 
                     <TouchableOpacity 
@@ -81,9 +84,7 @@ export default function VerificationFormScreen({ route, navigation }) {
                         disabled={loading}
                     >
                         {loading ? (
-                            <ActivityIndicator color={theme.colors.text} /> // Using dark text on light button? Check design.
-                            // Design calls for grey button with dark text "Verify Now"? Or primary button?
-                            // Screenshot shows light grey button with dark grey text "Verify Now".
+                            <ActivityIndicator color={theme.colors.textSecondary} /> 
                         ) : (
                             <Text style={styles.verifyButtonText}>Verify Now</Text>
                         )}
@@ -94,16 +95,18 @@ export default function VerificationFormScreen({ route, navigation }) {
                 <View style={styles.samplesCard}>
                     <Text style={styles.samplesTitle}>Try these sample searches:</Text>
                     
-                    <TouchableOpacity style={styles.sampleItem} onPress={() => fillSample('Boston City Campus')}>
-                        <Text style={styles.sampleText}>Boston City Campus</Text>
-                    </TouchableOpacity>
-                    
-                    <TouchableOpacity style={styles.sampleItem} onPress={() => fillSample('Damelin')}>
-                        <Text style={styles.sampleText}>Damelin</Text>
-                    </TouchableOpacity>
+                    <View style={styles.samplesContainer}>
+                        <TouchableOpacity style={styles.sampleItem} onPress={() => fillSample('Boston City Campus')}>
+                            <Text style={styles.sampleText}>Boston City Campus</Text>
+                        </TouchableOpacity>
+                        
+                        <TouchableOpacity style={styles.sampleItem} onPress={() => fillSample('Damelin')}>
+                            <Text style={styles.sampleText}>Damelin</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ScrollView>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -116,8 +119,8 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     card: {
-        backgroundColor: 'white',
-        borderRadius: 16,
+        backgroundColor: theme.colors.card,
+        borderRadius: theme.borderRadius.l,
         padding: 24,
         marginBottom: 20,
         shadowColor: '#000',
@@ -138,10 +141,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 1,
         borderColor: theme.colors.border,
-        borderRadius: 12,
+        borderRadius: theme.borderRadius.m,
         paddingHorizontal: 16,
         height: 56,
         marginBottom: 24,
+        backgroundColor: theme.colors.background,
     },
     input: {
         flex: 1,
@@ -150,8 +154,8 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     verifyButton: {
-        backgroundColor: '#E5E7EB', // Light grey matching screenshot
-        borderRadius: 12,
+        backgroundColor: theme.colors.border, // Light grey matching design
+        borderRadius: theme.borderRadius.m,
         height: 56,
         justifyContent: 'center',
         alignItems: 'center',
@@ -159,14 +163,11 @@ const styles = StyleSheet.create({
     verifyButtonText: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#9CA3AF', // Grey text for disabled/idle state in screenshot? 
-        // Or specific design color? Let's stick to darker grey if active.
-        color: '#6B7280' 
+        color: theme.colors.textSecondary,
     },
     samplesCard: {
-        backgroundColor: 'white', // Or transparent? Screenshot looks like another card or just list
-        // Screenshot shows a separate white card "Try these sample searches:"
-        borderRadius: 16,
+        backgroundColor: theme.colors.card,
+        borderRadius: theme.borderRadius.l,
         padding: 24,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -180,14 +181,22 @@ const styles = StyleSheet.create({
         color: theme.colors.text,
         marginBottom: 16,
     },
+    samplesContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 10,
+    },
     sampleItem: {
-        backgroundColor: '#F3F4F6',
-        padding: 16,
-        borderRadius: 8,
-        marginBottom: 12,
+        backgroundColor: theme.colors.background,
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        borderRadius: theme.borderRadius.round,
+        borderWidth: 1,
+        borderColor: theme.colors.border,
     },
     sampleText: {
-        fontSize: 16,
+        fontSize: 14,
         color: theme.colors.text,
+        fontWeight: '500',
     }
 });
