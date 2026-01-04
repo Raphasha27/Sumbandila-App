@@ -22,6 +22,9 @@ import AIAssistantScreen from './screens/AIAssistantScreen';
 import ContactScreen from './screens/ContactScreen';
 
 import CommunityAlertsScreen from './screens/CommunityAlertsScreen';
+import IdentityWalletScreen from './screens/IdentityWalletScreen';
+import TrustAfricaScreen from './screens/TrustAfricaScreen';
+import VerificationResultScreen from './screens/VerificationResultScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,12 +42,14 @@ function AppNavigator() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
 
-        {/* Student Flow */}
-        <Stack.Screen name="Dashboard" component={StudentDashboard} />
-        <Stack.Screen name="Events" component={EventsScreen} />
-        <Stack.Screen name="Chat" component={ChatScreen} />
+        {/* Student Flow - DISABLED FOR MVP PHASE 1 */}
+        {/* <Stack.Screen name="Dashboard" component={StudentDashboard} /> */}
+        {/* <Stack.Screen name="Events" component={EventsScreen} /> */}
+        {/* <Stack.Screen name="Chat" component={ChatScreen} /> */}
         <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
         <Stack.Screen name="CommunityAlerts" component={CommunityAlertsScreen} />
+        <Stack.Screen name="IdentityWallet" component={IdentityWalletScreen} />
+        <Stack.Screen name="TrustAfrica" component={TrustAfricaScreen} />
 
         {/* Public Flow */}
         <Stack.Screen name="PublicHome" component={HomeScreen} />
@@ -56,6 +61,7 @@ function AppNavigator() {
         {/* New Phase 1 Screens */}
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="VerificationHistory" component={VerificationHistoryScreen} />
+        <Stack.Screen name="VerificationResult" component={VerificationResultScreen} />
 
         {/* AI Assistant & Contact */}
         <Stack.Screen name="AIAssistant" component={AIAssistantScreen} />

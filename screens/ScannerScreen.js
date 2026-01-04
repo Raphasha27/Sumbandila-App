@@ -14,9 +14,26 @@ export default function ScannerScreen({ navigation }) {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    // data expected to be query string like "type=doctor&q=12345"
+    
+    // Check if it's a Sumbandila Digital Certificate
+    if (data.includes('/verify/')) {
+        // Extract hash from URL: https://sumbandila.co.za/verify/a3f9...
+        const hash = data.split('/verify/')[1];
+        if (hash) {
+            navigation.navigate('VerificationResult', { hash });
+            return;
+        }
+    }
+
+    // Also accept raw hash strings (for demo purposes) if length is 64 chars (SHA-256)
+    if (data.length === 64 && /^[0-9a-fA-F]+$/.test(data)) {
+         navigation.navigate('VerificationResult', { hash: data });
+         return;
+    }
+
+    // Default: Navigate Home with data (for existing lookups)
     navigation.navigate('Home', { scannedData: data });
-    alert(`Scanned: ${data}`);
+    // removed alert to make it smoother
   };
 
   if (!permission) return <View />;

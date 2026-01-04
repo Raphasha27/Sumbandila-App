@@ -55,6 +55,12 @@ export default function ProfileScreen({ navigation, route }) {
             onPress: () => navigation.navigate('VerificationHistory'),
         },
         {
+            icon: 'award',
+            label: 'IdentityPass Wallet',
+            description: 'Your verified credentials',
+            onPress: () => navigation.navigate('IdentityWallet'),
+        },
+        {
             icon: 'bookmark',
             label: 'Watchlist',
             description: 'Entities you\'re monitoring',

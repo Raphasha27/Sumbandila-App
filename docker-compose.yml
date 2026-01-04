@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # 1. API Service (Node.js)
+  api:
+    build: ./backend
+    container_name: sumbandila_api
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://user:password@db:5432/sumbandila_db
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=dev_secret_key_change_in_prod
+    depends_on:
+      - db
+      - redis
+    networks:
+      - sumbandila_net
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  # 2. Database (PostgreSQL)
+  db:
+    image: postgres:15-alpine
+    container_name: sumbandila_db
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=sumbandila_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/scripts:/docker-entrypoint-initdb.d # Auto-seed scripts
+    networks:
+      - sumbandila_net
+
+  # 3. Cache (Redis)
+  redis:
+    image: redis:7-alpine
+    container_name: sumbandila_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - sumbandila_net
+
+networks:
+  sumbandila_net:
+    driver: bridge
+
+volumes:
+  postgres_data:

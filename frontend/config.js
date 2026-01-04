@@ -10,8 +10,8 @@ import { Platform } from 'react-native';
 // For iOS Simulator: use localhost
 // For Android with `adb reverse tcp:5000 tcp:5000`, localhost works reliably.
 const backendUrl = Platform.OS === 'web'
-    ? 'http://localhost:5000'
-    : 'http://192.168.18.65:5000'; // LAN IP for physical device
+    ? 'http://localhost:4000'
+    : 'http://localhost:4000'; // Works with adb reverse
 
 export default {
     apiBase: backendUrl

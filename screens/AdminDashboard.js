@@ -1,110 +1,217 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform, FlatList, TouchableOpacity, Alert } from 'react-native';
-
-import config from '../config';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Alert, Modal, TextInput } from 'react-native';
+import { useTheme } from '../context/ThemeContext';
+import { Ionicons, Feather } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function AdminDashboard({ navigation, route }) {
-    const { user, token } = route.params || {};
-    const [users, setUsers] = useState([]);
-    const apiBase = config.apiBase;
+    const { theme, isDarkMode } = useTheme();
+    const { user } = route.params || {};
+    const [activeTab, setActiveTab] = useState('overview'); // overview, institutions, professionals
+    const [modalVisible, setModalVisible] = useState(false);
+    const [newItemType, setNewItemType] = useState('institution'); // institution or professional
+    const [newItemName, setNewItemName] = useState('');
+    const [newItemReg, setNewItemReg] = useState('');
+    const [newItemCourse, setNewItemCourse] = useState('');
 
-    useEffect(() => {
-        if (!token) {
-            // If strictly enforcing auth, you might want to redirect here
-            // But for demo bypass compatibility, we'll try fetching anyway or show empty
-            console.log("AdminDashboard: No token provided");
-        }
+    // Mock Data for Admin
+    const stats = {
+        institutions: 2450,
+        professionals: 45200,
+        pending: 12,
+        flagged: 5
+    };
 
-        fetch(`${apiBase}/api/users`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(res => {
-                if (res.status === 401 || res.status === 403) {
-                    throw new Error('Unauthorized');
-                }
-                return res.json();
-            })
-            .then(data => {
-                if (Array.isArray(data)) {
-                    setUsers(data);
-                } else {
-                    console.log("AdminDashboard: Received non-array data", data);
-                }
-            })
-            .catch(err => {
-                console.error("Fetch error:", err);
-                if (err.message === 'Unauthorized') {
-                    Alert.alert("Session Expired", "Please login again.");
-                    navigation.replace('Login');
-                }
-            });
-    }, [token]);
+    const recentActions = [
+        { id: 1, action: 'Added Institution', target: 'Pretoria Technical College', time: '2 mins ago', icon: 'business' },
+        { id: 2, action: 'Verified Professional', target: 'Dr. Sarah Smith', time: '15 mins ago', icon: 'person' },
+        { id: 3, action: 'Flagged Profile', target: 'Fake University Inc.', time: '1 hour ago', icon: 'alert-circle', color: '#EF4444' },
+    ];
 
-    const renderStudent = ({ item }) => (
-        <View style={styles.card}>
-            <View style={styles.avatar}>
-                <Text style={styles.avatarText}>{item.name ? item.name[0].toUpperCase() : '?'}</Text>
+    const handleAddItem = () => {
+        setModalVisible(true);
+    };
+
+    const StatusCard = ({ title, value, icon, color }) => (
+        <View style={[styles.statCard, { backgroundColor: theme.colors.surface }]}>
+            <View style={[styles.iconBox, { backgroundColor: color + '20' }]}>
+                <Ionicons name={icon} size={24} color={color} />
             </View>
-            <View style={{ flex: 1 }}>
-                <Text style={styles.name}>{item.name || 'Unknown'}</Text>
-                <Text style={styles.email}>{item.email}</Text>
-                {item.studentId ? <Text style={styles.sid}>ID: {item.studentId}</Text> : null}
-            </View>
-            <TouchableOpacity style={styles.actionBtn}>
-                <Text style={styles.actionText}>Manage</Text>
-            </TouchableOpacity>
+            <Text style={[styles.statValue, { color: theme.colors.text }]}>{value}</Text>
+            <Text style={[styles.statTitle, { color: theme.colors.textSecondary }]}>{title}</Text>
         </View>
     );
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <View>
-                    <Text style={styles.greeting}>Admin Panel</Text>
-                    <Text style={styles.subGreeting}>Welcome, {user?.name || 'Admin'}</Text>
-                </View>
-                <TouchableOpacity onPress={() => navigation.replace('Login')} style={styles.logoutBtn}>
-                    <Text style={styles.logoutText}>Logout</Text>
-                </TouchableOpacity>
-            </View>
+    const handleSave = async () => {
+        if (!newItemType || !newItemName || ((newItemType !== 'certificate' && !newItemReg) || (newItemType === 'certificate' && (!newItemReg || !newItemCourse)))) {
+            Alert.alert('Error', 'Please fill all fields');
+            return;
+        }
 
-            <View style={styles.content}>
-                <Text style={styles.sectionTitle}>Registered Students</Text>
-                {users.length === 0 ? (
-                    <Text style={{ textAlign: 'center', marginTop: 20, color: '#888' }}>
-                        No students found or loading...
-                    </Text>
-                ) : (
-                    <FlatList
-                        data={users}
-                        renderItem={renderStudent}
-                        keyExtractor={item => item.id.toString()}
-                        contentContainerStyle={styles.list}
-                    />
-                )}
-            </View>
+        try {
+            if (newItemType === 'certificate') {
+                 // Call the backend endpoint
+                 /*
+                 await fetch(`${config.apiBase}/api/certify`, {
+                     method: 'POST',
+                     body: JSON.stringify({ studentName: newItemName, studentId: newItemReg, course: newItemCourse })
+                 });
+                 */
+                // SIMULATION
+                Alert.alert('Success', `Digital Certificate Issued for ${newItemName}\n\nHash: a3f9...8d2\nSigned: YES`);
+            } else {
+                Alert.alert('Success', `New ${newItemType} "${newItemName}" added to the National Registry.`);
+            }
+
+            setModalVisible(false);
+            setNewItemName('');
+            setNewItemReg('');
+            setNewItemCourse('');
+            
+        } catch (error) {
+            Alert.alert('Error', 'Failed to add record');
+        }
+    };
+
+    return (
+        <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+            {/* Header */}
+            <LinearGradient
+                colors={[theme.colors.surface, theme.colors.surface]}
+                style={styles.header}
+            >
+                <View style={styles.headerTop}>
+                    <View>
+                        <Text style={[styles.roleLabel, { color: theme.colors.primary }]}>SUPER ADMIN</Text>
+                        <Text style={[styles.greeting, { color: theme.colors.text }]}>Dashboard</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => navigation.replace('Login')} style={styles.logoutBtn}>
+                        <Ionicons name="log-out-outline" size={24} color={theme.colors.error} />
+                    </TouchableOpacity>
+                </View>
+
+                {/* Quick Stats */}
+                <View style={styles.statsGrid}>
+                    <StatusCard title="Institutions" value="2,451" icon="school" color="#3B82F6" />
+                    <StatusCard title="Professionals" value="45.2k" icon="medkit" color="#10B981" />
+                    <StatusCard title="Pending" value="12" icon="time" color="#F59E0B" />
+                    <StatusCard title="Flagged" value="5" icon="warning" color="#EF4444" />
+                </View>
+            </LinearGradient>
+
+            <ScrollView contentContainerStyle={styles.content}>
+                {/* Actions */}
+                <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Quick Actions</Text>
+                <View style={styles.actionRow}>
+                    <TouchableOpacity style={[styles.actionBtn, { backgroundColor: theme.colors.primary }]} onPress={() => { setNewItemType('institution'); handleAddItem(); }}>
+                        <Ionicons name="add-circle" size={20} color="white" />
+                        <Text style={styles.actionBtnText}>Add Institution</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.actionBtn, { backgroundColor: theme.colors.secondary }]} onPress={() => { setNewItemType('professional'); handleAddItem(); }}>
+                        <Ionicons name="person-add" size={20} color="white" />
+                        <Text style={styles.actionBtnText}>Add Professional</Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/* NEW: Issue Certificate Action */}
+                <View style={[styles.actionRow, { marginTop: 12 }]}>
+                    <TouchableOpacity style={[styles.actionBtn, { backgroundColor: '#8B5CF6', flexDirection: 'row', justifyContent: 'center' }]} onPress={() => { setNewItemType('certificate'); handleAddItem(); }}>
+                        <Ionicons name="ribbon" size={20} color="white" style={{ marginRight: 8 }} />
+                        <Text style={styles.actionBtnText}>Issue Digital Credential</Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/* Recent Activity */}
+                <Text style={[styles.sectionTitle, { color: theme.colors.text, marginTop: 24 }]}>Recent Audit Logs</Text>
+                {recentActions.map(item => (
+                    <View key={item.id} style={[styles.logItem, { backgroundColor: theme.colors.surface }]}>
+                        <Ionicons name={item.icon} size={24} color={item.color || theme.colors.textSecondary} />
+                        <View style={{ flex: 1, marginLeft: 12 }}>
+                            <Text style={[styles.logAction, { color: theme.colors.text }]}>{item.action}</Text>
+                            <Text style={[styles.logTarget, { color: theme.colors.textSecondary }]}>{item.target}</Text>
+                        </View>
+                        <Text style={[styles.logTime, { color: theme.colors.textMuted }]}>{item.time}</Text>
+                    </View>
+                ))}
+            </ScrollView>
+
+            {/* Simple Modal for Adding Data */}
+            <Modal visible={modalVisible} transparent animationType="slide">
+                <View style={styles.modalOverlay}>
+                    <View style={[styles.modalContent, { backgroundColor: theme.colors.surface }]}>
+                        <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
+                            {newItemType === 'certificate' ? 'Issue Digital Certificate' : `Add New ${newItemType === 'institution' ? 'Institution' : 'Professional'}`}
+                        </Text>
+                        
+                        <TextInput 
+                            placeholder={newItemType === 'institution' ? "Institution Name" : (newItemType === 'certificate' ? "Student Full Name" : "Professional Full Name")}
+                            placeholderTextColor={theme.colors.textMuted}
+                            style={[styles.input, { color: theme.colors.text, borderColor: theme.colors.border }]}
+                            value={newItemName}
+                            onChangeText={setNewItemName}
+                        />
+
+                        {/* ID / Reg Number Input */}
+                        <TextInput 
+                            placeholder={newItemType === 'certificate' ? "Student Identity Number" : "Registration Number"}
+                            placeholderTextColor={theme.colors.textMuted}
+                            style={[styles.input, { color: theme.colors.text, borderColor: theme.colors.border }]}
+                            value={newItemReg}
+                            onChangeText={setNewItemReg}
+                        />
+
+                        {/* Course Name Input (Only for Certificates) */}
+                        {newItemType === 'certificate' && (
+                             <TextInput 
+                                placeholder="Course / Qualification Name"
+                                placeholderTextColor={theme.colors.textMuted}
+                                style={[styles.input, { color: theme.colors.text, borderColor: theme.colors.border }]}
+                                value={newItemCourse}
+                                onChangeText={setNewItemCourse}
+                            />
+                        )}
+                        
+                        <View style={styles.modalActions}>
+                            <TouchableOpacity onPress={() => setModalVisible(false)} style={{ padding: 12 }}>
+                                <Text style={{ color: theme.colors.textSecondary }}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={handleSave} style={[styles.saveBtn, { backgroundColor: theme.colors.primary }]}>
+                                <Text style={{ color: 'white', fontWeight: 'bold' }}>
+                                    {newItemType === 'certificate' ? 'Issue & Sign' : 'Save Record'}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#f0f2f5' },
-    header: { padding: 24, paddingTop: 60, backgroundColor: '#1a1a1a', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-    greeting: { fontSize: 24, fontWeight: 'bold', color: 'white' },
-    subGreeting: { fontSize: 16, color: '#ccc' },
-    logoutBtn: { padding: 8, backgroundColor: '#333', borderRadius: 8 },
-    logoutText: { color: '#ff6b6b', fontWeight: '600' },
-    content: { flex: 1, padding: 20 },
-    sectionTitle: { fontSize: 18, fontWeight: '700', color: '#333', marginBottom: 16 },
-    card: { backgroundColor: 'white', flexDirection: 'row', padding: 16, borderRadius: 12, marginBottom: 12, alignItems: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5 },
-    avatar: { width: 50, height: 50, borderRadius: 25, backgroundColor: '#e3f2fd', justifyContent: 'center', alignItems: 'center', marginRight: 16 },
-    avatarText: { fontSize: 20, fontWeight: 'bold', color: '#0066cc' },
-    name: { fontSize: 16, fontWeight: '600', color: '#333' },
-    email: { color: '#666', fontSize: 14 },
-    sid: { color: '#888', fontSize: 12, marginTop: 2 },
-    actionBtn: { padding: 8, backgroundColor: '#f0f2f5', borderRadius: 8 },
-    actionText: { color: '#333', fontSize: 13, fontWeight: '500' }
+    container: { flex: 1 },
+    header: { padding: 24, paddingTop: 60, paddingBottom: 24, borderBottomLeftRadius: 24, borderBottomRightRadius: 24 },
+    headerTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 },
+    roleLabel: { fontSize: 12, fontWeight: 'bold', letterSpacing: 1 },
+    greeting: { fontSize: 28, fontWeight: 'bold' },
+    statsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
+    statCard: { width: '48%', padding: 16, borderRadius: 16, alignItems: 'center', elevation: 2 },
+    iconBox: { padding: 8, borderRadius: 100, marginBottom: 8 },
+    statValue: { fontSize: 20, fontWeight: 'bold', marginBottom: 2 },
+    statTitle: { fontSize: 12 },
+    content: { padding: 24 },
+    sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 12 },
+    actionRow: { flexDirection: 'row', gap: 12 },
+    actionBtn: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 16, borderRadius: 12, gap: 8 },
+    actionBtnText: { color: 'white', fontWeight: '600' },
+    logItem: { flexDirection: 'row', alignItems: 'center', padding: 16, borderRadius: 12, marginBottom: 12 },
+    logAction: { fontWeight: '600', fontSize: 14 },
+    logTarget: { fontSize: 12 },
+    logTime: { fontSize: 12 },
+    modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', padding: 24 },
+    modalContent: { padding: 24, borderRadius: 24 },
+    modalTitle: { fontSize: 20, fontWeight: 'bold', marginBottom: 16 },
+    input: { borderWidth: 1, padding: 12, borderRadius: 12, marginBottom: 12 },
+    modalActions: { flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', marginTop: 12 },
+    saveBtn: { paddingVertical: 12, paddingHorizontal: 24, borderRadius: 12, marginLeft: 12 }
 });

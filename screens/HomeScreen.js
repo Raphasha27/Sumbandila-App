@@ -52,14 +52,46 @@ const mockDatabase = {
       specialty: "Criminal Law",
       council: "General Council of the Bar",
       validUntil: "2026-08-30"
-    },
+    }
+  ],
+  construction: [
     {
-      name: "Attorney Nomsa Dlamini",
-      regNumber: "ATT67890",
-      status: "Registered",
-      specialty: "Commercial Law",
-      council: "Law Society of South Africa",
-      validUntil: "2027-02-28"
+      name: "Mokoka Constructions",
+      regNumber: "CIDB7788",
+      status: "Verified",
+      specialty: "Civil Engineering",
+      council: "CIDB Grade 7PE",
+      validUntil: "2027-04-12"
+    }
+  ],
+  transport: [
+    {
+      name: "Jackson Zulu",
+      regNumber: "TX4455",
+      status: "Verified",
+      specialty: "PDP Class B, C1",
+      council: "SAPS Criminal Record: Clear",
+      validUntil: "2026-11-20"
+    }
+  ],
+  tenders: [
+    {
+      name: "AfroTech Solutions",
+      regNumber: "REG9988",
+      status: "Compliant",
+      specialty: "IT Services",
+      council: "Tax Status: Compliant",
+      validUntil: "2025-12-31"
+    }
+  ],
+  panafrican: [
+    {
+      name: "University of Nairobi",
+      regNumber: "UON-KE-01",
+      status: "Verified",
+      specialty: "Public University (Kenya)",
+      council: "CUE Accredited",
+      validUntil: "2028-01-01"
     }
   ]
 };
@@ -67,7 +99,13 @@ const mockDatabase = {
 const categories = [
   { id: 'education', name: 'Education', iconFamily: FontAwesome5, iconName: 'graduation-cap', colorKey: 'info', description: 'Schools, Colleges & Courses' },
   { id: 'medical', name: 'Medical', iconFamily: FontAwesome5, iconName: 'stethoscope', colorKey: 'success', description: 'Doctors & Healthcare Professionals' },
-  { id: 'legal', name: 'Legal', iconFamily: MaterialCommunityIcons, iconName: 'scale-balance', colorKey: 'secondary', description: 'Lawyers & Legal Professionals' }
+  { id: 'legal', name: 'Legal', iconFamily: MaterialCommunityIcons, iconName: 'scale-balance', colorKey: 'secondary', description: 'Lawyers & Legal Professionals' },
+  { id: 'wallet', name: 'IdentityPass', iconFamily: Ionicons, iconName: 'wallet-outline', colorKey: 'primary', description: 'Your Verified Identity' },
+  // { id: 'construction', name: 'BuildSafe', iconFamily: FontAwesome5, iconName: 'hammer', colorKey: 'warning', description: 'Contractors & Engineers' },
+  // { id: 'transport', name: 'RideCheck', iconFamily: FontAwesome5, iconName: 'car', colorKey: 'error', description: 'Taxi, Uber & Bolt Drivers' },
+  // { id: 'tenders', name: 'TenderShield', iconFamily: MaterialCommunityIcons, iconName: 'file-certificate', colorKey: 'info', description: 'Company & Tax Compliance' },
+  // { id: 'panafrican', name: 'African Network', iconFamily: FontAwesome5, iconName: 'globe-africa', colorKey: 'success', description: 'Cross-border Verification' },
+  // { id: 'b2b', name: 'TrustAfrica B2B', iconFamily: MaterialCommunityIcons, iconName: 'office-building', colorKey: 'secondary', description: 'Enterprise Verification API' }
 ];
 
 export default function HomeScreen({ navigation, route }) {
@@ -302,7 +340,15 @@ export default function HomeScreen({ navigation, route }) {
                 return (
                   <TouchableOpacity
                     key={cat.id}
-                    onPress={() => setActiveCategory(cat.id)}
+                    onPress={() => {
+                      if (cat.id === 'wallet') {
+                        navigation.navigate('IdentityWallet');
+                      } else if (cat.id === 'b2b') {
+                        navigation.navigate('TrustAfrica');
+                      } else {
+                        setActiveCategory(cat.id);
+                      }
+                    }}
                     style={styles.categoryCardWrapper}
                     activeOpacity={0.9}
                   >
