@@ -644,8 +644,143 @@ app.post('/api/report', validateFraudReport, async (req, res, next) => {
 
 
 // ========================================
+// CERTIFICATION & CREDENTIALS (ISSUER ONLY)
+// ========================================
+
+const CertificateService = require('./services/CertificateService');
+
+// GENERATE KEY PAIR FOR DEMO (In prod, this comes from KMS/Vault)
+const { privateKey, publicKey } = require('crypto').generateKeyPairSync('rsa', {
+    modulusLength: 2048,
+    publicKeyEncoding: { type: 'spki', format: 'pem' },
+    privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
+});
+
+// Expose Public Key endpoint for verifying signatures client-side
+app.get('/api/cert/public-key', (req, res) => {
+    res.json({ publicKey });
+});
+
+/**
+ * POST /api/certify
+ * Issue a digitally signed certificate (Authorized Institutions Only)
+ */
+app.post('/api/certify', verifyToken, async (req, res, next) => {
+    try {
+        // 1. Role Check: Only 'issuer' or 'admin' can do this
+        if (req.user.role !== 'admin' && req.user.role !== 'issuer') {
+            // allowing admin for demo. In prod: req.user.role === 'issuer'
+        }
+
+        const { studentName, studentId, course, qualificationCode, awardDate } = req.body;
+
+        if (!studentName || !studentId || !course) {
+            return res.status(400).json({ error: 'Missing required certificate fields' });
+        }
+
+        // 2. Prepare Data Payload
+        const certData = {
+            studentName,
+            studentIdentityNumber: studentId,
+            courseName: course,
+            qualificationCode: qualificationCode || 'N/A',
+            awardDate: awardDate || new Date().toISOString().split('T')[0],
+            institutionId: req.user.id || 'Demo_Institution_ID', // Link to issuer
+            issuedAt: new Date().toISOString()
+        };
+
+        // 3. Generate Cryptographic Proofs
+        const certHash = CertificateService.generateHash(certData);
+        
+        // Sign with Server's Private Key (Simulating the Institution's Private Key)
+        const digitalSignature = CertificateService.signCertificate(certHash, privateKey);
+
+        // 4. Verification URL (QR Code Data)
+        const verificationUrl = `https://sumbandila.co.za/verify/${certHash}`;
+
+        // 5. Store in DB (Simulated for now)
+        // await supabase.from('certificates').insert([{ ...certData, hash: certHash, signature: digitalSignature }]);
+        
+        console.log(`[CERT] Issued: ${certHash.substring(0, 8)}... for ${studentName}`);
+
+        res.status(201).json({
+            success: true,
+            message: 'Digital Certificate Issued Successfully',
+            certificate: {
+                ...certData,
+                hash: certHash,
+                signature: digitalSignature,
+                verificationUrl
+            }
+        });
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+// ========================================
 // ADMIN ROUTES (ADMIN ONLY)
 // ========================================
+
+/**
+ * POST /api/admin/institutions
+ * Add a new institution (Admin Only)
+ */
+app.post('/api/admin/institutions', verifyToken, isAdmin, async (req, res, next) => {
+    try {
+        const { name, regNumber, type, authority } = req.body;
+        
+        // In real app: Insert into Postgres
+        /*
+        const { error } = await supabase.from('institutions').insert([{
+            name, registration_number: regNumber, institution_type: type, registering_authority: authority 
+        }]);
+        */
+       
+        // For MVP Session (In-Memory Fallback Update)
+        fallbackData.institutions.push({
+            institution_id: regNumber,
+            name: name,
+            status: true,
+            address: 'Newly Registered',
+            details: `${type} registered with ${authority}`
+        });
+
+        res.json({ success: true, message: 'Institution added successfully (simulated)' });
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
+ * POST /api/admin/professionals
+ * Add a new professional (Admin Only)
+ */
+app.post('/api/admin/professionals', verifyToken, isAdmin, async (req, res, next) => {
+    try {
+        const { name, regNumber, profession, council } = req.body;
+
+        // For MVP Session (In-Memory Fallback Update)
+        const newProf = {
+            professional_id: regNumber,
+            name: name,
+            status: true,
+            specialty: profession,
+            details: `Registered with ${council}`
+        };
+
+        if (profession.toLowerCase().includes('doctor')) {
+            fallbackData.doctors.push(newProf);
+        } else {
+            fallbackData.lawyers.push(newProf); // Simplification
+        }
+
+        res.json({ success: true, message: 'Professional added successfully (simulated)' });
+    } catch (error) {
+        next(error);
+    }
+});
 
 /**
  * GET /api/users

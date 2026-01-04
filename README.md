@@ -1,102 +1,87 @@
-# Sumbandila - Full MVP Application
+# 🇿🇦 Sumbandila (National Verification Platform)
 
-A comprehensive platform for professional verification and accreditation management.
-
-## Project Structure
-
-- **expo/** - Expo SDK 54 frontend mobile app
-- **backend/** - FastAPI microservices (auth-service, verification-service)
-- **admin-dashboard/** - Admin UI starter
-- **docker/** - Docker Compose configuration with Postgres
-- **branding/** - Logo SVG and brand color tokens
-- **.github/** - CI/CD workflow configuration
-
-## How to Run
-
-### Prerequisites
-- **Node.js**: Latest LTS version from [nodejs.org](https://nodejs.org)
-- **Python 3.9+**: For backend services
-- **Docker** (Optional): For containerized deployment
-- **VS Code**: Recommended editor [code.visualstudio.com](https://code.visualstudio.com)
-- **Git**: [git-scm.com](https://git-scm.com)
-
-### Quick Start
-
-### 1. Clone & Install
-```bash
-git clone https://github.com/Raphasha27/Sumbandila-App.git
-cd Sumbandila-App
-
-# Install dependencies (Root)
-npm install
-
-# Backend setup
-cd backend
-npm install
-cd ..
-```
-
-### 2. Run the Application
-We have configured a concurrent script to run both backend and frontend:
-```bash
-# For LAN development (Recommended for physical devices)
-npm run start:lan
-
-# For Tunnel (If LAN fails)
-npm run start:tunnel
-```
-
-### 🚀 Free Tier Deployment Info
-- **Backend (Railway)**: `https://sumbandila-app-production.up.railway.app`
-- **Frontend (Expo)**: Run locally or use Expo Go.
-- **Sleep Mode**: Backend sleeps after 5min inactivity. First request takes 10-30s.
-
-### Configuration Note
-   npm start
-   # Or for tunnel access: npx expo start --tunnel
-   ```
-   
-   **Backend Services:**
-   ```bash
-   cd backend
-   uvicorn main:app --reload
-   ```
-
-### Connect with Your Phone
-- Install **Expo Go** from Play Store / App Store
-- Scan the **QR Code** in the terminal
-- **Troubleshooting**: If loading forever, use `npx expo start --tunnel`
-
-### Docker Deployment
-```bash
-cd docker
-docker-compose up
-```
-
-## Configuration
-
-- Backend API configuration: `backend/.env`
-- Frontend config: `expo/config.js`
-- For remote access, use Expo tunnel mode or ngrok for backend
-
-## Production Deployment
-
-This is a developer skeleton. Before production:
-- Replace placeholder secrets with secure credentials
-- Implement proper database models and migrations
-- Secure all authentication endpoints
-- Integrate with real accreditation APIs (DOE, HPCSA, Law Society, etc.)
-- Enable HTTPS and implement API gateway
-- Add proper authentication, authorization, and auditing
-- Set up administrative dashboards for source management
-
-## Architecture Recommendations
-
-- Separate microservices per registry behind an API gateway
-- Secure all tokens/keys and enforce HTTPS
-- Replace mock data with real registry integrations
-- Implement comprehensive logging and monitoring
+![Sumbandila Banner](https://via.placeholder.com/1200x400?text=Sumbandila+Application+Architecture)
 
 ---
 
-**IMPORTANT**: This is a starter template. Ensure all security best practices are followed before deploying to production.
+## ⚠️ PROPRIETARY & LEGAL NOTICE
+
+**Copyright © 2026 Kid of Dynamics. All Rights Reserved.**
+
+This software, "Sumbandila", and its underlying architecture, source code, and design are the exclusive intellectual property of **Kid of Dynamics**.
+
+### 🚫 STRICT USAGE WARNING
+*   **No Unauthorized Use:** Use of this code, in whole or in part, without explicit written permission from "Kid of Dynamics" is strictly prohibited.
+*   **Legal Consequences:** Any unauthorized copying, distribution, or commercial use will be met with immediate legal action under South African and International Copyright Law.
+*   **Mandatory Credit:** If permission is granted for educational review, full credit must be given to "Kid of Dynamics".
+*   **POPIA Compliance:** This system is designed in compliance with the **Protection of Personal Information Act (POPIA)** of South Africa. Any deployment of this system must adhere to strict data privacy regulations.
+
+---
+
+## 📱 App Demonstration (UI Screenshots)
+
+| **Home Screen** | **Verification Success** |
+|:---:|:---:|
+| <img src="assets/screenshots/sumbandila_home_ui.png" width="300" alt="Home Screen" /> | <img src="assets/screenshots/sumbandila_verified_ui.png" width="300" alt="Verified Result" /> |
+
+*These high-fidelity mockups demonstrate the intended User Experience (UX) for the Public Verification flow.*
+
+---
+
+## 🏗️ Project Overview
+
+**Sumbandila** (meaning "Open the Way") is a senior-level full-stack engineering project designed to address the prevalence of credential fraud in South African education and healthcare.
+
+It acts as a **Digital Trust Infrastructure** that allows Institutions to issue cryptographically signed credentials and public users/employers to verify them instantly via QR code.
+
+---
+
+## 🛠️ Architecture & Tech Stack
+
+### **Frontend (Mobile & Web)**
+- **Framework:** React Native (Expo SDK 54)
+- **Features:** Dynamic QR Code Scanner, Real-time Verification Logic.
+
+### **Backend (API & Security)**
+- **Runtime:** Node.js (v18) + Express.js
+- **Security:** **RSA-2048 Digital Signing**, **SHA-256 Hashing**, `bcryptjs` for Password Hashing.
+
+### **Database & Infrastructure**
+- **Primary DB:** PostgreSQL 15
+- **Caching:** Redis 7
+- **DevOps:** Docker & Docker Compose orchestrated.
+
+---
+
+## 🔐 Key Features
+
+1.  **Cryptographic Certification Engine**: Issues Signed Verified Credentials derived from SHA-256 hashes signed with Private RSA Keys.
+2.  **Immutable Audit Logs**: Tracks every verification to prevent fraud.
+3.  **Advanced SQL Portfolio**: Includes a dedicated `sql_portfolio_project/` folder demonstrating 3NF Normalization and Triggers.
+
+---
+
+## 🚀 How to Run Locally
+
+### Prerequisites
+- Docker & Docker Compose
+- Node.js v18+
+
+### 1. Start Infrastructure
+```bash
+docker-compose up --build
+```
+
+### 2. Start Frontend
+```bash
+npx expo start -c
+```
+
+---
+
+## 👨‍💻 Author & Rights Holder
+**Kid of Dynamics**  
+*Senior Full Stack Engineer*
+
+---
+*Built with ❤️ in South Africa. Compliant with POPIA.*

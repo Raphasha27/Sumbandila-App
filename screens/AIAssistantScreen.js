@@ -21,12 +21,19 @@ const knowledgeBase = {
         "Hello! 👋 I'm your Sumbandila Assistant. I can help you with verification questions, finding registered professionals, and understanding how our platform works. What would you like to know?",
     ],
     verification: {
-        education: "To verify an educational institution:\n\n1. Go to the Home screen\n2. Select 'Education' category\n3. Enter the school/college name or registration number\n4. Click 'Verify Now'\n\nWe check against CHE (Council on Higher Education) and QCTO databases.",
-        medical: "To verify a medical professional:\n\n1. Select 'Medical' from the home screen\n2. Enter the doctor's name or HPCSA registration number (e.g., MP0123456)\n3. Click 'Verify Now'\n\nAll medical professionals are verified against the HPCSA register.",
-        legal: "To verify a legal professional:\n\n1. Select 'Legal' from the home screen\n2. Enter the lawyer/advocate's name or registration number\n3. Click 'Verify Now'\n\nWe check against the Law Society of South Africa and General Council of the Bar.",
+        education: "To verify an educational institution:\n\n1. Select 'Education'\n2. Enter school name/reg number\n\nWe check against CHE & QCTO. (EduCred Africa)",
+        medical: "To verify medical professionals:\n\n1. Select 'Medical'\n2. Enter name/HPCSA number\n\nLicense expiry reminders available in MedCheck SA.",
+        legal: "To verify lawyers:\n\n1. Select 'Legal'\n2. Enter name/Law Society number\n\nDisciplinary alerts integrated via LegalVerify.",
+        construction: "BuildSafe Africa verifies CIDB & ECSA status for contractors and engineers to ensure safety compliance.",
+        transport: "RideCheck verifies PDP, vehicle roadworthiness, and driver criminal records for passenger safety.",
+        tenders: "TenderShield verifies tax compliance, CSD registration, and BEE certificates for anti-fraud procurement.",
+        panafrican: "Our network connects registries across SA, Botswana, Kenya, and Nigeria for cross-border trust.",
     },
-    fraud: "If you suspect fraud or find incorrect information:\n\n1. Click 'Report as Fraud' on the verification result\n2. Provide details about the suspected fraud\n3. Our team will investigate within 24-48 hours\n\nYou can also contact us directly at 0781172470.",
-    about: "Sumbandila is South Africa's trusted verification platform. We help you verify:\n\n✅ Educational Institutions\n✅ Medical Professionals (Doctors)\n✅ Legal Professionals (Lawyers/Advocates)\n\nOur database includes over 2,450+ institutions and 45,000+ verified professionals.",
+    ai_fraud_detector: {
+        analysis: "My AI Fraud Detector is analyzing institutions for:\n\n⚠️ Duplicate registrations\n⚠️ Fake accreditation logos\n⚠️ Non-existent physical addresses\n⚠️ Suspicious name similarities to top universities",
+    },
+    fraud: "If you suspect fraud, use our 'AI Fraud Radar' or click 'Report Fraud'. We protect users across Education, Medical, Legal, and Construction sectors.",
+    about: "Sumbandila is an all-in-one verification ecosystem including:\n\n✅ TrustAfrica (B2B API)\n✅ IdentityPass (Digital Wallet)\n✅ BuildSafe, RideCheck & TenderShield networks.",
     contact: "You can reach us at:\n\n📞 Phone: 0781172470\n⏰ Hours: Mon-Fri 8AM-5PM\n📧 Email: support@sumbandila.co.za\n\nWe're here to help!",
     help: "Here's what I can help you with:\n\n1️⃣ How to verify schools/colleges\n2️⃣ How to verify doctors\n3️⃣ How to verify lawyers\n4️⃣ Reporting fraud\n5️⃣ Understanding our database\n6️⃣ Contact information\n\nJust ask me anything!",
 };
@@ -45,16 +52,37 @@ const getAIResponse = (message) => {
         return knowledgeBase.greetings[0];
     }
 
-    if (lowerMsg.includes('doctor') || lowerMsg.includes('medical') || lowerMsg.includes('hpcsa')) {
+    // Idea 9: AI Fraud Detector
+    if (lowerMsg.includes('analyze') || (lowerMsg.includes('check') && (lowerMsg.includes('fake') || lowerMsg.includes('scam')))) {
+        return knowledgeBase.ai_fraud_detector.analysis;
+    }
+
+    if (lowerMsg.includes('doctor') || lowerMsg.includes('medical') || lowerMsg.includes('hpcsa') || lowerMsg.includes('nurse')) {
         return knowledgeBase.verification.medical;
     }
 
-    if (lowerMsg.includes('school') || lowerMsg.includes('college') || lowerMsg.includes('education') || lowerMsg.includes('accredit')) {
+    if (lowerMsg.includes('school') || lowerMsg.includes('college') || lowerMsg.includes('university') || lowerMsg.includes('accredit')) {
         return knowledgeBase.verification.education;
     }
 
-    if (lowerMsg.includes('lawyer') || lowerMsg.includes('advocate') || lowerMsg.includes('legal') || lowerMsg.includes('attorney')) {
+    if (lowerMsg.includes('lawyer') || lowerMsg.includes('legal') || lowerMsg.includes('attorney')) {
         return knowledgeBase.verification.legal;
+    }
+
+    if (lowerMsg.includes('construction') || lowerMsg.includes('build') || lowerMsg.includes('engineer') || lowerMsg.includes('contractor')) {
+        return knowledgeBase.verification.construction;
+    }
+
+    if (lowerMsg.includes('transport') || lowerMsg.includes('uber') || lowerMsg.includes('bolt') || lowerMsg.includes('taxi') || lowerMsg.includes('pedp')) {
+        return knowledgeBase.verification.transport;
+    }
+
+    if (lowerMsg.includes('tender') || lowerMsg.includes('company') || lowerMsg.includes('tax') || lowerMsg.includes('bee')) {
+        return knowledgeBase.verification.tenders;
+    }
+
+    if (lowerMsg.includes('africa') || lowerMsg.includes('kenya') || lowerMsg.includes('nigeria') || lowerMsg.includes('ghana') || lowerMsg.includes('botswana')) {
+        return knowledgeBase.verification.panafrican;
     }
 
     if (lowerMsg.includes('fraud') || lowerMsg.includes('fake') || lowerMsg.includes('report') || lowerMsg.includes('suspicious')) {
@@ -65,16 +93,15 @@ const getAIResponse = (message) => {
         return knowledgeBase.about;
     }
 
-    if (lowerMsg.includes('contact') || lowerMsg.includes('phone') || lowerMsg.includes('call') || lowerMsg.includes('support')) {
+    if (lowerMsg.includes('contact') || lowerMsg.includes('phone') || lowerMsg.includes('support')) {
         return knowledgeBase.contact;
     }
 
-    if (lowerMsg.includes('help') || lowerMsg.includes('what can')) {
+    if (lowerMsg.includes('help')) {
         return knowledgeBase.help;
     }
 
-    // Default response
-    return "I'm here to help with verification questions! You can ask me about:\n\n• Verifying doctors, schools, or lawyers\n• How our verification process works\n• Reporting fraud or incorrect information\n• Contact and support\n\nWhat would you like to know?";
+    return "I'm a multi-industry verification assistant! Ask me about:\n\n• Verifying schools, doctors, or lawyers\n• Construction (BuildSafe) status\n• Transport (RideCheck) safety\n• Tenders (TenderShield) compliance\n• AI Fraud Detection analysis";
 };
 
 export default function AIAssistantScreen({ navigation }) {

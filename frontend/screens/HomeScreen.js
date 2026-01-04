@@ -14,8 +14,11 @@ import { getDashboardStats } from '../services/stats';
 import axios from 'axios';
 import config from '../config';
 
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 export default function HomeScreen({ navigation }) {
     const { theme, isDarkMode, toggleTheme } = useTheme();
+    const insets = useSafeAreaInsets();
     const [stats, setStats] = useState({ institutions: 0, professionals: 0, dataSources: 0 });
     const [scamData, setScamData] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
@@ -78,28 +81,26 @@ export default function HomeScreen({ navigation }) {
                 end={{ x: 1, y: 0 }} 
                 style={styles.header}
             >
-                <SafeAreaView>
-                    <View style={styles.headerContent}>
-                        <View style={styles.headerTop}>
-                            <View style={styles.titleRow}>
-                                <Feather name="shield" size={32} color="white" />
-                                <Text style={styles.headerTitle}>Sumbandila</Text>
-                            </View>
-                            <View style={styles.headerActions}>
-                                <TouchableOpacity onPress={toggleTheme} style={styles.iconButton}>
-                                    <Ionicons name={isDarkMode ? "sunny" : "moon"} size={24} color="white" />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate('RealScanner')} style={styles.iconButton}>
-                                    <Ionicons name="qr-code-outline" size={24} color="white" />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.iconButton}>
-                                    <Feather name="user" size={24} color="white" />
-                                </TouchableOpacity>
-                            </View>
+                <View style={[styles.headerContent, { paddingTop: insets.top + 10 }]}>
+                    <View style={styles.headerTop}>
+                        <View style={styles.titleRow}>
+                            <Feather name="shield" size={32} color="white" />
+                            <Text style={styles.headerTitle}>Sumbandila</Text>
                         </View>
-                        <Text style={styles.headerSubtitle}>Verification in the palm of your hand</Text>
+                        <View style={styles.headerActions}>
+                            <TouchableOpacity onPress={toggleTheme} style={styles.iconButton}>
+                                <Ionicons name={isDarkMode ? "sunny" : "moon"} size={24} color="white" />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('RealScanner')} style={styles.iconButton}>
+                                <Ionicons name="qr-code-outline" size={24} color="white" />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.iconButton}>
+                                <Feather name="user" size={24} color="white" />
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </SafeAreaView>
+                    <Text style={styles.headerSubtitle}>Verification in the palm of your hand</Text>
+                </View>
             </LinearGradient>
             
             {/* Main Scrollable Content */}

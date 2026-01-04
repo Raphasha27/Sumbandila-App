@@ -101,7 +101,7 @@ export default function LandingScreen({ navigation }) {
                         ]}
                     >
                         <Text style={styles.appName}>Sumbandila</Text>
-                        <Text style={styles.tagline}>Verification in the palm of your hand</Text>
+                        <Text style={styles.tagline}>Africa's Universal Trust & Verification Network</Text>
                     </Animated.View>
 
                     {/* Spacer */}

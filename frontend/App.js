@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Screens
 import HomeScreen from './screens/HomeScreen';
@@ -34,42 +35,44 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <ThemeProvider>
-      <NavigationContainer>
-        <StatusBar style="auto" />
-        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-          
-          {/* Auth */}
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <StatusBar style="auto" />
+          <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+            
+            {/* Auth */}
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
 
-          {/* Main App Flow */}
-          <Stack.Screen name="Home" component={HomeScreen} />
-          
-          {/* Verification Logic */}
-          <Stack.Screen name="Scanner" component={VerificationFormScreen} />
-          <Stack.Screen name="RealScanner" component={RealScannerScreen} />
-          <Stack.Screen name="Result" component={ResultScreen} />
-          
-          {/* User Profile & Support */}
-          <Stack.Screen name="Profile" component={ProfileScreen} />
-          <Stack.Screen name="ChatSupport" component={ChatSupportScreen} />
-          <Stack.Screen name="PrivacySecurity" component={PrivacySecurityScreen} />
+            {/* Main App Flow */}
+            <Stack.Screen name="Home" component={HomeScreen} />
+            
+            {/* Verification Logic */}
+            <Stack.Screen name="Scanner" component={VerificationFormScreen} />
+            <Stack.Screen name="RealScanner" component={RealScannerScreen} />
+            <Stack.Screen name="Result" component={ResultScreen} />
+            
+            {/* User Profile & Support */}
+            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen name="ChatSupport" component={ChatSupportScreen} />
+            <Stack.Screen name="PrivacySecurity" component={PrivacySecurityScreen} />
 
-          {/* Other Features */}
-          <Stack.Screen name="Dashboard" component={StudentDashboard} />
-          <Stack.Screen name="Events" component={EventsScreen} />
-          <Stack.Screen name="Chat" component={ChatScreen} />
-          <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
-          <Stack.Screen name="ReportFraud" component={ReportFraudScreen} />
-          <Stack.Screen name="AIAssistant" component={AIAssistantScreen} />
-          <Stack.Screen name="Contact" component={ContactScreen} />
-          
-          {/* Crime Prevention & Location */}
-          <Stack.Screen name="CrimeAnalytics" component={CrimeAnalyticsScreen} />
-          <Stack.Screen name="NearbyVerification" component={NearbyVerificationScreen} />
-          <Stack.Screen name="CommunityAlerts" component={CommunityAlertsScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+            {/* Other Features */}
+            <Stack.Screen name="Dashboard" component={StudentDashboard} />
+            <Stack.Screen name="Events" component={EventsScreen} />
+            <Stack.Screen name="Chat" component={ChatScreen} />
+            <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
+            <Stack.Screen name="ReportFraud" component={ReportFraudScreen} />
+            <Stack.Screen name="AIAssistant" component={AIAssistantScreen} />
+            <Stack.Screen name="Contact" component={ContactScreen} />
+            
+            {/* Crime Prevention & Location */}
+            <Stack.Screen name="CrimeAnalytics" component={CrimeAnalyticsScreen} />
+            <Stack.Screen name="NearbyVerification" component={NearbyVerificationScreen} />
+            <Stack.Screen name="CommunityAlerts" component={CommunityAlertsScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
     </ThemeProvider>
   );
 }
