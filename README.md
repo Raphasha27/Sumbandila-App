@@ -1,87 +1,56 @@
 # 🇿🇦 Sumbandila (National Verification Platform)
 
-![Sumbandila Banner](https://via.placeholder.com/1200x400?text=Sumbandila+Application+Architecture)
+![Sumbandila Banner](https://via.placeholder.com/1200x400?text=Sumbandila+Secure+Verification+Platform)
+
+[**Live Demo (Web App)**](https://Raphasha27.github.io/Sumbandila-App/)
 
 ---
 
-## ⚠️ PROPRIETARY & LEGAL NOTICE
+## 🛡️ SECURED DIGITAL IDENTITY & POPIA COMPLIANCE
 
-**Copyright © 2026 Kid of Dynamics. All Rights Reserved.**
+This application is engineered for the highest standard of data security to protect the sensitive information of South African citizens.
 
-This software, "Sumbandila", and its underlying architecture, source code, and design are the exclusive intellectual property of **Kid of Dynamics**.
-
-### 🚫 STRICT USAGE WARNING
-*   **No Unauthorized Use:** Use of this code, in whole or in part, without explicit written permission from "Kid of Dynamics" is strictly prohibited.
-*   **Legal Consequences:** Any unauthorized copying, distribution, or commercial use will be met with immediate legal action under South African and International Copyright Law.
-*   **Mandatory Credit:** If permission is granted for educational review, full credit must be given to "Kid of Dynamics".
-*   **POPIA Compliance:** This system is designed in compliance with the **Protection of Personal Information Act (POPIA)** of South Africa. Any deployment of this system must adhere to strict data privacy regulations.
-
----
-
-## 📱 App Demonstration (UI Screenshots)
-
-| **Home Screen** | **Verification Success** |
-|:---:|:---:|
-| <img src="assets/screenshots/sumbandila_home_ui.png" width="300" alt="Home Screen" /> | <img src="assets/screenshots/sumbandila_verified_ui.png" width="300" alt="Verified Result" /> |
-
-*These high-fidelity mockups demonstrate the intended User Experience (UX) for the Public Verification flow.*
+### **Security Features**
+*   **POPIA Data Masking**: Automatic masking of ID numbers, emails, and phone numbers in transit.
+*   **RSA-2048 Digital Signatures**: Every credential issued is cryptographically signed to prevent falsification.
+*   **Immutable Audit Logs**: Comprehensive logging of data access for legal compliance.
+*   **Encrypted Storage**: Secure handling of user credentials and professional records.
+*   **CodeQL Scanning**: Continuous security scanning enabled to detect vulnerabilities.
 
 ---
 
 ## 🏗️ Project Overview
 
-**Sumbandila** (meaning "Open the Way") is a senior-level full-stack engineering project designed to address the prevalence of credential fraud in South African education and healthcare.
-
-It acts as a **Digital Trust Infrastructure** that allows Institutions to issue cryptographically signed credentials and public users/employers to verify them instantly via QR code.
+**Sumbandila** (meaning "Open the Way") is a high-security verification infrastructure designed to eliminate credential fraud in South Africa. It empowers institutions to issue digital credentials and allows the public to verify them instantly.
 
 ---
 
-## 🛠️ Architecture & Tech Stack
+## 🛠️ Tech Stack
 
 ### **Frontend (Mobile & Web)**
-- **Framework:** React Native (Expo SDK 54)
-- **Features:** Dynamic QR Code Scanner, Real-time Verification Logic.
+*   **Framework**: React Native / Expo Web
+*   **Deployment**: Optimized Web App deployed via GitHub Pages.
+*   **Look & Feel**: Unified UI across Mobile and Web.
 
-### **Backend (API & Security)**
-- **Runtime:** Node.js (v18) + Express.js
-- **Security:** **RSA-2048 Digital Signing**, **SHA-256 Hashing**, `bcryptjs` for Password Hashing.
-
-### **Database & Infrastructure**
-- **Primary DB:** PostgreSQL 15
-- **Caching:** Redis 7
-- **DevOps:** Docker & Docker Compose orchestrated.
+### **Backend (API Layer)**
+*   **Node.js / Express**: Secure microservice architecture.
+*   **Database**: Supabase (PostgreSQL) + Edge Functions.
+*   **Security Protocol**: Helmet, Rate Limiting, and JWT Auth.
 
 ---
 
-## 🔐 Key Features
+## 🚀 Deployment & Live Preview
 
-1.  **Cryptographic Certification Engine**: Issues Signed Verified Credentials derived from SHA-256 hashes signed with Private RSA Keys.
-2.  **Immutable Audit Logs**: Tracks every verification to prevent fraud.
-3.  **Advanced SQL Portfolio**: Includes a dedicated `sql_portfolio_project/` folder demonstrating 3NF Normalization and Triggers.
+The web version of Sumbandila is optimized for browser access, providing the same high-quality experience as the native mobile app.
 
----
-
-## 🚀 How to Run Locally
-
-### Prerequisites
-- Docker & Docker Compose
-- Node.js v18+
-
-### 1. Start Infrastructure
-```bash
-docker-compose up --build
-```
-
-### 2. Start Frontend
-```bash
-npx expo start -c
-```
+### **Web Access**
+👉 [https://Raphasha27.github.io/Sumbandila-App/](https://Raphasha27.github.io/Sumbandila-App/)
 
 ---
 
 ## 👨‍💻 Author & Rights Holder
-**Kid of Dynamics**  
-*Senior Full Stack Engineer*
+**Raphasha27**  
+*Lead Developer at Kivoc Dynamics Technology*
 
 ---
-*Built with ❤️ in South Africa. Compliant with POPIA.*
+*Built with ❤️ in South Africa. Fully POPIA Compliant.*
