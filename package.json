@@ -12,7 +12,8 @@
     "start:lan": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"cd frontend && npx expo start --lan -c\"",
     "start:usb": "concurrently --kill-others-on-fail false \"npm start --prefix backend\" \"cd frontend && npx expo start --localhost\"",
     "start:braai": "concurrently --kill-others-on-fail false \"npm start --prefix mzansi_braai_hub/backend\" \"npm run dev --prefix mzansi_braai_hub/frontend\"",
-    "start:mzansi": "concurrently --kill-others-on-fail false \"npm start --prefix mzansi_braai_hub/backend\" \"cd mzansi_mobile && npx expo start --localhost --port 8085\""
+    "start:mzansi": "concurrently --kill-others-on-fail false \"npm start --prefix mzansi_braai_hub/backend\" \"cd mzansi_mobile && npx expo start --localhost --port 8085\"",
+    "deploy": "npm run deploy --prefix frontend"
   },
   "keywords": [],
   "author": "Raphasha27",
