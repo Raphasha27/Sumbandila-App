@@ -506,7 +506,7 @@ const App = () => {
             className="screen"
           >
             <div style={{ background: 'linear-gradient(180deg, #F7FAFC 0%, #FFFFFF 100%)', margin: '-24px -24px 0', padding: '32px 24px 40px', borderRadius: '0 0 40px 40px', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
-              <header className="app-header" style={{ marginBottom: '40px', position: 'relative' }}>
+              <header className="app-header" style={{ marginBottom: '16px', position: 'relative' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%' }}>
                   <div style={{ width: '56px', height: '56px', borderRadius: '20px', background: 'var(--primary)', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 800, fontSize: '20px', boxShadow: '0 8px 16px rgba(26, 54, 93, 0.15)' }}>
                     {user?.name?.charAt(0) || 'D'}
@@ -514,7 +514,7 @@ const App = () => {
                   <div className="user-greeting" style={{ textAlign: 'center' }}>
                     <span style={{ fontSize: '14px', color: '#718096', fontWeight: 500 }}>Welcome back,</span>
                     <h4 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--primary)', marginTop: '4px' }}>{user?.name || 'Dakalo Mashau'}</h4>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', marginTop: '8px', background: 'rgba(214, 158, 46, 0.1)', padding: '4px 12px', borderRadius: '100px', width: 'fit-content', margin: '8px auto 0' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', marginTop: '4px', background: 'rgba(214, 158, 46, 0.1)', padding: '4px 12px', borderRadius: '100px', width: 'fit-content', margin: '4px auto 0' }}>
                       <div style={{ display: 'flex', gap: '2px' }}>
                         {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="var(--accent)" color="var(--accent)" />)}
                       </div>
@@ -528,7 +528,7 @@ const App = () => {
               </header>
 
               <div className="search-section" style={{ textAlign: 'center' }}>
-                <h3 style={{ fontSize: '28px', fontWeight: 800, color: 'var(--primary)', marginBottom: '24px', letterSpacing: '-0.5px' }}>What do you want to verify?</h3>
+                <h3 style={{ fontSize: '28px', fontWeight: 800, color: 'var(--primary)', marginBottom: '12px', letterSpacing: '-0.5px' }}>What do you want to verify?</h3>
                 <div className="search-bar-container" style={{ background: 'white', borderRadius: '20px', height: '64px', boxShadow: '0 15px 35px rgba(26, 54, 93, 0.08)', border: '1px solid #E2E8F0', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', padding: '0 20px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <input 
