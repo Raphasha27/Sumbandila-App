@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Bell, Search, School, Stethoscope, Scale, Wallet, Star, ShieldCheck, Info, FileText, QrCode, User as UserIcon, Building2, Users2, Mic, TrendingUp, Globe, AlertCircle, Activity, Sparkles, Minimize2 } from 'lucide-react';
 import { CategoryCard } from '../Navigation';
 import { MOCK_DATA } from '../../lib/mock-data';
-import SumbandilaAI from './SumbandilaAI';
+import SumbandilaAI from '../SumbandilaAI';
 
 export default function Dashboard({ user, onVerify, onSelectCategory, onNav, onSearchChange, searchQuery }) {
   return (
