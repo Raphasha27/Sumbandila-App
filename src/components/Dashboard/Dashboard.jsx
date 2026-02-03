@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Bell, Search, School, Stethoscope, Scale, Wallet, Star, ShieldCheck, Info, FileText, QrCode, User as UserIcon, Building2, Users2, Mic, TrendingUp, Globe, AlertCircle, Activity } from 'lucide-react';
+import { Bell, Search, School, Stethoscope, Scale, Wallet, Star, ShieldCheck, Info, FileText, QrCode, User as UserIcon, Building2, Users2, Mic, TrendingUp, Globe, AlertCircle, Activity, Sparkles, Minimize2 } from 'lucide-react';
 import { CategoryCard } from '../Navigation';
 import { MOCK_DATA } from '../../lib/mock-data';
+import SumbandilaAI from './SumbandilaAI';
 
 export default function Dashboard({ user, onVerify, onSelectCategory, onNav, onSearchChange, searchQuery }) {
   return (
@@ -212,6 +213,8 @@ export default function Dashboard({ user, onVerify, onSelectCategory, onNav, onS
           <span style={{ fontWeight: 800, fontSize: '16px' }}>Report Suspicious Entity</span>
         </button>
       </div>
+
+      <SumbandilaAI />
     </motion.div>
   );
 }
