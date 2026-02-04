@@ -24,45 +24,58 @@ export default function Dashboard({ onVerify, onSelectCategory }) {
       {/* Header */}
       <div style={{ 
         background: 'var(--bg-gradient)', 
-        padding: '24px 20px 48px', 
+        padding: '12px 20px 48px', 
         borderRadius: '0 0 32px 32px',
         color: 'white',
         position: 'relative'
       }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-            <div style={{ width: '40px', height: '40px', border: '2.5px solid white', borderRadius: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <ShieldCheck size={28} color="white" strokeWidth={2.5} />
-            </div>
-            <h1 style={{ fontSize: '28px', fontWeight: 900, letterSpacing: '-0.5px' }}>Sumbandila</h1>
-          </div>
-          <p style={{ opacity: 0.9, fontSize: '15px', fontWeight: 500 }}>Verification in the palm of your hand</p>
-          
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '12px', background: 'rgba(255,255,255,0.15)', padding: '6px 16px', borderRadius: '100px', backdropFilter: 'blur(10px)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+          {/* 🟢 Live Sync Badge - Centered Top */}
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '8px', 
+            marginBottom: '16px', 
+            background: 'rgba(255,255,255,0.15)', 
+            padding: '4px 12px', 
+            borderRadius: '100px', 
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255,255,255,0.1)'
+          }}>
             <motion.div 
               animate={{ opacity: [0.4, 1, 0.4] }}
               transition={{ repeat: Infinity, duration: 2 }}
               style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ADE80' }} 
             />
-            <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>Registry Live Sync</span>
+            <span style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1.2px' }}>Registry Live Sync</span>
           </div>
           
-          <div style={{ display: 'flex', gap: '24px', marginTop: '16px', background: 'rgba(255,255,255,0.1)', padding: '12px 24px', borderRadius: '20px', backdropFilter: 'blur(5px)' }}>
-            <div onClick={() => setScreen('qr-scan')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
-               <QrCode size={20} color="white" />
-               <span style={{ fontSize: '11px', fontWeight: 700, opacity: 0.9 }}>Scanner</span>
+          {/* Action Row - Consolidated Card */}
+          <div style={{ 
+            display: 'flex', 
+            gap: '20px', 
+            marginBottom: '24px', 
+            background: 'rgba(255,255,255,0.1)', 
+            padding: '12px 20px', 
+            borderRadius: '24px', 
+            backdropFilter: 'blur(15px)',
+            border: '1px solid rgba(255,255,255,0.1)'
+          }}>
+            <div onClick={() => setScreen('qr-scan')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '50px' }}>
+               <QrCode size={18} color="white" />
+               <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Scanner</span>
             </div>
-            <div onClick={() => setScreen('profile')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
-               <UserIcon size={20} color="white" />
-               <span style={{ fontSize: '11px', fontWeight: 700, opacity: 0.9 }}>Profile</span>
+            <div onClick={() => setScreen('profile')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '50px' }}>
+               <UserIcon size={18} color="white" />
+               <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Profile</span>
             </div>
-            <div onClick={() => alert('Monitoring emerging high-risk entities...')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
-               <TrendingUp size={20} color="white" />
-               <span style={{ fontSize: '11px', fontWeight: 700, opacity: 0.9 }}>Alerts</span>
+            <div onClick={() => alert('Monitoring emerging high-risk entities...')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '50px' }}>
+               <TrendingUp size={18} color="white" />
+               <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Alerts</span>
             </div>
-            <div onClick={() => alert('Fetching latest registry news...')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
-               <Globe size={20} color="white" />
-               <span style={{ fontSize: '11px', fontWeight: 700, opacity: 0.9 }}>News</span>
+            <div onClick={() => alert('Fetching latest registry news...')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '50px' }}>
+               <Globe size={18} color="white" />
+               <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>News</span>
             </div>
           </div>
         </div>
