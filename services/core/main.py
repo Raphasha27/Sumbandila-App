@@ -5,8 +5,10 @@ from datetime import datetime
 import uuid
 
 from shared_events.event_bus import EventBus
+from shared_otel.tracing import setup_otel
 
 app = FastAPI(title="Sumbandila Core Registry Service (Multi-Tenant)")
+setup_otel(app, "core-service")
 event_bus = EventBus()
 
 # --- Domain Models ---

@@ -2,8 +2,10 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 import uvicorn
+from shared_otel.tracing import setup_otel
 
 app = FastAPI(title="Sumbandila Identity Service")
+setup_otel(app, "auth-service")
 
 class LoginRequest(BaseModel):
     email: str

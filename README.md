@@ -21,21 +21,26 @@ Sumbandila is built as a **Distributed SaaS Platform**, moving beyond traditiona
 2.  **Sentinel Gateway (Core API)**: The algorithmic heart for institutional risk assessment.
 3.  **Audit Pulse (Real-time Feed)**: Event-driven tracking of registry changes via Redis.
 4.  **Client-Side Vault**: Secure persistent storage for verified credentials.
+5.  **Sentinel Mobile (React Native)**: Field auditing tools for native scanners (iOS/Android).
 
 ---
 
 ## 🛠️ Enterprise Tech Stack
 
-### Frontend Ecosystem
-- **Framework**: Next.js / React (Modern App Router)
-- **State**: Zustand (Persistent Store)
-- **Styling**: Tailwind CSS + Custom Design Tokens
-- **Icons**: Lucide React
+### Platforms
+- **Web App**: Next.js / React (Modern App Router)
+- **Mobile App**: React Native / Expo (Native Field Auditing)
+
+### Observability & Performance
+- **Distributed Tracing**: OpenTelemetry (OTel)
+- **Visualization**: Jaeger (Deep Trace Analysis)
+- **Monitoring**: Prometheus & Grafana (Coming Soon)
+- **Event Bus**: Redis Streams
 
 ### Backend Ecosystem
-- **Engines**: FastAPI (Python) - Async performance.
-- **Database**: PostgreSQL (Relational Integrity)
-- **Cache**: Redis (High-speed streams)
+- **Engines**: FastAPI (Python) - High-concurrency async.
+- **Database**: PostgreSQL (Relational Data Integrity)
+- **Cache**: Redis (High-speed event streams)
 - **Validation**: Pydantic / Zod
 
 ### DevOps & Infrastructure

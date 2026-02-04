@@ -7,3 +7,7 @@ python-multipart
 sqlalchemy
 psycopg2-binary
 redis
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation-fastapi
+opentelemetry-exporter-otlp
