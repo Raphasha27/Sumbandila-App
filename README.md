@@ -2,6 +2,8 @@
 
 Sumbandila is a premium, high-integrity public safety verification portal designed for the South African ecosystem. It empowers citizens to instantly verify the accreditation of educational institutions, medical practitioners, and legal professionals.
 
+**🌐 [Live Demo](https://sumbandila-app.vercel.app/)**
+
 ## 🚀 Key Features
 
 - **Universal Registry Search**: A centralized, high-speed search portal for institutional audits.
