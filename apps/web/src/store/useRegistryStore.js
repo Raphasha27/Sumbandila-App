@@ -40,6 +40,11 @@ export const useRegistryStore = create(
     }),
     {
       name: 'sumbandila-storage',
+      partialize: (state) => ({ 
+        user: state.user, 
+        vault: state.vault,
+        searchQuery: state.searchQuery 
+      }),
     }
   )
 );

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Lock, ArrowRight, ChevronLeft, User as UserIcon, Mail } from 'lucide-react';
 
-export default function LoginScreen({ onLogin, onShowAbout }) {
+export default function LoginScreen({ onLogin, onBack, onShowAbout }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,7 +15,7 @@ export default function LoginScreen({ onLogin, onShowAbout }) {
       className="screen"
       style={{ background: '#FFFFFF', padding: '0' }}
     >
-      <header style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => window.location.reload()}>
+      <header style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={onBack}>
         <ChevronLeft size={24} color="#1F2937" />
         <span style={{ fontWeight: 600, fontSize: '18px' }}>Back</span>
       </header>

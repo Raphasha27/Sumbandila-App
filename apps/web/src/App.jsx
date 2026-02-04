@@ -138,6 +138,7 @@ export default function App() {
         {screen === 'login' && (
           <LoginScreen 
             onLogin={handleLogin} 
+            onBack={() => setScreen('splash')}
             onShowAbout={() => setScreen('how-it-works')} 
           />
         )}
