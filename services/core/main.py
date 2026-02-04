@@ -51,7 +51,7 @@ async def revoke_certificate(cert_id: str, tenant_id: str = Depends(get_tenant_i
     for cert in registry_db:
         if cert.id == cert_id and cert.tenant_id == tenant_id:
             cert.status = "Revoked"
-            cert.revoked_at = datetime.now()
+            cert.revoked_at = datetime.now(timezone.utc)
             
             # Publish Event
             await event_bus.publish("CERT_REVOKED", {"id": cert_id, "reason": "Administrative Audit"}, tenant_id)

@@ -68,15 +68,6 @@ async def handle_new_certification(data):
     else:
         print(f"✅ [AI_SENTINEL] Validation Passed (Risk: {risk_score})")
 
-async def run_worker():
-    print("🤖 AI Sentinel is analyzing the registry stream for fraud...")
-    await event_bus.subscribe(
-        group_name="ai_fraud_group", 
-        consumer_name="sentinel_01", 
-        callback=handle_new_certification
-    )
-
-
 @app.get("/health")
 async def health():
     return {"status": "ai_sentinel_active", "model_version": "v1.0.0-beta"}
