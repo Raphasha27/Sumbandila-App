@@ -35,6 +35,12 @@ export default function App() {
   const [verifyStep, setVerifyStep] = useState('input');
   const [isLoading, setIsLoading] = useState(false);
 
+  // 🛡️ Mandatory Splash Force: Ensures "Get Started" is the entry point every time
+  useEffect(() => {
+    setScreen('splash');
+    console.log("🛡️ Entry Point Reset: Enforcing Get Started Screen");
+  }, []);
+
   const handleLogin = async (credentials) => {
     try {
       setIsLoading(true);
