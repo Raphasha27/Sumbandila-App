@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 import uuid
 
 from shared_events.event_bus import EventBus
@@ -18,10 +18,10 @@ class CertificateBase(BaseModel):
     category: str # Education, Healthcare, Legal
 
 class Certificate(CertificateBase):
-    id: str = str(uuid.uuid4())
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     tenant_id: str # 🏢 Multi-tenant ID
     status: str = "Active" # Active, Revoked, Expired
-    issued_at: datetime = datetime.now()
+    issued_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     revoked_at: Optional[datetime] = None
     is_deleted: bool = False # 🧠 Soft delete for "Wisdom"
 
@@ -37,11 +37,11 @@ async def get_tenant_id():
 @app.post("/certificates/", response_model=Certificate)
 async def issue_certificate(cert_data: CertificateBase, tenant_id: str = Depends(get_tenant_id)):
     """Issues a new verifiable certificate within a tenant context."""
-    new_cert = Certificate(**cert_data.dict(), tenant_id=tenant_id)
+    new_cert = Certificate(**cert_data.model_dump(), tenant_id=tenant_id)
     registry_db.append(new_cert)
     
     # Publish Event to Redis Stream
-    await event_bus.publish("CERT_ISSUED", new_cert.dict(), tenant_id)
+    await event_bus.publish("CERT_ISSUED", new_cert.model_dump(), tenant_id)
     
     return new_cert
 

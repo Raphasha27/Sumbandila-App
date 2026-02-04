@@ -1,32 +1,40 @@
 # Contributing to Sumbandila Registry Sentinel 🛡️
 
-First off, thank you for considering contributing to Sumbandila! It's people like you that make Sumbandila such a great tool for public safety.
+First off, thank you for contributing to the world's most secure digital registry platform. As a contributor, you are helping build a **Digital Trust Authority**.
 
-## 🚀 How Can I Contribute?
+## 🛡️ Level 5 Integrity Standards
 
-### Reporting Bugs
-If you find a bug, please create a new issue. Include as much detail as possible:
-- A clear, descriptive title.
-- Steps to reproduce the bug.
-- Actual vs. Expected behavior.
+Every contribution to Sumbandila must adhere to our institutional-grade standards:
 
-### Suggesting Enhancements
-Enhancement suggestions are tracked as GitHub issues. When creating one:
-- Use a clear and descriptive title.
-- Provide a step-by-step description of the suggested enhancement.
-- Explain why this enhancement would be useful.
+1.  **Domain-Driven Design (DDD)**: Logic must be encapsulated within the appropriate bounded context (Check `/apps` or `/services`). Avoid crossing domain boundaries without an Event-Driven interface.
+2.  **Cryptographic Security**: All commits **must** be cryptographically signed using SSH or GPG keys. Unverified commits will be automatically flagged by the system.
+3.  **Zero-Trust UI**: Components must validate state and access levels locally before communicating with the API. Use the established design system tokens.
 
-### Pull Requests
-1. Fork the repo and create your branch from `main`.
-2. Install dependencies: `npm install`.
-3. If you've added code that should be tested, add tests!
-4. Ensure the build succeeds: `npm run build`.
-5. Create a Pull Request with a clear description of your changes.
+## 🚀 Contribution Workflow
 
-## 🛠️ Tech Stack Guidelines
-- Use **React Hooks** for state management (or **Zustand** for global state).
-- Use **Lucide React** for icons.
-- Ensure all UI components follow the established **Glassmorphic** design system in `src/index.css`.
+### 📋 Pull Request Process
+1.  **Issue First**: Always link your PR to an existing issue.
+2.  **Branching**: Name your branch `feature/<context>-<description>` or `fix/<context>-<description>`.
+3.  **PR Template**: Fill out the PR template completely. Reviewers will reject PRs with empty descriptions.
+4.  **Security Audit**: If your change impacts authentication or registry access, explicitly mention how the **AI Sentinel** bot was informed of this change.
+
+### ✍️ Commit Conventions
+We use **Conventional Commits**. This is mandatory for automated changelog generation and CI triggers:
+
+- `feat(<context>):` New features
+- `fix(<context>):` Bug fixes
+- `chore(<context>):` Maintenance/Dependencies
+- `integrity:` Security or GPG/SSH related updates
+- `docs:` Documentation only changes
+
+*Example: `feat(mobile): add biometric re-authentication for vault access`*
+
+## 🛠️ Local Environment
+- **Node.js**: v20+
+- **Python**: v3.11+
+- **Docker**: For microservice orchestration.
+- **Git**: Configured for signing (See [GITHUB_VERIFICATION.md](docs/GITHUB_VERIFICATION.md)).
 
 ---
-*By contributing, you agree that your contributions will be licensed under its MIT License.*
+*By contributing, you agree that your contributions will be licensed under the MIT License.*
+

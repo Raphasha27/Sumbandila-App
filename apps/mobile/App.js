@@ -160,34 +160,123 @@ export default function App() {
     );
   }
 
-  // --- SCREEN: DASHBOARD (Reusing previous tactical view but lighter) ---
+  // --- SCREEN: DASHBOARD (Enhanced Field Agent View) ---
   return (
     <SafeAreaView style={styles.dashboardContainer}>
       <StatusBar style="dark" />
-      <View style={styles.dashHeader}>
-         <Text style={styles.dashTitle}>Sumbandila</Text>
-         <TouchableOpacity onPress={() => setCurrentScreen('splash')}>
-            <User size={24} color="#333" />
-         </TouchableOpacity>
-      </View>
       
-      <View style={styles.dashContent}>
-         <View style={styles.verifiedCard}>
-             <Shield size={48} color="#2E7D32" />
-             <Text style={styles.verifiedTitle}>Agent Verified</Text>
-             <Text style={styles.verifiedSub}>Access Granted to Registry</Text>
+      {/* Header */}
+      <View style={styles.dashHeader}>
+         <View>
+            <Text style={styles.dashGreeting}>Welcome back,</Text>
+            <Text style={styles.dashTitle}>Sentinel Agent</Text>
          </View>
-         
          <TouchableOpacity 
-            style={styles.signOutButton}
+            style={styles.profileButton}
             onPress={() => setCurrentScreen('splash')}
          >
-            <Text style={styles.signOutText}>Sign Out</Text>
+            <User size={20} color="#E65100" />
          </TouchableOpacity>
       </View>
+
+      <ScrollView 
+        style={{ flex: 1 }} 
+        contentContainerStyle={{ paddingBottom: 100 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Status Card */}
+        <View style={styles.statusCard}>
+           <View style={styles.statusIconWrap}>
+              <Shield size={32} color="white" />
+           </View>
+           <View style={{ flex: 1 }}>
+              <Text style={styles.statusTitle}>Agent Verified</Text>
+              <Text style={styles.statusSub}>Level 5 Clearance • Active</Text>
+           </View>
+           <View style={styles.statusBadge}>
+              <Text style={styles.statusBadgeText}>LIVE</Text>
+           </View>
+        </View>
+
+        {/* Quick Stats */}
+        <View style={styles.statsRow}>
+           <View style={styles.statCard}>
+              <Text style={styles.statValue}>45k+</Text>
+              <Text style={styles.statLabel}>Verified</Text>
+           </View>
+           <View style={styles.statCard}>
+              <Text style={styles.statValue}>12</Text>
+              <Text style={styles.statLabel}>Today</Text>
+           </View>
+           <View style={styles.statCard}>
+              <Text style={[styles.statValue, { color: '#2E7D32' }]}>98%</Text>
+              <Text style={styles.statLabel}>Success</Text>
+           </View>
+        </View>
+
+        {/* Quick Actions */}
+        <Text style={styles.sectionTitle}>Quick Actions</Text>
+        
+        <TouchableOpacity style={styles.actionCard}>
+           <View style={[styles.actionIcon, { backgroundColor: '#FFF3E0' }]}>
+              <Shield size={24} color="#E65100" />
+           </View>
+           <View style={{ flex: 1 }}>
+              <Text style={styles.actionTitle}>Scan QR Seal</Text>
+              <Text style={styles.actionSub}>Verify institution instantly</Text>
+           </View>
+           <ChevronRight size={20} color="#CBD5E1" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.actionCard}>
+           <View style={[styles.actionIcon, { backgroundColor: '#E8F5E9' }]}>
+              <Mail size={24} color="#2E7D32" />
+           </View>
+           <View style={{ flex: 1 }}>
+              <Text style={styles.actionTitle}>Search Registry</Text>
+              <Text style={styles.actionSub}>Browse all providers</Text>
+           </View>
+           <ChevronRight size={20} color="#CBD5E1" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.actionCard}>
+           <View style={[styles.actionIcon, { backgroundColor: '#E3F2FD' }]}>
+              <Lock size={24} color="#1976D2" />
+           </View>
+           <View style={{ flex: 1 }}>
+              <Text style={styles.actionTitle}>Verification History</Text>
+              <Text style={styles.actionSub}>View past audits</Text>
+           </View>
+           <ChevronRight size={20} color="#CBD5E1" />
+        </TouchableOpacity>
+
+        {/* Sign Out */}
+        <TouchableOpacity 
+           style={styles.signOutButton}
+           onPress={() => setCurrentScreen('splash')}
+        >
+           <Text style={styles.signOutText}>Sign Out</Text>
+        </TouchableOpacity>
+      </ScrollView>
       
-      <View style={styles.bottomBar}>
-          <Text style={{ color: '#666' }}>Ready to Scan</Text>
+      {/* Bottom Nav */}
+      <View style={styles.bottomNav}>
+         <TouchableOpacity style={styles.navItem}>
+            <Shield size={22} color="#E65100" />
+            <Text style={[styles.navLabel, { color: '#E65100' }]}>Home</Text>
+         </TouchableOpacity>
+         <TouchableOpacity style={styles.navItem}>
+            <Mail size={22} color="#94A3B8" />
+            <Text style={styles.navLabel}>Search</Text>
+         </TouchableOpacity>
+         <TouchableOpacity style={styles.navItem}>
+            <Lock size={22} color="#94A3B8" />
+            <Text style={styles.navLabel}>History</Text>
+         </TouchableOpacity>
+         <TouchableOpacity style={styles.navItem}>
+            <User size={22} color="#94A3B8" />
+            <Text style={styles.navLabel}>Profile</Text>
+         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -376,60 +465,159 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: 24,
-      marginTop: 20,
+      paddingHorizontal: 24,
+      paddingTop: 20,
+      paddingBottom: 16,
+  },
+  dashGreeting: {
+      fontSize: 14,
+      color: '#64748B',
+      fontWeight: '500',
   },
   dashTitle: {
       fontSize: 24,
       fontWeight: 'bold',
-      color: '#E65100',
+      color: '#1E293B',
   },
-  dashContent: {
-      flex: 1,
+  profileButton: {
+      width: 44,
+      height: 44,
+      borderRadius: 22,
+      backgroundColor: '#FFF3E0',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: 20,
   },
-  verifiedCard: {
-      backgroundColor: 'white',
-      padding: 40,
-      borderRadius: 30,
+  statusCard: {
+      flexDirection: 'row',
       alignItems: 'center',
-      shadowColor: '#000',
-      shadowOpacity: 0.1,
-      shadowRadius: 20,
-      width: '100%',
+      backgroundColor: '#E65100',
+      marginHorizontal: 24,
+      padding: 20,
+      borderRadius: 20,
+      marginBottom: 20,
   },
-  verifiedTitle: {
+  statusIconWrap: {
+      width: 56,
+      height: 56,
+      borderRadius: 16,
+      backgroundColor: 'rgba(255,255,255,0.2)',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: 16,
+  },
+  statusTitle: {
+      fontSize: 18,
+      fontWeight: '800',
+      color: 'white',
+  },
+  statusSub: {
+      fontSize: 13,
+      color: 'rgba(255,255,255,0.8)',
+      marginTop: 2,
+  },
+  statusBadge: {
+      backgroundColor: '#4CAF50',
+      paddingHorizontal: 10,
+      paddingVertical: 4,
+      borderRadius: 8,
+  },
+  statusBadgeText: {
+      color: 'white',
+      fontSize: 11,
+      fontWeight: '800',
+  },
+  statsRow: {
+      flexDirection: 'row',
+      paddingHorizontal: 24,
+      gap: 12,
+      marginBottom: 24,
+  },
+  statCard: {
+      flex: 1,
+      backgroundColor: 'white',
+      padding: 16,
+      borderRadius: 16,
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: '#F1F5F9',
+  },
+  statValue: {
       fontSize: 24,
       fontWeight: '800',
       color: '#1E293B',
-      marginTop: 20,
   },
-  verifiedSub: {
-      fontSize: 16,
-      color: '#2E7D32',
-      marginTop: 8,
+  statLabel: {
+      fontSize: 12,
+      color: '#94A3B8',
       fontWeight: '600',
+      marginTop: 4,
+  },
+  sectionTitle: {
+      fontSize: 18,
+      fontWeight: '800',
+      color: '#1E293B',
+      paddingHorizontal: 24,
+      marginBottom: 16,
+  },
+  actionCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: 'white',
+      marginHorizontal: 24,
+      paddingHorizontal: 16,
+      paddingVertical: 18,
+      borderRadius: 16,
+      marginBottom: 12,
+      borderWidth: 1,
+      borderColor: '#F1F5F9',
+  },
+  actionIcon: {
+      width: 48,
+      height: 48,
+      borderRadius: 14,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: 14,
+  },
+  actionTitle: {
+      fontSize: 16,
+      fontWeight: '700',
+      color: '#1E293B',
+  },
+  actionSub: {
+      fontSize: 13,
+      color: '#94A3B8',
+      marginTop: 2,
   },
   signOutButton: {
-      marginTop: 30,
-      paddingVertical: 12,
-      paddingHorizontal: 30,
-      backgroundColor: '#F1F5F9',
-      borderRadius: 20,
-      borderWidth: 1,
-      borderColor: '#CBD5E1',
+      marginTop: 20,
+      marginHorizontal: 24,
+      paddingVertical: 14,
+      backgroundColor: '#FEE2E2',
+      borderRadius: 14,
+      alignItems: 'center',
   },
   signOutText: {
-      color: '#64748B',
-      fontWeight: '600',
+      color: '#DC2626',
+      fontWeight: '700',
   },
-  bottomBar: {
-      padding: 20,
-      alignItems: 'center',
+  bottomNav: {
+      flexDirection: 'row',
+      backgroundColor: 'white',
+      paddingVertical: 12,
+      paddingHorizontal: 24,
       borderTopWidth: 1,
-      borderTopColor: '#E2E8F0',
-  }
+      borderTopColor: '#F1F5F9',
+  },
+  navItem: {
+      flex: 1,
+      alignItems: 'center',
+      gap: 4,
+  },
+  navLabel: {
+      fontSize: 11,
+      fontWeight: '600',
+      color: '#94A3B8',
+  },
 
 });

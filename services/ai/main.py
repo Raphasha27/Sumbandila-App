@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 import asyncio
 import json
 import uvicorn
@@ -6,7 +7,20 @@ from shared_events.event_bus import EventBus
 from shared_otel.tracing import setup_otel
 from datetime import datetime
 
-app = FastAPI(title="Sumbandila AI Sentinel (Fraud Detection)")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: Run worker in background
+    print("🤖 AI Sentinel is analyzing the registry stream for fraud...")
+    task = asyncio.create_task(event_bus.subscribe(
+        group_name="ai_fraud_group", 
+        consumer_name="sentinel_01", 
+        callback=handle_new_certification
+    ))
+    yield
+    # Shutdown: Clean up if needed
+    task.cancel()
+
+app = FastAPI(title="Sumbandila AI Sentinel (Fraud Detection)", lifespan=lifespan)
 setup_otel(app, "ai-service")
 event_bus = EventBus()
 
@@ -62,9 +76,6 @@ async def run_worker():
         callback=handle_new_certification
     )
 
-@app.on_event("startup")
-async def startup_event():
-    asyncio.create_task(run_worker())
 
 @app.get("/health")
 async def health():
