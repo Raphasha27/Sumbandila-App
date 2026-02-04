@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, KeyboardAvoidingView, Platform, Image } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Shield, Lock, Mail, ChevronRight, User } from 'lucide-react-native';
 import * as LocalAuthentication from 'expo-local-authentication';
