@@ -17,7 +17,8 @@
         "moti": "latest",
         "zustand": "latest",
         "@tanstack/react-query": "latest",
-        "expo-local-authentication": "~14.0.1"
+        "expo-local-authentication": "~14.0.1",
+        "expo-linear-gradient": "~13.0.2"
     },
     "devDependencies": {
         "@babel/core": "^7.20.0"

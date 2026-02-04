@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { ShieldCheck, QrCode, User, Fingerprint, Lock } from 'lucide-react-native';
+import { Shield, Lock, Mail, ChevronRight, User } from 'lucide-react-native';
 import * as LocalAuthentication from 'expo-local-authentication';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // State: 'splash' | 'login' | 'dashboard'
+  const [currentScreen, setCurrentScreen] = useState('splash');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
 
   useEffect(() => {
@@ -18,217 +23,381 @@ export default function App() {
   const handleBiometricAuth = async () => {
     try {
       const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: 'Sentinel Identity Verification',
-        fallbackLabel: 'Use Passcode',
-        disableDeviceFallback: false,
+        promptMessage: 'Verify Identity to Login',
+        fallbackLabel: 'Use Password',
       });
-
       if (result.success) {
-        setIsAuthenticated(true);
-      } else {
-        Alert.alert('Authentication Failed', 'Secure access denied.');
+        setCurrentScreen('dashboard');
       }
-    } catch (error) {
-      Alert.alert('Error', 'An error occurred during authentication.');
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  if (!isAuthenticated) {
+  const handleLogin = () => {
+    // Simulating login
+    if (email && password) {
+      setCurrentScreen('dashboard');
+    } else {
+        // Fallback or demo mode if empty
+        handleBiometricAuth();
+    }
+  };
+
+  // --- SCREEN: SPLASH (Gradient) ---
+  if (currentScreen === 'splash') {
     return (
-      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+      <LinearGradient
+        // Approximate Orange (#E65100) to Green (#4CAF50) based on screenshots
+        colors={['#E65100', '#F57C00', '#43A047', '#2E7D32']}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+        style={styles.gradientContainer}
+      >
         <StatusBar style="light" />
-        <View style={styles.loginLogo}>
-          <ShieldCheck size={80} color="#E65100" />
+        
+        <View style={styles.splashContent}>
+          <View style={styles.logoCircle}>
+            <Shield size={64} color="#E65100" strokeWidth={2.5} />
+          </View>
+          
+          <Text style={styles.splashTitle}>Sumbandila</Text>
+          <Text style={styles.splashSubtitle}>Verification in the palm of your hand</Text>
         </View>
-        <Text style={styles.loginTitle}>Sentinel Mobile Authority</Text>
-        <Text style={styles.loginSubtitle}>LEVEL 5 CLEARANCE REQUIRED</Text>
-        
-        <TouchableOpacity style={styles.authButton} onPress={handleBiometricAuth}>
-          <Fingerprint size={32} color="white" />
-          <Text style={styles.authButtonText}>Verify Identity</Text>
+
+        <TouchableOpacity 
+          style={styles.whiteButton}
+          onPress={() => setCurrentScreen('login')}
+        >
+          <Text style={styles.whiteButtonText}>Get Verified</Text>
+          <ChevronRight size={20} color="#E65100" />
         </TouchableOpacity>
+      </LinearGradient>
+    );
+  }
+
+  // --- SCREEN: LOGIN (White Card) ---
+  if (currentScreen === 'login') {
+    return (
+      <View style={styles.loginContainer}>
+        <StatusBar style="dark" />
         
-        <Text style={styles.securityText}>
-          <Lock size={12} color="#94A3B8" /> Secured by Government Cryptographic Seal
-        </Text>
+        {/* Header Section */}
+        <View style={styles.loginHeader}>
+          <TouchableOpacity onPress={() => setCurrentScreen('splash')} style={styles.backButton}>
+             <Text style={styles.backText}>← Back</Text>
+          </TouchableOpacity>
+        </View>
+
+        <KeyboardAvoidingView 
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+            style={{ flex: 1, justifyContent: 'center' }}
+        >
+            <View style={styles.contentContainer}>
+                <View style={styles.iconCircle}>
+                    <User size={40} color="#E65100" />
+                </View>
+                
+                <Text style={styles.loginTitleText}>Welcome Back</Text>
+                <Text style={styles.loginSubtitleText}>Sign in to your Sumbandila account</Text>
+
+                <View style={styles.card}>
+                    <Text style={styles.label}>Email Address</Text>
+                    <View style={styles.inputContainer}>
+                        <Mail size={20} color="#94A3B8" style={{ marginRight: 10 }} />
+                        <TextInput 
+                            style={styles.input}
+                            placeholder="Enter your email"
+                            value={email}
+                            onChangeText={setEmail}
+                            autoCapitalize="none"
+                        />
+                    </View>
+
+                    <Text style={styles.label}>Password</Text>
+                    <View style={styles.inputContainer}>
+                        <Lock size={20} color="#94A3B8" style={{ marginRight: 10 }} />
+                        <TextInput 
+                            style={styles.input}
+                            placeholder="Enter your password"
+                            value={password}
+                            onChangeText={setPassword}
+                            secureTextEntry
+                        />
+                    </View>
+
+                    <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+                        <Text style={styles.loginButtonText}>Sign In</Text>
+                    </TouchableOpacity>
+
+                    <Text style={styles.orText}>OR</Text>
+
+                    <TouchableOpacity style={styles.outlineButton}>
+                        <Text style={styles.outlineButtonText}>Create New Account</Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/* Demo Filler */}
+                <Text style={styles.demoText}>
+                    Test Credentials (Tap to Fill){'\n'}
+                    Admin: admin@sumbandila.com / admin123
+                </Text>
+            </View>
+        </KeyboardAvoidingView>
       </View>
     );
   }
 
+  // --- SCREEN: DASHBOARD (Reusing previous tactical view but lighter) ---
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="light" />
+    <SafeAreaView style={styles.dashboardContainer}>
+      <StatusBar style="dark" />
+      <View style={styles.dashHeader}>
+         <Text style={styles.dashTitle}>Sumbandila</Text>
+         <TouchableOpacity onPress={() => setCurrentScreen('splash')}>
+            <User size={24} color="#333" />
+         </TouchableOpacity>
+      </View>
       
-      {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.logoBox}>
-          <ShieldCheck size={32} color="#E65100" />
-          <Text style={styles.logoText}>Sumbandila</Text>
-        </View>
-        <Text style={styles.subtitle}>Sentinel Mobile Authority</Text>
+      <View style={styles.dashContent}>
+         <View style={styles.verifiedCard}>
+             <Shield size={48} color="#2E7D32" />
+             <Text style={styles.verifiedTitle}>Agent Verified</Text>
+             <Text style={styles.verifiedSub}>Access Granted to Registry</Text>
+         </View>
       </View>
-
-      {/* Main Action */}
-      <View style={styles.content}>
-        <TouchableOpacity style={styles.scanButton}>
-          <QrCode size={40} color="white" />
-          <Text style={styles.scanText}>Scan Registry Seal</Text>
-        </TouchableOpacity>
+      
+      <View style={styles.bottomBar}>
+          <Text style={{ color: '#666' }}>Ready to Scan</Text>
       </View>
-
-      {/* Stats Bar */}
-      <View style={styles.statsBar}>
-        <View style={styles.statItem}>
-          <Text style={styles.statValue}>Vetted</Text>
-          <Text style={styles.statLabel}>45k+</Text>
-        </View>
-        <View style={styles.statItem}>
-          <Text style={styles.statValue}>Pulse</Text>
-          <Text style={[styles.statLabel, { color: '#4ADE80' }]}>LIVE</Text>
-        </View>
-      </View>
-
-      {/* Bottom Nav Mock */}
-      <TouchableOpacity 
-        style={styles.bottomNav}
-        onPress={() => setIsAuthenticated(false)}
-      >
-        <User size={24} color="#6B7280" />
-        <Text style={styles.navText}>Agent Profile (Sign Out)</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  // SPLASH
+  gradientContainer: {
     flex: 1,
-    backgroundColor: '#0F172A',
-  },
-  loginLogo: {
-    marginBottom: 32,
-    shadowColor: '#E65100',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.2,
-    shadowRadius: 20,
-  },
-  loginTitle: {
-    color: 'white',
-    fontSize: 28,
-    fontWeight: '900',
-    textAlign: 'center',
-  },
-  loginSubtitle: {
-    color: '#E65100',
-    fontSize: 14,
-    fontWeight: '800',
-    letterSpacing: 2,
-    marginTop: 8,
-    marginBottom: 48,
-  },
-  authButton: {
-    backgroundColor: '#E65100',
-    paddingHorizontal: 40,
-    paddingVertical: 20,
-    borderRadius: 24,
-    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 16,
-    shadowColor: '#E65100',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
+    paddingVertical: 60,
   },
-  authButtonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '800',
+  logoCircle: {
+      width: 120,
+      height: 120,
+      borderRadius: 60,
+      backgroundColor: 'white',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 30,
+      shadowColor: '#000',
+      shadowOpacity: 0.1,
+      shadowRadius: 10,
+      shadowOffset: { width: 0, height: 5 },
+      elevation: 5,
   },
-  securityText: {
-    color: '#94A3B8',
-    fontSize: 12,
-    fontWeight: '600',
-    marginTop: 24,
-    opacity: 0.6,
+  splashContent: {
+      alignItems: 'center',
+      marginTop: 80,
   },
-  header: {
-    padding: 24,
-    alignItems: 'center',
-    marginTop: 40,
+  splashTitle: {
+      fontSize: 36,
+      fontWeight: '800',
+      color: 'white',
+      marginBottom: 8,
   },
-  logoBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
+  splashSubtitle: {
+      fontSize: 16,
+      color: 'rgba(255,255,255,0.9)',
+      textAlign: 'center',
+      maxWidth: '80%',
+      fontWeight: '500',
   },
-  logoText: {
-    color: 'white',
-    fontSize: 28,
-    fontWeight: '900',
-    letterSpacing: -1,
+  whiteButton: {
+      backgroundColor: 'white',
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 16,
+      paddingHorizontal: 32,
+      borderRadius: 30,
+      gap: 8,
+      marginBottom: 40,
+      shadowColor: '#000',
+      shadowOpacity: 0.2,
+      shadowRadius: 10,
+      elevation: 5,
+      width: '80%',
+      justifyContent: 'center',
   },
-  subtitle: {
-    color: '#94A3B8',
-    fontSize: 14,
-    fontWeight: '700',
-    marginTop: 4,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
+  whiteButtonText: {
+      color: '#E65100',
+      fontSize: 18,
+      fontWeight: 'bold',
   },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+
+  // LOGIN
+  loginContainer: {
+      flex: 1,
+      backgroundColor: '#F8FAFC', // Light background like screenshots
   },
-  scanButton: {
-    backgroundColor: '#E65100',
-    width: '100%',
-    height: 180,
-    borderRadius: 32,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 16,
-    shadowColor: '#E65100',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.3,
-    shadowRadius: 20,
+  loginHeader: {
+      paddingTop: 50,
+      paddingHorizontal: 20,
   },
-  scanText: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: '800',
+  backButton: {
+      padding: 10,
   },
-  statsBar: {
-    flexDirection: 'row',
-    padding: 24,
-    justifyContent: 'space-around',
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.1)',
+  backText: {
+      fontSize: 16,
+      color: '#333',
   },
-  statItem: {
-    alignItems: 'center',
+  contentContainer: {
+      alignItems: 'center',
+      paddingHorizontal: 24,
+      width: '100%',
   },
-  statValue: {
-    color: '#94A3B8',
-    fontSize: 12,
-    fontWeight: '800',
+  iconCircle: {
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+      backgroundColor: '#FFF3E0', // Light orange
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 20,
   },
-  statLabel: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '900',
+  loginTitleText: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      color: '#1E293B',
+      marginBottom: 8,
   },
-  bottomNav: {
-    flexDirection: 'row',
-    height: 80,
-    backgroundColor: '#1E293B',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 12,
+  loginSubtitleText: {
+      fontSize: 14,
+      color: '#64748B',
+      marginBottom: 32,
   },
-  navText: {
-    color: '#94A3B8',
-    fontWeight: '700',
+  card: {
+      backgroundColor: 'white',
+      width: '100%',
+      borderRadius: 20,
+      padding: 24,
+      shadowColor: '#000',
+      shadowOpacity: 0.05,
+      shadowRadius: 15,
+      elevation: 3,
+  },
+  label: {
+      fontSize: 14,
+      fontWeight: '600',
+      color: '#334155',
+      marginBottom: 8,
+  },
+  inputContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#F1F5F9',
+      borderRadius: 12,
+      paddingHorizontal: 16,
+      height: 50,
+      marginBottom: 20,
+      borderWidth: 1,
+      borderColor: '#E2E8F0',
+  },
+  input: {
+      flex: 1,
+      fontSize: 16,
+      color: '#333',
+  },
+  loginButton: {
+      backgroundColor: '#D84315', // Deep Orange
+      height: 50,
+      borderRadius: 12,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 10,
+      marginBottom: 20,
+  },
+  loginButtonText: {
+      color: 'white',
+      fontSize: 16,
+      fontWeight: 'bold',
+  },
+  orText: {
+      textAlign: 'center',
+      color: '#94A3B8',
+      fontSize: 12,
+      marginBottom: 20,
+  },
+  outlineButton: {
+      borderWidth: 1,
+      borderColor: '#E2E8F0',
+      height: 50,
+      borderRadius: 12,
+      justifyContent: 'center',
+      alignItems: 'center',
+  },
+  outlineButtonText: {
+      color: '#334155',
+      fontSize: 16,
+      fontWeight: '600',
+  },
+  demoText: {
+      marginTop: 30,
+      textAlign: 'center',
+      color: '#CBD5E1',
+      fontSize: 12,
+  },
+
+  // DASHBOARD
+  dashboardContainer: {
+      flex: 1,
+      backgroundColor: '#F8FAFC',
+  },
+  dashHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 24,
+      marginTop: 20,
+  },
+  dashTitle: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: '#E65100',
+  },
+  dashContent: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 20,
+  },
+  verifiedCard: {
+      backgroundColor: 'white',
+      padding: 40,
+      borderRadius: 30,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOpacity: 0.1,
+      shadowRadius: 20,
+      width: '100%',
+  },
+  verifiedTitle: {
+      fontSize: 24,
+      fontWeight: '800',
+      color: '#1E293B',
+      marginTop: 20,
+  },
+  verifiedSub: {
+      fontSize: 16,
+      color: '#2E7D32',
+      marginTop: 8,
+      fontWeight: '600',
+  },
+  bottomBar: {
+      padding: 20,
+      alignItems: 'center',
+      borderTopWidth: 1,
+      borderTopColor: '#E2E8F0',
   }
+
 });
