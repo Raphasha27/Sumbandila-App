@@ -19,6 +19,9 @@ services:
       - "8001:8001"
     environment:
       - DATABASE_URL=postgresql://user:pass@db:5432/auth_db
+      - PYTHONPATH=/app/packages # Critical for shared code access
+    volumes:
+      - .:/app
 
   core-service:
     build:
@@ -27,6 +30,20 @@ services:
       - "8000:8000"
     environment:
       - DATABASE_URL=postgresql://user:pass@db:5432/core_db
+      - PYTHONPATH=/app/packages
+    volumes:
+      - .:/app
+
+  audit-service:
+    build:
+      context: ./services/audit
+    ports:
+      - "8002:8002"
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - PYTHONPATH=/app/packages
+    volumes:
+      - .:/app
 
   db:
     image: postgres:15-alpine
