@@ -4,11 +4,11 @@
   # 🛡️ Sumbandila: The Registry Sentinel
   ### *Institutional Verification. High-Integrity Architecture.*
 
-  [![Platform Status](https://img.shields.io/badge/Platform-Live_%26_Healthy-4ADE80?style=for-the-badge&logo=statuspage)](https://sumbandila-app.vercel.app)
-  [![Vercel Deployment](https://img.shields.io/badge/Production-Deployed-black?style=for-the-badge&logo=vercel)](https://sumbandila-app.vercel.app)
+  [![Platform Status](https://img.shields.io/badge/Platform-Live_%26_Healthy-4ADE80?style=for-the-badge&logo=statuspage)](https://kivoc-dynamic-technology.vercel.app)
+  [![Vercel Deployment](https://img.shields.io/badge/Production-Deployed-black?style=for-the-badge&logo=vercel)](https://kivoc-dynamic-technology.vercel.app)
   [![Security Compliance](https://img.shields.io/badge/Security-Level_5_Integrity-E65100?style=for-the-badge&logo=shield)](https://github.com/Raphasha27/Sumbandila-app/blob/main/CONTRIBUTING.md)
   
-  **A distributed, national-scale Registry Platform for verifying institutional and professional credentials in South Africa.**
+  **A distributed, national-scale Registry Platform for verifying institutional and professional credentials in South Africa. Powered by Kivoc Dynamic Technology.**
 </div>
 
 ---
@@ -18,7 +18,7 @@ The Sumbandila platform is currently operational across Web and Mobile.
 
 ### 🌐 Web Portal (Live)
 Access the secure dashboard instantly:
-🔗 **[https://sumbandila-app.vercel.app/](https://sumbandila-app.vercel.app/)**
+🔗 **[https://kivoc-dynamic-technology.vercel.app/](https://kivoc-dynamic-technology.vercel.app/)**
 
 *Standardized with Mandatory Entry Splash, JWT-Ready Auth, and Real-time Auditing Feed.*
 
