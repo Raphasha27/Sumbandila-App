@@ -35,14 +35,26 @@ export default function App() {
   };
 
   const handleLogin = () => {
-    // Simulating login
-    if (email && password) {
+    // 🔐 Mock Credential Validation
+    const isValidMock = (email.toLowerCase() === 'admin@sumbandila.com' && password === 'admin123');
+    
+    if (isValidMock) {
       setCurrentScreen('dashboard');
+      // Clear credentials for security on next session
+      setEmail('');
+      setPassword('');
     } else {
-        // Fallback or demo mode if empty
-        handleBiometricAuth();
+        Alert.alert(
+            'Access Denied', 
+            'Invalid credentials. \nTry: admin@sumbandila.com / admin123'
+        );
     }
   };
+
+  // Force splash screen on mount ensures "Get Started" is compulsory
+  useEffect(() => {
+     setCurrentScreen('splash');
+  }, []);
 
   // --- SCREEN: SPLASH (Gradient) ---
   if (currentScreen === 'splash') {
