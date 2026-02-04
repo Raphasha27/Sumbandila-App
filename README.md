@@ -20,7 +20,7 @@ Sumbandila is built as a **Distributed SaaS Platform**, moving beyond traditiona
 1.  **Identity Registry (Auth Service)**: High-security RBAC and organizational credential management.
 2.  **Sentinel Gateway (Core API)**: The algorithmic heart for institutional risk assessment.
 3.  **Audit Pulse (Real-time Feed)**: Event-driven tracking of registry changes via Redis.
-4.  **Client-Side Vault**: Secure persistent storage for verified credentials.
+4.  **AI Sentinel (Fraud Service)**: Predictive risk engine analyzing registry events for anomalies.
 5.  **Sentinel Mobile (React Native)**: Field auditing tools for native scanners (iOS/Android).
 
 ---
@@ -31,22 +31,20 @@ Sumbandila is built as a **Distributed SaaS Platform**, moving beyond traditiona
 - **Web App**: Next.js / React (Modern App Router)
 - **Mobile App**: React Native / Expo (Native Field Auditing)
 
-### Observability & Performance
-- **Distributed Tracing**: OpenTelemetry (OTel)
-- **Visualization**: Jaeger (Deep Trace Analysis)
-- **Monitoring**: Prometheus & Grafana (Coming Soon)
-- **Event Bus**: Redis Streams
+### Intelligence & Observability
+- **Predictive AI**: FastAPI-based Fraud Detection with event-driven triggers.
+- **Distributed Tracing**: OpenTelemetry (OTel) + Jaeger.
+- **Event Bus**: Redis Streams.
 
 ### Backend Ecosystem
 - **Engines**: FastAPI (Python) - High-concurrency async.
 - **Database**: PostgreSQL (Relational Data Integrity)
 - **Cache**: Redis (High-speed event streams)
-- **Validation**: Pydantic / Zod
 
 ### DevOps & Infrastructure
-- **Containerization**: Docker & Docker Compose
+- **CI/CD**: GitHub Actions (Linting, Atomic Builds, Containerization).
+- **Containerization**: Docker & Docker Compose.
 - **Architectural Records**: ADR documentation for technical lineage.
-- **CI/CD**: GitHub Actions (Workflows in progress)
 
 ---
 

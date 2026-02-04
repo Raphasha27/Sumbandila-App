@@ -45,6 +45,17 @@ services:
     volumes:
       - .:/app
 
+  ai-service:
+    build:
+      context: ./services/ai
+    ports:
+      - "8003:8003"
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - PYTHONPATH=/app/packages
+    volumes:
+      - .:/app
+
   db:
     image: postgres:15-alpine
     environment:
