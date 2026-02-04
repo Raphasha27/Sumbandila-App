@@ -44,8 +44,10 @@ Sumbandila is built as a **Distributed SaaS Platform**, moving beyond traditiona
 
 ### DevOps & Infrastructure
 - **CI/CD**: GitHub Actions (Linting, Atomic Builds, Containerization).
+- **Disaster Recovery**: Automated, encrypted S3 backups with WORM guarantees.
+- **Federated Trust**: OIDC (OpenID Connect) Identity Provider for cross-agency integration.
 - **Containerization**: Docker & Docker Compose.
-- **Architectural Records**: ADR documentation for technical lineage.
+- **Architectural Records**: ADR documentation for technical lineage (13+ records).
 
 ---
 

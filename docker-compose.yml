@@ -56,6 +56,16 @@ services:
     volumes:
       - .:/app
 
+  backup-service:
+    build:
+      context: ./services/backup
+    environment:
+      - S3_BUCKET=sumbandila-backups
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-mock}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-mock}
+    volumes:
+      - .:/app
+
   db:
     image: postgres:15-alpine
     environment:

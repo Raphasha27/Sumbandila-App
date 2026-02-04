@@ -13,7 +13,21 @@ class LoginRequest(BaseModel):
 
 @app.get("/health")
 async def health():
-    return {"status": "healthy", "service": "auth-service"}
+    return {"status": "healthy", "service": "auth-service", "federation": "OIDC_READY"}
+
+@app.get("/.well-known/openid-configuration")
+async def oidc_config():
+    """OIDC Discovery Endpoint for Federated Identity."""
+    return {
+        "issuer": "https://auth.sumbandila.gov.za",
+        "authorization_endpoint": "https://auth.sumbandila.gov.za/oauth/authorize",
+        "token_endpoint": "https://auth.sumbandila.gov.za/oauth/token",
+        "userinfo_endpoint": "https://auth.sumbandila.gov.za/oauth/userinfo",
+        "jwks_uri": "https://auth.sumbandila.gov.za/.well-known/jwks.json",
+        "response_types_supported": ["code", "token", "id_token"],
+        "subject_types_supported": ["public"],
+        "id_token_signing_alg_values_supported": ["RS256"]
+    }
 
 @app.post("/auth/login")
 async def login(credentials: LoginRequest):
