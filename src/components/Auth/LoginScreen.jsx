@@ -52,7 +52,7 @@ export default function LoginScreen({ onLogin, onShowAbout }) {
               <input 
                 type="email" 
                 placeholder="Enter your email" 
-                style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontSize: '16px' }}
+                style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontSize: '16px', color: '#111827' }}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -73,7 +73,7 @@ export default function LoginScreen({ onLogin, onShowAbout }) {
               <input 
                 type="password" 
                 placeholder="Enter your password" 
-                style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontSize: '16px' }}
+                style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontSize: '16px', color: '#111827' }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
