@@ -10,7 +10,8 @@
     "dev": "npm run dev --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present"
+    "lint": "npm run lint --workspaces --if-present",
+    "check-env": "node scripts/integrity-check.js"
   },
   "engines": {
     "node": ">=22.0.0",
