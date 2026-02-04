@@ -12,6 +12,18 @@
 
 ---
 
+## 🔐 Quick Start & Access
+
+To access the secured **Sentinel Dashboard** (Web) or **Field App** (Mobile), use the official institutional credentials:
+
+| Role | Email | Password | Clearance |
+| :--- | :--- | :--- | :--- |
+| **Sentinel Admin** | `admin@sumbandila.com` | `admin123` | **Level 5 (Global)** |
+
+> **Note**: The **Mobile App** enforces a mandatory "Get Started" splash screen and validates these specific credentials. Biometric auth will trigger on subsequent logins.
+
+---
+
 ## 🏛️ System Architecture
 
 Sumbandila is built as a **Distributed SaaS Platform**, moving beyond traditional monolithic design to a Domain-Driven Monorepo.
@@ -82,9 +94,3 @@ docker-compose up --build
 
 ---
 *Developed for Excellence in Software Engineering & Public Integrity. © 2026 Sumbandila Registry Sentinel.*
-# Signed Commit Test
-# Signed Commit Try 2
-# Signed Commit Test 4
-# Signed Commit Test 5
-# Signed Commit Test 6
-# Unsigned Commit
