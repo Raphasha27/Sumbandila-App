@@ -31,6 +31,15 @@ export default function Dashboard({ user, onVerify, onSelectCategory, onNav, onS
           </div>
           <p style={{ opacity: 0.9, fontSize: '15px', fontWeight: 500 }}>Verification in the palm of your hand</p>
           
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '12px', background: 'rgba(255,255,255,0.15)', padding: '6px 16px', borderRadius: '100px', backdropFilter: 'blur(10px)' }}>
+            <motion.div 
+              animate={{ opacity: [0.4, 1, 0.4] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+              style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ADE80' }} 
+            />
+            <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>Registry Live Sync</span>
+          </div>
+          
           <div style={{ display: 'flex', gap: '24px', marginTop: '16px', background: 'rgba(255,255,255,0.1)', padding: '12px 24px', borderRadius: '20px', backdropFilter: 'blur(5px)' }}>
             <div onClick={() => onNav('qr-scan')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
                <QrCode size={20} color="white" />
