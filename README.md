@@ -93,4 +93,29 @@ docker-compose up --build
 ```
 
 ---
+
+## 🌐 Live Deployments
+
+### Web Application (Vercel)
+The web dashboard is deployed and accessible at:
+
+🔗 **[https://sumbandila-app.vercel.app/](https://sumbandila-app.vercel.app/)**
+
+Features the "Get Started" splash, Login authentication, and the full Sentinel Dashboard.
+
+### Mobile Application (Expo Go)
+The mobile field app runs natively on iOS/Android via Expo Go:
+
+1. Install **Expo Go** from the [App Store](https://apps.apple.com/app/expo-go/id982107779) or [Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent).
+2. Clone this repository and navigate to the mobile app:
+   ```bash
+   cd apps/mobile
+   npm install
+   npx expo start
+   ```
+3. Scan the QR code with Expo Go to launch on your device.
+
+Features native biometric authentication (FaceID/TouchID), the branded gradient splash, and secure credential validation.
+
+---
 *Developed for Excellence in Software Engineering & Public Integrity. © 2026 Sumbandila Registry Sentinel.*
