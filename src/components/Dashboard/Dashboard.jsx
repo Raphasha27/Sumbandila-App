@@ -140,6 +140,22 @@ export default function Dashboard({ user, onVerify, onSelectCategory, onNav, onS
           />
         </div>
 
+        {/* Registry Footprint Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '32px' }}>
+          <div style={{ background: 'white', padding: '16px 8px', borderRadius: '20px', border: '1px solid #F3F4F6', textAlign: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
+            <div style={{ color: '#3B82F6', fontSize: '18px', fontWeight: 900 }}>2.4k+</div>
+            <div style={{ color: '#9CA3AF', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase' }}>Edu Hubs</div>
+          </div>
+          <div style={{ background: 'white', padding: '16px 8px', borderRadius: '20px', border: '1px solid #F3F4F6', textAlign: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
+            <div style={{ color: '#10B981', fontSize: '18px', fontWeight: 900 }}>45k+</div>
+            <div style={{ color: '#9CA3AF', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase' }}>Pro Vetted</div>
+          </div>
+          <div style={{ background: 'white', padding: '16px 8px', borderRadius: '20px', border: '1px solid #F3F4F6', textAlign: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
+            <div style={{ color: '#E65100', fontSize: '18px', fontWeight: 900 }}>100%</div>
+            <div style={{ color: '#9CA3AF', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase' }}>Registry</div>
+          </div>
+        </div>
+
         {/* Real-time Ticker / Recent Activity */}
         <div style={{ marginBottom: '32px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
