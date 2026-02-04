@@ -29,11 +29,12 @@ Sumbandila is built as a **Distributed SaaS Platform**, moving beyond traditiona
 
 ### Platforms
 - **Web App**: Next.js / React (Modern App Router)
-- **Mobile App**: React Native / Expo (Native Field Auditing)
+- **Mobile App**: React Native / Expo with **Native Biometric Auth** (FaceID/TouchID)
 
 ### Intelligence & Observability
 - **Predictive AI**: FastAPI-based Fraud Detection with event-driven triggers.
-- **Distributed Tracing**: OpenTelemetry (OTel) + Jaeger.
+- **Observability Level 5**: Prometheus (Metrics) + Grafana (Visual Dashboards).
+- **Distributed Tracing**: OpenTelemetry (OTel) + Jaeger (Spans).
 - **Event Bus**: Redis Streams.
 
 ### Backend Ecosystem

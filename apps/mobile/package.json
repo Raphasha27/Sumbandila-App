@@ -16,7 +16,8 @@
         "lucide-react-native": "latest",
         "moti": "latest",
         "zustand": "latest",
-        "@tanstack/react-query": "latest"
+        "@tanstack/react-query": "latest",
+        "expo-local-authentication": "~14.0.1"
     },
     "devDependencies": {
         "@babel/core": "^7.20.0"
