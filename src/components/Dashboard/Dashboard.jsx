@@ -4,8 +4,15 @@ import { Bell, Search, School, Stethoscope, Scale, Wallet, Star, ShieldCheck, In
 import { CategoryCard } from '../Navigation';
 import { MOCK_DATA } from '../../lib/mock-data';
 import SumbandilaAI from '../SumbandilaAI';
+import { useRegistryStore } from '../../store/useRegistryStore';
 
-export default function Dashboard({ user, onVerify, onSelectCategory, onNav, onSearchChange, searchQuery }) {
+export default function Dashboard({ onVerify, onSelectCategory }) {
+  const { 
+    user, 
+    searchQuery, 
+    setSearchQuery,
+    setScreen 
+  } = useRegistryStore();
   return (
     <motion.div 
       initial={{ opacity: 0 }} 
@@ -41,11 +48,11 @@ export default function Dashboard({ user, onVerify, onSelectCategory, onNav, onS
           </div>
           
           <div style={{ display: 'flex', gap: '24px', marginTop: '16px', background: 'rgba(255,255,255,0.1)', padding: '12px 24px', borderRadius: '20px', backdropFilter: 'blur(5px)' }}>
-            <div onClick={() => onNav('qr-scan')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
+            <div onClick={() => setScreen('qr-scan')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
                <QrCode size={20} color="white" />
                <span style={{ fontSize: '11px', fontWeight: 700, opacity: 0.9 }}>Scanner</span>
             </div>
-            <div onClick={() => onNav('profile')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
+            <div onClick={() => setScreen('profile')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
                <UserIcon size={20} color="white" />
                <span style={{ fontSize: '11px', fontWeight: 700, opacity: 0.9 }}>Profile</span>
             </div>
@@ -78,7 +85,7 @@ export default function Dashboard({ user, onVerify, onSelectCategory, onNav, onS
                 type="text" 
                 placeholder="Search..." 
                 value={searchQuery}
-                onChange={(e) => onSearchChange(e.target.value)}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && onVerify(searchQuery)}
                 style={{ 
                   background: 'transparent', 

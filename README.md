@@ -1,117 +1,78 @@
-![Sumbandila Registry Sentinel Banner](public/banner.png)
+<div align="center">
+  <img src="public/banner.png" width="100%" alt="Sumbandila Registry Sentinel Banner" />
 
-# Sumbandila Registry Sentinel 🛡️
+  # 🏆 Sumbandila: Enterprise SaaS Platform Blueprint
 
-Sumbandila is a premium, high-integrity public safety verification portal designed for the South African ecosystem. It empowers citizens to instantly verify the accreditation of educational institutions, medical practitioners, and legal professionals via official national registries.
-
-**🚀 [Live Production Portal: https://sumbandila-app.vercel.app](https://sumbandila-app.vercel.app)**
-
-
-
-## 🚀 Key Features
-
-- **Universal Registry Search**: A centralized, high-speed search portal for institutional audits with centered precision.
-- **Sentinel AI Assistant**: Conversational AI guidance (bottom right) for complex verification workflows.
-- **Security Insights**: Real-time tracking of registry integrity scores and vetting activity.
-- **Global Auditing Trends**: Live feed of verification activity and security alerts for bogus entities.
-- **Multi-Category Support**: Specialized registries for Education (DHET), Medical (HPCSA), and Legal (LPC).
-- **Modern Adaptive UI**: Re-designed for speed, centered focus, and multi-color premium aesthetics.
-
-## 🛠️ Technology Stack
-
-- **Framework**: [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
-- **State Management**: React Hooks (Persistence in LocalStorage)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Style**: Custom Glassmorphic CSS Design System
-
-## 📦 Local Development
-
-### Prerequisites
-
-- Node.js (Latest LTS recommended)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Raphasha27/Sumbandila-app.git
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-### Building for Production
-
-To create an optimized production build:
-```bash
-npm run build
-```
-
-## 📊 Codebase Statistics
-
-Sumbandila is engineered for performance and precision, with a high-integrity codebase monitored for compliance.
-
-![Languages](https://img.shields.io/badge/JavaScript-88.9%25-yellow) ![CSS](https://img.shields.io/badge/CSS-10.3%25-blue) ![HTML](https://img.shields.io/badge/HTML-0.8%25-orange)
+  [![Architecture](https://img.shields.io/badge/Architecture-DDD_%2F_Microservices-blue?style=for-the-badge)](https://github.com/Raphasha27/Sumbandila-app)
+  [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-black?style=for-the-badge&logo=vercel)](https://sumbandila-app.vercel.app)
+  [![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?style=for-the-badge&logo=docker)](https://www.docker.com/)
+  
+  **A production-grade, high-integrity Registry Platform designed for national-scale institutional auditing.**
+</div>
 
 ---
 
-## 🏗️ System Architecture
+## 🏛️ System Architecture
 
-1.  **Registry Gateway**: Centered search interface linked to distributed national databases.
-2.  **Sentinel Logic**: Multi-factor verification algorithms for institutional risk assessment.
-3.  **Encrypted Vault**: Client-side secure storage for verified certificates using `LocalStorage`.
-4.  **Sumbandila AI**: Real-time LLM-assisted guidance for auditing workflows.
+Sumbandila is built as a **Distributed SaaS Platform**, moving beyond traditional monolithic design to a Domain-Driven Monorepo.
 
-## 🛡️ Security & Reliability
-
-| Feature | Status | Reliability |
-| :--- | :--- | :--- |
-| National Database Sync | ✅ Active | 99.9% Uptime |
-| AI Sentinel Assistant | ✅ Active | Real-time |
-| Certificate Encryption | ✅ Secured | Industry Standard |
-| Integrity Reporting | ✅ Live | Community Driven |
+### Bounded Contexts
+1.  **Identity Registry (Auth Service)**: High-security RBAC and organizational credential management.
+2.  **Sentinel Gateway (Core API)**: The algorithmic heart for institutional risk assessment.
+3.  **Audit Pulse (Real-time Feed)**: Event-driven tracking of registry changes via Redis.
+4.  **Client-Side Vault**: Secure persistent storage for verified credentials.
 
 ---
 
-## 📦 Local Development
+## 🛠️ Enterprise Tech Stack
 
-### Prerequisites
+### Frontend Ecosystem
+- **Framework**: Next.js / React (Modern App Router)
+- **State**: Zustand (Persistent Store)
+- **Styling**: Tailwind CSS + Custom Design Tokens
+- **Icons**: Lucide React
 
-- Node.js (Latest LTS recommended)
-- npm or yarn
+### Backend Ecosystem
+- **Engines**: FastAPI (Python) - Async performance.
+- **Database**: PostgreSQL (Relational Integrity)
+- **Cache**: Redis (High-speed streams)
+- **Validation**: Pydantic / Zod
 
-### Installation
+### DevOps & Infrastructure
+- **Containerization**: Docker & Docker Compose
+- **Architectural Records**: ADR documentation for technical lineage.
+- **CI/CD**: GitHub Actions (Workflows in progress)
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Raphasha27/Sumbandila-app.git
-   ```
+---
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+## 🏗️ Repository Structure
 
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-### Building for Production
-
-To create an optimized production build:
-```bash
-npm run build
+```text
+/apps         -> Federated frontend applications
+/services     -> Domain-specific microservices (FastAPI)
+/packages     -> Shared libraries (UI, Types, Utils)
+/docs/adr     -> Architecture Decision Records
+/docker       -> Production-ready container configs
 ```
 
 ---
-*Built for Public Safety and Institutional Integrity.*
+
+## 📈 Engineering Standards
+
+- **DDD (Domain-Driven Design)**: Logic is isolated by business domain.
+- **Event-Driven**: Services communicate via events (Coming soon).
+- **Security First**: RBAC integrated from the foundation.
+- **Observability**: Health checks and structured logging built-in.
+
+---
+
+## 📦 Local Development (Orchestration)
+
+To spin up the entire enterprise environment:
+
+```bash
+docker-compose up --build
+```
+
+---
+*Developed for Excellence in Software Engineering & Public Integrity. © 2026 Sumbandila Registry Sentinel.*

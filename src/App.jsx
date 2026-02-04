@@ -11,8 +11,10 @@ import {
   Building2
 } from 'lucide-react';
 
+import { useRegistryStore } from './store/useRegistryStore';
+import { RegistryService } from './services/registryService';
+
 // Modular Components
-// Relative Components
 import LoginScreen from './components/Auth/LoginScreen';
 import Dashboard from './components/Dashboard/Dashboard';
 import VerifyResult from './components/Verify/VerifyResult';
@@ -21,56 +23,28 @@ import { BottomNav } from './components/Navigation';
 import { MOCK_DATA } from './lib/mock-data';
 
 export default function App() {
-  const [screen, setScreen] = useState('splash');
-  const [user, setUser] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const { 
+    user, setUser, logout, 
+    activeScreen: screen, setScreen, 
+    vault, addToVault, removeFromVault, clearVault,
+    searchQuery, setSearchQuery 
+  } = useRegistryStore();
+
   const [selectedProvider, setSelectedProvider] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [verifyStep, setVerifyStep] = useState('input');
-  const [acceptedLegal, setAcceptedLegal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [vault, setVault] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // React Enhancement: State Persistence
-  useEffect(() => {
+  const handleLogin = async (credentials) => {
     try {
-      const savedUser = localStorage.getItem('sumbandila_user');
-      if (savedUser) {
-        setUser(JSON.parse(savedUser));
-        setScreen('dashboard');
-      }
-      
-      const savedVault = localStorage.getItem('sumbandila_vault');
-      if (savedVault) {
-        setVault(JSON.parse(savedVault));
-      }
-    } catch (e) {
-      console.error("Session recovery failed", e);
-    }
-    
-    setIsLoading(false);
-  }, []);
-
-  const handleLogin = (credentials) => {
-    // Mock Login against South African Registry Admin
-    if (credentials.email === MOCK_DATA.auth.admin.email && credentials.password === MOCK_DATA.auth.admin.password) {
-      const userData = { 
-        name: MOCK_DATA.auth.admin.name, 
-        email: MOCK_DATA.auth.admin.email,
-        avatar: MOCK_DATA.auth.admin.avatar
-      };
+      setIsLoading(true);
+      const userData = await RegistryService.login(credentials.email, credentials.password);
       setUser(userData);
-      localStorage.setItem('sumbandila_user', JSON.stringify(userData));
-      setScreen('dashboard');
-    } else {
+    } catch (e) {
       alert("Invalid Registry Credentials. Use: admin@sumbandila.com / admin123");
+    } finally {
+      setIsLoading(false);
     }
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem('sumbandila_user');
-    setScreen('splash');
   };
 
   const startVerification = async (providerName) => {
@@ -78,48 +52,12 @@ export default function App() {
     setVerifyStep('processing');
     setScreen('verify');
     
-    setTimeout(() => {
-      const provider = MOCK_DATA.providers.find(p => 
-        p.name.toLowerCase().includes(providerName.toLowerCase())
-      ) || {
-        name: providerName,
-        type: 'Unknown Entity',
-        status: 'Unverified',
-        reg: 'ID_NOT_FOUND_000',
-        body: 'Institutional Registry',
-        risk: 'High'
-      };
-      
-      setSelectedProvider(provider);
-      setVerifyStep('result');
-    }, 2000);
+    const provider = await RegistryService.search(providerName);
+    setSelectedProvider(provider);
+    setVerifyStep('result');
   };
 
-  const saveToVault = (provider) => {
-    if (vault.some(item => item.name === provider.name)) return;
-    const newItem = { 
-      ...provider, 
-      id: Date.now(), 
-      savedAt: new Date().toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' }) 
-    };
-    const newVault = [newItem, ...vault];
-    setVault(newVault);
-    localStorage.setItem('sumbandila_vault', JSON.stringify(newVault));
-    setScreen('history');
-  };
-
-  const removeFromVault = (id) => {
-    const newVault = vault.filter(item => (item.id || item.name) !== id);
-    setVault(newVault);
-    localStorage.setItem('sumbandila_vault', JSON.stringify(newVault));
-  };
-
-  const clearVault = () => {
-    setVault([]);
-    localStorage.removeItem('sumbandila_vault');
-  };
-
-  if (isLoading) return <div style={{ background: 'var(--bg-gradient)', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800 }}>Loading Sentinel Registry...</div>;
+  if (isLoading) return <div style={{ background: 'var(--bg-gradient)', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800 }}>Authenticating Sentinel Access...</div>;
 
   return (
     <div className="app-container">
@@ -309,7 +247,7 @@ export default function App() {
             step={verifyStep} 
             onBack={() => setScreen('dashboard')}
             onViewCert={() => setScreen('cert')}
-            onSave={saveToVault}
+            onSave={addToVault}
           />
         )}
 
@@ -404,7 +342,7 @@ export default function App() {
               </div>
 
               <button 
-                onClick={handleLogout}
+                onClick={logout}
                 style={{ 
                   marginTop: '40px', 
                   width: '100%',

@@ -2,8 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Calendar, ArrowRight, Trash2, LayoutGrid, FileText } from 'lucide-react';
 import { BottomNav } from '../Navigation';
+import { useRegistryStore } from '../../store/useRegistryStore';
 
-export default function Vault({ vaultItems, onRemove, onClear, onViewCert, onNav }) {
+export default function Vault({ onViewCert }) {
+  const { 
+    vault: vaultItems, 
+    removeFromVault: onRemove, 
+    clearVault: onClear,
+    setScreen 
+  } = useRegistryStore();
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }} 
@@ -81,7 +88,7 @@ export default function Vault({ vaultItems, onRemove, onClear, onViewCert, onNav
         </div>
       )}
 
-      <BottomNav active="history" onNav={onNav} />
+      <BottomNav active="history" onNav={setScreen} />
     </motion.div>
   );
 }

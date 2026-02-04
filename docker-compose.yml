@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: docker/web.Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/web:/app
+    environment:
+      - VITE_API_URL=http://localhost:8000
+
+  auth-service:
+    build:
+      context: ./services/auth
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/auth_db
+
+  core-service:
+    build:
+      context: ./services/core
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/core_db
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
