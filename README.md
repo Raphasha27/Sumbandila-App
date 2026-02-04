@@ -6,7 +6,7 @@ Sumbandila is a premium, high-integrity public safety verification portal design
 
 **🚀 [Live Production Portal: https://sumbandila-app.vercel.app](https://sumbandila-app.vercel.app)**
 
-![Sumbandila Dashboard](public/screenshot.png)
+
 
 ## 🚀 Key Features
 
