@@ -1,26 +1,29 @@
 # Sumbandila Registry Sentinel 🛡️
 
-Sumbandila is a premium, high-integrity public safety verification portal designed for the South African ecosystem. It empowers citizens to instantly verify the accreditation of educational institutions, medical practitioners, and legal professionals.
+Sumbandila is a premium, high-integrity public safety verification portal designed for the South African ecosystem. It empowers citizens to instantly verify the accreditation of educational institutions, medical practitioners, and legal professionals via official national registries.
 
-**🌐 [Live Demo](https://sumbandila-app.vercel.app/)**
+**🌐 [Live Demo (Production Interface)](https://sumbandila-app.vercel.app/)**
+
+![Sumbandila Dashboard](public/screenshot.png)
 
 ## 🚀 Key Features
 
-- **Universal Registry Search**: A centralized, high-speed search portal for institutional audits.
-- **Sentinel AI Assistant**: Conversational AI guidance for complex verification workflows.
+- **Universal Registry Search**: A centralized, high-speed search portal for institutional audits with centered precision.
+- **Sentinel AI Assistant**: Conversational AI guidance (bottom right) for complex verification workflows.
 - **Security Insights**: Real-time tracking of registry integrity scores and vetting activity.
 - **Global Auditing Trends**: Live feed of verification activity and security alerts for bogus entities.
 - **Multi-Category Support**: Specialized registries for Education (DHET), Medical (HPCSA), and Legal (LPC).
-- **Secure Sentinel Reporting**: Community-driven reporting channel for flagging suspicious credentials.
+- **Modern Adaptive UI**: Re-designed for speed, centered focus, and multi-color premium aesthetics.
 
 ## 🛠️ Technology Stack
 
 - **Framework**: [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+- **State Management**: React Hooks (Persistence in LocalStorage)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Deployment**: [Vercel](https://vercel.com/)
+- **Style**: Custom Glassmorphic CSS Design System
 
-## 📦 Getting Started
+## 📦 Local Development
 
 ### Prerequisites
 
