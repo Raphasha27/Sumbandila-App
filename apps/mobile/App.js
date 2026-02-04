@@ -165,6 +165,13 @@ export default function App() {
              <Text style={styles.verifiedTitle}>Agent Verified</Text>
              <Text style={styles.verifiedSub}>Access Granted to Registry</Text>
          </View>
+         
+         <TouchableOpacity 
+            style={styles.signOutButton}
+            onPress={() => setCurrentScreen('splash')}
+         >
+            <Text style={styles.signOutText}>Sign Out</Text>
+         </TouchableOpacity>
       </View>
       
       <View style={styles.bottomBar}>
@@ -391,6 +398,19 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#2E7D32',
       marginTop: 8,
+      fontWeight: '600',
+  },
+  signOutButton: {
+      marginTop: 30,
+      paddingVertical: 12,
+      paddingHorizontal: 30,
+      backgroundColor: '#F1F5F9',
+      borderRadius: 20,
+      borderWidth: 1,
+      borderColor: '#CBD5E1',
+  },
+  signOutText: {
+      color: '#64748B',
       fontWeight: '600',
   },
   bottomBar: {
