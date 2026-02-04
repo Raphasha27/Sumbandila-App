@@ -1,3 +1,5 @@
+![Sumbandila Registry Sentinel Banner](public/banner.png)
+
 # Sumbandila Registry Sentinel 🛡️
 
 Sumbandila is a premium, high-integrity public safety verification portal designed for the South African ecosystem. It empowers citizens to instantly verify the accreditation of educational institutions, medical practitioners, and legal professionals via official national registries.
