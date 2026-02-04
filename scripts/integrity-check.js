@@ -36,7 +36,7 @@ try {
 // 3. Check Monorepo Health
 const apps = ['web', 'mobile'];
 apps.forEach(app => {
-  const pkgPath = path.join(__dirname, 'apps', app, 'package.json');
+  const pkgPath = path.join(__dirname, '..', 'apps', app, 'package.json');
   if (fs.existsSync(pkgPath)) {
     console.log(`✅ App Detected: ${app}`);
   } else {
