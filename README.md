@@ -8,6 +8,11 @@
   [![Platform Status](https://img.shields.io/badge/Platform-Live_%26_Healthy-4ADE80?style=for-the-badge&logo=statuspage)](https://kivoc-dynamic-technology.vercel.app)
   [![Security Clearance](https://img.shields.io/badge/Security-Level_5_Integrity-E65100?style=for-the-badge&logo=shield)](https://github.com/Raphasha27/Sumbandila-app/blob/main/CONTRIBUTING.md)
   
+  [![GitHub Stars](https://img.shields.io/github/stars/Raphasha27/Sumbandila-App?style=for-the-badge&logo=github)](https://github.com/Raphasha27/Sumbandila-App/stargazers)
+  [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+  [![Code Quality](https://img.shields.io/badge/Code_Quality-A+-success?style=for-the-badge)](https://github.com/Raphasha27/Sumbandila-App/actions)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge)](CONTRIBUTING.md)
+  
   ---
   
   ## 🏛️ Official Portal
