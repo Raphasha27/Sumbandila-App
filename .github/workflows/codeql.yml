@@ -32,9 +32,8 @@ jobs:
           - language: python
             build-mode: none
     steps:
-      # Keep checkout major aligned with other workflows to avoid merge conflicts.
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
