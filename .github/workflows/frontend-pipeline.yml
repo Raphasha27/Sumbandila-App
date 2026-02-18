@@ -1,14 +1,11 @@
 name: 🌐 Frontend CI/CD (Web & Mobile)
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'apps/**'
-      - 'package.json'
-      - 'package-lock.json'
-  pull_request:
-    branches: [ main ]
+  # Manual-only runs; verification is handled via Vercel.
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 permissions:
   contents: read

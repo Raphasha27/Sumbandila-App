@@ -1,12 +1,11 @@
 name: "CodeQL Advanced"
 
 on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
-  schedule:
-    - cron: '45 23 * * 5'
+  # Manual-only runs; verification is handled via Vercel.
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 permissions:
   contents: read
