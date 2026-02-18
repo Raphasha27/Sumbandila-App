@@ -2,9 +2,12 @@ name: 🔍 Code Quality Checks
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ "**" ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ "**" ]
+
+permissions:
+  contents: read
 
 jobs:
   lint-web:
@@ -16,14 +19,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
           cache: 'npm'
       
       - name: Install Dependencies
         run: npm install
       
       - name: Run ESLint
-        run: npm run lint --workspace=@sumbandila/web || true
+        run: npm run lint --workspaces --if-present || true
         continue-on-error: true
 
   python-quality:
