@@ -2,13 +2,13 @@ name: 🌐 Frontend CI/CD (Web & Mobile)
 
 on:
   push:
-    branches: [ "**" ]
+    branches: [ main ]
     paths:
       - 'apps/**'
       - 'package.json'
       - 'package-lock.json'
   pull_request:
-    branches: [ "**" ]
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -22,7 +22,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install Monorepo Dependencies
@@ -39,7 +39,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version: '22'
 
       - name: Setup Expo
         uses: expo/expo-github-action@v8
