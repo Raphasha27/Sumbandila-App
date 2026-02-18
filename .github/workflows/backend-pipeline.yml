@@ -1,14 +1,11 @@
 name: 🛠️ Backend CI/CD (FastAPI)
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'services/**'
-      - 'packages/**'
-      - 'docker-compose.yml'
-  pull_request:
-    branches: [ main ]
+  # Manual-only runs; verification is handled via Vercel.
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   test-and-build:

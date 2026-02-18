@@ -1,10 +1,11 @@
 name: 🔍 Code Quality Checks
 
 on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
+  # Manual-only runs; verification is handled via Vercel.
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   lint-web:
