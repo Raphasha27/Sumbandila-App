@@ -4,8 +4,8 @@
   # 🛡️ Sumbandila: The Registry Sentinel
   ### *Institutional Verification. High-Integrity Architecture.*
 
-  [![Official Link](https://img.shields.io/badge/OFFICIAL_LINK-VIEW_HERE-4ADE80?style=for-the-badge&logo=vercel)](https://kivoc-dynamic-technology.vercel.app)
-  [![Platform Status](https://img.shields.io/badge/Platform-Live_%26_Healthy-4ADE80?style=for-the-badge&logo=statuspage)](https://kivoc-dynamic-technology.vercel.app)
+  [![Official Link](https://img.shields.io/badge/OFFICIAL_LINK-VIEW_HERE-4ADE80?style=for-the-badge&logo=vercel)](https://sumbandila-app.vercel.app)
+  [![Platform Status](https://img.shields.io/badge/Platform-Live_%26_Healthy-4ADE80?style=for-the-badge&logo=statuspage)](https://sumbandila-app.vercel.app)
   [![Security Clearance](https://img.shields.io/badge/Security-Level_5_Integrity-E65100?style=for-the-badge&logo=shield)](https://github.com/Raphasha27/Sumbandila-app/blob/main/CONTRIBUTING.md)
   
   [![GitHub Stars](https://img.shields.io/github/stars/Raphasha27/Sumbandila-App?style=for-the-badge&logo=github)](https://github.com/Raphasha27/Sumbandila-App/stargazers)
@@ -18,7 +18,7 @@
   ## 🏛️ Official Portal
   **This is the official link to view the platform:**
   
-  # 🔗 [Launch Sumbandila Registry Sentinel](https://kivoc-dynamic-technology.vercel.app/)
+  # 🔗 [Launch Sumbandila Registry Sentinel](https://sumbandila-app.vercel.app/)
   
   ---
 
@@ -32,7 +32,7 @@ The platform is currently operational and synchronized across Web and Mobile.
 
 ### 🌐 Web Dashboard
 Access the high-integrity sentinel dashboard instantly:
-🔗 **[https://kivoc-dynamic-technology.vercel.app/](https://kivoc-dynamic-technology.vercel.app/)**
+🔗 **[https://sumbandila-app.vercel.app/](https://sumbandila-app.vercel.app/)**
 
 *Features: Mandatory Security Splash, JWT Auth, Registry Live Sync, and Fraud Risk Auditing.*
 
