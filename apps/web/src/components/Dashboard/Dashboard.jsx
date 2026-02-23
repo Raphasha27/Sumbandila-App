@@ -7,75 +7,75 @@ import SumbandilaAI from '../SumbandilaAI';
 import { useRegistryStore } from '../../store/useRegistryStore';
 
 export default function Dashboard({ onVerify, onSelectCategory }) {
-  const { 
-    user, 
-    searchQuery, 
+  const {
+    user,
+    searchQuery,
     setSearchQuery,
-    setScreen 
+    setScreen
   } = useRegistryStore();
   return (
-    <motion.div 
-      initial={{ opacity: 0 }} 
-      animate={{ opacity: 1 }} 
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="dashboard-container"
       style={{ background: '#FDFCFB', minHeight: '100vh', paddingBottom: '40px' }}
     >
       {/* Header */}
-      <div style={{ 
-        background: 'var(--bg-gradient)', 
-        padding: '12px 20px 48px', 
+      <div style={{
+        background: 'var(--bg-gradient)',
+        padding: '12px 20px 48px',
         borderRadius: '0 0 32px 32px',
         color: 'white',
         position: 'relative'
       }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           {/* 🟢 Live Sync Badge - Centered Top */}
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '8px', 
-            marginBottom: '16px', 
-            background: 'rgba(255,255,255,0.15)', 
-            padding: '4px 12px', 
-            borderRadius: '100px', 
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            marginBottom: '16px',
+            background: 'rgba(255,255,255,0.15)',
+            padding: '4px 12px',
+            borderRadius: '100px',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255,255,255,0.1)'
           }}>
-            <motion.div 
+            <motion.div
               animate={{ opacity: [0.4, 1, 0.4] }}
               transition={{ repeat: Infinity, duration: 2 }}
-              style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ADE80' }} 
+              style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ADE80' }}
             />
             <span style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1.2px' }}>Registry Live Sync</span>
           </div>
-          
+
           {/* Action Row - Consolidated Card */}
-          <div style={{ 
-            display: 'flex', 
-            gap: '20px', 
-            marginBottom: '24px', 
-            background: 'rgba(255,255,255,0.1)', 
-            padding: '12px 20px', 
-            borderRadius: '24px', 
+          <div style={{
+            display: 'flex',
+            gap: '20px',
+            marginBottom: '24px',
+            background: 'rgba(255,255,255,0.1)',
+            padding: '12px 20px',
+            borderRadius: '24px',
             backdropFilter: 'blur(15px)',
             border: '1px solid rgba(255,255,255,0.1)'
           }}>
             <div onClick={() => setScreen('qr-scan')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '50px' }}>
-               <QrCode size={18} color="white" />
-               <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Scanner</span>
+              <QrCode size={18} color="white" />
+              <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Scanner</span>
             </div>
             <div onClick={() => setScreen('profile')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '50px' }}>
-               <UserIcon size={18} color="white" />
-               <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Profile</span>
+              <UserIcon size={18} color="white" />
+              <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Profile</span>
             </div>
             <div onClick={() => alert('Monitoring emerging high-risk entities...')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '50px' }}>
-               <TrendingUp size={18} color="white" />
-               <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Alerts</span>
+              <TrendingUp size={18} color="white" />
+              <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Alerts</span>
             </div>
             <div onClick={() => alert('Fetching latest registry news...')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '50px' }}>
-               <Globe size={18} color="white" />
-               <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>News</span>
+              <Globe size={18} color="white" />
+              <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>News</span>
             </div>
           </div>
         </div>
@@ -83,49 +83,49 @@ export default function Dashboard({ onVerify, onSelectCategory }) {
         {/* Refined Modern Search Bar */}
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '8px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '440px' }}>
-            <div style={{ 
+            <div style={{
               flex: 1,
-              background: 'rgba(255, 255, 255, 0.2)', 
+              background: 'rgba(255, 255, 255, 0.2)',
               backdropFilter: 'blur(10px)',
-              borderRadius: '100px', 
+              borderRadius: '100px',
               display: 'flex',
               alignItems: 'center',
               padding: '0 20px',
               border: '1px solid rgba(255, 255, 255, 0.3)',
               height: '56px'
             }}>
-              <input 
-                type="text" 
-                placeholder="Search..." 
+              <input
+                type="text"
+                placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && onVerify(searchQuery)}
-                style={{ 
-                  background: 'transparent', 
-                  border: 'none', 
-                  outline: 'none', 
-                  width: '100%', 
-                  color: 'white', 
-                  fontSize: '16px', 
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  outline: 'none',
+                  width: '100%',
+                  color: 'white',
+                  fontSize: '16px',
                   fontWeight: 500,
                   textAlign: 'center'
-                }} 
+                }}
               />
-              <Search 
-                size={20} 
-                color="white" 
+              <Search
+                size={20}
+                color="white"
                 style={{ cursor: 'pointer', marginLeft: '12px', opacity: 0.8 }}
                 onClick={() => onVerify(searchQuery)}
               />
             </div>
 
-            <div style={{ 
-              width: '56px', 
-              height: '56px', 
-              borderRadius: '50%', 
-              background: 'var(--primary-orange)', 
-              display: 'flex', 
-              justifyContent: 'center', 
+            <div style={{
+              width: '56px',
+              height: '56px',
+              borderRadius: '50%',
+              background: 'var(--primary-orange)',
+              display: 'flex',
+              justifyContent: 'center',
               alignItems: 'center',
               cursor: 'pointer',
               boxShadow: '0 8px 20px rgba(230, 81, 0, 0.3)',
@@ -146,26 +146,26 @@ export default function Dashboard({ onVerify, onSelectCategory }) {
 
         {/* Category Grid */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '48px' }}>
-          <CategoryCard 
-            icon={<School color="white" size={32} />} 
-            label="Education" 
+          <CategoryCard
+            icon={<School color="white" size={32} />}
+            label="Education"
             sublabel="Schools, Colleges & Courses"
-            bg="linear-gradient(135deg, #3B82F6, #2563EB)" 
-            onClick={() => onSelectCategory('Education')} 
+            bg="linear-gradient(135deg, #3B82F6, #2563EB)"
+            onClick={() => onSelectCategory('Education')}
           />
-          <CategoryCard 
-            icon={<Stethoscope color="white" size={32} />} 
-            label="Medical" 
+          <CategoryCard
+            icon={<Stethoscope color="white" size={32} />}
+            label="Medical"
             sublabel="Doctors & Healthcare Professionals"
-            bg="linear-gradient(135deg, #10B981, #059669)" 
-            onClick={() => onSelectCategory('Healthcare')} 
+            bg="linear-gradient(135deg, #10B981, #059669)"
+            onClick={() => onSelectCategory('Healthcare')}
           />
-          <CategoryCard 
-            icon={<Scale color="white" size={32} />} 
-            label="Legal" 
+          <CategoryCard
+            icon={<Scale color="white" size={32} />}
+            label="Legal"
             sublabel="Lawyers & Legal Professionals"
-            bg="linear-gradient(135deg, #8B5CF6, #7C3AED)" 
-            onClick={() => onSelectCategory('Legal')} 
+            bg="linear-gradient(135deg, #8B5CF6, #7C3AED)"
+            onClick={() => onSelectCategory('Legal')}
           />
         </div>
 
@@ -191,19 +191,19 @@ export default function Dashboard({ onVerify, onSelectCategory }) {
             <h3 style={{ fontWeight: 800, color: '#111827', fontSize: '18px' }}>Global Auditing Activity</h3>
             <Activity size={20} color="var(--primary-orange)" />
           </div>
-          
+
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {[
               { text: "Verified 'Boston City Campus' in Pretoria", time: "2 min ago", type: "edu" },
               { text: "Security Alert: Bogus College detected in JHB", time: "15 min ago", type: "alert" },
               { text: "Dr. Thabo Mokoena's HPCSA status confirmed", time: "52 min ago", type: "med" }
             ].map((item, i) => (
-              <div key={i} style={{ 
-                background: 'white', 
-                padding: '16px 20px', 
-                borderRadius: '20px', 
-                display: 'flex', 
-                alignItems: 'center', 
+              <div key={i} style={{
+                background: 'white',
+                padding: '16px 20px',
+                borderRadius: '20px',
+                display: 'flex',
+                alignItems: 'center',
                 gap: '16px',
                 border: '1px solid #F3F4F6',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
@@ -224,21 +224,21 @@ export default function Dashboard({ onVerify, onSelectCategory }) {
             <h3 style={{ fontWeight: 800, color: '#111827', fontSize: '18px' }}>Security Insights</h3>
             <div style={{ background: '#E8F5E9', color: '#2E7D32', padding: '4px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: 800 }}>LIVE STATUS</div>
           </div>
-          
+
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div style={{ background: 'white', padding: '20px', borderRadius: '24px', border: '1px solid #F3F4F6', textAlign: 'center' }}>
-               <div style={{ color: '#6B7280', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>Integrity Score</div>
-               <div style={{ color: 'var(--primary-orange)', fontSize: '24px', fontWeight: 900 }}>98.4%</div>
+              <div style={{ color: '#6B7280', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>Integrity Score</div>
+              <div style={{ color: 'var(--primary-orange)', fontSize: '24px', fontWeight: 900 }}>98.4%</div>
             </div>
             <div style={{ background: 'white', padding: '20px', borderRadius: '24px', border: '1px solid #F3F4F6', textAlign: 'center' }}>
-               <div style={{ color: '#6B7280', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>Vetted Today</div>
-               <div style={{ color: '#111827', fontSize: '24px', fontWeight: 900 }}>1,248</div>
+              <div style={{ color: '#6B7280', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>Vetted Today</div>
+              <div style={{ color: '#111827', fontSize: '24px', fontWeight: 900 }}>1,248</div>
             </div>
           </div>
         </div>
 
         {/* Report Feature */}
-        <button 
+        <button
           onClick={() => alert('Opening Sentinel Secure Reporting channel...')}
           style={{
             width: '100%',
@@ -259,7 +259,6 @@ export default function Dashboard({ onVerify, onSelectCategory }) {
         </button>
       </div>
 
-      <SumbandilaAI />
     </motion.div>
   );
 }

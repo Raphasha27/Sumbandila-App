@@ -103,6 +103,23 @@ export const MOCK_DATA = {
       risk: "High"
     }
   ],
+  trustedRecommendations: {
+    Education: [
+      { name: "University of Johannesburg", type: "Public University", body: "DHET Recognized" },
+      { name: "Boston City Campus", type: "Higher Education", body: "CHE Accredited" },
+      { name: "University of Cape Town", type: "Public University", body: "DHET Recognized" }
+    ],
+    Healthcare: [
+      { name: "Netcare Hospitals Group", type: "Private Healthcare", body: "DOH Verified" },
+      { name: "Mediclinic International", type: "Private Healthcare", body: "DOH Verified" },
+      { name: "Life Healthcare", type: "Private Healthcare", body: "DOH Verified" }
+    ],
+    Legal: [
+      { name: "Bowmans Law", type: "Legal Practice", body: "LPC Good Standing" },
+      { name: "ENSafrica", type: "Legal Practice", body: "LPC Good Standing" },
+      { name: "Werksmans Attorneys", type: "Legal Practice", body: "LPC Good Standing" }
+    ]
+  },
   auth: {
     admin: {
       email: "admin@sumbandila.com",
