@@ -1,11 +1,14 @@
 name: 🛠️ Backend CI/CD (FastAPI)
 
 on:
-  # Manual-only runs; verification is handled via Vercel.
-  workflow_dispatch:
-
-permissions:
-  contents: read
+  push:
+    branches: [ "**" ]
+    paths:
+      - 'services/**'
+      - 'packages/**'
+      - 'docker-compose.yml'
+  pull_request:
+    branches: [ "**" ]
 
 permissions:
   contents: read
@@ -14,10 +17,10 @@ jobs:
   test-and-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 

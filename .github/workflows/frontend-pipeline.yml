@@ -1,11 +1,14 @@
 name: 🌐 Frontend CI/CD (Web & Mobile)
 
 on:
-  # Manual-only runs; verification is handled via Vercel.
-  workflow_dispatch:
-
-permissions:
-  contents: read
+  push:
+    branches: [ "**" ]
+    paths:
+      - 'apps/**'
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    branches: [ "**" ]
 
 permissions:
   contents: read
@@ -14,12 +17,12 @@ jobs:
   web-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
           cache: 'npm'
 
       - name: Install Monorepo Dependencies
@@ -31,12 +34,12 @@ jobs:
   mobile-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
 
       - name: Setup Expo
         uses: expo/expo-github-action@v8

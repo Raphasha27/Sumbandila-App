@@ -1,11 +1,12 @@
 name: "CodeQL Advanced"
 
 on:
-  # Manual-only runs; verification is handled via Vercel.
-  workflow_dispatch:
-
-permissions:
-  contents: read
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+  schedule:
+    - cron: '45 23 * * 5'
 
 permissions:
   contents: read
@@ -32,7 +33,7 @@ jobs:
             build-mode: none
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
