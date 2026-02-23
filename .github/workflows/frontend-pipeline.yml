@@ -40,14 +40,12 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
-      - name: Setup Expo
-        uses: expo/expo-github-action@v8
-        with:
-          expo-version: latest
-          token: ${{ secrets.EXPO_TOKEN }} # Optional for local-only builds
-
-      - name: Build Mobile (Android Mock)
+      - name: Install Mobile Dependencies
         run: |
           cd apps/mobile
           npm install
-          # expo build:android --dry-run
+
+      - name: Validate Mobile App Config
+        run: |
+          cd apps/mobile
+          node -e "require('./app.json'); console.log('app.json is valid');"
