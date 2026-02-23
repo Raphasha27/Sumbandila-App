@@ -34,21 +34,17 @@ const SAFlag = () => (
 const OfficialBanner = () => (
   <div style={{ background: 'white', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0', width: '100%', position: 'sticky', top: 0, zIndex: 100 }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-      <div style={{ width: '48px', height: '48px', borderRadius: '50%', border: '1px solid #E2E8F0', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8FAFC' }}>
-        <ShieldCheck size={28} color="#007749" />
+      <div style={{ width: '40px', height: '40px', borderRadius: '12px', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8FAFC' }}>
+        <ShieldCheck size={24} color="#007749" />
       </div>
       <div style={{ textAlign: 'left' }}>
         <div style={{ fontSize: '10px', fontWeight: 900, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Republic of South Africa</div>
         <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>National Registry Sentinel</div>
       </div>
     </div>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/en/thumb/2/21/South_African_Coat_of_Arms.svg/1200px-South_African_Coat_of_Arms.svg.png"
-        alt="Coat of Arms"
-        style={{ height: '32px', width: 'auto' }}
-      />
-      <div style={{ display: 'flex', gap: '2px', height: '24px', width: '20px', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/21/South_African_Coat_of_Arms.svg/1200px-South_African_Coat_of_Arms.svg.png" alt="Coat of Arms" style={{ height: '32px', opacity: 0.8 }} />
+      <div style={{ display: 'flex', gap: '3px', height: '18px', width: '24px', flexDirection: 'column' }}>
         <div style={{ flex: 1, background: '#E03C31' }} />
         <div style={{ flex: 1, background: '#007749' }} />
         <div style={{ flex: 1, background: '#002395' }} />
@@ -60,20 +56,24 @@ const OfficialBanner = () => (
 export default function App() {
   const {
     user, setUser, logout,
-    activeScreen: screen, setScreen,
-    vault, addToVault, removeFromVault, clearVault,
-    searchQuery, setSearchQuery
+    searchQuery, setSearchQuery,
+    vault, addToVault,
+    aiMessages, addAiMessage, clearAiMessages,
+    integrityPulse, updateIntegrity,
+    activeScreen: screen,
+    setScreen
   } = useRegistryStore();
 
-  const [selectedProvider, setSelectedProvider] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [verifyStep, setVerifyStep] = useState('input');
   const [isLoading, setIsLoading] = useState(false);
+  const [verifyStep, setVerifyStep] = useState('input');
 
   // 🛡️ Mandatory Splash Force: Ensures "Get Started" is the entry point every time
   useEffect(() => {
-    setScreen('splash');
-    console.log("🛡️ Entry Point Reset: Enforcing Get Started Screen");
+    // Only set to splash if there is no user session
+    if (!user) {
+      setScreen('splash');
+    }
+    console.log("🛡️ Entry Point Reset: Enforcing State Integrity");
   }, []);
 
   const handleLogin = async (credentials) => {
@@ -124,47 +124,43 @@ export default function App() {
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                style={{ width: '100%', borderRadius: '40px', overflow: 'hidden', marginBottom: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)', position: 'relative' }}
+                style={{ width: '100%', borderRadius: '60px', overflow: 'hidden', marginBottom: '48px', boxShadow: '0 40px 80px rgba(0,0,0,0.12)', position: 'relative' }}
               >
                 <img
                   src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
                   alt="Graduation"
-                  style={{ width: '100%', height: '240px', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '320px', objectFit: 'cover' }}
                 />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)' }} />
               </motion.div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/en/thumb/2/21/South_African_Coat_of_Arms.svg/1200px-South_African_Coat_of_Arms.svg.png"
-                  alt="Coat of Arms"
-                  style={{ height: '60px', width: 'auto' }}
-                />
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '40px' }}>
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/21/South_African_Coat_of_Arms.svg/1200px-South_African_Coat_of_Arms.svg.png" alt="Coat of Arms" style={{ height: '48px' }} />
                 <SAFlag />
               </div>
 
-              <h1 style={{ color: '#0F172A', fontSize: '42px', fontWeight: 900, marginBottom: '16px', letterSpacing: '-1px', lineHeight: 1.1 }}>
+              <h1 style={{ color: '#0F172A', fontSize: '48px', fontWeight: 900, marginBottom: '16px', letterSpacing: '-2px' }}>
                 Welcome!
               </h1>
 
-              <p style={{ color: '#64748B', fontSize: '18px', fontWeight: 600, marginBottom: '32px', lineHeight: 1.5 }}>
+              <p style={{ color: '#64748B', fontSize: '16px', fontWeight: 600, marginBottom: '32px', lineHeight: 1.6 }}>
                 Sumbandila Sentinel assists with the verification of official registrations and learning institutions.
               </p>
 
-              <div style={{ background: '#F8FAFC', padding: '24px', borderRadius: '32px', marginBottom: '40px', border: '1px solid #E2E8F0' }}>
-                <p style={{ color: '#475569', fontSize: '14px', fontWeight: 500, lineHeight: 1.6 }}>
+              <div style={{ background: '#F8FAFC', padding: '32px 24px', borderRadius: '32px', marginBottom: '48px', border: '1px solid #F1F5F9', width: '100%', maxWidth: '440px' }}>
+                <p style={{ color: '#475569', fontSize: '14px', fontWeight: 600, lineHeight: 1.6 }}>
                   Exposing bogus institutions and unaccredited professionals operating illegally in South Africa.
                 </p>
               </div>
 
               <motion.button
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.02 }}
                 onClick={() => setScreen('login')}
                 style={{
                   background: 'var(--primary-orange)',
                   color: 'white',
-                  padding: '24px 64px',
-                  borderRadius: '24px',
+                  padding: '24px',
+                  borderRadius: '28px',
                   fontSize: '18px',
                   fontWeight: 900,
                   border: 'none',
@@ -172,12 +168,15 @@ export default function App() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px',
-                  boxShadow: '0 15px 30px rgba(249, 115, 22, 0.2)',
+                  boxShadow: '0 20px 40px rgba(249, 115, 22, 0.25)',
                   width: '100%',
-                  justifyContent: 'center'
+                  maxWidth: '440px',
+                  justifyContent: 'center',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
                 }}
               >
-                GET STARTED <ArrowRight size={24} />
+                GET STARTED <ArrowRight size={22} />
               </motion.button>
 
               <button
@@ -503,6 +502,51 @@ export default function App() {
         )}
         {user && screen !== 'splash' && screen !== 'login' && (
           <SumbandilaAI />
+        )}
+        {screen === 'alerts' && (
+          <motion.div key="alerts" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="screen" style={{ background: '#FDFCFB', paddingBottom: '120px' }}>
+            <header style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px', padding: '24px 20px' }}>
+              <div onClick={() => setScreen('dashboard')} style={{ padding: '12px', background: 'white', borderRadius: '14px', cursor: 'pointer', border: '1px solid #E5E7EB' }}>
+                <ChevronLeft size={24} color="#111827" />
+              </div>
+              <h3 style={{ fontWeight: 800, fontSize: '28px', color: '#111827' }}>Security Alerts</h3>
+            </header>
+            <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {MOCK_DATA.securityAlerts.map(alert => (
+                <div key={alert.id} style={{ padding: '24px', borderRadius: '28px', background: alert.type === 'Critical' ? '#FEF2F2' : '#FFFBEB', border: `1px solid ${alert.type === 'Critical' ? '#FECACA' : '#FEF3C7'}` }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+                    <ShieldCheck size={20} color={alert.type === 'Critical' ? '#EF4444' : '#F59E0B'} />
+                    <span style={{ fontWeight: 900, fontSize: '13px', color: alert.type === 'Critical' ? '#991B1B' : '#92400E', textTransform: 'uppercase' }}>{alert.type} Alert</span>
+                  </div>
+                  <p style={{ fontWeight: 600, color: '#374151', lineHeight: 1.5 }}>{alert.text}</p>
+                </div>
+              ))}
+            </div>
+            <BottomNav active="home" onNav={(s) => setScreen(s)} />
+          </motion.div>
+        )}
+
+        {screen === 'news' && (
+          <motion.div key="news" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="screen" style={{ background: '#FDFCFB', paddingBottom: '120px' }}>
+            <header style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px', padding: '24px 20px' }}>
+              <div onClick={() => setScreen('dashboard')} style={{ padding: '12px', background: 'white', borderRadius: '14px', cursor: 'pointer', border: '1px solid #E5E7EB' }}>
+                <ChevronLeft size={24} color="#111827" />
+              </div>
+              <h3 style={{ fontWeight: 800, fontSize: '28px', color: '#111827' }}>Registry News</h3>
+            </header>
+            <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {MOCK_DATA.registryNews.map(news => (
+                <div key={news.id} className="premium-card" style={{ padding: '24px', background: 'white' }}>
+                  <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--primary-orange)', marginBottom: '8px' }}>{news.source} • {news.date}</div>
+                  <h4 style={{ fontSize: '18px', fontWeight: 900, color: '#111827', marginBottom: '8px' }}>{news.title}</h4>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#6B7280', fontSize: '13px', fontWeight: 600 }}>
+                    <ArrowRight size={14} /> Read Full Report
+                  </div>
+                </div>
+              ))}
+            </div>
+            <BottomNav active="home" onNav={(s) => setScreen(s)} />
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

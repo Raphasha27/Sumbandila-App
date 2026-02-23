@@ -91,11 +91,11 @@ export default function Dashboard({ onVerify, onSelectCategory }) {
               <UserIcon size={20} color="white" />
               <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Profile</span>
             </div>
-            <div onClick={() => setActiveView('alerts')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '60px' }}>
+            <div onClick={() => onNav('alerts')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '60px' }}>
               <TrendingUp size={20} color="white" />
               <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Alerts</span>
             </div>
-            <div onClick={() => setActiveView('news')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '60px' }}>
+            <div onClick={() => onNav('news')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '60px' }}>
               <Globe size={20} color="white" />
               <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>News</span>
             </div>
