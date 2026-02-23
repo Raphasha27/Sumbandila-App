@@ -43,7 +43,7 @@ const OfficialBanner = () => (
       </div>
     </div>
     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/21/South_African_Coat_of_Arms.svg/1200px-South_African_Coat_of_Arms.svg.png" alt="Coat of Arms" style={{ height: '32px', opacity: 0.8 }} />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/South_African_Coat_of_Arms.svg/320px-South_African_Coat_of_Arms.svg.png" alt="Coat of Arms" style={{ height: '32px', opacity: 0.9 }} />
       <div style={{ display: 'flex', gap: '3px', height: '18px', width: '24px', flexDirection: 'column' }}>
         <div style={{ flex: 1, background: '#E03C31' }} />
         <div style={{ flex: 1, background: '#007749' }} />
@@ -134,7 +134,7 @@ export default function App() {
               </motion.div>
 
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '40px' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/21/South_African_Coat_of_Arms.svg/1200px-South_African_Coat_of_Arms.svg.png" alt="Coat of Arms" style={{ height: '48px' }} />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/South_African_Coat_of_Arms.svg/512px-South_African_Coat_of_Arms.svg.png" alt="Coat of Arms" style={{ height: '48px' }} />
                 <SAFlag />
               </div>
 
