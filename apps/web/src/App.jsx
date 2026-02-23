@@ -84,6 +84,8 @@ export default function App() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [verifyStep, setVerifyStep] = useState('input');
+  const [selectedProvider, setSelectedProvider] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('Education');
 
   // 🛡️ Mandatory Splash Force: Ensures "Get Started" is the entry point every time
   useEffect(() => {
@@ -107,13 +109,18 @@ export default function App() {
   };
 
   const startVerification = async (providerName) => {
-    if (!providerName.trim()) return;
+    if (!providerName || !providerName.trim()) return;
     setVerifyStep('processing');
     setScreen('verify');
 
-    const provider = await RegistryService.search(providerName);
-    setSelectedProvider(provider);
-    setVerifyStep('result');
+    try {
+      const provider = await RegistryService.search(providerName);
+      setSelectedProvider(provider);
+      setVerifyStep('result');
+    } catch (error) {
+      console.error("Verification failed:", error);
+      setScreen('dashboard');
+    }
   };
 
   if (isLoading) return <div style={{ background: 'var(--bg-gradient)', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800 }}>Authenticating Sentinel Access...</div>;
