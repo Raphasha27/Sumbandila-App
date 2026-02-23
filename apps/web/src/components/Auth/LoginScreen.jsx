@@ -110,7 +110,6 @@ export default function LoginScreen({ onLogin, onBack, onShowAbout }) {
           Load Debug Clearance (admin123)
         </p>
       </div>
-    </div>
-    </motion.div >
+    </motion.div>
   );
 }

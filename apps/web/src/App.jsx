@@ -75,7 +75,7 @@ export default function App() {
   const {
     user, setUser, logout,
     searchQuery, setSearchQuery,
-    vault, addToVault,
+    vault, addToVault, removeFromVault, clearVault,
     aiMessages, addAiMessage, clearAiMessages,
     integrityPulse, updateIntegrity,
     activeScreen: screen,
