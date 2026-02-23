@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Send, X, Bot, MessageSquare, ShieldCheck, ChevronRight } from 'lucide-react';
 import { useRegistryStore } from '../store/useRegistryStore';
