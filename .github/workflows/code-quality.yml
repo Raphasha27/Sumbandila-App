@@ -2,17 +2,18 @@ name: 🔍 Code Quality Checks
 
 on:
   push:
-    branches: ["**"]
+    branches:
+      - '**'
   pull_request:
-    branches: ["**"]
-
-permissions:
-  contents: read
+    branches:
+      - '**'
 
 jobs:
   lint-web:
     name: Lint Web Application
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
 

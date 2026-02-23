@@ -2,20 +2,21 @@ name: 🛠️ Backend CI/CD (FastAPI)
 
 on:
   push:
-    branches: ["**"]
+    branches:
+      - '**'
     paths:
       - 'services/**'
       - 'packages/**'
       - 'docker-compose.yml'
   pull_request:
-    branches: ["**"]
-
-permissions:
-  contents: read
+    branches:
+      - '**'
 
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
 

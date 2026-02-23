@@ -1,4 +1,5 @@
 {
+  "//": "Trigger CI check",
   "name": "sumbandila-enterprise-platform",
   "private": true,
   "workspaces": [
