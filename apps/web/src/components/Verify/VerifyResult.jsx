@@ -39,7 +39,7 @@ export default function VerifyResult({ provider, step, onBack, onViewCert, onSav
             <h1 style={{ fontSize: '24px', fontWeight: 900 }}>Registry Result</h1>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/South_African_Coat_of_Arms.svg/320px-South_African_Coat_of_Arms.svg.png" alt="Coat of Arms" style={{ height: '28px', filter: 'brightness(0) invert(1)' }} />
+            <img src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU" alt="Coat of Arms" style={{ height: '36px', width: 'auto' }} />
             <ShieldCheck size={24} color="white" />
           </div>
         </div>

@@ -32,7 +32,21 @@ const SAFlag = () => (
 );
 
 const OfficialBanner = () => (
-  <div style={{ background: 'white', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0', width: '100%', position: 'sticky', top: 0, zIndex: 100 }}>
+  <div style={{ background: 'white', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0', width: '100%', position: 'sticky', top: 0, zIndex: 100, overflow: 'hidden' }}>
+    <motion.div
+      initial={{ x: '100%' }}
+      animate={{ x: '-100%' }}
+      transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        width: '50%',
+        height: '3px',
+        background: 'linear-gradient(90deg, transparent, #E03C31, #007749, #002395, transparent)',
+        opacity: 0.8
+      }}
+    />
     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
       <div style={{ width: '40px', height: '40px', borderRadius: '12px', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8FAFC' }}>
         <ShieldCheck size={24} color="#007749" />
@@ -42,11 +56,11 @@ const OfficialBanner = () => (
         <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>National Registry Sentinel</div>
       </div>
     </div>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/128px-Flag_of_South_Africa.svg.png"
-        alt="South Africa"
-        style={{ height: '20px', width: '30px', borderRadius: '2px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}
+        src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU"
+        alt="Coat of Arms"
+        style={{ height: '32px', width: 'auto' }}
       />
       <div style={{ display: 'flex', gap: '3px', height: '18px', width: '24px', flexDirection: 'column' }}>
         <div style={{ flex: 1, background: '#E03C31' }} />
@@ -139,9 +153,9 @@ export default function App() {
 
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', marginBottom: '40px' }}>
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
-                  alt="South Africa Flag"
-                  style={{ height: '48px', borderRadius: '4px', boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }}
+                  src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU"
+                  alt="Coat of Arms"
+                  style={{ height: '64px', width: 'auto' }}
                 />
                 <SAFlag />
               </div>

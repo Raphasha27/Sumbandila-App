@@ -27,89 +27,90 @@ export default function LoginScreen({ onLogin, onBack, onShowAbout }) {
             <ShieldCheck size={48} color="white" strokeWidth={2.5} />
           </div>
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
-            alt="South Africa"
-            style={{ height: '24px', borderRadius: '2px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}
+            src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU"
+            alt="Coat of Arms"
+            style={{ height: '64px', width: 'auto' }}
           />
         </div>
+      </div>
 
-        <h2 style={{ fontSize: '36px', fontWeight: 900, color: '#0F172A', marginBottom: '8px', letterSpacing: '-1px' }}>Sentinel Access</h2>
-        <p style={{ color: '#64748B', fontSize: '17px', fontWeight: 600, marginBottom: '48px' }}>Authorized Personnel Only</p>
+      <h2 style={{ fontSize: '36px', fontWeight: 900, color: '#0F172A', marginBottom: '8px', letterSpacing: '-1px' }}>Sentinel Access</h2>
+      <p style={{ color: '#64748B', fontSize: '17px', fontWeight: 600, marginBottom: '48px' }}>Authorized Personnel Only</p>
 
-        <div style={{ width: '100%', maxWidth: '400px', background: 'white', padding: '32px', borderRadius: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.03)', border: '1px solid #F1F5F9' }}>
-          <div style={{ marginBottom: '24px' }}>
-            <label style={{ display: 'block', fontWeight: 800, fontSize: '12px', color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Registry Email</label>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              background: '#F8FAFC',
-              borderRadius: '16px',
-              padding: '18px 20px',
-              border: '1px solid #E2E8F0'
-            }}>
-              <Mail size={18} color="#94A3B8" style={{ marginRight: '12px' }} />
-              <input
-                type="email"
-                placeholder="sentinel@sumbandila.com"
-                style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontSize: '16px', color: '#0F172A', fontWeight: 600 }}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div style={{ marginBottom: '32px' }}>
-            <label style={{ display: 'block', fontWeight: 800, fontSize: '12px', color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Sentinel Key</label>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              background: '#F8FAFC',
-              borderRadius: '16px',
-              padding: '18px 20px',
-              border: '1px solid #E2E8F0'
-            }}>
-              <Lock size={18} color="#94A3B8" style={{ marginRight: '12px' }} />
-              <input
-                type="password"
-                placeholder="••••••••"
-                style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontSize: '16px', color: '#0F172A', fontWeight: 600 }}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <button
-            onClick={() => onLogin({ email, password })}
-            className="primary-btn"
-            style={{
-              width: '100%',
-              background: 'var(--bg-gradient)',
-              height: '64px',
-              fontSize: '18px',
-              fontWeight: 800,
-              boxShadow: '0 10px 25px rgba(230, 81, 0, 0.2)'
-            }}
-          >
-            Authenticate Sentinel <ArrowRight size={20} />
-          </button>
-
-          <div style={{ textAlign: 'center', marginTop: '32px' }}>
-            <p style={{ fontSize: '11px', color: '#94A3B8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>
-              Securing South African Registry Databases
-            </p>
+      <div style={{ width: '100%', maxWidth: '400px', background: 'white', padding: '32px', borderRadius: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.03)', border: '1px solid #F1F5F9' }}>
+        <div style={{ marginBottom: '24px' }}>
+          <label style={{ display: 'block', fontWeight: 800, fontSize: '12px', color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Registry Email</label>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            background: '#F8FAFC',
+            borderRadius: '16px',
+            padding: '18px 20px',
+            border: '1px solid #E2E8F0'
+          }}>
+            <Mail size={18} color="#94A3B8" style={{ marginRight: '12px' }} />
+            <input
+              type="email"
+              placeholder="sentinel@sumbandila.com"
+              style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontSize: '16px', color: '#0F172A', fontWeight: 600 }}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
         </div>
 
-        <div style={{ marginTop: '48px', textAlign: 'center' }}>
-          <p
-            onClick={() => { setEmail('admin@sumbandila.com'); setPassword('admin123'); }}
-            style={{ fontSize: '13px', color: 'var(--primary)', fontWeight: 800, cursor: 'pointer', textDecoration: 'underline' }}
-          >
-            Load Debug Clearance (admin123)
+        <div style={{ marginBottom: '32px' }}>
+          <label style={{ display: 'block', fontWeight: 800, fontSize: '12px', color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Sentinel Key</label>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            background: '#F8FAFC',
+            borderRadius: '16px',
+            padding: '18px 20px',
+            border: '1px solid #E2E8F0'
+          }}>
+            <Lock size={18} color="#94A3B8" style={{ marginRight: '12px' }} />
+            <input
+              type="password"
+              placeholder="••••••••"
+              style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontSize: '16px', color: '#0F172A', fontWeight: 600 }}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <button
+          onClick={() => onLogin({ email, password })}
+          className="primary-btn"
+          style={{
+            width: '100%',
+            background: 'var(--bg-gradient)',
+            height: '64px',
+            fontSize: '18px',
+            fontWeight: 800,
+            boxShadow: '0 10px 25px rgba(230, 81, 0, 0.2)'
+          }}
+        >
+          Authenticate Sentinel <ArrowRight size={20} />
+        </button>
+
+        <div style={{ textAlign: 'center', marginTop: '32px' }}>
+          <p style={{ fontSize: '11px', color: '#94A3B8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>
+            Securing South African Registry Databases
           </p>
         </div>
       </div>
-    </motion.div>
+
+      <div style={{ marginTop: '48px', textAlign: 'center' }}>
+        <p
+          onClick={() => { setEmail('admin@sumbandila.com'); setPassword('admin123'); }}
+          style={{ fontSize: '13px', color: 'var(--primary)', fontWeight: 800, cursor: 'pointer', textDecoration: 'underline' }}
+        >
+          Load Debug Clearance (admin123)
+        </p>
+      </div>
+    </div>
+    </motion.div >
   );
 }
