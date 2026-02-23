@@ -77,47 +77,65 @@ export default function App() {
             className="screen"
             style={{
               padding: 0,
-              background: 'var(--bg-gradient)',
+              background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
+              position: 'relative',
+              overflow: 'hidden'
             }}
           >
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '0 24px', maxWidth: '500px' }}>
+            {/* Background Decorative Patterns */}
+            <div style={{ position: 'absolute', inset: 0, opacity: 0.1, backgroundImage: 'radial-gradient(var(--primary) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '0 24px', maxWidth: '500px', position: 'relative', zIndex: 10 }}>
               <motion.div
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 style={{
-                  width: '120px',
-                  height: '120px',
+                  width: '140px',
+                  height: '140px',
                   background: 'white',
-                  borderRadius: '50%',
+                  borderRadius: '44px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  marginBottom: '32px',
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
+                  marginBottom: '40px',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+                  position: 'relative'
                 }}
               >
-                <ShieldCheck size={64} color="var(--primary-orange)" strokeWidth={2.5} />
+                <ShieldCheck size={72} color="var(--primary-orange)" strokeWidth={2.5} />
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0, 0.2] }}
+                  transition={{ repeat: Infinity, duration: 2 }}
+                  style={{ position: 'absolute', inset: -20, border: '2px solid white', borderRadius: '54px' }}
+                />
               </motion.div>
 
-              <h1 style={{ color: 'white', fontSize: '48px', fontWeight: 900, marginBottom: '12px', letterSpacing: '-1px' }}>Sumbandila</h1>
-              <p style={{ color: 'rgba(255,255,255,0.95)', fontSize: '20px', fontWeight: 600, marginBottom: '24px', lineHeight: 1.4 }}>
-                Verification in the palm of your hand
+              <h1 style={{ color: 'white', fontSize: '56px', fontWeight: 900, marginBottom: '16px', letterSpacing: '-2px', lineHeight: 0.9 }}>
+                Sumbandila<span style={{ color: 'var(--primary-orange)' }}>.</span>
+              </h1>
+              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '20px', fontWeight: 500, marginBottom: '40px', lineHeight: 1.4 }}>
+                The Sentinel of Official <br />South African Registries.
               </p>
 
-              <div style={{ background: 'rgba(255,255,255,0.1)', padding: '24px', borderRadius: '24px', marginBottom: '64px', border: '1px solid rgba(255,255,255,0.2)', backdropFilter: 'blur(10px)' }}>
-                <p style={{ color: 'white', fontSize: '15px', fontWeight: 500, lineHeight: 1.6 }}>
-                  Verify Private Colleges, Schools, Medical Doctors, and Legal Practitioners registered with South African national authorities.
+              <div style={{ background: 'rgba(255,255,255,0.05)', padding: '28px', borderRadius: '32px', marginBottom: '64px', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px', justifyContent: 'center' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ADE80' }} />
+                  <span style={{ color: 'white', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px' }}>Real-time Integrity Active</span>
+                </div>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '14px', fontWeight: 500, lineHeight: 1.6 }}>
+                  Securing Education, Health, and Legal domains against scammers and bogus institutions.
                 </p>
               </div>
 
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setScreen('login')}
+                className="primary-btn"
                 style={{
                   background: 'white',
-                  color: 'var(--primary-orange)',
+                  color: '#0F172A',
                   padding: '22px 64px',
                   borderRadius: '100px',
                   fontSize: '20px',
@@ -127,11 +145,16 @@ export default function App() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px',
-                  boxShadow: '0 15px 35px rgba(0,0,0,0.15)'
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                  height: '76px'
                 }}
               >
                 Get Started <ArrowRight size={24} />
               </motion.button>
+
+              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', fontWeight: 600, marginTop: '32px', letterSpacing: '1px' }}>
+                ZA NATIONAL SENTINEL v4.2.0
+              </p>
             </div>
           </motion.div>
         )}
