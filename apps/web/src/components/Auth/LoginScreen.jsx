@@ -26,7 +26,11 @@ export default function LoginScreen({ onLogin, onBack, onShowAbout }) {
           <div className="logo-container" style={{ background: 'var(--bg-gradient)', boxShadow: '0 15px 30px rgba(0,0,0,0.1)' }}>
             <ShieldCheck size={48} color="white" strokeWidth={2.5} />
           </div>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/South_African_Coat_of_Arms.svg/512px-South_African_Coat_of_Arms.svg.png" alt="Coat of Arms" style={{ height: '60px' }} />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
+            alt="South Africa"
+            style={{ height: '24px', borderRadius: '2px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}
+          />
         </div>
 
         <h2 style={{ fontSize: '36px', fontWeight: 900, color: '#0F172A', marginBottom: '8px', letterSpacing: '-1px' }}>Sentinel Access</h2>

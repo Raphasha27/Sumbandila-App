@@ -43,7 +43,11 @@ const OfficialBanner = () => (
       </div>
     </div>
     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/South_African_Coat_of_Arms.svg/320px-South_African_Coat_of_Arms.svg.png" alt="Coat of Arms" style={{ height: '32px', opacity: 0.9 }} />
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/128px-Flag_of_South_Africa.svg.png"
+        alt="South Africa"
+        style={{ height: '20px', width: '30px', borderRadius: '2px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}
+      />
       <div style={{ display: 'flex', gap: '3px', height: '18px', width: '24px', flexDirection: 'column' }}>
         <div style={{ flex: 1, background: '#E03C31' }} />
         <div style={{ flex: 1, background: '#007749' }} />
@@ -133,8 +137,12 @@ export default function App() {
                 />
               </motion.div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '40px' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/South_African_Coat_of_Arms.svg/512px-South_African_Coat_of_Arms.svg.png" alt="Coat of Arms" style={{ height: '48px' }} />
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', marginBottom: '40px' }}>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
+                  alt="South Africa Flag"
+                  style={{ height: '48px', borderRadius: '4px', boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }}
+                />
                 <SAFlag />
               </div>
 

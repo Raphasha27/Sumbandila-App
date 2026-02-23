@@ -1,28 +1,26 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bell, Search, School, Stethoscope, Scale, Wallet, Star, ShieldCheck, Info, FileText, QrCode, User as UserIcon, Building2, Users2, Mic, TrendingUp, Globe, AlertCircle, Activity, Sparkles, Minimize2, ArrowRight, ExternalLink } from 'lucide-react';
+import { Search, School, Stethoscope, Scale, Star, ShieldCheck, QrCode, User as UserIcon, Building2, Mic, TrendingUp, Globe, AlertCircle, ExternalLink } from 'lucide-react';
 import { CategoryCard, BottomNav } from '../Navigation';
 import { MOCK_DATA } from '../../lib/mock-data';
 import { useRegistryStore } from '../../store/useRegistryStore';
 import ReportModal from '../Report/ReportModal';
 
-export default function Dashboard({ onVerify, onSelectCategory }) {
+export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
   const [isReportOpen, setIsReportOpen] = React.useState(false);
-  const [activeView, setActiveView] = React.useState(null); // 'alerts', 'news', 'profile', 'scanner'
   const {
     user,
-    onNav,
     searchQuery,
     setSearchQuery,
-    setScreen,
     integrityPulse,
     updateIntegrity
   } = useRegistryStore();
 
   const handleVoiceCommand = () => {
-    const commands = ["Verifying Wits University...", "Scanning legal documents...", "Checking HPCSA database...", "Searching for accredited colleges..."];
+    const commands = ["University of the Witwatersrand", "Netcare Rosebank Hospital", "Werksmans Attorneys", "Boston City Campus"];
     const random = commands[Math.floor(Math.random() * commands.length)];
-    alert(`🎙️ Voice Recognition Active: "${random}"`);
+    setSearchQuery(random);
+    onVerify(random);
   };
 
   React.useEffect(() => {
@@ -42,22 +40,34 @@ export default function Dashboard({ onVerify, onSelectCategory }) {
       {/* Header */}
       <div style={{
         background: 'var(--bg-gradient)',
-        padding: '12px 20px 48px',
+        padding: '24px 20px 48px',
         borderRadius: '0 0 40px 40px',
         color: 'white',
         position: 'relative',
         overflow: 'hidden',
         boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
       }}>
-        {/* Scanning Line Animation */}
         <div className="scanning-line" />
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%', marginBottom: '32px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <div style={{ fontSize: '12px', fontWeight: 800, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '1px' }}>Republic of South Africa</div>
+            <div style={{ fontSize: '24px', fontWeight: 900, marginTop: '4px' }}>National Registry</div>
+          </div>
+          <img
+            src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU"
+            alt="Coat of Arms"
+            style={{ height: '56px', width: 'auto' }}
+          />
+        </div>
+
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           {/* 🟢 Live Sync Badge - Centered Top */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            marginBottom: '16px',
+            marginBottom: '24px',
             background: 'rgba(255,255,255,0.15)',
             padding: '4px 12px',
             borderRadius: '100px',
@@ -347,124 +357,7 @@ export default function Dashboard({ onVerify, onSelectCategory }) {
         </div>
       </div>
 
-      <BottomNav active="home" onNav={setScreen} />
-
-      {/* View Overlays */}
-      <AnimatePresence>
-        {activeView && (
-          <motion.div
-            initial={{ opacity: 0, y: '100%' }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              background: 'white',
-              zIndex: 2000,
-              display: 'flex',
-              flexDirection: 'column'
-            }}
-          >
-            <div style={{ padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #F1F5F9' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ background: '#FFF7ED', padding: '10px', borderRadius: '16px' }}>
-                  {activeView === 'scanner' && <QrCode color="var(--primary-orange)" />}
-                  {activeView === 'profile' && <UserIcon color="var(--primary-orange)" />}
-                  {activeView === 'alerts' && <TrendingUp color="var(--primary-orange)" />}
-                  {activeView === 'news' && <Globe color="var(--primary-orange)" />}
-                </div>
-                <h2 style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A', textTransform: 'capitalize' }}>{activeView} Center</h2>
-              </div>
-              <button
-                onClick={() => setActiveView(null)}
-                style={{ background: '#F8FAFC', border: 'none', padding: '12px', borderRadius: '16px', cursor: 'pointer' }}
-              >
-                <Minimize2 size={24} color="#64748B" />
-              </button>
-            </div>
-
-            <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
-              {activeView === 'scanner' && (
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', textAlign: 'center' }}>
-                  <div style={{ width: '300px', height: '300px', border: '2px solid var(--primary-orange)', borderRadius: '48px', position: 'relative', marginBottom: '40px', overflow: 'hidden' }}>
-                    <div className="scanning-line" style={{ animationDuration: '2s' }} />
-                    <div style={{ position: 'absolute', inset: '40px', border: '2px dashed rgba(249, 115, 22, 0.3)', borderRadius: '32px' }} />
-                  </div>
-                  <h3 style={{ fontSize: '24px', fontWeight: 900, marginBottom: '16px', color: '#0F172A' }}>Initialize Scanning</h3>
-                  <p style={{ color: '#64748B', maxWidth: '300px', fontSize: '16px', lineHeight: 1.5 }}>Point your camera at a Sentinel ID or official QR code to perform a real-time integrity check.</p>
-                </div>
-              )}
-
-              {activeView === 'profile' && (
-                <div>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '40px' }}>
-                    <div style={{ width: '120px', height: '120px', background: 'var(--bg-gradient)', borderRadius: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontSize: '40px', fontWeight: 900, marginBottom: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-                      {MOCK_DATA.auth.admin.avatar}
-                    </div>
-                    <h3 style={{ fontSize: '28px', fontWeight: 900, marginBottom: '8px', color: '#0F172A' }}>{MOCK_DATA.auth.admin.name}</h3>
-                    <div className="status-badge status-verified" style={{ padding: '6px 16px', fontSize: '12px' }}>L5 Sentinel Clearance</div>
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <div style={{ padding: '24px', background: '#F8FAFC', borderRadius: '28px', border: '1px solid #F1F5F9' }}>
-                      <div style={{ fontSize: '11px', fontWeight: 800, color: '#94A3B8', textTransform: 'uppercase', marginBottom: '10px', letterSpacing: '1px' }}>Registry ID</div>
-                      <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '17px' }}>SENTINEL-ZA-7790</div>
-                    </div>
-                    <div style={{ padding: '24px', background: '#F8FAFC', borderRadius: '28px', border: '1px solid #F1F5F9' }}>
-                      <div style={{ fontSize: '11px', fontWeight: 800, color: '#94A3B8', textTransform: 'uppercase', marginBottom: '10px', letterSpacing: '1px' }}>Security Email</div>
-                      <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '17px' }}>{MOCK_DATA.auth.admin.email}</div>
-                    </div>
-                    <div style={{ padding: '24px', background: '#F8FAFC', borderRadius: '28px', border: '1px solid #F1F5F9' }}>
-                      <div style={{ fontSize: '11px', fontWeight: 800, color: '#94A3B8', textTransform: 'uppercase', marginBottom: '10px', letterSpacing: '1px' }}>Active Session</div>
-                      <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '17px' }}>Authenticated Device: Primary Hub</div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {activeView === 'alerts' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  {MOCK_DATA.securityAlerts.map(alert => (
-                    <motion.div
-                      key={alert.id}
-                      initial={{ scale: 0.95, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      style={{ padding: '24px', borderRadius: '28px', background: alert.type === 'Critical' ? '#FEF2F2' : '#FFFBEB', border: `1px solid ${alert.type === 'Critical' ? '#FECACA' : '#FEF3C7'}` }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                        <AlertCircle size={20} color={alert.type === 'Critical' ? '#EF4444' : '#F59E0B'} />
-                        <span style={{ fontWeight: 900, fontSize: '13px', color: alert.type === 'Critical' ? '#991B1B' : '#92400E', textTransform: 'uppercase', letterSpacing: '1px' }}>{alert.type} Security Log</span>
-                      </div>
-                      <p style={{ fontSize: '16px', fontWeight: 600, color: '#374151', lineHeight: 1.6 }}>{alert.text}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              )}
-
-              {activeView === 'news' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  {MOCK_DATA.registryNews.map(news => (
-                    <motion.div
-                      key={news.id}
-                      initial={{ scale: 0.95, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      className="premium-card"
-                      style={{ padding: '24px' }}
-                    >
-                      <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--primary-orange)', textTransform: 'uppercase', marginBottom: '10px', letterSpacing: '1px' }}>{news.source}</div>
-                      <h4 style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', marginBottom: '10px' }}>{news.title}</h4>
-                      <div style={{ fontSize: '14px', fontWeight: 600, color: '#64748B', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <Activity size={14} /> {news.date}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <BottomNav active="home" onNav={onNav} />
 
       <ReportModal isOpen={isReportOpen} onClose={() => setIsReportOpen(false)} />
     </motion.div>
