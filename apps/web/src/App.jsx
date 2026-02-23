@@ -23,6 +23,40 @@ import { BottomNav } from './components/Navigation';
 import { MOCK_DATA } from './lib/mock-data';
 import SumbandilaAI from './components/SumbandilaAI';
 
+const SAFlag = () => (
+  <div style={{ display: 'flex', gap: '2px', height: '6px', width: '100px', marginBottom: '12px' }}>
+    <div style={{ flex: 1, background: '#E03C31' }} />
+    <div style={{ flex: 1, background: '#007749' }} />
+    <div style={{ flex: 1, background: '#002395' }} />
+  </div>
+);
+
+const OfficialBanner = () => (
+  <div style={{ background: 'white', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0', width: '100%', position: 'sticky', top: 0, zIndex: 100 }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div style={{ width: '48px', height: '48px', borderRadius: '50%', border: '1px solid #E2E8F0', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8FAFC' }}>
+        <ShieldCheck size={28} color="#007749" />
+      </div>
+      <div style={{ textAlign: 'left' }}>
+        <div style={{ fontSize: '10px', fontWeight: 900, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Republic of South Africa</div>
+        <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>National Registry Sentinel</div>
+      </div>
+    </div>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/en/thumb/2/21/South_African_Coat_of_Arms.svg/1200px-South_African_Coat_of_Arms.svg.png"
+        alt="Coat of Arms"
+        style={{ height: '32px', width: 'auto' }}
+      />
+      <div style={{ display: 'flex', gap: '2px', height: '24px', width: '20px', flexDirection: 'column' }}>
+        <div style={{ flex: 1, background: '#E03C31' }} />
+        <div style={{ flex: 1, background: '#007749' }} />
+        <div style={{ flex: 1, background: '#002395' }} />
+      </div>
+    </div>
+  </div>
+);
+
 export default function App() {
   const {
     user, setUser, logout,
@@ -77,84 +111,158 @@ export default function App() {
             className="screen"
             style={{
               padding: 0,
-              background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
-              justifyContent: 'center',
+              background: 'white',
+              justifyContent: 'flex-start',
               alignItems: 'center',
               position: 'relative',
               overflow: 'hidden'
             }}
           >
-            {/* Background Decorative Patterns */}
-            <div style={{ position: 'absolute', inset: 0, opacity: 0.1, backgroundImage: 'radial-gradient(var(--primary) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+            <OfficialBanner />
 
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '0 24px', maxWidth: '500px', position: 'relative', zIndex: 10 }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '40px 24px', maxWidth: '500px', zIndex: 10 }}>
               <motion.div
-                initial={{ scale: 0.5, opacity: 0 }}
+                initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                style={{
-                  width: '140px',
-                  height: '140px',
-                  background: 'white',
-                  borderRadius: '44px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginBottom: '40px',
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
-                  position: 'relative'
-                }}
+                style={{ width: '100%', borderRadius: '40px', overflow: 'hidden', marginBottom: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)', position: 'relative' }}
               >
-                <ShieldCheck size={72} color="var(--primary-orange)" strokeWidth={2.5} />
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0, 0.2] }}
-                  transition={{ repeat: Infinity, duration: 2 }}
-                  style={{ position: 'absolute', inset: -20, border: '2px solid white', borderRadius: '54px' }}
+                <img
+                  src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
+                  alt="Graduation"
+                  style={{ width: '100%', height: '240px', objectFit: 'cover' }}
                 />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)' }} />
               </motion.div>
 
-              <h1 style={{ color: 'white', fontSize: '56px', fontWeight: 900, marginBottom: '16px', letterSpacing: '-2px', lineHeight: 0.9 }}>
-                Sumbandila<span style={{ color: 'var(--primary-orange)' }}>.</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/en/thumb/2/21/South_African_Coat_of_Arms.svg/1200px-South_African_Coat_of_Arms.svg.png"
+                  alt="Coat of Arms"
+                  style={{ height: '60px', width: 'auto' }}
+                />
+                <SAFlag />
+              </div>
+
+              <h1 style={{ color: '#0F172A', fontSize: '42px', fontWeight: 900, marginBottom: '16px', letterSpacing: '-1px', lineHeight: 1.1 }}>
+                Welcome!
               </h1>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '20px', fontWeight: 500, marginBottom: '40px', lineHeight: 1.4 }}>
-                The Sentinel of Official <br />South African Registries.
+
+              <p style={{ color: '#64748B', fontSize: '18px', fontWeight: 600, marginBottom: '32px', lineHeight: 1.5 }}>
+                Sumbandila Sentinel assists with the verification of official registrations and learning institutions.
               </p>
 
-              <div style={{ background: 'rgba(255,255,255,0.05)', padding: '28px', borderRadius: '32px', marginBottom: '64px', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px', justifyContent: 'center' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ADE80' }} />
-                  <span style={{ color: 'white', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px' }}>Real-time Integrity Active</span>
-                </div>
-                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '14px', fontWeight: 500, lineHeight: 1.6 }}>
-                  Securing Education, Health, and Legal domains against scammers and bogus institutions.
+              <div style={{ background: '#F8FAFC', padding: '24px', borderRadius: '32px', marginBottom: '40px', border: '1px solid #E2E8F0' }}>
+                <p style={{ color: '#475569', fontSize: '14px', fontWeight: 500, lineHeight: 1.6 }}>
+                  Exposing bogus institutions and unaccredited professionals operating illegally in South Africa.
                 </p>
               </div>
 
               <motion.button
-                whileTap={{ scale: 0.95 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setScreen('login')}
-                className="primary-btn"
                 style={{
-                  background: 'white',
-                  color: '#0F172A',
-                  padding: '22px 64px',
-                  borderRadius: '100px',
-                  fontSize: '20px',
+                  background: 'var(--primary-orange)',
+                  color: 'white',
+                  padding: '24px 64px',
+                  borderRadius: '24px',
+                  fontSize: '18px',
                   fontWeight: 900,
                   border: 'none',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px',
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
-                  height: '76px'
+                  boxShadow: '0 15px 30px rgba(249, 115, 22, 0.2)',
+                  width: '100%',
+                  justifyContent: 'center'
                 }}
               >
-                Get Started <ArrowRight size={24} />
+                GET STARTED <ArrowRight size={24} />
               </motion.button>
 
-              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', fontWeight: 600, marginTop: '32px', letterSpacing: '1px' }}>
-                ZA NATIONAL SENTINEL v4.2.0
-              </p>
+              <button
+                onClick={() => setScreen('how-it-works')}
+                style={{ marginTop: '24px', background: 'transparent', border: 'none', color: '#64748B', fontWeight: 700, fontSize: '14px', cursor: 'pointer' }}
+              >
+                Learn More About Our Mission
+              </button>
+
+              <div style={{ marginTop: 'auto', paddingTop: '40px', borderTop: '1px solid #F1F5F9', width: '100%', display: 'flex', gap: '20px', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ fontSize: '10px', fontWeight: 800, color: '#94A3B8' }}>© 2026 NATIONAL SENTINEL ADVISORY</div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {screen === 'how-it-works' && (
+          <motion.div key="how" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="screen" style={{ background: 'white', padding: 0 }}>
+            <div style={{ background: 'var(--bg-gradient)', padding: '60px 24px', color: 'white' }}>
+              <div onClick={() => setScreen('splash')} style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(255,255,255,0.2)', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', marginBottom: '24px' }}>
+                <ChevronLeft size={24} />
+              </div>
+              <h2 style={{ fontSize: '32px', fontWeight: 900, marginBottom: '12px' }}>Protecting Integrity</h2>
+              <p style={{ opacity: 0.9, fontSize: '16px', fontWeight: 500 }}>Combatting bogus institutions and fake qualifications in South Africa.</p>
+            </div>
+
+            <div style={{ padding: '32px 24px', display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              <section>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                  <div style={{ padding: '8px', background: '#FEF2F2', borderRadius: '10px' }}><ShieldCheck size={20} color="#EF4444" /></div>
+                  <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827' }}>The Challenge</h3>
+                </div>
+                <p style={{ color: '#4B5563', fontSize: '15px', lineHeight: 1.6 }}>
+                  In South Africa there is a challenge of unregistered institutions operating illegally and offering unaccredited courses which lead to fake qualifications.
+                </p>
+              </section>
+
+              <section style={{ background: '#F8FAFC', padding: '24px', borderRadius: '24px', border: '1px solid #F1F5F9' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                  <div style={{ padding: '8px', background: '#EFF6FF', borderRadius: '10px' }}><Building2 size={20} color="#3B82F6" /></div>
+                  <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827' }}>Our Mission</h3>
+                </div>
+                <p style={{ color: '#4B5563', fontSize: '15px', lineHeight: 1.6 }}>
+                  Our mission is to assist with tracking down, investigating and shutting down bogus institutions. We aim to expose bogus institutions operating illegally and also expose accredited institutions offering unaccredited courses.
+                </p>
+              </section>
+
+              <section>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                  <div style={{ padding: '8px', background: '#F0FDF4', borderRadius: '10px' }}><CheckCircle2 size={20} color="#22C55E" /></div>
+                  <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827' }}>Verification & Reporting</h3>
+                </div>
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', listStyle: 'none', padding: 0 }}>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', color: '#4B5563', fontSize: '14px' }}>
+                    <div style={{ marginTop: '4px', width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-orange)', flexShrink: 0 }} />
+                    Students and the public can easily verify the legitimacy of an institution.
+                  </li>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', color: '#4B5563', fontSize: '14px' }}>
+                    <div style={{ marginTop: '4px', width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-orange)', flexShrink: 0 }} />
+                    Verify short courses and online courses across Education, Health, and Legal.
+                  </li>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', color: '#4B5563', fontSize: '14px' }}>
+                    <div style={{ marginTop: '4px', width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-orange)', flexShrink: 0 }} />
+                    Report bogus institutions or unaccredited courses securely and anonymously.
+                  </li>
+                </ul>
+              </section>
+
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setScreen('splash')}
+                style={{
+                  marginTop: '16px',
+                  background: '#111827',
+                  color: 'white',
+                  padding: '20px',
+                  borderRadius: '20px',
+                  border: 'none',
+                  fontWeight: 800,
+                  width: '100%',
+                  cursor: 'pointer'
+                }}
+              >
+                GO BACK
+              </motion.button>
             </div>
           </motion.div>
         )}

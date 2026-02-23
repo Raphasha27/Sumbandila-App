@@ -129,6 +129,31 @@ const SumbandilaAI = () => {
                   {m.text}
                 </motion.div>
               ))}
+
+              {/* Suggested Queries */}
+              {messages.length < 3 && (
+                <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px', marginTop: 'auto' }}>
+                  {['Verify a Doctor', 'Check College', 'Security Risks', 'Official Links'].map((q, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setInput(q)}
+                      style={{
+                        padding: '8px 16px',
+                        background: 'white',
+                        border: '1px solid var(--primary-orange)',
+                        borderRadius: '100px',
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        color: 'var(--primary-orange)',
+                        whiteSpace: 'nowrap',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Input Area */}
