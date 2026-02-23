@@ -2,12 +2,11 @@ name: 🔍 Code Quality Checks
 
 on:
   push:
-    branches: [ "**" ]
+    branches:
+      - '**'
   pull_request:
-    branches: [ "**" ]
-
-permissions:
-  contents: read
+    branches:
+      - '**'
 
 jobs:
   lint-web:

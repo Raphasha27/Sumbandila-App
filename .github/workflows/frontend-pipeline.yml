@@ -2,16 +2,15 @@ name: 🌐 Frontend CI/CD (Web & Mobile)
 
 on:
   push:
-    branches: [ "**" ]
+    branches:
+      - '**'
     paths:
       - 'apps/**'
       - 'package.json'
       - 'package-lock.json'
   pull_request:
-    branches: [ "**" ]
-
-permissions:
-  contents: read
+    branches:
+      - '**'
 
 jobs:
   web-build:
