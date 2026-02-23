@@ -1,4 +1,5 @@
 {
+  "//": "Unified CI Trigger - passing build",
   "name": "sumbandila-enterprise-platform",
   "private": true,
   "workspaces": [

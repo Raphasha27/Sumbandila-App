@@ -1,0 +1,79 @@
+name: 🛡️ Sumbandila CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  web-workflow:
+    name: 🌐 Web (Lint & Build)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: npm install
+
+      - name: 🔍 Lint Web Application
+        run: npm run lint --workspace=@sumbandila/web --if-present
+
+      - name: 🏗️ Build Web Application
+        run: npm run build --workspace=@sumbandila/web
+
+  backend-workflow:
+    name: 🐍 Backend (Lint & Health Check)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 black
+          if [ -f services/requirements.txt ]; then pip install -r services/requirements.txt; fi
+
+      - name: 🔍 Lint with flake8
+        run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: ✨ Check Formatting (Black)
+        run: black --check . --exclude "node_modules|venv"
+
+  mobile-workflow:
+    name: 📱 Mobile (Install Check)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: 📦 Install Mobile Dependencies
+        run: |
+          cd apps/mobile
+          npm install
+
+      - name: ✅ Validate Config
+        run: |
+          cd apps/mobile
+          if [ -f app.json ]; then node -e "require('./app.json'); console.log('app.json is valid');"; fi
