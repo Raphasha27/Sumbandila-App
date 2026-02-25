@@ -77,7 +77,7 @@ export default function LoginScreen({ onLogin, onBack, onShowAbout }) {
               position: 'relative'
             }}>
               <img
-                src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Coat_of_arms_of_South_Africa.svg/200px-Coat_of_arms_of_South_Africa.svg.png"
                 alt="Republic of South Africa Emblem"
                 style={{ width: '68px', height: 'auto' }}
               />

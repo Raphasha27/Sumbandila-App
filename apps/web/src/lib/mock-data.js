@@ -169,7 +169,7 @@ export const MOCK_DATA = {
       id: 1,
       name: "Thandiwe Nkosi",
       location: "Soweto, GP",
-      image: "https://images.unsplash.com/photo-1531123897727-8f129e16fd3c?q=80&w=200&auto=format&fit=crop",
+      image: "https://i.pravatar.cc/150?img=47",
       text: "I was about to pay R5000 deposit for a nursing college in Joburg. Checked Sumbandila first and it was flagged as UNVERIFIED. This app saved my life savings!",
       impact: "Financial Loss Avoided"
     },
@@ -177,7 +177,7 @@ export const MOCK_DATA = {
       id: 2,
       name: "Johannes van der Merwe",
       location: "Bellville, WC",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+      image: "https://i.pravatar.cc/150?img=12",
       text: "Used the legal registry to verify a 'consultant' liquidating my business. Found out they weren't on the LPC list. Reported them immediately.",
       impact: "Fraud Exposure"
     },
@@ -185,7 +185,7 @@ export const MOCK_DATA = {
       id: 3,
       name: "Naledi Madiba",
       location: "Polokwane, LP",
-      image: "https://images.unsplash.com/photo-1567532939604-b6c5b0ad2ea0?q=80&w=200&auto=format&fit=crop",
+      image: "https://i.pravatar.cc/150?img=44",
       text: "As a student, I'm always worried about my degree being valid. Verifying my institution here gave me total peace of mind for my future.",
       impact: "Career Security"
     },
@@ -193,7 +193,7 @@ export const MOCK_DATA = {
       id: 4,
       name: "Michael Chen",
       location: "Durban, KZN",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop",
+      image: "https://i.pravatar.cc/150?img=68",
       text: "The scanner feature is incredible. I scanned a medical practice's registration seal and got an instant 'Vetted' confirmation. South Africa needs this!",
       impact: "Instant Trust"
     },
@@ -201,7 +201,7 @@ export const MOCK_DATA = {
       id: 5,
       name: "Fatima Patel",
       location: "Fordsburg, GP",
-      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
+      image: "https://i.pravatar.cc/150?img=32",
       text: "I was suspicious of a specialist claiming to be HPCSA registered for my mother's surgery. Sumbandila confirmed my suspicions—they were de-registered!",
       impact: "Medical Safety"
     },
@@ -209,7 +209,7 @@ export const MOCK_DATA = {
       id: 6,
       name: "Rajesh Gupta",
       location: "Umhlanga, KZN",
-      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop",
+      image: "https://i.pravatar.cc/150?img=57",
       text: "Checking the legal standing of my property conveyancer took seconds. The app's integration with the LPC database is a game changer for property buyers.",
       impact: "Property Protection"
     },
@@ -217,7 +217,7 @@ export const MOCK_DATA = {
       id: 7,
       name: "Elena Petrova",
       location: "Cape Town, WC",
-      image: "https://images.unsplash.com/photo-1544717305-27a734ef1904?q=80&w=200&auto=format&fit=crop",
+      image: "https://i.pravatar.cc/150?img=25",
       text: "As an expat moving to SA, I needed to verify my local degree equivalent. The DHET resources linked here made the process transparent and simple.",
       impact: "Seamless Integration"
     }
