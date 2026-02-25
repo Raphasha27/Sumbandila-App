@@ -80,7 +80,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [verifyStep, setVerifyStep] = useState('input');
   const [selectedProvider, setSelectedProvider] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('Education');
+  const { selectedCategory, setSelectedCategory } = useRegistryStore();
 
   // 🛡️ Mandatory Splash Force: Ensures "Get Started" is the entry point every time
   useEffect(() => {
@@ -388,6 +388,9 @@ export default function App() {
                     <div style={{ flex: 1 }}>
                       <div style={{ fontWeight: 800, fontSize: '18px', color: '#111827', marginBottom: '2px' }}>{p.name}</div>
                       <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600 }}>{p.type} • {p.body}</div>
+                      <div style={{ fontSize: '11px', color: 'var(--primary)', fontWeight: 800, textTransform: 'uppercase', marginTop: '4px', letterSpacing: '0.5px' }}>
+                        {p.category === 'Education' ? `EMIS: ${p.emisNumber || 'N/A'}` : p.category === 'Healthcare' ? `HPCSA: ${p.hpcsaNumber || 'N/A'}` : `LPC: ${p.lpcNumber || 'N/A'}`}
+                      </div>
                     </div>
                     <div style={{
                       background: isVerified ? '#E8F5E9' : '#FFEBEE',

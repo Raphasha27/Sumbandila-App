@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, School, Stethoscope, Scale, Star, ShieldCheck, QrCode, User as UserIcon, Building2, Mic, TrendingUp, Globe, AlertCircle, ExternalLink, ShieldAlert, ArrowRight } from 'lucide-react';
+import { Search, School, Stethoscope, Scale, Star, ShieldCheck, QrCode, User as UserIcon, Building2, TrendingUp, Globe, AlertCircle, ExternalLink, ShieldAlert, ArrowRight, Heart, CreditCard, Coins, Navigation2, Radar, Bot } from 'lucide-react';
 import { CategoryCard, BottomNav } from '../Navigation';
 import { MOCK_DATA } from '../../lib/mock-data';
 import { useRegistryStore } from '../../store/useRegistryStore';
@@ -8,6 +8,9 @@ import ReportModal from '../Report/ReportModal';
 
 export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
   const [isReportOpen, setIsReportOpen] = useState(false);
+  const [isTracking, setIsTracking] = useState(false);
+  const [userLocation, setUserLocation] = useState(null);
+  const [trackerStatus, setTrackerStatus] = useState('Standby');
   const {
     searchQuery,
     setSearchQuery,
@@ -15,12 +18,6 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
     updateIntegrity
   } = useRegistryStore();
 
-  const handleVoiceCommand = () => {
-    const commands = ["University of the Witwatersrand", "Netcare Rosebank Hospital", "Werksmans Attorneys", "Boston City Campus"];
-    const random = commands[Math.floor(Math.random() * commands.length)];
-    setSearchQuery(random);
-    onVerify(random);
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,6 +25,30 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
     }, 5000);
     return () => clearInterval(interval);
   }, [updateIntegrity]);
+
+  const toggleTracker = () => {
+    if (!isTracking) {
+      if ("geolocation" in navigator) {
+        setTrackerStatus('Initializing GPS...');
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setUserLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
+            setIsTracking(true);
+            setTrackerStatus('Sentinel Active');
+            alert("Sentinel Tracker Activated. We will alert you if you enter high-fraud 'Danger Zones'.");
+          },
+          (error) => {
+            alert("Please enable location services to use the Danger Zone Tracker.");
+            setTrackerStatus('Standby');
+          }
+        );
+      }
+    } else {
+      setIsTracking(false);
+      setUserLocation(null);
+      setTrackerStatus('Standby');
+    }
+  };
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -113,65 +134,361 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
 
         {/* Refined Modern Search Bar */}
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '8px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '440px' }}>
-            <div style={{
-              flex: 1,
-              background: 'rgba(255, 255, 255, 0.2)',
-              backdropFilter: 'blur(10px)',
-              borderRadius: '100px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '0 20px',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              height: '56px'
-            }}>
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && onVerify(searchQuery)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                  width: '100%',
-                  color: 'white',
-                  fontSize: '16px',
-                  fontWeight: 500,
-                  textAlign: 'center'
-                }}
-              />
-              <Search
-                size={20}
-                color="white"
-                style={{ cursor: 'pointer', marginLeft: '12px', opacity: 0.8 }}
-                onClick={() => onVerify(searchQuery)}
-              />
-            </div>
-
-            <div
-              onClick={handleVoiceCommand}
+          <div style={{
+            flex: 1,
+            background: 'rgba(255, 255, 255, 0.2)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '100px',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '0 24px',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            height: '56px',
+            width: '100%'
+          }}>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && onVerify(searchQuery)}
               style={{
-                width: '56px',
-                height: '56px',
-                borderRadius: '50%',
-                background: 'var(--primary)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                cursor: 'pointer',
-                boxShadow: '0 8px 20px rgba(0, 86, 179, 0.3)',
-                flexShrink: 0
+                background: 'transparent',
+                border: 'none',
+                outline: 'none',
+                width: '100%',
+                color: 'white',
+                fontSize: '16px',
+                fontWeight: 600,
+                textAlign: 'left'
               }}
-            >
-              <Mic size={22} color="white" />
-            </div>
+            />
+            <Search
+              size={22}
+              color="white"
+              style={{ cursor: 'pointer', opacity: 0.9 }}
+              onClick={() => onVerify(searchQuery)}
+            />
           </div>
         </div>
       </div>
 
       <div style={{ padding: '32px 20px' }}>
+
+        {/* Quick Voice Access - Sipho AI */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          style={{
+            background: 'white',
+            borderRadius: '28px',
+            padding: '24px',
+            marginBottom: '32px',
+            border: '2px solid #F1F5F9',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.04)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '20px',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+        >
+          <div style={{ position: 'absolute', top: 0, right: 0, height: '4px', width: '100%', background: 'linear-gradient(90deg, #3B82F6, #6366F1)' }} />
+          <div style={{ width: '56px', height: '56px', background: 'var(--primary)', borderRadius: '18px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
+            <Bot size={28} color="white" />
+          </div>
+          <div style={{ flex: 1 }}>
+            <h4 style={{ fontSize: '15px', fontWeight: 900, color: '#111827', marginBottom: '4px' }}>Speak to Sipho</h4>
+            <p style={{ fontSize: '13px', color: '#64748B', fontWeight: 600, lineHeight: 1.4 }}>
+              Record a voice note in your preferred language.
+            </p>
+          </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => alert("Opening Sipho Voice Command...")}
+            style={{ padding: '10px 16px', borderRadius: '14px', background: 'var(--primary)', border: 'none', color: 'white', fontSize: '12px', fontWeight: 800, cursor: 'pointer' }}
+          >
+            RECORD
+          </motion.button>
+        </motion.div>
+
+        {/* Sipho Security Briefing - AI Action Bar */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          style={{
+            background: 'white',
+            borderRadius: '28px',
+            padding: '24px',
+            marginBottom: '32px',
+            border: '2px solid #F1F5F9',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.04)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '20px',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+        >
+          <div style={{ position: 'absolute', top: 0, right: 0, height: '4px', width: '100%', background: 'linear-gradient(90deg, #3B82F6, #6366F1)' }} />
+          <div style={{ width: '56px', height: '56px', background: 'var(--primary)', borderRadius: '18px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
+            <Bot size={28} color="white" />
+          </div>
+          <div style={{ flex: 1 }}>
+            <h4 style={{ fontSize: '15px', fontWeight: 900, color: '#111827', marginBottom: '4px' }}>Executive Briefing</h4>
+            <p style={{ fontSize: '13px', color: '#64748B', fontWeight: 600, lineHeight: 1.4 }}>
+              Sipho has flagged <span style={{ color: '#EF4444', fontWeight: 800 }}>3 new bogus colleges</span> in Gauteng this morning.
+            </p>
+          </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            style={{ padding: '10px 16px', borderRadius: '14px', background: '#F1F5F9', border: 'none', color: '#111827', fontSize: '12px', fontWeight: 800, cursor: 'pointer' }}
+          >
+            Read Report
+          </motion.button>
+        </motion.div>
+
+        {/* Sentinel Danger Zone Tracker */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          style={{
+            background: isTracking ? '#FEF2F2' : '#F8FAFC',
+            borderRadius: '28px',
+            padding: '24px',
+            marginBottom: '32px',
+            border: isTracking ? '2px solid #FEE2E2' : '2px solid #F1F5F9',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.03)',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+        >
+          {isTracking && (
+            <motion.div
+              animate={{ opacity: [0.1, 0.3, 0.1] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+              style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle, #EF4444 0%, transparent 70%)' }}
+            />
+          )}
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', position: 'relative', zIndex: 1 }}>
+            <div style={{
+              width: '56px',
+              height: '56px',
+              background: isTracking ? '#EF4444' : 'var(--primary)',
+              borderRadius: '18px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.1)'
+            }}>
+              {isTracking ? <Radar size={28} color="white" /> : <Navigation2 size={28} color="white" />}
+            </div>
+            <div style={{ flex: 1 }}>
+              <h4 style={{ fontSize: '16px', fontWeight: 900, color: '#111827', marginBottom: '4px' }}>Danger Zone Tracker</h4>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ width: '8px', height: '8px', background: isTracking ? '#EF4444' : '#94A3B8', borderRadius: '50%' }} />
+                <span style={{ fontSize: '11px', fontWeight: 800, color: isTracking ? '#B91C1C' : '#64748B', textTransform: 'uppercase' }}>{trackerStatus}</span>
+              </div>
+            </div>
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={toggleTracker}
+              style={{
+                padding: '12px 20px',
+                borderRadius: '16px',
+                background: isTracking ? '#111827' : 'var(--primary)',
+                border: 'none',
+                color: 'white',
+                fontSize: '12px',
+                fontWeight: 800,
+                cursor: 'pointer'
+              }}
+            >
+              {isTracking ? 'DEACTIVATE' : 'ACTIVATE'}
+            </motion.button>
+          </div>
+
+          {isTracking && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              style={{ marginTop: '20px', padding: '16px', background: 'white', borderRadius: '20px', border: '1px solid #FEE2E2' }}
+            >
+              <div style={{ fontSize: '12px', color: '#111827', fontWeight: 800, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <ShieldAlert size={14} color="#EF4444" />
+                Real-time Fraud Awareness
+              </div>
+              <p style={{ fontSize: '11px', color: '#64748B', lineHeight: 1.5, fontWeight: 600 }}>
+                Sentinel is monitoring your coordinates. High-risk 'Bogus College' clusters detected in <span style={{ color: '#111827', fontWeight: 800 }}>Braamfontein, JHB</span> and <span style={{ color: '#111827', fontWeight: 800 }}>Pretoria Central</span>. Stay alert.
+              </p>
+            </motion.div>
+          )}
+        </motion.div>
+
+        {/* Live Registry Activity Map Simulation */}
+        <div style={{ marginBottom: '48px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ background: '#F0F9FF', padding: '10px', borderRadius: '16px' }}>
+                <Globe size={24} color="var(--primary)" />
+              </div>
+              <h3 style={{ fontWeight: 800, color: '#111827', fontSize: '20px' }}>Registry Heatmap</h3>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#E8F5E9', padding: '6px 14px', borderRadius: '100px' }}>
+              <div style={{ width: '8px', height: '8px', background: '#4ADE80', borderRadius: '50%' }} />
+              <span style={{ fontSize: '11px', fontWeight: 900, color: '#166534' }}>LIVE</span>
+            </div>
+          </div>
+
+          <div style={{
+            height: '220px',
+            background: '#F1F5F9',
+            borderRadius: '35px',
+            position: 'relative',
+            overflow: 'hidden',
+            border: '2px solid white',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.05)'
+          }}>
+            {/* Simple Mock Map Shape (South Africa) */}
+            <div style={{
+              position: 'absolute',
+              inset: '20px',
+              opacity: 0.05,
+              backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Map_of_South_Africa_%28provinces%29.svg/1200px-Map_of_South_Africa_%28provinces%29.svg.png")',
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }} />
+
+            {/* Simulated Live Pings */}
+            {[
+              { top: '30%', left: '70%', label: 'Gauteng', color: '#EF4444' },
+              { top: '60%', left: '80%', label: 'KZN', color: '#3B82F6' },
+              { top: '80%', left: '30%', label: 'Western Cape', color: '#10B981' }
+            ].map((ping, idx) => (
+              <motion.div
+                key={idx}
+                animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
+                transition={{ repeat: Infinity, duration: 2, delay: idx * 0.5 }}
+                style={{
+                  position: 'absolute',
+                  top: ping.top,
+                  left: ping.left,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+              >
+                <div style={{ width: '12px', height: '12px', background: ping.color, borderRadius: '50%', border: '2px solid white', boxShadow: `0 0 10px ${ping.color}` }} />
+                <span style={{ position: 'absolute', top: '15px', whiteSpace: 'nowrap', fontSize: '9px', fontWeight: 900, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{ping.label}</span>
+              </motion.div>
+            ))}
+
+            {/* Activity Ticker Overlay */}
+            <div style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              background: 'rgba(255,255,255,0.9)',
+              padding: '12px 20px',
+              backdropFilter: 'blur(10px)',
+              borderTop: '1px solid rgba(0,0,0,0.05)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px'
+            }}>
+              <TrendingUp size={16} color="var(--primary)" />
+              <div style={{ flex: 1, fontSize: '11px', fontWeight: 800, color: '#334155' }}>
+                <motion.div
+                  animate={{ y: [20, 0, 0, -20] }}
+                  transition={{ repeat: Infinity, duration: 3, times: [0, 0.1, 0.9, 1] }}
+                >
+                  NEW VERIFICATION: Netcare Rosebank Hospital • Gauteng
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Support & Sustainability Hub */}
+        <div style={{ marginBottom: '48px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+            <div style={{ background: '#FFF1F2', padding: '10px', borderRadius: '16px' }}>
+              <Heart size={24} color="#E11D48" fill="#E11D48" />
+            </div>
+            <h3 style={{ fontWeight: 800, color: '#111827', fontSize: '20px' }}>Support & Sustainability</h3>
+          </div>
+
+          {/* Subscription Plans */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
+            <div className="premium-card" style={{ padding: '20px', background: 'white' }}>
+              <div style={{ fontSize: '11px', fontWeight: 800, color: '#6366F1', textTransform: 'uppercase', marginBottom: '8px' }}>Individual Auditor</div>
+              <div style={{ fontSize: '24px', fontWeight: 900, color: '#111827' }}>R99<span style={{ fontSize: '14px', fontWeight: 600, color: '#6B7280' }}>/mo</span></div>
+              <p style={{ fontSize: '11px', color: '#6B7280', marginTop: '8px', fontWeight: 600 }}>Unlimted verifications & vault storage.</p>
+              <button
+                onClick={() => alert("Redirecting to Individual Auditor secure payment gateway (R99/mo)...")}
+                style={{ width: '100%', marginTop: '16px', padding: '10px', background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', fontSize: '12px', fontWeight: 800, color: '#111827', cursor: 'pointer' }}
+              >
+                Subscribe
+              </button>
+            </div>
+            <div className="premium-card" style={{ padding: '20px', background: 'white', border: '2px solid var(--primary)' }}>
+              <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--primary)', textTransform: 'uppercase', marginBottom: '8px' }}>Institutional Entity</div>
+              <div style={{ fontSize: '24px', fontWeight: 900, color: '#111827' }}>R499<span style={{ fontSize: '14px', fontWeight: 600, color: '#6B7280' }}>/mo</span></div>
+              <p style={{ fontSize: '11px', color: '#6B7280', marginTop: '8px', fontWeight: 600 }}>API access & compliance monitoring.</p>
+              <button
+                onClick={() => alert("Redirecting to Institutional Pro gateway (R499/mo)...")}
+                style={{ width: '100%', marginTop: '16px', padding: '10px', background: 'var(--primary)', border: 'none', borderRadius: '12px', fontSize: '12px', fontWeight: 800, color: 'white', cursor: 'pointer' }}
+              >
+                Go Pro
+              </button>
+            </div>
+          </div>
+
+          {/* Donations & Funding */}
+          <div style={{ background: '#F8FAFC', borderRadius: '32px', padding: '24px', border: '1px solid #F1F5F9' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <Coins size={20} color="var(--primary-orange)" />
+              <div style={{ fontSize: '14px', fontWeight: 800, color: '#111827' }}>Registry Expansion Fund</div>
+            </div>
+
+            <div style={{ width: '100%', height: '8px', background: '#E2E8F0', borderRadius: '4px', marginBottom: '12px', overflow: 'hidden' }}>
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: '65%' }}
+                style={{ height: '100%', background: 'linear-gradient(90deg, var(--primary-orange), #FB923C)', borderRadius: '4px' }}
+              />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: 700, color: '#64748B', marginBottom: '20px' }}>
+              <span>65% Funded (R1.3M)</span>
+              <span>Target: R2.0M</span>
+            </div>
+
+            <button
+              onClick={() => alert("Initiating secure ZAR donation for Registry expansion. Thank you for your support!")}
+              style={{
+                width: '100%',
+                padding: '16px',
+                background: 'white',
+                border: '2px solid #F1F5F9',
+                borderRadius: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px',
+                cursor: 'pointer',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+              }}
+            >
+              <Heart size={18} color="#E11D48" />
+              <span style={{ fontWeight: 800, color: '#334155' }}>Make a One-time Donation (ZAR)</span>
+            </button>
+          </div>
+        </div>
 
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <h2 style={{ fontSize: '26px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>What would you like to verify?</h2>
@@ -229,9 +546,9 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
             <Scale size={32} color="white" />
           </div>
           <div>
-            <h4 style={{ fontSize: '18px', fontWeight: 900, marginBottom: '4px' }}>Justice & Support Hub</h4>
+            <h4 style={{ fontSize: '18px', fontWeight: 900, marginBottom: '4px' }}>Support & Justice Hub</h4>
             <p style={{ fontSize: '13px', opacity: 0.9, lineHeight: 1.4, fontWeight: 500 }}>
-              Robbed or scammed? Get expert guidance, share your story, and find accredited legal/medical help.
+              Scammed or Need Help? Verify Student Registration, Law Services, Healthcare Compliance, and more. Protecting our community together.
             </p>
           </div>
           <ArrowRight size={20} style={{ marginLeft: 'auto', flexShrink: 0 }} />

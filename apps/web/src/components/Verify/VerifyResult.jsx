@@ -72,7 +72,14 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
               {isVerified ? <CheckCircle2 size={32} color={statusColor} /> : <AlertTriangle size={32} color={statusColor} />}
             </div>
             <div>
-              <h2 style={{ fontSize: '22px', fontWeight: 900, color: '#111827' }}>{provider.status}</h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <h2 style={{ fontSize: '22px', fontWeight: 900, color: '#111827' }}>{provider.status}</h2>
+                {provider.standing && (
+                  <div style={{ background: '#E8F5E9', color: '#2E7D32', padding: '4px 12px', borderRadius: '100px', fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', border: '1px solid #C8E6C9' }}>
+                    {provider.standing}
+                  </div>
+                )}
+              </div>
               <p style={{ fontSize: '14px', color: '#6B7280', fontWeight: 600 }}>Registry Integrity: <span style={{ color: riskColor }}>{provider.risk} Risk</span></p>
             </div>
           </div>
@@ -87,8 +94,12 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px' }}>
-                <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>Registration</label>
-                <div style={{ fontSize: '15px', fontWeight: 800, color: '#111827' }}>{provider.reg}</div>
+                <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                  {provider.category === 'Education' ? 'EMIS Number' : provider.category === 'Healthcare' ? 'HPCSA Reg' : 'LPC ID'}
+                </label>
+                <div style={{ fontSize: '15px', fontWeight: 800, color: '#111827' }}>
+                  {provider.emisNumber || provider.hpcsaNumber || provider.lpcNumber || provider.reg}
+                </div>
               </div>
               <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px' }}>
                 <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>Valid Until</label>

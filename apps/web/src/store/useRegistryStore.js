@@ -10,6 +10,7 @@ export const useRegistryStore = create(
       activeScreen: 'splash',
       notifications: [],
       integrityPulse: 98.4,
+      selectedCategory: 'Education',
       aiMessages: [{
         id: 1,
         role: 'assistant',
@@ -66,6 +67,7 @@ export const useRegistryStore = create(
 
       setSearchQuery: (query) => set({ searchQuery: query }),
       setScreen: (screen) => set({ activeScreen: screen }),
+      setSelectedCategory: (category) => set({ selectedCategory: category }),
     }),
     {
       name: 'sumbandila-storage',

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Lock, ArrowRight, ChevronLeft, Mail, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Lock, ArrowRight, ChevronLeft, Mail, CheckCircle2, Bot, Mic } from 'lucide-react';
 
 export default function LoginScreen({ onLogin, onBack }) {
   const [email, setEmail] = useState('');
@@ -133,27 +133,43 @@ export default function LoginScreen({ onLogin, onBack }) {
         <div style={{ width: '100%', background: 'white', padding: '40px 32px', borderRadius: '32px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.08)', border: '1px solid #F1F5F9' }}>
           <div style={{ marginBottom: '24px', textAlign: 'left' }}>
             <label style={{ display: 'block', fontWeight: 800, fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Registry Email</label>
-            <div className="input-field-container">
+            <div className="input-field-container" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
               <Mail size={18} color="#94A3B8" />
               <input
                 type="email"
                 placeholder="sentinel@sumbandila.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                style={{ flex: 1, paddingRight: '40px' }}
               />
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => alert("Sipho is listening for your email...")}
+                style={{ position: 'absolute', right: '12px', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+              >
+                <Mic size={18} color="var(--primary)" />
+              </motion.button>
             </div>
           </div>
 
           <div style={{ marginBottom: '32px', textAlign: 'left' }}>
             <label style={{ display: 'block', fontWeight: 800, fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Sentinel Key</label>
-            <div className="input-field-container">
+            <div className="input-field-container" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
               <Lock size={18} color="#94A3B8" />
               <input
                 type="password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                style={{ flex: 1, paddingRight: '40px' }}
               />
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => alert("Sipho is listening for your sentinel key...")}
+                style={{ position: 'absolute', right: '12px', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+              >
+                <Mic size={18} color="var(--primary)" />
+              </motion.button>
             </div>
           </div>
 

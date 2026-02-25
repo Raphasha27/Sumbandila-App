@@ -10,7 +10,10 @@ import {
     AlertCircle,
     ArrowRight,
     CheckCircle2,
-    Building2
+    Building2,
+    School,
+    Bot,
+    Mic
 } from 'lucide-react';
 import { db } from '../../services/DatabaseService';
 
@@ -46,18 +49,40 @@ export default function AssistanceRequest({ onBack, onHome, user }) {
 
     const recommendations = [
         {
-            title: "RAF Claims Guidance",
+            title: "Student Protection",
+            icon: <School size={20} color="#F59E0B" />,
+            text: "Verify DHET registration before paying fees. We help students verify private colleges and report bogus campus operations.",
+            bg: "#FFFBEB",
+            actionLabel: "Verify College",
+            onAction: () => onHome() // Redirect to dashboard for verification
+        },
+        {
+            title: "Legal Excellence Hub",
             icon: <Scale size={20} color="#3B82F6" />,
+            text: "Finding accredited law services is critical. We connect you with vetted legal practitioners registered with the LPC.",
+            bg: "#EFF6FF"
+        },
+        {
+            title: "Health Compliance",
+            icon: <Stethoscope size={20} color="#EF4444" />,
+            text: "Protecting community health by verifying HPCSA practitioners and identifying illegal medical facilities.",
+            bg: "#FEF2F2"
+        },
+        {
+            title: "RAF Claims Guidance",
+            icon: <ShieldCheck size={20} color="#10B981" />,
             text: "Unsure which doctor to visit for an RAF claim? Use our search tool to find HPCSA & RAF vetted specialists.",
-            bg: "#EFF6FF",
+            bg: "#ECFDF5",
             actionLabel: "Search RAF Doctors",
             onAction: () => setView('raf-search')
         },
         {
-            title: "Recovery Investigation",
-            icon: <ShieldCheck size={20} color="#10B981" />,
-            text: "If you've been scammed by a bogus college, we help compile evidence for official SAPS cases.",
-            bg: "#ECFDF5"
+            title: "Sipho AI Assistant",
+            icon: <Bot size={20} color="var(--primary)" />,
+            text: "Prefer to speak your story? Sipho can record your voice and translate it for our team in any SA language.",
+            bg: "#EEF2FF",
+            actionLabel: "Speak with Sipho",
+            onAction: () => alert("Sipho AI is active at the bottom right of your screen. Tap the blue Mic button!")
         }
     ];
 
@@ -228,22 +253,48 @@ export default function AssistanceRequest({ onBack, onHome, user }) {
                             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                             style={{ width: '100%', padding: '16px', borderRadius: '16px', border: '1px solid #E5E7EB', background: '#F9FAFB', fontWeight: 600 }}
                         >
+                            <option>Student Registration Support</option>
+                            <option>Legal Service Verification</option>
+                            <option>Healthcare Compliance</option>
                             <option>Scam Investigation</option>
                             <option>RAF Claim Assistance</option>
-                            <option>Accreditation Guidance</option>
                             <option>Institution Dispute</option>
                         </select>
                     </div>
 
                     <div style={{ marginBottom: '24px' }}>
                         <label style={{ display: 'block', fontSize: '12px', fontWeight: 800, color: '#6B7280', textTransform: 'uppercase', marginBottom: '12px' }}>Share your story</label>
-                        <textarea
-                            required
-                            placeholder="Tell us what happened or what help you need..."
-                            value={formData.details}
-                            onChange={(e) => setFormData({ ...formData, details: e.target.value })}
-                            style={{ width: '100%', height: '140px', padding: '16px', borderRadius: '16px', border: '1px solid #E5E7EB', background: '#F9FAFB', fontWeight: 500, lineHeight: 1.5, resize: 'none' }}
-                        />
+                        <div style={{ position: 'relative' }}>
+                            <textarea
+                                required
+                                placeholder="Tell us what happened or what help you need..."
+                                value={formData.details}
+                                onChange={(e) => setFormData({ ...formData, details: e.target.value })}
+                                style={{ width: '100%', height: '140px', padding: '16px', paddingRight: '60px', borderRadius: '16px', border: '1px solid #E5E7EB', background: '#F9FAFB', fontWeight: 500, lineHeight: 1.5, resize: 'none' }}
+                            />
+                            <motion.button
+                                type="button"
+                                whileTap={{ scale: 0.9 }}
+                                onClick={() => alert("Initializing Sipho voice-to-text converter...")}
+                                style={{
+                                    position: 'absolute',
+                                    top: '12px',
+                                    right: '12px',
+                                    width: '40px',
+                                    height: '40px',
+                                    borderRadius: '12px',
+                                    background: 'var(--primary)',
+                                    border: 'none',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    cursor: 'pointer',
+                                    boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)'
+                                }}
+                            >
+                                <Mic size={20} color="white" />
+                            </motion.button>
+                        </div>
                     </div>
 
                     <div style={{ marginBottom: '32px' }}>
