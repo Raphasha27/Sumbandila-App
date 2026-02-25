@@ -292,6 +292,77 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
           </div>
         </div>
 
+        {/* Sentinel Scam Tracker Section */}
+        <div style={{ marginBottom: '48px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+            <div style={{ background: '#FEF2F2', padding: '10px', borderRadius: '16px' }}>
+              <ShieldAlert size={24} color="#EF4444" />
+            </div>
+            <h3 style={{ fontWeight: 800, color: '#111827', fontSize: '20px' }}>Sentinel Scam Tracker</h3>
+            <div style={{ marginLeft: 'auto', background: '#EF4444', color: 'white', padding: '4px 12px', borderRadius: '100px', fontSize: '11px', fontWeight: 900 }}>LIVE ALERTS</div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {MOCK_DATA.scamTracker.map((scam) => (
+              <motion.div
+                key={scam.id}
+                whileHover={{ y: -4 }}
+                style={{
+                  background: 'white',
+                  borderRadius: '28px',
+                  padding: '24px',
+                  border: '1px solid #F3F4F6',
+                  boxShadow: '0 8px 30px rgba(0,0,0,0.02)',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: scam.riskLevel === 'Critical' ? '#EF4444' : '#F59E0B' }} />
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                  <div>
+                    <span style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', color: 'var(--primary)', background: '#E0F2FE', padding: '4px 10px', borderRadius: '6px', marginBottom: '8px', display: 'inline-block' }}>
+                      {scam.department}
+                    </span>
+                    <h4 style={{ fontSize: '18px', fontWeight: 900, color: '#111827' }}>{scam.title}</h4>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '11px', fontWeight: 800, color: scam.riskLevel === 'Critical' ? '#EF4444' : '#F59E0B' }}>
+                      {scam.riskLevel} RISK
+                    </div>
+                  </div>
+                </div>
+
+                <p style={{ color: '#4B5563', fontSize: '14px', lineHeight: 1.6, marginBottom: '20px' }}>
+                  {scam.description}
+                </p>
+
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{ fontSize: '12px', color: '#9CA3AF', fontWeight: 600 }}>
+                    Source: <span style={{ color: '#4B5563', fontWeight: 800 }}>{scam.source}</span>
+                  </div>
+                  <a
+                    href={scam.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontSize: '12px',
+                      fontWeight: 800,
+                      color: 'var(--primary)',
+                      textDecoration: 'none',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                  >
+                    View Alert <ExternalLink size={14} />
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
         {/* Report Feature */}
         <button
           onClick={() => setIsReportOpen(true)}

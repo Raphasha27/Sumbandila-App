@@ -221,5 +221,57 @@ export const MOCK_DATA = {
       text: "As an expat moving to SA, I needed to verify my local degree equivalent. The DHET resources linked here made the process transparent and simple.",
       impact: "Seamless Integration"
     }
+  ],
+  scamTracker: [
+    {
+      id: "scam-1",
+      title: "Bogus Nursing Colleges",
+      department: "Education",
+      description: "Unregistered colleges in GP and KZN offering 'Nursing' diplomas without SANC accreditation. They often use 'Global' or 'International' in their names.",
+      status: "Active",
+      riskLevel: "Critical",
+      source: "Department of Higher Education (DHET)",
+      sourceUrl: "https://www.dhet.gov.za/SitePages/Docregisters.aspx"
+    },
+    {
+      id: "scam-2",
+      title: "Fake HPCSA Inspectors",
+      department: "Healthcare",
+      description: "Scammers posing as HPCSA inspectors visiting private practices and demanding 'spot fines' for minor compliance issues.",
+      status: "New",
+      riskLevel: "High",
+      source: "HPCSA Official Notice",
+      sourceUrl: "https://www.hpcsa.co.za/Media/Notices"
+    },
+    {
+      id: "scam-3",
+      title: "SARS 'Overdue Refund' Phishing",
+      department: "Finance",
+      description: "SMS and emails claiming you have a R12,500 refund from SARS. Links to a landing page that steals banking credentials.",
+      status: "Persistent",
+      riskLevel: "Critical",
+      source: "SARS Scam Warning",
+      sourceUrl: "https://www.sars.gov.za/targeting-tax-crime/scams-and-phishing/"
+    },
+    {
+      id: "scam-4",
+      title: "Ghost Conveyancers",
+      department: "Legal",
+      description: "Individuals claiming to be attorneys handling property transfers for low fees. They disappear once the 'transfer fee' is paid.",
+      status: "Active",
+      riskLevel: "High",
+      source: "Legal Practice Council (LPC)",
+      sourceUrl: "https://lpc.org.za/public-alerts/"
+    },
+    {
+      id: "scam-5",
+      title: "SASSA Social Relief Grant Hack",
+      department: "Social Development",
+      description: "Third-party agents offering to 'expedite' R370 grant applications in exchange for a fee. SASSA never charges for applications.",
+      status: "Active",
+      riskLevel: "Medium",
+      source: "SASSA Official",
+      sourceUrl: "https://www.sassa.gov.za/"
+    }
   ]
 };

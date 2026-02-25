@@ -20,7 +20,10 @@ const SumbandilaAI = () => {
       let aiResponse = "I'm checking the national database for that. Would you like me to cross-reference the accreditation status of a specific school or medical practitioner?";
 
       const lowerInput = input.toLowerCase();
-      if (lowerInput.includes('doctor') || lowerInput.includes('medical')) {
+      if (lowerInput.includes('scam') || lowerInput.includes('fake') || lowerInput.includes('risk')) {
+        const topScam = MOCK_DATA.scamTracker[0];
+        aiResponse = `Sentinel Alert: We are tracking ${MOCK_DATA.scamTracker.length} active scam patterns in SA. The most critical right now is ${topScam.title} (${topScam.department}). ${topScam.description}. Always check official sources like ${topScam.source}.`;
+      } else if (lowerInput.includes('doctor') || lowerInput.includes('medical')) {
         const medRecs = MOCK_DATA.trustedRecommendations.Healthcare.map(r => r.name).join(', ');
         aiResponse = `I can help you verify doctors via the HPCSA registry. If you're looking for verified facilities, I highly recommend ${medRecs}.`;
       } else if (lowerInput.includes('school') || lowerInput.includes('college') || lowerInput.includes('education')) {
@@ -29,8 +32,6 @@ const SumbandilaAI = () => {
       } else if (lowerInput.includes('legal') || lowerInput.includes('lawyer')) {
         const legRecs = MOCK_DATA.trustedRecommendations.Legal.map(r => r.name).join(', ');
         aiResponse = `I can verify legal practitioners through the LPC. Some of the most trusted firms in our database include ${legRecs}.`;
-      } else if (lowerInput.includes('risk') || lowerInput.includes('safe') || lowerInput.includes('scam')) {
-        aiResponse = "My latest Sentinel Alert indicates a 1.2% increase in bogus college registrations this month. Always look for the 'Sentinel Verified' badge. If an institution isn't found, I'll recommend trusted alternatives automatically.";
       }
 
       addAiMessage({ role: 'assistant', text: aiResponse });
@@ -47,9 +48,30 @@ const SumbandilaAI = () => {
           position: 'fixed',
           bottom: '100px',
           right: '20px',
-          zIndex: 1000
+          zIndex: 1000,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px'
         }}
       >
+        {!isOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            style={{
+              background: 'white',
+              padding: '10px 16px',
+              borderRadius: '16px',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+              border: '1px solid #F1F5F9',
+              fontSize: '13px',
+              fontWeight: 800,
+              color: 'var(--primary)'
+            }}
+          >
+            Need Assistance?
+          </motion.div>
+        )}
         <div
           onClick={() => setIsOpen(!isOpen)}
           style={{
