@@ -1,15 +1,14 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, School, Stethoscope, Scale, Star, ShieldCheck, QrCode, User as UserIcon, Building2, Mic, TrendingUp, Globe, AlertCircle, ExternalLink } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Search, School, Stethoscope, Scale, Star, ShieldCheck, QrCode, User as UserIcon, Building2, Mic, TrendingUp, Globe, AlertCircle, ExternalLink, ShieldAlert, ArrowRight } from 'lucide-react';
 import { CategoryCard, BottomNav } from '../Navigation';
 import { MOCK_DATA } from '../../lib/mock-data';
 import { useRegistryStore } from '../../store/useRegistryStore';
 import ReportModal from '../Report/ReportModal';
 
 export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
-  const [isReportOpen, setIsReportOpen] = React.useState(false);
+  const [isReportOpen, setIsReportOpen] = useState(false);
   const {
-    user,
     searchQuery,
     setSearchQuery,
     integrityPulse,
@@ -23,7 +22,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
     onVerify(random);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       updateIntegrity();
     }, 5000);
@@ -51,13 +50,13 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px', width: '100%', marginBottom: '32px' }}>
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Coat_of_arms_of_South_Africa.svg/200px-Coat_of_arms_of_South_Africa.svg.png"
-            alt="Republic of South Africa Emblem"
-            style={{ height: '64px', width: 'auto' }}
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
+            alt="South Africa Flag"
+            style={{ height: '44px', width: 'auto', borderRadius: '6px' }}
           />
           <div style={{ textAlign: 'left', borderLeft: '1px solid rgba(255,255,255,0.2)', paddingLeft: '20px' }}>
-            <div style={{ fontSize: '12px', fontWeight: 800, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Republic of South Africa</div>
-            <div style={{ fontSize: '26px', fontWeight: 900, marginTop: '2px', lineHeight: 1.1 }}>National Registry <span style={{ color: 'var(--primary-orange)' }}>Sentinel</span></div>
+            <div style={{ fontSize: '12px', fontWeight: 800, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'white' }}>Republic of South Africa</div>
+            <div style={{ fontSize: '26px', fontWeight: 900, marginTop: '2px', lineHeight: 1.1, color: 'white' }}>National Registry Sentinel</div>
           </div>
         </div>
 
@@ -425,7 +424,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
             <div style={{ background: '#EEF2FF', padding: '10px', borderRadius: '16px' }}>
               <Star size={24} color="#4F46E5" fill="#4F46E5" />
             </div>
-            <h3 style={{ fontWeight: 800, color: '#111827', fontSize: '20px' }}>Citizens' Voices</h3>
+            <h3 style={{ fontWeight: 800, color: '#111827', fontSize: '20px' }}>Citizens&apos; Voices</h3>
           </div>
 
           <div style={{ display: 'flex', overflowX: 'auto', gap: '20px', paddingBottom: '20px', paddingRight: '20px', scrollbarWidth: 'none' }}>
@@ -450,7 +449,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
                   </div>
                 </div>
                 <p style={{ color: '#4B5563', fontSize: '14px', lineHeight: 1.6, fontStyle: 'italic', marginBottom: '20px' }}>
-                  "{t.text}"
+                  &quot;{t.text}&quot;
                 </p>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#F0F9FF', color: '#0369A1', padding: '6px 12px', borderRadius: '100px', fontSize: '11px', fontWeight: 800 }}>
                   <ShieldCheck size={14} />

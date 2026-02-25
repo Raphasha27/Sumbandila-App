@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 console.log("App Component Mounting...");
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ShieldCheck,
-  Lock,
   CheckCircle2,
   ArrowRight,
   ChevronLeft,
@@ -26,7 +25,7 @@ import Vault from './components/Vault/Vault';
 import AssistanceRequest from './components/Support/AssistanceRequest';
 import { BottomNav } from './components/Navigation';
 import { MOCK_DATA } from './lib/mock-data';
-import SumbandilaAI from './components/SumbandilaAI';
+import SiphoAI from './components/SiphoAI';
 
 const SAFlag = () => (
   <div style={{ display: 'flex', gap: '2px', height: '6px', width: '100px', marginBottom: '12px' }}>
@@ -37,35 +36,33 @@ const SAFlag = () => (
 );
 
 const OfficialBanner = () => (
-  <div style={{ background: 'white', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0', width: '100%', position: 'sticky', top: 0, zIndex: 100, overflow: 'hidden' }}>
-    <motion.div
-      initial={{ x: '100%' }}
-      animate={{ x: '-100%' }}
-      transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-      style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        width: '50%',
-        height: '3px',
-        background: 'linear-gradient(90deg, transparent, #E03C31, #007749, #002395, transparent)',
-        opacity: 0.8
-      }}
-    />
-    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+  <div style={{
+    background: 'var(--primary)',
+    padding: '20px 24px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    overflow: 'hidden',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+  }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Coat_of_arms_of_South_Africa.svg/200px-Coat_of_arms_of_South_Africa.svg.png"
-        alt="Republic of South Africa Emblem"
-        style={{ height: '42px', width: 'auto' }}
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
+        alt="South Africa Flag"
+        style={{ height: '36px', width: 'auto', borderRadius: '4px' }}
       />
-      <div style={{ textAlign: 'left', borderLeft: '1px solid #E2E8F0', paddingLeft: '16px' }}>
-        <div style={{ fontSize: '10px', fontWeight: 900, color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px' }}>Republic of South Africa</div>
-        <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.3px' }}>National Registry Sentinel</div>
+      <div style={{ textAlign: 'left', borderLeft: '1px solid rgba(255,255,255,0.2)', paddingLeft: '20px' }}>
+        <div style={{ fontSize: '11px', fontWeight: 800, color: 'white', opacity: 0.9, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Republic of South Africa</div>
+        <div style={{ fontSize: '18px', fontWeight: 900, color: 'white', letterSpacing: '-0.3px', marginTop: '2px' }}>National Registry Sentinel</div>
       </div>
     </div>
     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-      <div style={{ width: '36px', height: '36px', borderRadius: '10px', border: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8FAFC' }}>
-        <ShieldCheck size={20} color="#007749" />
+      <div style={{ width: '44px', height: '44px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)' }}>
+        <ShieldCheck size={24} color="white" />
       </div>
     </div>
   </div>
@@ -76,8 +73,6 @@ export default function App() {
     user, setUser, logout,
     searchQuery, setSearchQuery,
     vault, addToVault, removeFromVault, clearVault,
-    aiMessages, addAiMessage, clearAiMessages,
-    integrityPulse, updateIntegrity,
     activeScreen: screen,
     setScreen
   } = useRegistryStore();
@@ -94,14 +89,14 @@ export default function App() {
       setScreen('splash');
     }
     console.log("🛡️ Entry Point Reset: Enforcing State Integrity");
-  }, []);
+  }, [user, setScreen]);
 
   const handleLogin = async (credentials) => {
     try {
       setIsLoading(true);
       const userData = await RegistryService.login(credentials.email, credentials.password);
       setUser(userData);
-    } catch (e) {
+    } catch {
       alert("Invalid Registry Credentials. Use: admin@sumbandila.com / admin123");
     } finally {
       setIsLoading(false);
@@ -179,42 +174,28 @@ export default function App() {
                 <div style={{
                   width: '220px',
                   height: '220px',
-                  borderRadius: '110px',
-                  background: 'white',
+                  borderRadius: '64px',
+                  background: 'var(--bg-gradient)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 20px 50px rgba(0,86,179,0.12)',
-                  border: '3px solid var(--primary)',
-                  position: 'relative'
+                  boxShadow: '0 30px 60px rgba(37, 99, 235, 0.3)',
+                  position: 'relative',
+                  border: 'none'
                 }}>
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Coat_of_arms_of_South_Africa.svg/200px-Coat_of_arms_of_South_Africa.svg.png"
-                    alt="Republic of South Africa Emblem"
-                    style={{ width: '150px', height: 'auto' }}
-                  />
-                  {/* Verified badge */}
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.6, type: 'spring', stiffness: 300 }}
-                    style={{
-                      position: 'absolute',
-                      bottom: '8px',
-                      right: '8px',
-                      width: '44px',
-                      height: '44px',
-                      borderRadius: '50%',
-                      background: 'var(--primary)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 4px 12px rgba(0,86,179,0.4)',
-                      border: '3px solid white'
-                    }}
-                  >
-                    <CheckCircle2 size={22} color="white" strokeWidth={3} />
-                  </motion.div>
+                  <ShieldCheck size={110} color="white" strokeWidth={1.5} />
+
+                  {/* Internal gloss effect */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '10%',
+                    left: '10%',
+                    width: '40%',
+                    height: '40%',
+                    background: 'rgba(255,255,255,0.2)',
+                    filter: 'blur(20px)',
+                    borderRadius: '50%'
+                  }} />
                 </div>
               </motion.div>
 
@@ -227,18 +208,11 @@ export default function App() {
               </div>
 
               <h1 style={{ color: '#0F172A', fontSize: '42px', fontWeight: 900, marginBottom: '24px', letterSpacing: '-1.5px', lineHeight: 1.1 }}>
-                National Registry <span style={{ color: 'var(--primary-orange)' }}>Sentinel</span>
+                Sumbandila <span style={{ color: 'var(--primary-orange)' }}>App</span>
+                <div style={{ fontSize: '18px', color: '#64748B', marginTop: '8px', letterSpacing: '2px', textTransform: 'uppercase' }}>Registry Sentinel</div>
+                <div style={{ fontSize: '16px', color: 'var(--primary)', marginTop: '4px', fontStyle: 'italic', textTransform: 'none', letterSpacing: '0', fontWeight: 700 }}>at the palm of your hand</div>
               </h1>
 
-              <p style={{ color: '#64748B', fontSize: '17px', fontWeight: 600, marginBottom: '32px', lineHeight: 1.6, maxWidth: '400px' }}>
-                The official sovereign gateway for the verification of professional registrations and educational institutions.
-              </p>
-
-              <div style={{ background: '#F8FAFC', padding: '32px 24px', borderRadius: '32px', marginBottom: '48px', border: '1px solid #F1F5F9', width: '100%', maxWidth: '440px' }}>
-                <p style={{ color: '#475569', fontSize: '14px', fontWeight: 600, lineHeight: 1.6 }}>
-                  Exposing bogus institutions and unaccredited professionals operating illegally in South Africa.
-                </p>
-              </div>
 
               <motion.button
                 whileTap={{ scale: 0.96 }}
@@ -460,7 +434,7 @@ export default function App() {
 
               <div style={{ position: 'absolute', bottom: '120px', textAlign: 'center', padding: '0 40px' }}>
                 <p style={{ color: 'white', fontSize: '16px', fontWeight: 600, opacity: 0.8 }}>
-                  Align the institution's digital QR seal within the frame to verify registration.
+                  Align the institution&apos;s digital QR seal within the frame to verify registration.
                 </p>
               </div>
             </div>
@@ -683,6 +657,7 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <SiphoAI />
     </div>
   );
 }

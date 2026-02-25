@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
     ChevronLeft,
@@ -7,12 +7,14 @@ import {
     ShieldCheck,
     Scale,
     Stethoscope,
-    MessageSquare,
     AlertCircle,
     ArrowRight,
-    CheckCircle2
+    CheckCircle2,
+    Building2
 } from 'lucide-react';
 import { db } from '../../services/DatabaseService';
+
+import { MOCK_DATA } from '../../lib/mock-data';
 
 export default function AssistanceRequest({ onBack, onHome, user }) {
     const [formData, setFormData] = useState({
@@ -21,24 +23,35 @@ export default function AssistanceRequest({ onBack, onHome, user }) {
         contactPreference: 'email'
     });
     const [submitted, setSubmitted] = useState(false);
+    const [view, setView] = useState('hub'); // 'hub' or 'raf-search'
+    const [searchQuery, setSearchQuery] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await db.logAuditRecord({
-            type: 'ASSISTANCE_REQUEST',
+        await db.saveAssistanceRequest({
             user: user.email,
             category: formData.category,
+            details: formData.details,
             timestamp: new Date().toISOString()
         });
         setSubmitted(true);
     };
 
+    const rafDoctors = MOCK_DATA.providers.filter(p => p.status === 'RAF Accredited');
+    const filteredDoctors = rafDoctors.filter(d =>
+        d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        d.specialization.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        d.location.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     const recommendations = [
         {
             title: "RAF Claims Guidance",
             icon: <Scale size={20} color="#3B82F6" />,
-            text: "Unsure which doctor to visit for an RAF claim? We provide a list of HPCSA vetted specialists.",
-            bg: "#EFF6FF"
+            text: "Unsure which doctor to visit for an RAF claim? Use our search tool to find HPCSA & RAF vetted specialists.",
+            bg: "#EFF6FF",
+            actionLabel: "Search RAF Doctors",
+            onAction: () => setView('raf-search')
         },
         {
             title: "Recovery Investigation",
@@ -47,6 +60,89 @@ export default function AssistanceRequest({ onBack, onHome, user }) {
             bg: "#ECFDF5"
         }
     ];
+
+    if (view === 'raf-search') {
+        return (
+            <div style={{ background: '#FDFCFB', minHeight: '100vh' }}>
+                <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', padding: '24px 20px', background: 'white', borderBottom: '1px solid #F1F5F9' }}>
+                    <div onClick={() => setView('hub')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
+                        <ChevronLeft size={20} color="#111827" />
+                    </div>
+                    <h3 style={{ fontWeight: 800, fontSize: '18px', color: '#111827' }}>RAF Accredited Specialists</h3>
+                    <div style={{ width: '40px' }} />
+                </header>
+
+                <div style={{ padding: '0 20px' }}>
+                    <div style={{ position: 'relative', marginBottom: '24px' }}>
+                        <input
+                            type="text"
+                            placeholder="Search by name, specialty, or city..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            style={{
+                                width: '100%',
+                                padding: '18px 20px',
+                                borderRadius: '20px',
+                                border: '2px solid #E2E8F0',
+                                background: 'white',
+                                fontSize: '15px',
+                                fontWeight: 600,
+                                outline: 'none',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+                            }}
+                        />
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                        {filteredDoctors.map((doc) => (
+                            <motion.div
+                                key={doc.id}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                style={{
+                                    background: 'white',
+                                    borderRadius: '24px',
+                                    padding: '20px',
+                                    border: '1px solid #F3F4F6',
+                                    boxShadow: '0 8px 24px rgba(0,0,0,0.02)'
+                                }}
+                            >
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                                    <div>
+                                        <h4 style={{ fontWeight: 800, color: '#111827', fontSize: '17px' }}>{doc.name}</h4>
+                                        <div style={{ color: 'var(--primary)', fontSize: '12px', fontWeight: 800, textTransform: 'uppercase' }}>{doc.type}</div>
+                                    </div>
+                                    <div style={{ background: '#E0F2FE', color: '#0369A1', padding: '4px 10px', borderRadius: '8px', fontSize: '10px', fontWeight: 900 }}>VETTED</div>
+                                </div>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#4B5563' }}>
+                                        <Stethoscope size={16} /> {doc.specialization}
+                                    </div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#4B5563' }}>
+                                        <Building2 size={16} /> {doc.location}
+                                    </div>
+                                </div>
+
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #F1F5F9', paddingTop: '16px' }}>
+                                    <div style={{ fontSize: '11px', color: '#9CA3AF', fontWeight: 600 }}>HPCSA: {doc.reg}</div>
+                                    <button
+                                        onClick={() => {
+                                            setFormData({ ...formData, category: 'RAF Claim Assistance', details: `I am interested in consulting with ${doc.name} for an RAF claim.` });
+                                            setView('hub');
+                                        }}
+                                        style={{ background: 'var(--primary)', color: 'white', padding: '8px 16px', borderRadius: '12px', border: 'none', fontSize: '12px', fontWeight: 800, cursor: 'pointer' }}
+                                    >
+                                        Select Specialist
+                                    </button>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     if (submitted) {
         return (
@@ -79,7 +175,7 @@ export default function AssistanceRequest({ onBack, onHome, user }) {
                 <div style={{ background: 'var(--bg-gradient)', padding: '24px', borderRadius: '24px', color: 'white', marginBottom: '32px', boxShadow: '0 10px 30px rgba(37, 99, 235, 0.2)' }}>
                     <h4 style={{ fontWeight: 800, fontSize: '18px', marginBottom: '8px' }}>Sentinel Advocacy Program</h4>
                     <p style={{ fontSize: '14px', opacity: 0.9, lineHeight: 1.5 }}>
-                        We help vulnerable citizens fight back against scammers and unaccredited institutions. Share your story, and we'll guide you to justice.
+                        We help vulnerable citizens fight back against scammers and unaccredited institutions. Share your story, and we&apos;ll guide you to justice.
                     </p>
                 </div>
 
@@ -87,14 +183,38 @@ export default function AssistanceRequest({ onBack, onHome, user }) {
                     <h4 style={{ fontWeight: 800, color: '#111827', marginBottom: '16px', fontSize: '15px', textTransform: 'uppercase' }}>Expert Recommendations</h4>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         {recommendations.map((rec, i) => (
-                            <div key={i} style={{ background: rec.bg, padding: '20px', borderRadius: '20px', border: '1px solid rgba(0,0,0,0.03)', display: 'flex', gap: '16px' }}>
-                                <div style={{ width: '40px', height: '40px', background: 'white', borderRadius: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
-                                    {rec.icon}
+                            <div key={i} style={{ background: rec.bg, padding: '20px', borderRadius: '20px', border: '1px solid rgba(0,0,0,0.03)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                <div style={{ display: 'flex', gap: '16px' }}>
+                                    <div style={{ width: '40px', height: '40px', background: 'white', borderRadius: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0, boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
+                                        {rec.icon}
+                                    </div>
+                                    <div>
+                                        <div style={{ fontWeight: 800, color: '#111827', marginBottom: '4px' }}>{rec.title}</div>
+                                        <p style={{ fontSize: '13px', color: '#4B5563', lineHeight: 1.5, fontWeight: 500 }}>{rec.text}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div style={{ fontWeight: 800, color: '#111827', marginBottom: '4px' }}>{rec.title}</div>
-                                    <p style={{ fontSize: '13px', color: '#4B5563', lineHeight: 1.5 }}>{rec.text}</p>
-                                </div>
+                                {rec.onAction && (
+                                    <button
+                                        onClick={rec.onAction}
+                                        style={{
+                                            width: '100%',
+                                            padding: '12px',
+                                            borderRadius: '12px',
+                                            background: 'white',
+                                            border: '1.5px solid var(--primary)',
+                                            color: 'var(--primary)',
+                                            fontWeight: 800,
+                                            fontSize: '12px',
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: '8px'
+                                        }}
+                                    >
+                                        {rec.actionLabel} <ArrowRight size={14} />
+                                    </button>
+                                )}
                             </div>
                         ))}
                     </div>

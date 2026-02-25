@@ -29,7 +29,7 @@ export const useRegistryStore = create(
         notifications: state.notifications.filter(n => n.id !== id)
       })),
 
-      updateIntegrity: () => set((state) => ({
+      updateIntegrity: () => set(() => ({
         integrityPulse: Number((98.2 + Math.random() * 0.4).toFixed(2))
       })),
 

@@ -1,9 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Lock, ArrowRight, ChevronLeft, User as UserIcon, Mail, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Lock, ArrowRight, ChevronLeft, Mail, CheckCircle2 } from 'lucide-react';
 
-export default function LoginScreen({ onLogin, onBack, onShowAbout }) {
+export default function LoginScreen({ onLogin, onBack }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -77,9 +77,9 @@ export default function LoginScreen({ onLogin, onBack, onShowAbout }) {
               position: 'relative'
             }}>
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Coat_of_arms_of_South_Africa.svg/200px-Coat_of_arms_of_South_Africa.svg.png"
-                alt="Republic of South Africa Emblem"
-                style={{ width: '68px', height: 'auto' }}
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
+                alt="South Africa Flag"
+                style={{ width: '56px', height: 'auto', borderRadius: '4px' }}
               />
               {/* Verified badge dot */}
               <motion.div

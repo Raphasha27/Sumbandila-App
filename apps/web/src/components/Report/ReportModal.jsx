@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ShieldAlert, Flag, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { X, ShieldAlert, Flag, CheckCircle2 } from 'lucide-react';
 
 export default function ReportModal({ isOpen, onClose }) {
     const [step, setStep] = useState('form');

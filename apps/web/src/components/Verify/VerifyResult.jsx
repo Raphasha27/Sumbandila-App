@@ -1,9 +1,8 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, CheckCircle2, AlertTriangle, ChevronLeft, Info, Star, ShieldAlert } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, AlertTriangle, ChevronLeft, Star, ShieldAlert } from 'lucide-react';
 import { MOCK_DATA } from '../../lib/mock-data';
 
-export default function VerifyResult({ provider, step, onBack, onViewCert, onSave }) {
+export default function VerifyResult({ provider, step, onBack, onSave }) {
   if (step === 'processing') {
     return (
       <div className="screen" style={{ background: 'var(--bg-gradient)', justifyContent: 'center', alignItems: 'center' }}>
@@ -42,7 +41,11 @@ export default function VerifyResult({ provider, step, onBack, onViewCert, onSav
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Coat_of_arms_of_South_Africa.svg/200px-Coat_of_arms_of_South_Africa.svg.png" alt="Coat of Arms" style={{ height: '36px', width: 'auto' }} />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
+              alt="South Africa Flag"
+              style={{ height: '28px', width: 'auto', borderRadius: '4px' }}
+            />
             <ShieldCheck size={24} color="white" />
           </div>
         </div>

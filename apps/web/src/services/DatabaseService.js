@@ -35,19 +35,54 @@ class DatabaseService {
     }
 
     /**
-     * Generic fetcher to handle future API transitions
-     */
+   * Generic fetcher to handle future API transitions
+   */
     async get(collection) {
         await this.init();
 
         if (this.useLocalStorage) {
-            const data = JSON.parse(localStorage.getItem(this.dbName));
-            return data[collection] || [];
+            const dbData = JSON.parse(localStorage.getItem(this.dbName)) || {};
+            return dbData[collection] || [];
         }
+    }
 
-        // Future API placeholder:
-        // const res = await fetch(`${API_URL}/${collection}`);
-        // return res.json();
+    /**
+     * Generic setter to handle persistence
+     */
+    async set(collection, data) {
+        await this.init();
+
+        if (this.useLocalStorage) {
+            const dbData = JSON.parse(localStorage.getItem(this.dbName)) || {};
+            dbData[collection] = data;
+            localStorage.setItem(this.dbName, JSON.stringify(dbData));
+            return true;
+        }
+    }
+
+    /**
+     * Save a new assistance request (Persistence)
+     */
+    async saveAssistanceRequest(request) {
+        const requests = await this.get('assistanceRequests') || [];
+        const newRequest = {
+            ...request,
+            id: `req-${Date.now()}`,
+            status: 'Investigation Pending',
+            registrySync: 'VERIFIED'
+        };
+
+        await this.set('assistanceRequests', [...requests, newRequest]);
+
+        // Log for Audit Trail
+        await this.logAuditRecord({
+            type: 'DATA_WRITE',
+            collection: 'assistanceRequests',
+            recordId: newRequest.id,
+            timestamp: new Date().toISOString()
+        });
+
+        return newRequest;
     }
 
     /**

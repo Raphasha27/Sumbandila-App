@@ -111,6 +111,59 @@ export const MOCK_DATA = {
       expertise: "Litigation & Dispute Resolution",
       validUntil: "2026-12-31",
       risk: "Low"
+    },
+    // RAF Accredited Specialists
+    {
+      id: "raf-med-1",
+      name: "Dr. Thabo Mokoena",
+      category: "Healthcare",
+      type: "Orthopaedic Surgeon",
+      reg: "MP 0599212",
+      status: "RAF Accredited",
+      body: "HPCSA & RAF Vetted",
+      specialization: "Trauma & Spinal Surgery",
+      location: "Pretoria, GP",
+      validUntil: "2027-12-31",
+      risk: "Low"
+    },
+    {
+      id: "raf-med-2",
+      name: "Dr. Sarah Jenkins",
+      category: "Healthcare",
+      type: "Neurologist",
+      reg: "MP 0411832",
+      status: "RAF Accredited",
+      body: "HPCSA & RAF Vetted",
+      specialization: "Traumatic Brain Injury",
+      location: "Cape Town, WC",
+      validUntil: "2026-06-30",
+      risk: "Low"
+    },
+    {
+      id: "raf-med-3",
+      name: "Dr. Amina Pillay",
+      category: "Healthcare",
+      type: "Occupational Therapist",
+      reg: "OT 0088214",
+      status: "RAF Accredited",
+      body: "HPCSA & RAF Vetted",
+      specialization: "Functional Assessment",
+      location: "Durban, KZN",
+      validUntil: "2025-12-31",
+      risk: "Low"
+    },
+    {
+      id: "raf-med-4",
+      name: "Dr. Gerhard Venter",
+      category: "Healthcare",
+      type: "Plastic & Reconstructive Surgeon",
+      reg: "MP 0332190",
+      status: "RAF Accredited",
+      body: "HPCSA & RAF Vetted",
+      specialization: "Scarring & Disfigurement",
+      location: "Bloemfontein, FS",
+      validUntil: "2028-01-01",
+      risk: "Low"
     }
   ],
   trustedRecommendations: {
