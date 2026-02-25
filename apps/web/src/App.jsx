@@ -7,8 +7,12 @@ import {
   CheckCircle2,
   ArrowRight,
   ChevronLeft,
+  ChevronRight,
   QrCode,
-  Building2
+  Building2,
+  Home as HomeIcon,
+  User as UserIcon,
+  HelpCircle
 } from 'lucide-react';
 
 import { useRegistryStore } from './store/useRegistryStore';
@@ -47,25 +51,20 @@ const OfficialBanner = () => (
         opacity: 0.8
       }}
     />
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-      <div style={{ width: '40px', height: '40px', borderRadius: '12px', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8FAFC' }}>
-        <ShieldCheck size={24} color="#007749" />
-      </div>
-      <div style={{ textAlign: 'left' }}>
-        <div style={{ fontSize: '10px', fontWeight: 900, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Republic of South Africa</div>
-        <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>National Registry Sentinel</div>
-      </div>
-    </div>
     <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
       <img
         src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU"
-        alt="Coat of Arms"
-        style={{ height: '32px', width: 'auto' }}
+        alt="Republic of South Africa Emblem"
+        style={{ height: '42px', width: 'auto' }}
       />
-      <div style={{ display: 'flex', gap: '3px', height: '18px', width: '24px', flexDirection: 'column' }}>
-        <div style={{ flex: 1, background: '#E03C31' }} />
-        <div style={{ flex: 1, background: '#007749' }} />
-        <div style={{ flex: 1, background: '#002395' }} />
+      <div style={{ textAlign: 'left', borderLeft: '1px solid #E2E8F0', paddingLeft: '16px' }}>
+        <div style={{ fontSize: '10px', fontWeight: 900, color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px' }}>Republic of South Africa</div>
+        <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.3px' }}>National Registry Sentinel</div>
+      </div>
+    </div>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div style={{ width: '36px', height: '36px', borderRadius: '10px', border: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8FAFC' }}>
+        <ShieldCheck size={20} color="#007749" />
       </div>
     </div>
   </div>
@@ -149,25 +148,73 @@ export default function App() {
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                style={{
-                  width: '240px',
-                  height: '240px',
-                  borderRadius: '120px',
+                style={{ position: 'relative', marginBottom: '48px', width: '260px', height: '260px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                {/* Outer pulse ring 1 */}
+                <motion.div
+                  animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0, 0.3] }}
+                  transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+                  style={{ position: 'absolute', inset: '-20px', borderRadius: '50%', border: '2px solid var(--primary)', pointerEvents: 'none' }}
+                />
+                {/* Outer pulse ring 2 */}
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0, 0.5] }}
+                  transition={{ repeat: Infinity, duration: 3, delay: 0.8, ease: 'easeInOut' }}
+                  style={{ position: 'absolute', inset: '-8px', borderRadius: '50%', border: '1.5px solid rgba(0,86,179,0.4)', pointerEvents: 'none' }}
+                />
+                {/* Rotating dashed ring */}
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
+                  style={{
+                    position: 'absolute',
+                    inset: '-12px',
+                    borderRadius: '50%',
+                    border: '2.5px dashed rgba(0,86,179,0.25)',
+                    pointerEvents: 'none'
+                  }}
+                />
+                {/* Emblem circle */}
+                <div style={{
+                  width: '220px',
+                  height: '220px',
+                  borderRadius: '110px',
                   background: 'white',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginBottom: '48px',
-                  boxShadow: '0 20px 50px rgba(0,0,0,0.08)',
-                  position: 'relative',
-                  border: '1px solid #F1F5F9'
-                }}
-              >
-                <img
-                  src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU"
-                  alt="Republic of South Africa Emblem"
-                  style={{ width: '160px', height: 'auto' }}
-                />
+                  boxShadow: '0 20px 50px rgba(0,86,179,0.12)',
+                  border: '3px solid var(--primary)',
+                  position: 'relative'
+                }}>
+                  <img
+                    src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU"
+                    alt="Republic of South Africa Emblem"
+                    style={{ width: '150px', height: 'auto' }}
+                  />
+                  {/* Verified badge */}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.6, type: 'spring', stiffness: 300 }}
+                    style={{
+                      position: 'absolute',
+                      bottom: '8px',
+                      right: '8px',
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '50%',
+                      background: 'var(--primary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: '0 4px 12px rgba(0,86,179,0.4)',
+                      border: '3px solid white'
+                    }}
+                  >
+                    <CheckCircle2 size={22} color="white" strokeWidth={3} />
+                  </motion.div>
+                </div>
               </motion.div>
 
               <div style={{ marginBottom: '8px' }}>
@@ -489,50 +536,54 @@ export default function App() {
 
         {screen === 'profile' && (
           <motion.div key="profile" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="screen" style={{ background: '#FDFCFB', paddingBottom: '120px' }}>
-            <header style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px', padding: '24px 20px' }}>
-              <div onClick={() => setScreen('dashboard')} style={{ padding: '12px', background: 'white', borderRadius: '14px', cursor: 'pointer', border: '1px solid #E5E7EB' }}>
-                <ChevronLeft size={24} color="#111827" />
+            <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px', padding: '24px 20px', background: 'white', borderBottom: '1px solid #F1F5F9' }}>
+              <div onClick={() => setScreen('dashboard')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
+                <ChevronLeft size={20} color="#111827" />
               </div>
-              <h3 style={{ fontWeight: 800, fontSize: '28px', color: '#111827' }}>Sentinel Identity</h3>
+              <h3 style={{ fontWeight: 800, fontSize: '20px', color: '#111827' }}>Sentinel Identity</h3>
+              <div onClick={() => setScreen('dashboard')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
+                <HomeIcon size={20} color="#111827" />
+              </div>
             </header>
 
             <div style={{ padding: '0 20px' }}>
               <div style={{ background: 'white', borderRadius: '32px', padding: '48px 24px', border: '1px solid #F3F4F6', textAlign: 'center', boxShadow: '0 10px 40px rgba(0,0,0,0.03)', width: '100%' }}>
-                <div style={{ width: '120px', height: '120px', borderRadius: '40px', background: 'var(--bg-gradient)', margin: '0 auto 24px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '48px', color: 'white', fontWeight: 900, boxShadow: '0 15px 30px rgba(230, 81, 0, 0.2)' }}>{user?.avatar}</div>
-                <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#111827' }}>{user?.name}</h2>
-                <p style={{ color: '#6B7280', fontWeight: 700, fontSize: '16px', marginTop: '4px' }}>Authorized Registry Agent</p>
-
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#E8F5E9', padding: '10px 20px', borderRadius: '100px', marginTop: '24px' }}>
-                  <ShieldCheck size={18} color="#2E7D32" strokeWidth={3} />
-                  <span style={{ color: '#2E7D32', fontWeight: 800, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1px' }}>High Clearance (Level 5)</span>
+                <div style={{ width: '100px', height: '100px', borderRadius: '32px', background: 'var(--bg-gradient)', margin: '0 auto 24px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '40px', color: 'white', fontWeight: 900, boxShadow: '0 15px 30px rgba(37, 99, 235, 0.2)' }}>{user?.avatar}</div>
+                <h2 style={{ fontSize: '24px', fontWeight: 900, color: '#111827' }}>{user?.name}</h2>
+                <p style={{ color: '#6B7280', fontWeight: 700, fontSize: '15px' }}>Authorized Registry Agent</p>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#E0F2FE', padding: '8px 16px', borderRadius: '100px', marginTop: '16px' }}>
+                  <ShieldCheck size={16} color="var(--primary)" strokeWidth={3} />
+                  <span style={{ color: 'var(--primary)', fontWeight: 800, fontSize: '11px', textTransform: 'uppercase' }}>Clearance Level 5</span>
                 </div>
               </div>
 
               <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div style={{ background: 'white', padding: '24px', borderRadius: '24px', border: '1px solid #F3F4F6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#6B7280', fontWeight: 700, fontSize: '14px' }}>Registration Email</span>
-                  <span style={{ color: '#111827', fontWeight: 800, fontSize: '15px' }}>{user?.email}</span>
-                </div>
-                <div style={{ background: 'white', padding: '24px', borderRadius: '24px', border: '1px solid #F3F4F6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#6B7280', fontWeight: 700, fontSize: '14px' }}>Contact Number</span>
-                  <span style={{ color: '#111827', fontWeight: 800, fontSize: '15px' }}>{user?.mobile}</span>
-                </div>
+                <button
+                  onClick={() => setScreen('profile-details')}
+                  style={{ background: 'white', padding: '20px', borderRadius: '24px', border: '1px solid #F3F4F6', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ padding: '8px', background: '#F0F9FF', borderRadius: '10px' }}><UserIcon size={20} color="var(--primary)" /></div>
+                    <span style={{ color: '#111827', fontWeight: 700 }}>Personal Details</span>
+                  </div>
+                  <ChevronRight size={20} color="#94A3B8" />
+                </button>
+                <button
+                  onClick={() => setScreen('help')}
+                  style={{ background: 'white', padding: '20px', borderRadius: '24px', border: '1px solid #F3F4F6', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ padding: '8px', background: '#F0F9FF', borderRadius: '10px' }}><HelpCircle size={20} color="var(--primary)" /></div>
+                    <span style={{ color: '#111827', fontWeight: 700 }}>How can we help?</span>
+                  </div>
+                  <ChevronRight size={20} color="#94A3B8" />
+                </button>
               </div>
 
               <button
                 onClick={logout}
-                style={{
-                  marginTop: '40px',
-                  width: '100%',
-                  background: 'white',
-                  color: 'var(--error)',
-                  padding: '20px',
-                  borderRadius: '20px',
-                  border: '2px solid rgba(239, 68, 68, 0.1)',
-                  fontSize: '16px',
-                  fontWeight: 800,
-                  cursor: 'pointer'
-                }}
+                className="secondary-btn"
+                style={{ marginTop: '32px', color: 'var(--error)', borderColor: 'rgba(239, 68, 68, 0.2)', height: '64px' }}
               >
                 Sign Out of Registry
               </button>
@@ -540,16 +591,66 @@ export default function App() {
             <BottomNav active="profile" onNav={(s) => setScreen(s)} />
           </motion.div>
         )}
-        {user && screen !== 'splash' && screen !== 'login' && (
-          <SumbandilaAI />
+
+        {screen === 'profile-details' && (
+          <motion.div key="details" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen" style={{ background: '#FDFCFB' }}>
+            <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px', padding: '24px 20px', background: 'white', borderBottom: '1px solid #F1F5F9' }}>
+              <div onClick={() => setScreen('profile')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
+                <ChevronLeft size={20} color="#111827" />
+              </div>
+              <h3 style={{ fontWeight: 800, fontSize: '20px', color: '#111827' }}>Personal Details</h3>
+              <div onClick={() => setScreen('dashboard')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
+                <HomeIcon size={20} color="#111827" />
+              </div>
+            </header>
+            <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ background: 'white', padding: '24px', borderRadius: '24px', border: '1px solid #F3F4F6' }}>
+                <label style={{ color: '#6B7280', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>Full Legal Name</label>
+                <div style={{ color: '#111827', fontWeight: 800, fontSize: '16px' }}>{user?.name}</div>
+              </div>
+              <div style={{ background: 'white', padding: '24px', borderRadius: '24px', border: '1px solid #F3F4F6' }}>
+                <label style={{ color: '#6B7280', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>Registry Email</label>
+                <div style={{ color: '#111827', fontWeight: 800, fontSize: '16px' }}>{user?.email}</div>
+              </div>
+              <div style={{ background: 'white', padding: '24px', borderRadius: '24px', border: '1px solid #F3F4F6' }}>
+                <label style={{ color: '#6B7280', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>Mobile Number</label>
+                <div style={{ color: '#111827', fontWeight: 800, fontSize: '16px' }}>{user?.mobile}</div>
+              </div>
+            </div>
+          </motion.div>
         )}
+
+        {screen === 'help' && (
+          <motion.div key="help" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen" style={{ background: '#FDFCFB' }}>
+            <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px', padding: '24px 20px', background: 'white', borderBottom: '1px solid #F1F5F9' }}>
+              <div onClick={() => setScreen('profile')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
+                <ChevronLeft size={20} color="#111827" />
+              </div>
+              <h3 style={{ fontWeight: 800, fontSize: '20px', color: '#111827' }}>How can we help?</h3>
+              <div onClick={() => setScreen('dashboard')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
+                <HomeIcon size={20} color="#111827" />
+              </div>
+            </header>
+            <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ background: 'white', padding: '24px', borderRadius: '24px', border: '1px solid #F3F4F6' }}>
+                <h4 style={{ fontWeight: 800, color: 'var(--primary)', marginBottom: '12px' }}>Registry Support</h4>
+                <p style={{ fontSize: '14px', color: '#4B5563', lineHeight: 1.6 }}>Our team is available to assist with institutional verification queries and registry access issues.</p>
+                <button className="primary-btn" style={{ marginTop: '20px', height: '52px' }}>Chat with Support</button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {screen === 'alerts' && (
           <motion.div key="alerts" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="screen" style={{ background: '#FDFCFB', paddingBottom: '120px' }}>
-            <header style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px', padding: '24px 20px' }}>
-              <div onClick={() => setScreen('dashboard')} style={{ padding: '12px', background: 'white', borderRadius: '14px', cursor: 'pointer', border: '1px solid #E5E7EB' }}>
-                <ChevronLeft size={24} color="#111827" />
+            <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px', padding: '24px 20px', background: 'white', borderBottom: '1px solid #F1F5F9' }}>
+              <div onClick={() => setScreen('dashboard')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
+                <ChevronLeft size={20} color="#111827" />
               </div>
-              <h3 style={{ fontWeight: 800, fontSize: '28px', color: '#111827' }}>Security Alerts</h3>
+              <h3 style={{ fontWeight: 800, fontSize: '20px', color: '#111827' }}>Security Alerts</h3>
+              <div onClick={() => setScreen('dashboard')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
+                <HomeIcon size={20} color="#111827" />
+              </div>
             </header>
             <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {MOCK_DATA.securityAlerts.map(alert => (
@@ -568,16 +669,19 @@ export default function App() {
 
         {screen === 'news' && (
           <motion.div key="news" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="screen" style={{ background: '#FDFCFB', paddingBottom: '120px' }}>
-            <header style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px', padding: '24px 20px' }}>
-              <div onClick={() => setScreen('dashboard')} style={{ padding: '12px', background: 'white', borderRadius: '14px', cursor: 'pointer', border: '1px solid #E5E7EB' }}>
-                <ChevronLeft size={24} color="#111827" />
+            <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px', padding: '24px 20px', background: 'white', borderBottom: '1px solid #F1F5F9' }}>
+              <div onClick={() => setScreen('dashboard')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
+                <ChevronLeft size={20} color="#111827" />
               </div>
-              <h3 style={{ fontWeight: 800, fontSize: '28px', color: '#111827' }}>Registry News</h3>
+              <h3 style={{ fontWeight: 800, fontSize: '20px', color: '#111827' }}>Registry News</h3>
+              <div onClick={() => setScreen('dashboard')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
+                <HomeIcon size={20} color="#111827" />
+              </div>
             </header>
             <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {MOCK_DATA.registryNews.map(news => (
                 <div key={news.id} className="premium-card" style={{ padding: '24px', background: 'white' }}>
-                  <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--primary-orange)', marginBottom: '8px' }}>{news.source} • {news.date}</div>
+                  <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--primary)', marginBottom: '8px' }}>{news.source} • {news.date}</div>
                   <h4 style={{ fontSize: '18px', fontWeight: 900, color: '#111827', marginBottom: '8px' }}>{news.title}</h4>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#6B7280', fontSize: '13px', fontWeight: 600 }}>
                     <ArrowRight size={14} /> Read Full Report

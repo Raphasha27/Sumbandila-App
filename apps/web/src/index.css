@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');
 
 :root {
-  --primary: #E65100;
-  --primary-orange: #F97316;
+  --primary: #0056B3;
+  --primary-orange: #007BFF;
   --primary-green: #15803D;
-  --accent: #FB923C;
-  --bg-gradient: linear-gradient(135deg, #7C2D12 0%, #C2410C 40%, #166534 100%);
+  --accent: #60A5FA;
+  --bg-gradient: linear-gradient(135deg, #1E3A8A 0%, #2563EB 40%, #3B82F6 100%);
   --surface: #FFFFFF;
   --surface-secondary: #F8FAFC;
   --text-main: #0F172A;
@@ -98,7 +98,7 @@ body {
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 20px -5px rgba(26, 54, 93, 0.3);
+  box-shadow: 0 8px 20px -5px rgba(59, 130, 246, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;

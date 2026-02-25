@@ -49,16 +49,16 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
       }}>
         <div className="scanning-line" />
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%', marginBottom: '32px' }}>
-          <div style={{ textAlign: 'left' }}>
-            <div style={{ fontSize: '12px', fontWeight: 800, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '1px' }}>Republic of South Africa</div>
-            <div style={{ fontSize: '24px', fontWeight: 900, marginTop: '4px' }}>National Registry</div>
-          </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', width: '100%', marginBottom: '32px' }}>
           <img
             src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU"
-            alt="Coat of Arms"
-            style={{ height: '56px', width: 'auto' }}
+            alt="Republic of South Africa Emblem"
+            style={{ height: '64px', width: 'auto' }}
           />
+          <div style={{ textAlign: 'left', borderLeft: '1px solid rgba(255,255,255,0.2)', paddingLeft: '20px' }}>
+            <div style={{ fontSize: '12px', fontWeight: 800, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Republic of South Africa</div>
+            <div style={{ fontSize: '26px', fontWeight: 900, marginTop: '2px', lineHeight: 1.1 }}>National Registry <span style={{ color: 'var(--primary-orange)' }}>Sentinel</span></div>
+          </div>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
@@ -157,12 +157,12 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
                 width: '56px',
                 height: '56px',
                 borderRadius: '50%',
-                background: 'var(--primary-orange)',
+                background: 'var(--primary)',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 cursor: 'pointer',
-                boxShadow: '0 8px 20px rgba(230, 81, 0, 0.3)',
+                boxShadow: '0 8px 20px rgba(0, 86, 179, 0.3)',
                 flexShrink: 0
               }}
             >
@@ -253,7 +253,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
         {/* Registry Footprint Stats */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '32px' }}>
           <div style={{ background: 'white', padding: '16px 8px', borderRadius: '20px', border: '1px solid #F3F4F6', textAlign: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
-            <div style={{ color: '#3B82F6', fontSize: '18px', fontWeight: 900 }}>2.4k+</div>
+            <div style={{ color: 'var(--primary)', fontSize: '18px', fontWeight: 900 }}>2.4k+</div>
             <div style={{ color: '#9CA3AF', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase' }}>Edu Hubs</div>
           </div>
           <div style={{ background: 'white', padding: '16px 8px', borderRadius: '20px', border: '1px solid #F3F4F6', textAlign: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
@@ -261,7 +261,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
             <div style={{ color: '#9CA3AF', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase' }}>Pro Vetted</div>
           </div>
           <div style={{ background: 'white', padding: '16px 8px', borderRadius: '20px', border: '1px solid #F3F4F6', textAlign: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
-            <div style={{ color: '#E65100', fontSize: '18px', fontWeight: 900 }}>100%</div>
+            <div style={{ color: 'var(--primary)', fontSize: '18px', fontWeight: 900 }}>100%</div>
             <div style={{ color: '#9CA3AF', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase' }}>Registry</div>
           </div>
         </div>

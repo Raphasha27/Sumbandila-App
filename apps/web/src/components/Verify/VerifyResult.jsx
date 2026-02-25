@@ -36,7 +36,10 @@ export default function VerifyResult({ provider, step, onBack, onViewCert, onSav
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={onBack}>
             <ChevronLeft size={24} color="white" />
-            <h1 style={{ fontSize: '24px', fontWeight: 900 }}>Registry Result</h1>
+            <div>
+              <div style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.8 }}>Republic of South Africa</div>
+              <h1 style={{ fontSize: '18px', fontWeight: 900 }}>National Registry <span style={{ opacity: 0.9 }}>Sentinel</span></h1>
+            </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <img src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU" alt="Coat of Arms" style={{ height: '36px', width: 'auto' }} />
