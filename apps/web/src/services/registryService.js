@@ -1,4 +1,5 @@
 import { MOCK_DATA } from '../lib/mock-data';
+import { db } from './DatabaseService';
 
 /**
  * RegistryService
@@ -12,18 +13,18 @@ export const RegistryService = {
    */
   async search(query) {
     if (!query.trim()) return null;
-    
+
     // Simulate network latency for authentic full-stack feel
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    const results = MOCK_DATA.providers.filter(p => 
+
+    const results = MOCK_DATA.providers.filter(p =>
       p.name.toLowerCase().includes(query.toLowerCase())
     );
-    
+
     if (results.length > 0) {
       return results[0];
     }
-    
+
     // Return high-risk/unverified entity profile if no match is found
     return {
       name: query,
@@ -40,14 +41,16 @@ export const RegistryService = {
    */
   async login(email, password) {
     await new Promise(resolve => setTimeout(resolve, 800));
-    
+
     if (email === MOCK_DATA.auth.admin.email && password === MOCK_DATA.auth.admin.password) {
-      return {
-        name: MOCK_DATA.auth.admin.name, 
+      const user = {
+        name: MOCK_DATA.auth.admin.name,
         email: MOCK_DATA.auth.admin.email,
         avatar: MOCK_DATA.auth.admin.avatar,
         mobile: MOCK_DATA.auth.admin.mobile
       };
+      await db.logSession(email, 'LOGIN');
+      return user;
     }
     throw new Error('Invalid Registry Credentials');
   }

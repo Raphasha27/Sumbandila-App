@@ -218,7 +218,9 @@ export const MOCK_DATA = {
   ],
   securityAlerts: [
     { id: 1, type: "Critical", text: "Identity theft spike: Beware of fake verification SMS from 'Registry Center'." },
-    { id: 2, type: "Warning", text: "Scheduled database sync with Home Affairs: 23:00 - 01:00 CAT." }
+    { id: 2, type: "Warning", text: "Scheduled database sync with Home Affairs: 23:00 - 01:00 CAT." },
+    { id: 3, type: "Critical", text: "CYBER ALERT: Distributed Denial-of-Service (DDoS) attempts detected on DHET portal. Expect latency." },
+    { id: 4, type: "Warning", text: "FRAUD ALERT: Unofficial 'Sentinel Pro' WhatsApp groups are requesting bank details. Report immediately." }
   ],
   auth: {
     admin: {
@@ -337,6 +339,16 @@ export const MOCK_DATA = {
       riskLevel: "Medium",
       source: "SASSA Official",
       sourceUrl: "https://www.sassa.gov.za/"
+    },
+    {
+      id: "scam-6",
+      title: "Ransomware & Cyber Extortion",
+      department: "Cyber Security",
+      description: "Business owners receiving emails claiming their registry data has been hacked. They demand Bitcoin to 'stop the leak'. These are typically empty threats using leaked passwords from other breaches.",
+      status: "Active",
+      riskLevel: "High",
+      source: "Cyber-Sentinel Hub",
+      sourceUrl: "https://cyber-sentinel.gov.za"
     }
   ]
 };

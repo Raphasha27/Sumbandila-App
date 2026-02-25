@@ -13,7 +13,9 @@ import {
     Building2,
     School,
     Bot,
-    Mic
+    Mic,
+    Heart,
+    MessageSquareText
 } from 'lucide-react';
 import { db } from '../../services/DatabaseService';
 
@@ -75,6 +77,22 @@ export default function AssistanceRequest({ onBack, onHome, user }) {
             bg: "#ECFDF5",
             actionLabel: "Search RAF Doctors",
             onAction: () => setView('raf-search')
+        },
+        {
+            title: "GBV & Safety Support",
+            icon: <Heart size={20} color="#EC4899" />,
+            text: "Direct link to victim support services. We provide a safe, confidential space to report GBV and seek emergency guidance.",
+            bg: "#FDF2F8",
+            actionLabel: "Report GBV",
+            onAction: () => setFormData({ ...formData, category: 'GBV Support' })
+        },
+        {
+            title: "Anti-Bullying Hub",
+            icon: <MessageSquareText size={20} color="#8B5CF6" />,
+            text: "Protecting students and professionals from cyber bullying and workplace harassment. Report incidents for advocacy.",
+            bg: "#F5F3FF",
+            actionLabel: "Report Bullying",
+            onAction: () => setFormData({ ...formData, category: 'Bullying & Harassment' })
         },
         {
             title: "Sipho AI Assistant",
@@ -256,6 +274,9 @@ export default function AssistanceRequest({ onBack, onHome, user }) {
                             <option>Student Registration Support</option>
                             <option>Legal Service Verification</option>
                             <option>Healthcare Compliance</option>
+                            <option>Fraud & Cyber Attacks</option>
+                            <option>GBV Support</option>
+                            <option>Bullying & Harassment</option>
                             <option>Scam Investigation</option>
                             <option>RAF Claim Assistance</option>
                             <option>Institution Dispute</option>

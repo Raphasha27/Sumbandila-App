@@ -110,9 +110,33 @@ class DatabaseService {
      * Log an authentication attempt or search result (Audit Trail)
      */
     async logAuditRecord(record) {
-        console.log('📝 Audit Record Encrypted & Stored:', record);
-        // In a real DB, this would be: 
-        // await db.from('audit_logs').insert(record);
+        const logs = await this.get('auditLogs') || [];
+        const newRecord = {
+            ...record,
+            id: `audit-${Date.now()}`,
+            timestamp: new Date().toISOString()
+        };
+        await this.set('auditLogs', [...logs, newRecord].slice(-100)); // Keep last 100 logs
+        console.log('📝 Audit Record Encrypted & Stored:', newRecord);
+    }
+
+    /**
+     * Specialized logging for user sessions
+     */
+    async logSession(email, action) {
+        await this.logAuditRecord({
+            type: 'USER_SESSION',
+            user: email,
+            action: action, // 'LOGIN' or 'LOGOUT'
+            device: navigator.userAgent.substring(0, 50)
+        });
+    }
+
+    /**
+     * Retrieve audit logs for administrative review
+     */
+    async getAuditLogs() {
+        return await this.get('auditLogs');
     }
 }
 

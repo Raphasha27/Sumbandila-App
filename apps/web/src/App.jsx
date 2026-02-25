@@ -11,8 +11,16 @@ import {
   Building2,
   Home as HomeIcon,
   User as UserIcon,
-  HelpCircle
+  User as UserIcon,
+  HelpCircle,
+  FileText,
+  Gavel,
+  Key,
+  ShieldAlert,
+  History,
+  RefreshCw
 } from 'lucide-react';
+import { db } from './services/DatabaseService';
 
 import { useRegistryStore } from './store/useRegistryStore';
 import { RegistryService } from './services/registryService';
@@ -70,12 +78,18 @@ const OfficialBanner = () => (
 
 export default function App() {
   const {
-    user, setUser, logout,
+    user, setUser,
     searchQuery, setSearchQuery,
     vault, addToVault, removeFromVault, clearVault,
     activeScreen: screen,
-    setScreen
+    setScreen,
+    logout: storeLogout
   } = useRegistryStore();
+
+  const logout = async () => {
+    if (user) await db.logSession(user.email, 'LOGOUT');
+    storeLogout();
+  };
 
   const [isLoading, setIsLoading] = useState(false);
   const [verifyStep, setVerifyStep] = useState('input');
@@ -90,6 +104,13 @@ export default function App() {
     }
     console.log("🛡️ Entry Point Reset: Enforcing State Integrity");
   }, [user, setScreen]);
+
+  const [auditLogs, setAuditLogs] = useState([]);
+  useEffect(() => {
+    if (screen === 'audit-logs' && user?.email === 'admin@sumbandila.com') {
+      db.getAuditLogs().then(setAuditLogs);
+    }
+  }, [screen, user]);
 
   const handleLogin = async (credentials) => {
     try {
@@ -546,6 +567,38 @@ export default function App() {
                   </div>
                   <ChevronRight size={20} color="#94A3B8" />
                 </button>
+                <button
+                  onClick={() => setScreen('privacy')}
+                  style={{ background: 'white', padding: '20px', borderRadius: '24px', border: '1px solid #F3F4F6', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ padding: '8px', background: '#F0F9FF', borderRadius: '10px' }}><ShieldCheck size={20} color="var(--primary)" /></div>
+                    <span style={{ color: '#111827', fontWeight: 700 }}>Privacy & POPIA</span>
+                  </div>
+                  <ChevronRight size={20} color="#94A3B8" />
+                </button>
+                <button
+                  onClick={() => setScreen('terms')}
+                  style={{ background: 'white', padding: '20px', borderRadius: '24px', border: '1px solid #F3F4F6', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ padding: '8px', background: '#F0F9FF', borderRadius: '10px' }}><Gavel size={20} color="var(--primary)" /></div>
+                    <span style={{ color: '#111827', fontWeight: 700 }}>Terms of Service</span>
+                  </div>
+                  <ChevronRight size={20} color="#94A3B8" />
+                </button>
+                {user?.email === 'admin@sumbandila.com' && (
+                  <button
+                    onClick={() => setScreen('audit-logs')}
+                    style={{ background: '#FFF7ED', padding: '20px', borderRadius: '24px', border: '1px solid #FFEDD5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ padding: '8px', background: '#FFEDD5', borderRadius: '10px' }}><Key size={20} color="#F59E0B" /></div>
+                      <span style={{ color: '#92400E', fontWeight: 800 }}>Sentinel Audit Logs</span>
+                    </div>
+                    <ChevronRight size={20} color="#F59E0B" />
+                  </button>
+                )}
                 <button
                   onClick={() => setScreen('help')}
                   style={{ background: 'white', padding: '20px', borderRadius: '24px', border: '1px solid #F3F4F6', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}
