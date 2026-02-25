@@ -11,7 +11,6 @@ import {
   Building2,
   Home as HomeIcon,
   User as UserIcon,
-  User as UserIcon,
   HelpCircle,
   FileText,
   Gavel,
