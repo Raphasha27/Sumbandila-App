@@ -5,9 +5,12 @@ import { CategoryCard, BottomNav } from '../Navigation';
 import { MOCK_DATA } from '../../lib/mock-data';
 import { useRegistryStore } from '../../store/useRegistryStore';
 import ReportModal from '../Report/ReportModal';
+import CheckoutModal from './CheckoutModal';
 
 export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
   const [isReportOpen, setIsReportOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [checkoutPlan, setCheckoutPlan] = useState('auditor');
   const [isTracking, setIsTracking] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [trackerStatus, setTrackerStatus] = useState('Standby');
@@ -430,7 +433,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
               <div style={{ fontSize: '24px', fontWeight: 900, color: '#111827' }}>R99<span style={{ fontSize: '14px', fontWeight: 600, color: '#6B7280' }}>/mo</span></div>
               <p style={{ fontSize: '11px', color: '#6B7280', marginTop: '8px', fontWeight: 600 }}>Unlimted verifications & vault storage.</p>
               <button
-                onClick={() => alert("Redirecting to Individual Auditor secure payment gateway (R99/mo)...")}
+                onClick={() => { setCheckoutPlan('auditor'); setIsCheckoutOpen(true); }}
                 style={{ width: '100%', marginTop: '16px', padding: '10px', background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', fontSize: '12px', fontWeight: 800, color: '#111827', cursor: 'pointer' }}
               >
                 Subscribe
@@ -441,7 +444,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
               <div style={{ fontSize: '24px', fontWeight: 900, color: '#111827' }}>R499<span style={{ fontSize: '14px', fontWeight: 600, color: '#6B7280' }}>/mo</span></div>
               <p style={{ fontSize: '11px', color: '#6B7280', marginTop: '8px', fontWeight: 600 }}>API access & compliance monitoring.</p>
               <button
-                onClick={() => alert("Redirecting to Institutional Pro gateway (R499/mo)...")}
+                onClick={() => { setCheckoutPlan('entity'); setIsCheckoutOpen(true); }}
                 style={{ width: '100%', marginTop: '16px', padding: '10px', background: 'var(--primary)', border: 'none', borderRadius: '12px', fontSize: '12px', fontWeight: 800, color: 'white', cursor: 'pointer' }}
               >
                 Go Pro
@@ -469,7 +472,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
             </div>
 
             <button
-              onClick={() => alert("Initiating secure ZAR donation for Registry expansion. Thank you for your support!")}
+              onClick={() => { setCheckoutPlan('donation'); setIsCheckoutOpen(true); }}
               style={{
                 width: '100%',
                 padding: '16px',
@@ -781,6 +784,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
       <BottomNav active="home" onNav={onNav} />
 
       <ReportModal isOpen={isReportOpen} onClose={() => setIsReportOpen(false)} />
+      <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} plan={checkoutPlan} />
     </motion.div>
   );
 }
