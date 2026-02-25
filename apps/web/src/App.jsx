@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-console.log("App Component Mounting...");
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ShieldCheck,
