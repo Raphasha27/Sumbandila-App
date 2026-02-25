@@ -23,6 +23,7 @@ import LoginScreen from './components/Auth/LoginScreen';
 import Dashboard from './components/Dashboard/Dashboard';
 import VerifyResult from './components/Verify/VerifyResult';
 import Vault from './components/Vault/Vault';
+import AssistanceRequest from './components/Support/AssistanceRequest';
 import { BottomNav } from './components/Navigation';
 import { MOCK_DATA } from './lib/mock-data';
 import SumbandilaAI from './components/SumbandilaAI';
@@ -621,23 +622,12 @@ export default function App() {
         )}
 
         {screen === 'help' && (
-          <motion.div key="help" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen" style={{ background: '#FDFCFB' }}>
-            <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px', padding: '24px 20px', background: 'white', borderBottom: '1px solid #F1F5F9' }}>
-              <div onClick={() => setScreen('profile')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
-                <ChevronLeft size={20} color="#111827" />
-              </div>
-              <h3 style={{ fontWeight: 800, fontSize: '20px', color: '#111827' }}>How can we help?</h3>
-              <div onClick={() => setScreen('dashboard')} style={{ padding: '10px', background: '#F8FAFC', borderRadius: '12px', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
-                <HomeIcon size={20} color="#111827" />
-              </div>
-            </header>
-            <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{ background: 'white', padding: '24px', borderRadius: '24px', border: '1px solid #F3F4F6' }}>
-                <h4 style={{ fontWeight: 800, color: 'var(--primary)', marginBottom: '12px' }}>Registry Support</h4>
-                <p style={{ fontSize: '14px', color: '#4B5563', lineHeight: 1.6 }}>Our team is available to assist with institutional verification queries and registry access issues.</p>
-                <button className="primary-btn" style={{ marginTop: '20px', height: '52px' }}>Chat with Support</button>
-              </div>
-            </div>
+          <motion.div key="help" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen">
+            <AssistanceRequest
+              user={user}
+              onBack={() => setScreen('profile')}
+              onHome={() => setScreen('dashboard')}
+            />
           </motion.div>
         )}
 

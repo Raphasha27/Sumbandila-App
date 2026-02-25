@@ -20,9 +20,9 @@ const SumbandilaAI = () => {
       let aiResponse = "I'm checking the national database for that. Would you like me to cross-reference the accreditation status of a specific school or medical practitioner?";
 
       const lowerInput = input.toLowerCase();
-      if (lowerInput.includes('scam') || lowerInput.includes('fake') || lowerInput.includes('risk')) {
+      if (lowerInput.includes('scam') || lowerInput.includes('fake') || lowerInput.includes('risk') || lowerInput.includes('help') || lowerInput.includes('assist')) {
         const topScam = MOCK_DATA.scamTracker[0];
-        aiResponse = `Sentinel Alert: We are tracking ${MOCK_DATA.scamTracker.length} active scam patterns in SA. The most critical right now is ${topScam.title} (${topScam.department}). ${topScam.description}. Always check official sources like ${topScam.source}.`;
+        aiResponse = `Sentinel Alert: We are tracking ${MOCK_DATA.scamTracker.length} active scam patterns. If you've been a victim, please use our 'Justice & Support Hub' to share your story. Our advocates can help you with investigations or finding accredited specialists for RAF claims.`;
       } else if (lowerInput.includes('doctor') || lowerInput.includes('medical')) {
         const medRecs = MOCK_DATA.trustedRecommendations.Healthcare.map(r => r.name).join(', ');
         aiResponse = `I can help you verify doctors via the HPCSA registry. If you're looking for verified facilities, I highly recommend ${medRecs}.`;

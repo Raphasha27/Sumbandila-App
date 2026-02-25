@@ -204,6 +204,40 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
           />
         </div>
 
+        {/* Justice & Support Hub Card */}
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          onClick={() => onNav('help')}
+          style={{
+            background: 'var(--bg-gradient)',
+            borderRadius: '32px',
+            padding: '24px',
+            marginBottom: '40px',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '20px',
+            cursor: 'pointer',
+            boxShadow: '0 15px 35px rgba(37, 99, 235, 0.25)',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+        >
+          <div style={{ position: 'absolute', top: '-20px', right: '-20px', opacity: 0.1 }}>
+            <Scale size={120} color="white" />
+          </div>
+          <div style={{ width: '60px', height: '60px', borderRadius: '20px', background: 'rgba(255,255,255,0.2)', display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
+            <Scale size={32} color="white" />
+          </div>
+          <div>
+            <h4 style={{ fontSize: '18px', fontWeight: 900, marginBottom: '4px' }}>Justice & Support Hub</h4>
+            <p style={{ fontSize: '13px', opacity: 0.9, lineHeight: 1.4, fontWeight: 500 }}>
+              Robbed or scammed? Get expert guidance, share your story, and find accredited legal/medical help.
+            </p>
+          </div>
+          <ArrowRight size={20} style={{ marginLeft: 'auto', flexShrink: 0 }} />
+        </motion.div>
+
         {/* Official Registry Resources */}
         <div style={{ marginBottom: '48px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>

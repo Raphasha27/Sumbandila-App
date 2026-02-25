@@ -169,7 +169,7 @@ export const MOCK_DATA = {
       id: 1,
       name: "Thandiwe Nkosi",
       location: "Soweto, GP",
-      image: "https://i.pravatar.cc/150?img=47",
+      image: "https://ui-avatars.com/api/?name=Thandiwe+Nkosi&background=0056b3&color=fff",
       text: "I was about to pay R5000 deposit for a nursing college in Joburg. Checked Sumbandila first and it was flagged as UNVERIFIED. This app saved my life savings!",
       impact: "Financial Loss Avoided"
     },
@@ -185,7 +185,7 @@ export const MOCK_DATA = {
       id: 3,
       name: "Naledi Madiba",
       location: "Polokwane, LP",
-      image: "https://i.pravatar.cc/150?img=44",
+      image: "https://ui-avatars.com/api/?name=Naledi+Madiba&background=0056b3&color=fff",
       text: "As a student, I'm always worried about my degree being valid. Verifying my institution here gave me total peace of mind for my future.",
       impact: "Career Security"
     },
@@ -201,7 +201,7 @@ export const MOCK_DATA = {
       id: 5,
       name: "Fatima Patel",
       location: "Fordsburg, GP",
-      image: "https://i.pravatar.cc/150?img=32",
+      image: "https://ui-avatars.com/api/?name=Fatima+Patel&background=0056b3&color=fff",
       text: "I was suspicious of a specialist claiming to be HPCSA registered for my mother's surgery. Sumbandila confirmed my suspicions—they were de-registered!",
       impact: "Medical Safety"
     },
@@ -217,7 +217,7 @@ export const MOCK_DATA = {
       id: 7,
       name: "Elena Petrova",
       location: "Cape Town, WC",
-      image: "https://i.pravatar.cc/150?img=25",
+      image: "https://ui-avatars.com/api/?name=Elena+Petrova&background=0056b3&color=fff",
       text: "As an expat moving to SA, I needed to verify my local degree equivalent. The DHET resources linked here made the process transparent and simple.",
       impact: "Seamless Integration"
     }
