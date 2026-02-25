@@ -149,30 +149,41 @@ export default function App() {
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                style={{ width: '100%', borderRadius: '60px', overflow: 'hidden', marginBottom: '48px', boxShadow: '0 40px 80px rgba(0,0,0,0.12)', position: 'relative' }}
+                style={{
+                  width: '240px',
+                  height: '240px',
+                  borderRadius: '120px',
+                  background: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '48px',
+                  boxShadow: '0 20px 50px rgba(0,0,0,0.08)',
+                  position: 'relative',
+                  border: '1px solid #F1F5F9'
+                }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
-                  alt="Graduation"
-                  style={{ width: '100%', height: '320px', objectFit: 'cover' }}
+                  src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU"
+                  alt="Republic of South Africa Emblem"
+                  style={{ width: '160px', height: 'auto' }}
                 />
               </motion.div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', marginBottom: '40px' }}>
-                <img
-                  src="https://sahistory.org.za/sites/default/files/styles/saho_medium/public/article_image/coat_of_arms_of_south_africa_1.png?itok=9sBtHWJU"
-                  alt="Coat of Arms"
-                  style={{ height: '64px', width: 'auto' }}
-                />
+              <div style={{ marginBottom: '8px' }}>
                 <SAFlag />
               </div>
 
-              <h1 style={{ color: '#0F172A', fontSize: '48px', fontWeight: 900, marginBottom: '16px', letterSpacing: '-2px' }}>
-                Welcome!
+              <div style={{ fontSize: '14px', fontWeight: 900, color: '#64748B', textTransform: 'uppercase', letterSpacing: '4px', marginBottom: '12px' }}>
+                Republic of South Africa
+              </div>
+
+              <h1 style={{ color: '#0F172A', fontSize: '42px', fontWeight: 900, marginBottom: '24px', letterSpacing: '-1.5px', lineHeight: 1.1 }}>
+                National Registry <span style={{ color: 'var(--primary-orange)' }}>Sentinel</span>
               </h1>
 
-              <p style={{ color: '#64748B', fontSize: '16px', fontWeight: 600, marginBottom: '32px', lineHeight: 1.6 }}>
-                Sumbandila Sentinel assists with the verification of official registrations and learning institutions.
+              <p style={{ color: '#64748B', fontSize: '17px', fontWeight: 600, marginBottom: '32px', lineHeight: 1.6, maxWidth: '400px' }}>
+                The official sovereign gateway for the verification of professional registrations and educational institutions.
               </p>
 
               <div style={{ background: '#F8FAFC', padding: '32px 24px', borderRadius: '32px', marginBottom: '48px', border: '1px solid #F1F5F9', width: '100%', maxWidth: '440px' }}>
