@@ -206,7 +206,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => alert("Opening Sipho Voice Command...")}
+            onClick={() => useRegistryStore.getState().setAiOpen(true)}
             style={{ padding: '10px 16px', borderRadius: '14px', background: 'var(--primary)', border: 'none', color: 'white', fontSize: '12px', fontWeight: 800, cursor: 'pointer' }}
           >
             RECORD

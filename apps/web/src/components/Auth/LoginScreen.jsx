@@ -7,6 +7,32 @@ export default function LoginScreen({ onLogin, onBack }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const startVoiceInput = (field) => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Voice recognition is not supported in this browser.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-ZA';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript.toLowerCase().replace(/\s/g, '');
+      if (field === 'email') {
+        // Simple heuristic for email: replace 'at' with '@' if common
+        const formatted = transcript.replace(/at/g, '@');
+        setEmail(formatted);
+      } else {
+        setPassword(transcript);
+      }
+    };
+
+    recognition.start();
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -144,7 +170,7 @@ export default function LoginScreen({ onLogin, onBack }) {
               />
               <motion.button
                 whileTap={{ scale: 0.9 }}
-                onClick={() => alert("Sipho is listening for your email...")}
+                onClick={() => startVoiceInput('email')}
                 style={{ position: 'absolute', right: '12px', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
               >
                 <Mic size={18} color="var(--primary)" />
@@ -165,7 +191,7 @@ export default function LoginScreen({ onLogin, onBack }) {
               />
               <motion.button
                 whileTap={{ scale: 0.9 }}
-                onClick={() => alert("Sipho is listening for your sentinel key...")}
+                onClick={() => startVoiceInput('password')}
                 style={{ position: 'absolute', right: '12px', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
               >
                 <Mic size={18} color="var(--primary)" />

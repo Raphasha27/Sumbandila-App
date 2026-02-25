@@ -5,8 +5,7 @@ import { useRegistryStore } from '../store/useRegistryStore';
 import { MOCK_DATA } from '../lib/mock-data';
 
 const SiphoAI = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { aiMessages: messages, addAiMessage, clearAiMessages, setScreen } = useRegistryStore();
+  const { aiOpen: isOpen, setAiOpen: setIsOpen, aiMessages: messages, addAiMessage, clearAiMessages, setScreen } = useRegistryStore();
   const [input, setInput] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);

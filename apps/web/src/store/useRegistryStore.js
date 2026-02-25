@@ -68,6 +68,8 @@ export const useRegistryStore = create(
       setSearchQuery: (query) => set({ searchQuery: query }),
       setScreen: (screen) => set({ activeScreen: screen }),
       setSelectedCategory: (category) => set({ selectedCategory: category }),
+      aiOpen: false,
+      setAiOpen: (open) => set({ aiOpen: open }),
     }),
     {
       name: 'sumbandila-storage',

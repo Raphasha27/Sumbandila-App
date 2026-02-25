@@ -296,7 +296,20 @@ export default function AssistanceRequest({ onBack, onHome, user }) {
                             <motion.button
                                 type="button"
                                 whileTap={{ scale: 0.9 }}
-                                onClick={() => alert("Initializing Sipho voice-to-text converter...")}
+                                onClick={() => {
+                                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                                    if (!SpeechRecognition) {
+                                        alert("Voice recognition is not supported in this browser.");
+                                        return;
+                                    }
+                                    const recognition = new SpeechRecognition();
+                                    recognition.lang = 'en-ZA';
+                                    recognition.onresult = (event) => {
+                                        const transcript = event.results[0][0].transcript;
+                                        setFormData({ ...formData, details: formData.details ? formData.details + ' ' + transcript : transcript });
+                                    };
+                                    recognition.start();
+                                }}
                                 style={{
                                     position: 'absolute',
                                     top: '12px',
