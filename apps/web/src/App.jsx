@@ -437,28 +437,43 @@ export default function App() {
                 <div onClick={() => setScreen('dashboard')} style={{ padding: '12px', background: 'rgba(255,255,255,0.2)', borderRadius: '16px', cursor: 'pointer', backdropFilter: 'blur(10px)' }}>
                   <ChevronLeft size={24} color="white" />
                 </div>
-                <h3 style={{ color: 'white', fontWeight: 800 }}>Scan Digital Seal</h3>
+                <h3 style={{ color: 'white', fontWeight: 800 }}>Sipho AI Scanner</h3>
                 <div style={{ width: '48px' }} />
               </div>
 
               {/* Scanner Frame */}
-              <div style={{ position: 'relative', width: '280px', height: '280px' }}>
+              <div style={{ position: 'relative', width: '85%', height: '400px', cursor: 'pointer' }} onClick={() => {
+                alert("Sipho AI Analysis: Document detected. It appears to be an invoice from an unregistered entity demanding 'Enrollment Fees'. Match found with 3 other reported scams.");
+                setScreen('dashboard');
+              }}>
                 <motion.div
-                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  animate={{ opacity: [0.3, 1, 0.3], scale: [1, 1.02, 1] }}
                   transition={{ repeat: Infinity, duration: 2 }}
-                  style={{ position: 'absolute', inset: 0, border: '4px solid var(--primary-orange)', borderRadius: '40px' }}
+                  style={{ position: 'absolute', inset: 0, border: '4px solid var(--primary)', borderRadius: '24px' }}
                 />
                 <motion.div
-                  animate={{ y: [0, 280, 0] }}
-                  transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                  style={{ position: 'absolute', top: 0, left: '20px', right: '20px', height: '4px', background: 'var(--primary-orange)', boxShadow: '0 0 15px var(--primary-orange)', zIndex: 5 }}
+                  animate={{ y: [0, 400, 0] }}
+                  transition={{ repeat: Infinity, duration: 2.5, ease: "linear" }}
+                  style={{ position: 'absolute', top: 0, left: '10px', right: '10px', height: '4px', background: '#3B82F6', boxShadow: '0 0 20px #3B82F6', zIndex: 5 }}
                 />
+
+                {/* Visual corners */}
+                <div style={{ position: 'absolute', top: -4, left: -4, width: '40px', height: '40px', borderTop: '4px solid white', borderLeft: '4px solid white', borderRadius: '28px 0 0 0' }} />
+                <div style={{ position: 'absolute', top: -4, right: -4, width: '40px', height: '40px', borderTop: '4px solid white', borderRight: '4px solid white', borderRadius: '0 28px 0 0' }} />
+                <div style={{ position: 'absolute', bottom: -4, left: -4, width: '40px', height: '40px', borderBottom: '4px solid white', borderLeft: '4px solid white', borderRadius: '0 0 0 28px' }} />
+                <div style={{ position: 'absolute', bottom: -4, right: -4, width: '40px', height: '40px', borderBottom: '4px solid white', borderRight: '4px solid white', borderRadius: '0 0 28px 0' }} />
               </div>
 
-              <div style={{ position: 'absolute', bottom: '120px', textAlign: 'center', padding: '0 40px' }}>
-                <p style={{ color: 'white', fontSize: '16px', fontWeight: 600, opacity: 0.8 }}>
-                  Align the institution&apos;s digital QR seal within the frame to verify registration.
-                </p>
+              <div style={{ position: 'absolute', bottom: '80px', textAlign: 'center', padding: '0 30px', width: '100%' }}>
+                <div style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', padding: '16px 20px', borderRadius: '20px', display: 'inline-block' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '8px' }}>
+                    <motion.div animate={{ opacity: [1, 0.4, 1] }} transition={{ repeat: Infinity, duration: 1.5 }} style={{ width: '8px', height: '8px', background: '#4ADE80', borderRadius: '50%' }} />
+                    <span style={{ color: 'white', fontWeight: 900, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1px' }}>AI SCAN ACTIVE</span>
+                  </div>
+                  <p style={{ color: 'white', fontSize: '14px', fontWeight: 600, opacity: 0.9 }}>
+                    Align an invoice, ID, or QR seal. Tap screen to simulate AI fraud analysis.
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
