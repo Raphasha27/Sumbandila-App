@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');
 
 :root {
+<<<<<<< HEAD
   --primary: #0F766E;
   --primary-teal: #0F766E;
   --primary-green: #065F46;
@@ -23,6 +24,27 @@
   --shadow-sm: 0 4px 6px -1px rgba(15, 118, 110, 0.1);
   --shadow-md: 0 10px 15px -3px rgba(15, 118, 110, 0.15);
   --shadow-premium: 0 8px 25px -5px rgba(15, 118, 110, 0.12);
+=======
+  --primary: #0056B3;
+  --primary-orange: #007BFF;
+  --primary-green: #15803D;
+  --accent: #60A5FA;
+  --bg-gradient: linear-gradient(135deg, #1E3A8A 0%, #2563EB 40%, #3B82F6 100%);
+  --surface: #FFFFFF;
+  --surface-secondary: #F8FAFC;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --success: #22C55E;
+  --error: #EF4444;
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --radius-xl: 32px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-premium: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+>>>>>>> 30563691e68254ec0db70314579e5c5717478941
 }
 
 * {
@@ -41,9 +63,15 @@ body {
 
 body {
   font-family: 'Outfit', sans-serif;
+<<<<<<< HEAD
   background-color: #F0FDFA;
   background-image: 
     linear-gradient(to right, #ECFDF5, #F0FDFA, #CCFBF1);
+=======
+  background-color: #F8FAFC;
+  background-image:
+    linear-gradient(to right, #EBF4FF, #FFFFFF, #FFFBEB);
+>>>>>>> 30563691e68254ec0db70314579e5c5717478941
   background-attachment: fixed;
   color: var(--text-main);
   line-height: 1.6;
@@ -62,10 +90,20 @@ body {
 .app-container::before {
   content: '';
   position: fixed;
+<<<<<<< HEAD
   top: 0; left: 0; right: 0; bottom: 0;
   background: 
     radial-gradient(circle at 10% 10%, rgba(15, 118, 110, 0.04) 0%, transparent 40%),
     radial-gradient(circle at 90% 90%, rgba(20, 184, 166, 0.04) 0%, transparent 40%);
+=======
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(26, 54, 93, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(214, 158, 46, 0.03) 0%, transparent 40%);
+>>>>>>> 30563691e68254ec0db70314579e5c5717478941
   pointer-events: none;
   z-index: -1;
 }
@@ -98,7 +136,11 @@ body {
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+<<<<<<< HEAD
   box-shadow: 0 8px 20px -5px rgba(15, 118, 110, 0.25);
+=======
+  box-shadow: 0 8px 20px -5px rgba(59, 130, 246, 0.3);
+>>>>>>> 30563691e68254ec0db70314579e5c5717478941
   display: flex;
   justify-content: center;
   align-items: center;
@@ -153,6 +195,7 @@ body {
 input::placeholder {
   color: #9CA3AF !important;
 }
+
 .input-field-container input {
   background: transparent;
   border: none;
@@ -239,7 +282,11 @@ input::placeholder {
 
 .cat-card-modern:active {
   transform: translateY(2px);
+<<<<<<< HEAD
   box-shadow: 0 5px 15px rgba(15, 118, 110, 0.08);
+=======
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+>>>>>>> 30563691e68254ec0db70314579e5c5717478941
 }
 
 .cat-card-icon-box {
@@ -269,8 +316,15 @@ input::placeholder {
   letter-spacing: 0.5px;
 }
 
-.status-verified { background: #DCFCE7; color: #15803D; }
-.status-unverified { background: #FEF2F2; color: #991B1B; }
+.status-verified {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.status-unverified {
+  background: #FEF2F2;
+  color: #991B1B;
+}
 
 /* Certificate View */
 .cert-card-premium {
@@ -278,17 +332,29 @@ input::placeholder {
   border-radius: 4px;
   padding: 40px;
   position: relative;
+<<<<<<< HEAD
   box-shadow: 0 20px 50px rgba(15, 118, 110, 0.12);
   background-image: 
     linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 45%, rgba(240, 253, 250, 0.8) 50%, rgba(255,255,255,0) 55%, rgba(255,255,255,0) 100%),
     radial-gradient(circle at 2px 2px, #f0fdfa 1px, transparent 0);
+=======
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  background-image:
+    linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, 0) 100%),
+    radial-gradient(circle at 2px 2px, #f1f5f9 1px, transparent 0);
+>>>>>>> 30563691e68254ec0db70314579e5c5717478941
   background-size: 200% 200%, 24px 24px;
   animation: holo-shimmer 10s infinite linear;
 }
 
 @keyframes holo-shimmer {
-  0% { background-position: 200% 0, 0 0; }
-  100% { background-position: -200% 0, 0 0; }
+  0% {
+    background-position: 200% 0, 0 0;
+  }
+
+  100% {
+    background-position: -200% 0, 0 0;
+  }
 }
 
 .security-node-glow {
@@ -307,13 +373,22 @@ input::placeholder {
 }
 
 @keyframes glow-pulse {
-  0%, 100% { transform: scale(1); opacity: 0.1; }
-  50% { transform: scale(1.2); opacity: 0.3; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.3;
+  }
 }
 
 .premium-card {
   background: var(--surface);
-  border: 1px solid rgba(0,0,0,0.03);
+  border: 1px solid rgba(0, 0, 0, 0.03);
   border-radius: var(--radius-lg);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -326,7 +401,10 @@ input::placeholder {
 .cert-card-premium::before {
   content: '';
   position: absolute;
-  top: 10px; left: 10px; right: 10px; bottom: 10px;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
   border: 2px solid var(--primary);
   pointer-events: none;
 }
@@ -347,15 +425,27 @@ input::placeholder {
 
 /* Animations */
 @keyframes pulse-soft {
-  0% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.8; }
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
 }
 
 .loading-pulse {
   animation: pulse-soft 2s infinite ease-in-out;
 }
 
+<<<<<<< HEAD
 /* Professional Teal Theme Enhancements */
 .teal-gradient-bg {
   background: linear-gradient(135deg, var(--primary-teal), var(--accent));
@@ -444,3 +534,116 @@ input::placeholder {
 .bg-teal-light { background-color: var(--surface-teal); }
 .bg-teal-primary { background-color: var(--primary-teal); }
 .bg-teal-accent { background-color: var(--accent); }
+=======
+/* High-tech Scanning Effects */
+.scanning-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary-orange), transparent);
+  box-shadow: 0 0 15px var(--primary-orange);
+  z-index: 10;
+  animation: scan-vertical 3s infinite linear;
+}
+
+@keyframes scan-vertical {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.terminal-text {
+  font-family: 'Monaco', 'Consolas', monospace;
+  color: #4ADE80;
+  text-shadow: 0 0 5px rgba(74, 222, 128, 0.5);
+}
+
+.glow-on-hover:hover {
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+}
+
+.registry-grid-bg {
+  background-image:
+    linear-gradient(rgba(249, 115, 22, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249, 115, 22, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.ring-pulse::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 4px solid var(--primary-orange);
+  border-radius: 50%;
+  animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* South African Branding */
+:root {
+  --sa-blue: #002395;
+  --sa-green: #007749;
+  --sa-gold: #FFB81C;
+  --sa-red: #E03C31;
+  --sa-black: #000000;
+}
+
+.sa-flag-strip {
+  height: 8px;
+  width: 100%;
+  display: flex;
+}
+
+.sa-banner-container {
+  width: 100%;
+  background: white;
+  padding: 20px;
+  border-bottom: 2px solid #EEE;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.emblem-placeholder {
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8px;
+  font-weight: 800;
+  text-align: center;
+  color: #333;
+}
+>>>>>>> 30563691e68254ec0db70314579e5c5717478941

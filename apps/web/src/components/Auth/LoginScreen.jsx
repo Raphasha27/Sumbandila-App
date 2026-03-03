@@ -1,130 +1,237 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Lock, ArrowRight, ChevronLeft, User as UserIcon, Mail } from 'lucide-react';
+import { ShieldCheck, Lock, ArrowRight, ChevronLeft, Mail, CheckCircle2, Bot, Mic } from 'lucide-react';
 
-export default function LoginScreen({ onLogin, onBack, onShowAbout }) {
+export default function LoginScreen({ onLogin, onBack }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const startVoiceInput = (field) => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Voice recognition is not supported in this browser.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-ZA';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript.toLowerCase().replace(/\s/g, '');
+      if (field === 'email') {
+        // Simple heuristic for email: replace 'at' with '@' if common
+        const formatted = transcript.replace(/at/g, '@');
+        setEmail(formatted);
+      } else {
+        setPassword(transcript);
+      }
+    };
+
+    recognition.start();
+  };
+
   return (
-    <motion.div 
-      initial={{ opacity: 0 }} 
-      animate={{ opacity: 1 }} 
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="screen"
-      style={{ background: '#FFFFFF', padding: '0' }}
+      style={{
+        background: 'var(--surface-secondary)',
+        padding: '0',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center'
+      }}
     >
-      <header style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={onBack}>
-        <ChevronLeft size={24} color="#1F2937" />
-        <span style={{ fontWeight: 600, fontSize: '18px' }}>Back</span>
+      <header style={{ position: 'fixed', top: 0, left: 0, padding: '24px', width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
+        <button
+          onClick={onBack}
+          style={{
+            background: 'white',
+            padding: '12px',
+            borderRadius: '16px',
+            border: '1px solid #E2E8F0',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
+          <ChevronLeft size={20} color="#1F2937" />
+        </button>
       </header>
 
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 24px', marginTop: '20px' }}>
-        <div style={{ 
-          width: '100px', 
-          height: '100px', 
-          background: '#FFF7ED', 
-          borderRadius: '50%', 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center',
-          marginBottom: '24px'
-        }}>
-          <UserIcon size={48} color="#E65100" />
+      <div style={{ width: '100%', maxWidth: '440px', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '32px', marginBottom: '40px' }}>
+          {/* Emblem with verification badge */}
+          <div style={{ position: 'relative', width: '110px', height: '110px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {/* Rotating dashed ring */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
+              style={{
+                position: 'absolute',
+                inset: '-10px',
+                borderRadius: '50%',
+                border: '2px dashed rgba(0,86,179,0.25)',
+                pointerEvents: 'none'
+              }}
+            />
+            {/* Pulse ring */}
+            <motion.div
+              animate={{ scale: [1, 1.12, 1], opacity: [0.4, 0, 0.4] }}
+              transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
+              style={{ position: 'absolute', inset: '-4px', borderRadius: '50%', border: '2px solid var(--primary)', pointerEvents: 'none' }}
+            />
+            {/* Emblem */}
+            <div style={{
+              width: '100px',
+              height: '100px',
+              borderRadius: '50px',
+              background: 'white',
+              border: '2.5px solid var(--primary)',
+              boxShadow: '0 8px 24px rgba(0,86,179,0.12)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative'
+            }}>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
+                alt="South Africa Flag"
+                style={{ width: '56px', height: 'auto', borderRadius: '4px' }}
+              />
+              {/* Verified badge dot */}
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.5, type: 'spring', stiffness: 300 }}
+                style={{
+                  position: 'absolute',
+                  bottom: '4px',
+                  right: '4px',
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '50%',
+                  background: 'var(--primary)',
+                  border: '2.5px solid white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 2px 8px rgba(0,86,179,0.35)'
+                }}
+              >
+                <CheckCircle2 size={14} color="white" strokeWidth={3} />
+              </motion.div>
+            </div>
+          </div>
+          <div style={{ width: '2px', height: '70px', background: 'rgba(0,0,0,0.06)', borderRadius: '2px' }} />
+          <div style={{
+            background: 'var(--bg-gradient)',
+            boxShadow: '0 15px 30px rgba(37, 99, 235, 0.2)',
+            width: '64px',
+            height: '64px',
+            borderRadius: '18px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <ShieldCheck size={36} color="white" strokeWidth={2.5} />
+          </div>
         </div>
 
-        <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>Welcome Back</h2>
-        <p style={{ color: '#6B7280', fontSize: '16px', marginBottom: '40px' }}>Sign in to your Sumbandila account</p>
+        <div style={{ marginBottom: '40px' }}>
+          <div style={{ fontSize: '13px', fontWeight: 900, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '4px', marginBottom: '8px' }}>
+            Republic of South Africa
+          </div>
+          <h2 style={{ fontSize: '32px', fontWeight: 900, color: 'var(--text-main)', marginBottom: '8px', letterSpacing: '-1.2px', lineHeight: 1.1 }}>
+            National Registry <span style={{ color: 'var(--primary-orange)' }}>Sentinel</span>
+          </h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: '15px', fontWeight: 600 }}>Access Hub: Authorized Personnel Only</p>
+        </div>
 
-        <div style={{ width: '100%', maxWidth: '400px' }}>
-          <div style={{ marginBottom: '24px' }}>
-            <label style={{ display: 'block', fontWeight: 700, fontSize: '14px', marginBottom: '10px' }}>Email Address</label>
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              background: '#F9FAFB', 
-              borderRadius: '16px', 
-              padding: '16px',
-              border: '1px solid #F3F4F6'
-            }}>
-              <Mail size={20} color="#9CA3AF" style={{ marginRight: '12px' }} />
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontSize: '16px', color: '#111827' }}
+        <div style={{ width: '100%', background: 'white', padding: '40px 32px', borderRadius: '32px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.08)', border: '1px solid #F1F5F9' }}>
+          <div style={{ marginBottom: '24px', textAlign: 'left' }}>
+            <label style={{ display: 'block', fontWeight: 800, fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Registry Email</label>
+            <div className="input-field-container" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+              <Mail size={18} color="#94A3B8" />
+              <input
+                type="email"
+                placeholder="sentinel@sumbandila.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                style={{ flex: 1, paddingRight: '40px' }}
               />
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => startVoiceInput('email')}
+                style={{ position: 'absolute', right: '12px', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+              >
+                <Mic size={18} color="var(--primary)" />
+              </motion.button>
             </div>
           </div>
 
-          <div style={{ marginBottom: '32px' }}>
-            <label style={{ display: 'block', fontWeight: 700, fontSize: '14px', marginBottom: '10px' }}>Password</label>
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              background: '#F9FAFB', 
-              borderRadius: '16px', 
-              padding: '16px',
-              border: '1px solid #F3F4F6'
-            }}>
-              <Lock size={20} color="#9CA3AF" style={{ marginRight: '12px' }} />
-              <input 
-                type="password" 
-                placeholder="Enter your password" 
-                style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontSize: '16px', color: '#111827' }}
+          <div style={{ marginBottom: '32px', textAlign: 'left' }}>
+            <label style={{ display: 'block', fontWeight: 800, fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Sentinel Key</label>
+            <div className="input-field-container" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+              <Lock size={18} color="#94A3B8" />
+              <input
+                type="password"
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                style={{ flex: 1, paddingRight: '40px' }}
               />
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => startVoiceInput('password')}
+                style={{ position: 'absolute', right: '12px', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+              >
+                <Mic size={18} color="var(--primary)" />
+              </motion.button>
             </div>
           </div>
 
-          <button 
+          <button
             onClick={() => onLogin({ email, password })}
-            style={{ 
-              width: '100%', 
-              background: '#D84315', 
-              color: 'white', 
-              padding: '18px', 
-              borderRadius: '16px', 
-              border: 'none', 
-              fontSize: '18px', 
-              fontWeight: 700,
-              cursor: 'pointer',
-              marginBottom: '24px'
+            className="primary-btn"
+            style={{
+              height: '64px',
+              fontSize: '17px',
+              textTransform: 'uppercase',
+              letterSpacing: '1px'
             }}
           >
-            Sign In
+            Authenticate <ArrowRight size={20} />
           </button>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-            <div style={{ flex: 1, height: '1px', background: '#F3F4F6' }} />
-            <span style={{ color: '#9CA3AF', fontSize: '14px', fontWeight: 600 }}>OR</span>
-            <div style={{ flex: 1, height: '1px', background: '#F3F4F6' }} />
-          </div>
-
-          <button 
-            style={{ 
-              width: '100%', 
-              background: 'white', 
-              color: '#374151', 
-              padding: '18px', 
-              borderRadius: '16px', 
-              border: '1px solid #E5E7EB', 
-              fontSize: '16px', 
-              fontWeight: 600,
-              cursor: 'pointer'
-            }}
-          >
-            Create New Account
-          </button>
-
-          <div style={{ textAlign: 'center', marginTop: '40px' }}>
-            <p style={{ fontSize: '12px', color: '#9CA3AF', fontWeight: 600, marginBottom: '8px' }}>Test Credentials (Tap to Fill)</p>
-            <p style={{ fontSize: '12px', color: '#9CA3AF', fontWeight: 500 }}>Admin: admin@sumbandila.com / admin123</p>
-          </div>
+          <p style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginTop: '32px' }}>
+            Securing Sovereign Registry Data
+          </p>
         </div>
+
+        <button
+          onClick={() => { setEmail('admin@sumbandila.com'); setPassword('admin123'); }}
+          style={{
+            marginTop: '32px',
+            background: 'transparent',
+            border: 'none',
+            color: 'var(--primary)',
+            fontWeight: 800,
+            fontSize: '13px',
+            cursor: 'pointer',
+            textDecoration: 'underline'
+          }}
+        >
+          Load Debug Clearance
+        </button>
       </div>
     </motion.div>
   );

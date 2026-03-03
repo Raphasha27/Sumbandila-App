@@ -17,9 +17,17 @@ export const RegistryService = {
     // Simulate network latency for authentic full-stack feel
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    const results = MOCK_DATA.providers.filter(p =>
-      p.name.toLowerCase().includes(query.toLowerCase())
-    );
+    const results = MOCK_DATA.providers.filter(p => {
+      const q = query.toLowerCase();
+      return (
+        p.name.toLowerCase().includes(q) ||
+        (p.reg && p.reg.toLowerCase().includes(q)) ||
+        (p.emisNumber && p.emisNumber.toLowerCase().includes(q)) ||
+        (p.hpcsaNumber && p.hpcsaNumber.toLowerCase().includes(q)) ||
+        (p.lpcNumber && p.lpcNumber.toLowerCase().includes(q)) ||
+        (p.courses && p.courses.some(c => c.toLowerCase().includes(q)))
+      );
+    });
 
     if (results.length > 0) {
       return results[0];

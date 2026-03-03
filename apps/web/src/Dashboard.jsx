@@ -151,7 +151,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
           }}>
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search ID, Name, Medical/Legal Reg, Course..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && onVerify(searchQuery)}
@@ -161,7 +161,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
                 outline: 'none',
                 width: '100%',
                 color: 'white',
-                fontSize: '16px',
+                fontSize: '15px',
                 fontWeight: 600,
                 textAlign: 'left'
               }}

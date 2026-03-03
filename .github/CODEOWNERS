@@ -1,0 +1,18 @@
+# Code owners for Sumbandila Registry Sentinel
+
+# Default owners for everything in the repo
+* @Raphasha27
+
+# Frontend applications
+/apps/web/ @Raphasha27
+/apps/mobile/ @Raphasha27
+
+# Backend services
+/services/ @Raphasha27
+
+# Documentation
+/docs/ @Raphasha27
+*.md @Raphasha27
+
+# CI/CD and workflows
+/.github/ @Raphasha27
