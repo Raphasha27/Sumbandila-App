@@ -1,24 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');
 
 :root {
-  --primary: #E65100;
-  --primary-orange: #E65100;
-  --primary-green: #2E7D32;
-  --accent: #E65100;
-  --bg-gradient: linear-gradient(90deg, #92400E 0%, #E65100 50%, #166534 100%);
+  --primary: #0F766E;
+  --primary-teal: #0F766E;
+  --primary-green: #065F46;
+  --accent: #14B8A6;
+  --accent-light: #5EEAD4;
+  --bg-gradient: linear-gradient(90deg, #065F46 0%, #0F766E 50%, #14B8A6 100%);
   --surface: #FFFFFF;
-  --surface-secondary: #F3F4F6;
-  --text-main: #1F2937;
+  --surface-secondary: #F0FDFA;
+  --surface-teal: #CCFBF1;
+  --text-main: #134E4A;
   --text-muted: #6B7280;
   --success: #10B981;
   --error: #EF4444;
-  --glass: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(20, 184, 166, 0.2);
+  --glass-teal: rgba(15, 118, 110, 0.1);
   --radius-xl: 32px;
   --radius-lg: 24px;
   --radius-md: 16px;
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 4px 6px -1px rgba(15, 118, 110, 0.1);
+  --shadow-md: 0 10px 15px -3px rgba(15, 118, 110, 0.15);
+  --shadow-premium: 0 8px 25px -5px rgba(15, 118, 110, 0.12);
 }
 
 * {
@@ -37,9 +41,9 @@ body {
 
 body {
   font-family: 'Outfit', sans-serif;
-  background-color: #F8FAFC;
+  background-color: #F0FDFA;
   background-image: 
-    linear-gradient(to right, #EBF4FF, #FFFFFF, #FFFBEB);
+    linear-gradient(to right, #ECFDF5, #F0FDFA, #CCFBF1);
   background-attachment: fixed;
   color: var(--text-main);
   line-height: 1.6;
@@ -60,8 +64,8 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background: 
-    radial-gradient(circle at 10% 10%, rgba(26, 54, 93, 0.03) 0%, transparent 40%),
-    radial-gradient(circle at 90% 90%, rgba(214, 158, 46, 0.03) 0%, transparent 40%);
+    radial-gradient(circle at 10% 10%, rgba(15, 118, 110, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(20, 184, 166, 0.04) 0%, transparent 40%);
   pointer-events: none;
   z-index: -1;
 }
@@ -94,7 +98,7 @@ body {
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 20px -5px rgba(26, 54, 93, 0.3);
+  box-shadow: 0 8px 20px -5px rgba(15, 118, 110, 0.25);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,7 +131,7 @@ body {
 /* Modern Input Fields */
 .input-field-container {
   background: var(--surface-secondary);
-  border: 1px solid #E2E8F0;
+  border: 1px solid rgba(20, 184, 166, 0.2);
   border-radius: var(--radius-md);
   height: 60px;
   display: flex;
@@ -139,7 +143,7 @@ body {
 .input-field-container:focus-within {
   border-color: var(--primary);
   background: white;
-  box-shadow: 0 0 0 4px rgba(26, 54, 93, 0.05);
+  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.08);
 }
 
 .input-field-container input::placeholder {
@@ -163,7 +167,7 @@ input::placeholder {
 
 /* Splash Design Enhancement */
 .splash-bg {
-  background: radial-gradient(circle at top right, #1E293B, #0F172A);
+  background: radial-gradient(circle at top right, #134E4A, #065F46);
   position: relative;
   overflow: hidden;
 }
@@ -195,12 +199,12 @@ input::placeholder {
 .logo-inner {
   width: 65px;
   height: 65px;
-  background: linear-gradient(135deg, var(--accent), #B48421);
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
   border-radius: 22px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 15px 30px var(--accent-glow);
+  box-shadow: 0 15px 30px rgba(20, 184, 166, 0.3);
 }
 
 .logo-text {
@@ -221,7 +225,7 @@ input::placeholder {
 
 .cat-card-modern {
   background: white;
-  border: 1px solid #F1F5F9;
+  border: 1px solid rgba(20, 184, 166, 0.1);
   border-radius: var(--radius-lg);
   padding: 24px 16px;
   display: flex;
@@ -235,7 +239,7 @@ input::placeholder {
 
 .cat-card-modern:active {
   transform: translateY(2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 5px 15px rgba(15, 118, 110, 0.08);
 }
 
 .cat-card-icon-box {
@@ -274,10 +278,10 @@ input::placeholder {
   border-radius: 4px;
   padding: 40px;
   position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+  box-shadow: 0 20px 50px rgba(15, 118, 110, 0.12);
   background-image: 
-    linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 45%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 55%, rgba(255,255,255,0) 100%),
-    radial-gradient(circle at 2px 2px, #f1f5f9 1px, transparent 0);
+    linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 45%, rgba(240, 253, 250, 0.8) 50%, rgba(255,255,255,0) 55%, rgba(255,255,255,0) 100%),
+    radial-gradient(circle at 2px 2px, #f0fdfa 1px, transparent 0);
   background-size: 200% 200%, 24px 24px;
   animation: holo-shimmer 10s infinite linear;
 }
@@ -316,7 +320,7 @@ input::placeholder {
 
 .premium-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15);
+  box-shadow: 0 20px 40px -10px rgba(15, 118, 110, 0.18);
 }
 
 .cert-card-premium::before {
@@ -351,3 +355,92 @@ input::placeholder {
 .loading-pulse {
   animation: pulse-soft 2s infinite ease-in-out;
 }
+
+/* Professional Teal Theme Enhancements */
+.teal-gradient-bg {
+  background: linear-gradient(135deg, var(--primary-teal), var(--accent));
+}
+
+.teal-glass {
+  background: var(--glass-teal);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(20, 184, 166, 0.15);
+}
+
+.teal-accent-border {
+  border: 2px solid var(--accent);
+}
+
+.teal-shadow {
+  box-shadow: 0 10px 25px -5px rgba(15, 118, 110, 0.15);
+}
+
+.teal-shadow-lg {
+  box-shadow: 0 20px 40px -10px rgba(15, 118, 110, 0.2);
+}
+
+/* Professional Status Indicators */
+.status-indicator-teal {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse-teal 2s infinite;
+}
+
+@keyframes pulse-teal {
+  0% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(20, 184, 166, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0); }
+}
+
+/* Enhanced Button Variants */
+.btn-teal-outline {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--primary-teal);
+  transition: all 0.3s ease;
+}
+
+.btn-teal-outline:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-teal-ghost {
+  background: var(--surface-teal);
+  border: 1px solid transparent;
+  color: var(--primary-teal);
+  transition: all 0.3s ease;
+}
+
+.btn-teal-ghost:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* Professional Card Variants */
+.card-teal-accent {
+  background: white;
+  border-left: 4px solid var(--accent);
+  box-shadow: var(--shadow-premium);
+}
+
+.card-teal-subtle {
+  background: linear-gradient(135deg, white 0%, var(--surface-teal) 100%);
+  border: 1px solid rgba(20, 184, 166, 0.1);
+}
+
+/* Text Color Utilities */
+.text-teal-primary { color: var(--primary-teal); }
+.text-teal-accent { color: var(--accent); }
+.text-teal-dark { color: var(--primary-green); }
+
+/* Background Utilities */
+.bg-teal-light { background-color: var(--surface-teal); }
+.bg-teal-primary { background-color: var(--primary-teal); }
+.bg-teal-accent { background-color: var(--accent); }
