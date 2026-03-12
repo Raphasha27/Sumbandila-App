@@ -6,10 +6,10 @@ In production, replace training_data.csv with real audit records.
 import os
 
 try:
-    import pandas as pd
-    from sklearn.ensemble import RandomForestClassifier
-    from sklearn.model_selection import train_test_split
-    import joblib
+    import pandas as pd  # type: ignore
+    from sklearn.ensemble import RandomForestClassifier  # type: ignore
+    from sklearn.model_selection import train_test_split  # type: ignore
+    import joblib  # type: ignore
 
     MODEL_PATH = os.path.join(os.path.dirname(__file__), "fraud_model.pkl")
 
