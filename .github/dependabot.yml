@@ -1,0 +1,54 @@
+version: 2
+updates:
+  # Maintain GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    groups:
+      actions:
+        patterns:
+          - "*"
+
+  # Maintain Root Node.js dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+
+  # Maintain Web App dependencies
+  - package-ecosystem: "npm"
+    directory: "/apps/web"
+    schedule:
+      interval: "daily"
+
+  # Maintain Mobile App dependencies
+  - package-ecosystem: "npm"
+    directory: "/apps/mobile"
+    schedule:
+      interval: "daily"
+
+  # Maintain Backend Service dependencies (Shared)
+  - package-ecosystem: "pip"
+    directory: "/services"
+    schedule:
+      interval: "daily"
+
+  # Maintain Auth Service dependencies
+  - package-ecosystem: "pip"
+    directory: "/services/auth"
+    schedule:
+      interval: "daily"
+
+  # Maintain Core Service dependencies
+  - package-ecosystem: "pip"
+    directory: "/services/core"
+    schedule:
+      interval: "daily"
+
+  # Maintain AI Service dependencies
+  - package-ecosystem: "pip"
+    directory: "/services/ai"
+    schedule:
+      interval: "daily"

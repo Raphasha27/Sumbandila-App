@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+pydantic==2.12.5
+python-jose[cryptography]
+passlib[argon2]
+python-multipart
+sqlalchemy
+psycopg2-binary
+redis
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation-fastapi
+opentelemetry-exporter-otlp

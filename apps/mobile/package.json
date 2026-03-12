@@ -1,0 +1,33 @@
+{
+  "name": "@sumbandila/mobile",
+  "version": "3.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~55.0.6",
+    "@react-navigation/bottom-tabs": "^6.5.20",
+    "@react-navigation/native": "^6.1.17",
+    "@react-navigation/native-stack": "^6.9.26",
+    "expo": "~55.0.3",
+    "expo-linear-gradient": "~55.0.8",
+    "expo-local-authentication": "~55.0.8",
+    "expo-status-bar": "~55.0.4",
+    "lucide-react-native": "latest",
+    "react": "19.2.3",
+    "react-native": "0.84.0",
+    "react-native-gesture-handler": "~2.20.2",
+    "react-native-safe-area-context": "4.12.0",
+    "react-native-screens": "~4.4.0",
+    "react-native-web": "~0.21.2",
+    "zustand": "latest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
+}
