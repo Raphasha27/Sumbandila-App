@@ -10,9 +10,9 @@
         "lint": "eslint ."
     },
     "dependencies": {
-        "@supabase/supabase-js": "^2.99.0",
+        "@supabase/supabase-js": "^2.99.1",
         "@tanstack/react-query": "^5.90.21",
-        "@vercel/analytics": "^1.6.1",
+        "@vercel/analytics": "^2.0.0",
         "clsx": "latest",
         "framer-motion": "latest",
         "lucide-react": "latest",
