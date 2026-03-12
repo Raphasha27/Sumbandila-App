@@ -4,17 +4,10 @@
   # 🛡️ Sumbandila — Digital Trust Platform
   ### *Verify institutions and professionals instantly — in the palm of your hand.*
 
-  [![Official Link](https://img.shields.io/badge/LIVE_PLATFORM-VIEW_HERE-0056B3?style=for-the-badge&logo=vercel)](https://sumbandila-app.vercel.app)
+  
   [![CI/CD](https://img.shields.io/badge/CI/CD-Passing-28a745?style=for-the-badge&logo=github-actions)](https://github.com/Raphasha27/Sumbandila-app/actions)
   [![Security](https://img.shields.io/badge/Dependabot-Secure-blue?style=for-the-badge&logo=dependabot)](https://github.com/Raphasha27/Sumbandila-app/security)
   [![Version](https://img.shields.io/badge/Version-V4.0-0056B3?style=for-the-badge)](https://github.com/Raphasha27/Sumbandila-app)
-
-  ---
-
-  ## 🏛️ Official Portal
-  **The primary national gateway for institutional, professional, and medical verification in South Africa.**
-
-  # 🔗 [Launch Sumbandila Registry Sentinel](https://sumbandila-app.vercel.app/)
 
   ---
 
