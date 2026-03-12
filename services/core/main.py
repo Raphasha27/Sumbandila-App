@@ -49,12 +49,12 @@ Instantly verify:
 # --- Security Middleware ---
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["*"] if settings.DEBUG else ["sumbandila-app.vercel.app", "localhost"],
+    allowed_hosts=["*"] if settings.DEBUG else ["localhost"],
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://sumbandila-app.vercel.app"],
+    allow_origins=["http://localhost:5173", "http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["GET", "POST", "DELETE"],
     allow_headers=["*"],
