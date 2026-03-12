@@ -1,0 +1,13 @@
+{
+  "venvPath": ".",
+  "pythonVersion": "3.11",
+  "typeCheckingMode": "off",
+  "reportMissingImports": false,
+  "reportMissingModuleSource": false,
+  "reportUndefinedVariable": false,
+  "ignore": [
+    "services/**",
+    "ai/**",
+    "packages/**"
+  ]
+}

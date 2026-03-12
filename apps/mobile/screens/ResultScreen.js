@@ -43,7 +43,7 @@ export default function ResultScreen({ route, navigation }) {
 
   const shareResult = async () => {
     await Share.share({
-      message: `🛡️ Sumbandila V3 Verification\n\n${data.name || 'Unknown'}\nStatus: ${data.status || 'Unknown'}\nAuthority: ${data.authority || 'Unknown'}\nTrust Score: ${trustScore}%\n\nVerified via Sumbandila — sumbandila-app.vercel.app`,
+      message: `🛡️ Sumbandila Verification\n\n${data.name || 'Unknown'}\nStatus: ${data.status || 'Unknown'}\nAuthority: ${data.authority || 'Unknown'}\nTrust Score: ${trustScore}%\n\nVerified via Sumbandila — Africa's Digital Trust Platform`,
     });
   };
 
