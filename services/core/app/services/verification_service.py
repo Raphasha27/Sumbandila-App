@@ -8,6 +8,7 @@ Search priority:
 4. Multilingual response labels
 5. Audit log every query
 """
+from __future__ import annotations
 import hashlib
 from datetime import datetime, timezone
 from sqlalchemy.orm import Session
@@ -22,9 +23,10 @@ def _credential_hash(name: str, reg_number: str, authority: str) -> str:
     Generates a tamper-proof SHA-256 hash of the credential.
     V4 blockchain-ready: this hash can be stored on-chain for immutable proof.
     """
-    payload = f"{name}:{reg_number}:{authority}".encode()
-    digest: str = hashlib.sha256(payload).hexdigest()
-    return f"0x{digest[:40]}"
+    payload_str: str = f"{name}:{reg_number}:{authority}"
+    payload_bytes: bytes = payload_str.encode("utf-8")
+    digest_hex: str = str(hashlib.sha256(payload_bytes).hexdigest())
+    return "0x" + digest_hex
 
 
 TRANSLATIONS = {

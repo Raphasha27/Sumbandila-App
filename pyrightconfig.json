@@ -1,16 +1,12 @@
 {
-  "include": ["."],
-  "exclude": ["**/node_modules", "**/__pycache__"],
+  "include": ["services/core", "scripts", "ai"],
+  "exclude": ["**/node_modules", "**/__pycache__", "services/core/.venv"],
   "pythonVersion": "3.11",
   "typeCheckingMode": "off",
   "reportMissingImports": false,
   "reportMissingModuleSource": false,
-  "reportUndefinedVariable": false,
-  "venvPath": "C:\\Users\\nelso\\OneDrive\\Desktop\\Sumbandila\\services\\core",
+  "venvPath": "services/core",
   "venv": ".venv",
-  "extraPaths": [
-    "services/core"
-  ],
   "executionEnvironments": [
     {
       "root": "services/core",
