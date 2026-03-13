@@ -25,8 +25,9 @@ def _credential_hash(name: str, reg_number: str, authority: str) -> str:
     """
     payload_str: str = f"{name}:{reg_number}:{authority}"
     payload_bytes: bytes = payload_str.encode("utf-8")
-    digest_hex: str = str(hashlib.sha256(payload_bytes).hexdigest())
-    return "0x" + digest_hex
+    from typing import cast
+    digest_hex = cast(str, hashlib.sha256(payload_bytes).hexdigest())
+    return "0x" + digest_hex[:40]
 
 
 TRANSLATIONS = {
