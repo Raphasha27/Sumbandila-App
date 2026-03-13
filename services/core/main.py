@@ -6,13 +6,13 @@ from fastapi.middleware.cors import CORSMiddleware  # type: ignore
 from fastapi.middleware.trustedhost import TrustedHostMiddleware  # type: ignore
 from contextlib import asynccontextmanager
 
-from app.core.config import settings  # type: ignore
-from app.database.base import Base  # type: ignore
-from app.database.session import engine  # type: ignore
-from app.api.routes.verify import router as verify_router  # type: ignore
-from app.api.routes.institutions import router as institutions_router  # type: ignore
-from app.api.routes.professionals import router as professionals_router  # type: ignore
-from app.api.routes.reports import router as reports_router  # type: ignore
+from app.core.config import settings
+from app.database.base import Base
+from app.database.session import engine
+from app.api.routes.verify import router as verify_router
+from app.api.routes.institutions import router as institutions_router
+from app.api.routes.professionals import router as professionals_router
+from app.api.routes.reports import router as reports_router
 
 
 @asynccontextmanager

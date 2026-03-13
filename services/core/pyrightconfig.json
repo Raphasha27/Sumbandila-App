@@ -8,5 +8,5 @@
   "reportUndefinedVariable": false,
   "venvPath": ".",
   "venv": ".venv",
-  "extraPaths": [".", "app"]
+  "extraPaths": ["."]
 }

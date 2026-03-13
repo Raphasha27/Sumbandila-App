@@ -1,9 +1,12 @@
 fastapi
 uvicorn
 pydantic==2.4.0
+pydantic-settings
+python-dotenv
 python-jose[cryptography]
 passlib[argon2]
 python-multipart
 sqlalchemy
 psycopg2-binary
 redis
+httpx

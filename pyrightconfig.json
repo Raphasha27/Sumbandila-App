@@ -6,17 +6,14 @@
   "reportMissingImports": false,
   "reportMissingModuleSource": false,
   "reportUndefinedVariable": false,
+  "venvPath": "C:\\Users\\nelso\\OneDrive\\Desktop\\Sumbandila\\services\\core",
+  "venv": ".venv",
   "extraPaths": [
     "services/core"
-  ],
-  "ignore": [
-    "ai/**",
-    "packages/**"
   ],
   "executionEnvironments": [
     {
       "root": "services/core",
-      "venv": ".venv",
       "extraPaths": ["."]
     }
   ]

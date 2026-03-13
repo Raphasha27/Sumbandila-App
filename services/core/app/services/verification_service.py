@@ -14,7 +14,7 @@ from sqlalchemy.orm import Session
 from app.models.institution import Institution
 from app.models.professional import Professional
 from app.models.verification import VerificationLog
-from .fraud_detection import compute_fraud_score, FraudSignals
+from app.services.fraud_detection import compute_fraud_score, FraudSignals
 
 
 def _credential_hash(name: str, reg_number: str, authority: str) -> str:
@@ -23,7 +23,8 @@ def _credential_hash(name: str, reg_number: str, authority: str) -> str:
     V4 blockchain-ready: this hash can be stored on-chain for immutable proof.
     """
     payload = f"{name}:{reg_number}:{authority}".encode()
-    return f"0x{hashlib.sha256(payload).hexdigest()[:40]}"
+    digest: str = hashlib.sha256(payload).hexdigest()
+    return f"0x{digest[:40]}"
 
 
 TRANSLATIONS = {

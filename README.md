@@ -126,6 +126,7 @@ sumbandila/
 ### Backend (FastAPI)
 ```bash
 # Environment is pre-configured with SQLite for instant start
+# A local .env file has been created with dev secrets
 cd services/core
 # Virtual environment is already set up in .venv
 .\.venv\Scripts\python.exe -m uvicorn main:app --reload
