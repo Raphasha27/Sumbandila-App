@@ -33,9 +33,15 @@ credentials.json
 *.pem
 *.key
 
-# Platform Specific
-.expo/*
-dist/
-build/
-web-build/
-node_modules/
+# Python Specific
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.env
+*.db
+*.sqlite3
+
+# OS Specific
+.DS_Store
+Thumbs.db
