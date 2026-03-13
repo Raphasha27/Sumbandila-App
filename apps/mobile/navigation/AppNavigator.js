@@ -34,6 +34,7 @@ function VerifyStackNavigator() {
 
 /** Root bottom tab navigator */
 export default function AppNavigator() {
+  console.log('🗺️ Navigation Mounting...');
   return (
     <NavigationContainer>
       <Tab.Navigator

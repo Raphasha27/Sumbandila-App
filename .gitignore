@@ -32,7 +32,6 @@ secrets.json
 credentials.json
 *.pem
 *.key
-.vercel
 
 # Platform Specific
 .expo/*
