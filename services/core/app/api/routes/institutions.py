@@ -4,10 +4,10 @@ Institutions CRUD API — protected by JWT (admin only).
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
-from ..database.session import get_db
-from ..models.institution import Institution
-from ..schemas.institution import InstitutionCreate, InstitutionResponse
-from ..core.security import get_current_admin
+from app.database.session import get_db
+from app.models.institution import Institution
+from app.schemas.institution import InstitutionCreate, InstitutionResponse
+from app.core.security import get_current_admin
 
 router = APIRouter(prefix="/institutions", tags=["Institutions"])
 

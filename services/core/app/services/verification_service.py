@@ -11,9 +11,9 @@ Search priority:
 import hashlib
 from datetime import datetime, timezone
 from sqlalchemy.orm import Session
-from ..models.institution import Institution
-from ..models.professional import Professional
-from ..models.verification import VerificationLog
+from app.models.institution import Institution
+from app.models.professional import Professional
+from app.models.verification import VerificationLog
 from .fraud_detection import compute_fraud_score, FraudSignals
 
 
@@ -26,7 +26,7 @@ def _credential_hash(name: str, reg_number: str, authority: str) -> str:
     return f"0x{hashlib.sha256(payload).hexdigest()[:40]}"
 
 
-
+TRANSLATIONS = {
     "en": {
         "verified": "✅ Verified & Registered",
         "deregistered": "🚫 Deregistered - DO NOT TRUST",

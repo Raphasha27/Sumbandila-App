@@ -4,6 +4,9 @@
   "typeCheckingMode": "off",
   "reportMissingImports": false,
   "reportMissingModuleSource": false,
+  "reportMissingImportStubs": false,
   "reportUndefinedVariable": false,
+  "venvPath": ".",
+  "venv": ".venv",
   "extraPaths": [".", "app"]
 }

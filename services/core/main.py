@@ -19,9 +19,9 @@ from app.api.routes.reports import router as reports_router  # type: ignore
 async def lifespan(app: FastAPI):
     # Create all tables on startup
     Base.metadata.create_all(bind=engine)
-    print("✅ Sumbandila DB tables initialised")
+    print("Sumbandila DB tables initialised")
     yield
-    print("🛑 Sumbandila API shutting down")
+    print("Sumbandila API shutting down")
 
 
 app = FastAPI(

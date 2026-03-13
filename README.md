@@ -125,20 +125,16 @@ sumbandila/
 
 ### Backend (FastAPI)
 ```bash
-# Copy and configure env
-cp .env.example .env
-
-# Start with Docker
-docker compose up
-
-# API docs available at:
-# http://localhost:8000/api/docs
+# Environment is pre-configured with SQLite for instant start
+cd services/core
+# Virtual environment is already set up in .venv
+.\.venv\Scripts\python.exe -m uvicorn main:app --reload
 ```
 
 ### Web App
 ```bash
 npm install
-npm run dev --workspace=@sumbandila/web
+npm.cmd run dev --workspace=@sumbandila/web
 # http://localhost:5173
 ```
 

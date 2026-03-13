@@ -3,8 +3,8 @@
 """
 from fastapi import APIRouter, Depends, Request, Query
 from sqlalchemy.orm import Session
-from ..database.session import get_db
-from ..services.verification_service import verify_entity
+from app.database.session import get_db
+from app.services.verification_service import verify_entity
 
 router = APIRouter(prefix="/verify", tags=["Verification"])
 

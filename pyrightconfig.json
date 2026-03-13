@@ -1,13 +1,23 @@
 {
-  "venvPath": ".",
+  "include": ["."],
+  "exclude": ["**/node_modules", "**/__pycache__"],
   "pythonVersion": "3.11",
   "typeCheckingMode": "off",
   "reportMissingImports": false,
   "reportMissingModuleSource": false,
   "reportUndefinedVariable": false,
+  "extraPaths": [
+    "services/core"
+  ],
   "ignore": [
-    "services/**",
     "ai/**",
     "packages/**"
+  ],
+  "executionEnvironments": [
+    {
+      "root": "services/core",
+      "venv": ".venv",
+      "extraPaths": ["."]
+    }
   ]
 }

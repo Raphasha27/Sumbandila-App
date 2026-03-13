@@ -5,8 +5,8 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import Optional
-from ..database.session import get_db
-from ..models.verification import ScamReport
+from app.database.session import get_db
+from app.models.verification import ScamReport
 
 router = APIRouter(prefix="/reports", tags=["Scam Reports"])
 

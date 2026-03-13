@@ -60,6 +60,6 @@ def generate_mock_data(count=50000):
 if __name__ == "__main__":
     import os
     os.makedirs('data', exist_ok=True)
-    print("🚀 Generating 50,000 national registry records...")
+    print("Generating 50,000 national registry records...")
     generate_mock_data(50000)
-    print("✅ data/verified_registry_v4.csv created successfully.")
+    print("data/verified_registry_v4.csv created successfully.")
