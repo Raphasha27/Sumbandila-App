@@ -15,7 +15,7 @@
         "clsx": "latest",
         "framer-motion": "latest",
         "lucide-react": "latest",
-        "react": "19.1.0",
+        "react": "19.2.4",
         "react-dom": "19.2.4",
         "tailwind-merge": "latest",
         "zustand": "latest"
