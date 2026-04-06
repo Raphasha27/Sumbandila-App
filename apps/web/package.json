@@ -22,7 +22,7 @@
     },
     "devDependencies": {
         "@vitejs/plugin-react": "*",
-        "eslint": "^10.0.2",
+        "eslint": "^10.2.0",
         "eslint-plugin-react": "*",
         "eslint-plugin-react-hooks": "*",
         "eslint-plugin-react-refresh": "*",
