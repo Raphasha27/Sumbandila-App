@@ -16,7 +16,7 @@
         "framer-motion": "*",
         "lucide-react": "^1.7.0",
         "react": "19.1.0",
-        "react-dom": "19.2.4",
+        "react-dom": "19.2.5",
         "tailwind-merge": "*",
         "zustand": "*"
     },
