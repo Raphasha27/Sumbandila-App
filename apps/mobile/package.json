@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@expo/ngrok": "^4.1.0",
-    "@react-navigation/bottom-tabs": "^7.15.5",
+    "@react-navigation/bottom-tabs": "^7.15.9",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^7.14.6",
     "expo": "~55.0.11",
