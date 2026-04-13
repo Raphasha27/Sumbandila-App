@@ -1,7 +1,3 @@
 {
-    "version": 2,
-    "buildCommand": "npm run build --workspace=@sumbandila/web",
-    "outputDirectory": "apps/web/dist",
-    "installCommand": "npm install",
-    "framework": "vite"
+  "buildCommand": "npm run build"
 }
