@@ -1,31 +1,31 @@
 {
-    "name": "@sumbandila/web",
-    "version": "1.0.0",
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview",
-        "lint": "eslint ."
-    },
-    "dependencies": {
-        "@supabase/supabase-js": "^2.99.2",
-        "@tanstack/react-query": "^5.90.21",
-        "clsx": "*",
-        "framer-motion": "*",
-        "lucide-react": "^1.7.0",
-        "react": "19.2.5",
-        "react-dom": "19.2.5",
-        "tailwind-merge": "*",
-        "zustand": "*"
-    },
-    "devDependencies": {
-        "@vitejs/plugin-react": "*",
-        "eslint": "^10.2.0",
-        "eslint-plugin-react": "*",
-        "eslint-plugin-react-hooks": "*",
-        "eslint-plugin-react-refresh": "*",
-        "vite": "^8.0.5"
-    }
+  "name": "@sumbandila/web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.103.0",
+    "@tanstack/react-query": "^5.99.0",
+    "clsx": "*",
+    "framer-motion": "*",
+    "lucide-react": "^1.8.0",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "tailwind-merge": "*",
+    "zustand": "*"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "*",
+    "eslint": "^10.2.0",
+    "eslint-plugin-react": "*",
+    "eslint-plugin-react-hooks": "*",
+    "eslint-plugin-react-refresh": "*",
+    "vite": "^8.0.8"
+  }
 }
