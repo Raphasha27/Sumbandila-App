@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "51f31f6b-01e6-49f0-a550-ced248e46ac2"
+      }
+    },
+    "android": {
+      "package": "com.raphasha27.sumbandila"
+    }
+  }
+}
