@@ -13,6 +13,7 @@
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
+    "verify": "npm run lint && npm run build --workspace=@sumbandila/web",
     "check-env": "node scripts/integrity-check.js"
   },
   "devDependencies": {
