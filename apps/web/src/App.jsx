@@ -14,6 +14,7 @@ import {
   Gavel,
   Key
 } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 import { db } from './services/DatabaseService';
 
 import { useRegistryStore } from './store/useRegistryStore';
@@ -725,6 +726,7 @@ export default function App() {
         )}
       </AnimatePresence>
       <SiphoAI />
+      <Analytics />
     </div>
   );
 }
