@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-pydantic==2.13.0
+pydantic==2.13.1
 python-jose[cryptography]
 passlib[argon2]
 python-multipart
