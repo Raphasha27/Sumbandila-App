@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { ShieldCheck, CheckCircle2, AlertTriangle, ChevronLeft, Star, ShieldAlert } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, AlertTriangle, ChevronLeft, Star, ShieldAlert, Download } from 'lucide-react';
 import { MOCK_DATA } from '../../lib/mock-data';
+import { RegistryCertService } from '../../services/RegistryCertificateService';
 
 export default function VerifyResult({ provider, step, onBack, onSave }) {
   if (step === 'processing') {
@@ -189,6 +190,27 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
               <ShieldCheck size={22} /> Save to Sentinel Vault
             </button>
           )}
+
+          {isVerified && (
+            <button
+              onClick={() => RegistryCertService.generateCertificate(provider)}
+              style={{ padding: '18px', background: 'white', color: 'var(--primary)', borderRadius: '20px', border: '2px solid var(--primary)', fontSize: '16px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}
+            >
+              <Download size={20} /> Official Certificate (PDF)
+            </button>
+          )}
+          {isVerified && (
+            <button
+              onClick={() => {
+                const text = `Sumbandila Registry Sentinel: Official Verification for ${provider.name} (${provider.status}). Verified at: ${window.location.href}`;
+                window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+              }}
+              style={{ padding: '18px', background: '#25D366', color: 'white', borderRadius: '20px', border: 'none', fontSize: '16px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', boxShadow: '0 10px 20px rgba(37, 211, 102, 0.2)' }}
+            >
+              Share via WhatsApp
+            </button>
+          )}
+
           <button
             onClick={onBack}
             style={{ padding: '18px', background: 'white', color: '#374151', borderRadius: '20px', border: '2px solid #F3F4F6', fontSize: '16px', fontWeight: 700, cursor: 'pointer' }}

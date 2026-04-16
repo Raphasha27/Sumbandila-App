@@ -6,6 +6,7 @@ import { MOCK_DATA } from '../../lib/mock-data';
 import { useRegistryStore } from '../../store/useRegistryStore';
 import ReportModal from '../Report/ReportModal';
 import CheckoutModal from './CheckoutModal';
+import TeacherPortal from './TeacherPortal';
 
 export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
   const [isReportOpen, setIsReportOpen] = useState(false);
@@ -13,6 +14,8 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
   const [checkoutPlan, setCheckoutPlan] = useState('auditor');
   const [isTracking, setIsTracking] = useState(false);
   const [trackerStatus, setTrackerStatus] = useState('Standby');
+  const [viewMode, setViewMode] = useState('registry'); // 'registry' or 'teacher'
+
   const {
     searchQuery,
     setSearchQuery,
@@ -133,7 +136,28 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
         </div>
 
         {/* Refined Modern Search Bar */}
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '8px', gap: '16px' }}>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.15)',
+            padding: '4px',
+            borderRadius: '100px',
+            display: 'flex',
+            gap: '4px'
+          }}>
+            <button 
+              onClick={() => setViewMode('registry')}
+              style={{ padding: '8px 20px', borderRadius: '100px', border: 'none', background: viewMode === 'registry' ? 'white' : 'transparent', color: viewMode === 'registry' ? 'var(--primary)' : 'white', fontWeight: 800, fontSize: '11px', cursor: 'pointer' }}
+            >
+              REGISTRY
+            </button>
+            <button 
+              onClick={() => setViewMode('teacher')}
+              style={{ padding: '8px 20px', borderRadius: '100px', border: 'none', background: viewMode === 'teacher' ? 'white' : 'transparent', color: viewMode === 'teacher' ? 'var(--primary)' : 'white', fontWeight: 800, fontSize: '11px', cursor: 'pointer' }}
+            >
+              TEACHER PORTAL
+            </button>
+          </div>
+
           <div style={{
             flex: 1,
             background: 'rgba(255, 255, 255, 0.2)',
@@ -174,6 +198,10 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
       </div>
 
       <div style={{ padding: '32px 20px' }}>
+        {viewMode === 'teacher' ? (
+          <TeacherPortal />
+        ) : (
+          <>
 
         {/* Quick Voice Access - Sipho AI */}
         <motion.div
@@ -776,6 +804,8 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
             ))}
           </div>
         </div>
+          </>
+        )}
       </div>
 
       <BottomNav active="home" onNav={onNav} />
