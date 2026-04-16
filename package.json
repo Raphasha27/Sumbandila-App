@@ -2,6 +2,7 @@
   "//": "Unified CI Trigger - passing build",
   "name": "sumbandila-enterprise-platform",
   "private": true,
+  "type": "module",
   "workspaces": [
     "apps/*",
     "services/*",
@@ -14,6 +15,9 @@
     "lint": "npm run lint --workspaces --if-present",
     "check-env": "node scripts/integrity-check.js"
   },
+  "devDependencies": {
+    "eslint": "9.16.0"
+  },
   "engines": {
     "node": "20.x",
     "npm": "10.x"
@@ -22,6 +26,6 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native-svg": "15.12.1",
-    "eslint": "^9.16.0"
+    "eslint": "9.16.0"
   }
 }

@@ -9,10 +9,8 @@ import {
   Download, 
   Share2, 
   Sparkles,
-  Search,
   ChevronRight,
   CheckCircle2,
-  AlertCircle
 } from 'lucide-react';
 
 export default function TeacherPortal() {
