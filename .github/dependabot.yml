@@ -29,26 +29,20 @@ updates:
     schedule:
       interval: "daily"
 
-  # Maintain Backend Service dependencies (Shared)
-  - package-ecosystem: "pip"
-    directory: "/services"
-    schedule:
-      interval: "daily"
-
-  # Maintain Auth Service dependencies
-  - package-ecosystem: "pip"
-    directory: "/services/auth"
-    schedule:
-      interval: "daily"
-
-  # Maintain Core Service dependencies
+  # Maintain Backend Service dependencies (Core)
   - package-ecosystem: "pip"
     directory: "/services/core"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    groups:
+      python-core:
+        patterns: ["*"]
 
   # Maintain AI Service dependencies
   - package-ecosystem: "pip"
     directory: "/services/ai"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    groups:
+      python-ai:
+        patterns: ["*"]
