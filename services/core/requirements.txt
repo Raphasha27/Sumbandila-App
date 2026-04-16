@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-pydantic==2.13.0
+pydantic==2.13.1
 pydantic-settings
 python-dotenv
 python-jose[cryptography]
