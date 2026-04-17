@@ -1,26 +1,19 @@
 ---
-name: Feature Request
-about: Suggest an idea for this project
-title: '[FEATURE] '
-labels: enhancement
-assignees: ''
+name: "🚀 Feature Request"
+about: Propose a new feature or enhancement
+labels: ["feat", "triage"]
 ---
 
-## Feature Description
-A clear and concise description of the feature you'd like to see.
+## Feature Summary
+> What is the feature? What problem does it solve?
 
-## Problem Statement
-Is your feature request related to a problem? Please describe.
-Example: I'm always frustrated when [...]
+## Acceptance Criteria
+> What must be true for this issue to be "done"?
+- [ ] ...
+- [ ] ...
 
-## Proposed Solution
-A clear and concise description of what you want to happen.
+## Implementation Notes
+> Any technical details, constraints, or approach ideas.
 
-## Alternatives Considered
-A clear and concise description of any alternative solutions or features you've considered.
-
-## Additional Context
-Add any other context, mockups, or screenshots about the feature request here.
-
-## Benefits
-How will this feature benefit the project and its users?
+## Branch Name
+`feature/[issue-number]-[short-description]`

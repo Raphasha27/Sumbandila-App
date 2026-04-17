@@ -1,34 +1,24 @@
 ---
-name: Bug Report
-about: Create a report to help us improve
-title: '[BUG] '
-labels: bug
-assignees: ''
+name: "🐛 Bug Report"
+about: Report a defect or unexpected behaviour
+labels: ["fix", "triage"]
 ---
 
-## Bug Description
-A clear and concise description of what the bug is.
+## Description
+> What went wrong? What did you expect to happen?
 
 ## Steps to Reproduce
-1. Go to '...'
-2. Click on '...'
-3. Scroll down to '...'
-4. See error
-
-## Expected Behavior
-A clear description of what you expected to happen.
-
-## Actual Behavior
-What actually happened.
-
-## Screenshots
-If applicable, add screenshots to help explain your problem.
+1. ...
+2. ...
+3. ...
 
 ## Environment
-- OS: [e.g. Windows, macOS, Linux]
-- Browser: [e.g. Chrome, Safari, Firefox]
-- Version: [e.g. 1.0.0]
-- Device: [e.g. Desktop, Mobile]
+- OS:
+- Runtime version (Node/Python):
+- Branch:
 
-## Additional Context
-Add any other context about the problem here.
+## Logs / Screenshots
+> Paste relevant error output here.
+
+## Branch Name
+`fix/[issue-number]-[short-description]`
