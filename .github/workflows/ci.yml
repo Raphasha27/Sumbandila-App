@@ -11,11 +11,14 @@ jobs:
   # BACKEND (Python / FastAPI)
   # ─────────────────────────────────────────────
   backend:
-    name: Backend — Lint, Test, Build
+    name: Backend — ${{ matrix.service }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [auth, core]
     defaults:
       run:
-        working-directory: backend
+        working-directory: services/${{ matrix.service }}
 
     steps:
       - uses: actions/checkout@v4
@@ -26,11 +29,12 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest flake8 httpx  # Ensure test dependencies are present
 
       - name: Lint (flake8)
         run: |
-          pip install flake8
           flake8 . --max-line-length=120
 
       - name: Run unit tests (pytest)
