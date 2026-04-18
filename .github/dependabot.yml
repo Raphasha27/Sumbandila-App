@@ -8,6 +8,10 @@ updates:
     labels:
       - "chore"
       - "dependencies"
+    groups:
+      python-all:
+        patterns:
+          - "*"
 
   # Node.js / React / Next.js frontend
   - package-ecosystem: "npm"
@@ -17,6 +21,10 @@ updates:
     labels:
       - "chore"
       - "dependencies"
+    groups:
+      npm-all:
+        patterns:
+          - "*"
 
   # GitHub Actions themselves
   - package-ecosystem: "github-actions"
@@ -26,3 +34,7 @@ updates:
     labels:
       - "chore"
       - "ci"
+    groups:
+      actions-all:
+        patterns:
+          - "*"
