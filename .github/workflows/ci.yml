@@ -1,79 +1,9 @@
 name: Kirov CI Pipeline
-<<<<<<< HEAD
-
-on:
-  push:
-    branches: [main, dev]
-  pull_request:
-    branches: [main, dev]
-
-jobs:
-  # BACKEND (Python / FastAPI)
-  backend:
-    name: Backend
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: 'pip'
-
-      - name: Install shared dependencies
-        run: |
-          pip install --upgrade pip
-          if [ -f services/requirements.txt ]; then pip install -r services/requirements.txt; fi
-
-      - name: Install Core Service dependencies
-        run: |
-          if [ -f services/core/requirements.txt ]; then pip install -r services/core/requirements.txt; fi
-
-      - name: Install Auth Service dependencies
-        run: |
-          if [ -f services/auth/requirements.txt ]; then pip install -r services/auth/requirements.txt; fi
-
-      - name: Run Backend Tests
-        run: |
-          cd services
-          # Add current directory and packages to PYTHONPATH
-          export PYTHONPATH=$PYTHONPATH:$(pwd)/core:$(pwd)/auth:$(pwd)/../packages
-          python -m pytest -v --tb=short
-
-  # FRONTEND (Node.js)
-  frontend:
-    name: Frontend
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Lint and Build
-        run: |
-          npm run lint --if-present
-          npm run build --if-present
-
-      - name: Run Frontend Tests
-        run: npm test --if-present
-=======
 on:
   push:
       branches: [main, dev]
         pull_request:
             branches: [main, dev]
-<<<<<<< HEAD
-            
->>>>>>> 5500e46a00f3d727ddf1197f6828cd7a072d36d8
-=======
             jobs:
               backend:
                   name: Backend - ${{ matrix.service }}
@@ -144,4 +74,3 @@ on:
                                                                                                                                                                                                                                                                                                                                                                                                                                                                               - name: Perform CodeQL Analysis
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       uses: github/codeql-action/analyze@v3
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
->>>>>>> ae25b21ade54f2920b9f4b4655302be0c3029382
