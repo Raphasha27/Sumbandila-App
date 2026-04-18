@@ -1,4 +1,5 @@
 name: Kirov CI Pipeline
+<<<<<<< HEAD
 
 on:
   push:
@@ -63,3 +64,11 @@ jobs:
 
       - name: Run Frontend Tests
         run: npm test --if-present
+=======
+on:
+  push:
+      branches: [main, dev]
+        pull_request:
+            branches: [main, dev]
+            
+>>>>>>> 5500e46a00f3d727ddf1197f6828cd7a072d36d8
