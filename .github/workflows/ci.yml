@@ -1,5 +1,4 @@
 name: Kirov CI Pipeline
-
 on:
   push:
       branches: [main, dev]
