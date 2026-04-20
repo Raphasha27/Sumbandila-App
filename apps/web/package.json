@@ -13,20 +13,20 @@
         "@supabase/supabase-js": "^2.98.0",
         "@tanstack/react-query": "^5.90.21",
         "@vercel/analytics": "^1.6.1",
-        "clsx": "latest",
-        "framer-motion": "latest",
-        "lucide-react": "latest",
-        "react": "latest",
-        "react-dom": "latest",
-        "tailwind-merge": "latest",
-        "zustand": "latest"
+        "clsx": "*",
+        "framer-motion": "*",
+        "lucide-react": "*",
+        "react": "*",
+        "react-dom": "*",
+        "tailwind-merge": "*",
+        "zustand": "*"
     },
     "devDependencies": {
-        "@vitejs/plugin-react": "latest",
+        "@vitejs/plugin-react": "*",
         "eslint": "^10.0.2",
-        "eslint-plugin-react": "latest",
-        "eslint-plugin-react-hooks": "latest",
-        "eslint-plugin-react-refresh": "latest",
-        "vite": "latest"
+        "eslint-plugin-react": "*",
+        "eslint-plugin-react-hooks": "^7.1.1",
+        "eslint-plugin-react-refresh": "*",
+        "vite": "*"
     }
 }
