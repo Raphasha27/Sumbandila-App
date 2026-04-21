@@ -3,24 +3,24 @@ version: "3.9"
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: ../infra/docker/backend.Dockerfile
+      context: ./services/core
+      dockerfile: ../../infra/docker/backend.Dockerfile
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://admin:admin@db:5432/kirov_db
+      - DATABASE_URL=postgresql://admin:admin@db:5432/sumbandila_db
       - REDIS_URL=redis://redis:6379
       - ENV=development
     depends_on:
       - db
     volumes:
-      - ./backend:/app
+      - ./services/core:/app
     restart: unless-stopped
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: ../infra/docker/frontend.Dockerfile
+      context: ./apps/web
+      dockerfile: ../../infra/docker/frontend.Dockerfile
     ports:
       - "3000:3000"
     environment:
@@ -28,7 +28,7 @@ services:
     depends_on:
       - backend
     volumes:
-      - ./frontend:/app
+      - ./apps/web:/app
     restart: unless-stopped
 
   db:
@@ -36,7 +36,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-      POSTGRES_DB: kirov_db
+      POSTGRES_DB: sumbandila_db
     ports:
       - "5432:5432"
     volumes:

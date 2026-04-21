@@ -24,30 +24,21 @@ app = FastAPI(title="Sumbandila AI Sentinel (Fraud Detection)", lifespan=lifespa
 setup_otel(app, "ai-service")
 event_bus = EventBus()
 
+from fraud_model import predict_fraud
+
 def calculate_risk_score(payload: dict) -> float:
     """
-    Predictive Risk Engine:
-    In a production scenario, this would use a pre-trained ML model 
-    (Scikit-Learn/PyTorch) to analyze historical fraud patterns.
+    Predictive Risk Engine using RandomForest model.
     """
-    score = 0.0
-    
-    # 🧪 Rule 1: Temporal Anomaly (Simulated)
-    # E.g., Issuing a certificate for a date in the future
-    
-    # 🧪 Rule 2: Institution Verification
-    if payload.get("institution_id") == "UNVERIFIED_TEMP_001":
-        score += 0.5
-        
-    # 🧪 Rule 3: Name Pattern Anomalies
-    name = payload.get("owner_name", "")
-    if any(char.isdigit() for char in name):
-        score += 0.8 # Names with numbers are high risk
-        
-    # 🧪 Rule 4: Data Consistency
-    # If the category doesn't match the institutionalID prefix
-    
-    return min(score, 1.0)
+    # Map payload to model features
+    prediction = predict_fraud(
+        license_valid=1 if payload.get("license_valid") else 0,
+        domain_age_days=payload.get("domain_age_days", 365),
+        complaints=payload.get("complaints", 0),
+        registry_match=1 if payload.get("registry_match") else 0,
+        has_physical_address=1 if payload.get("has_physical_address") else 0
+    )
+    return float(prediction["fraud_probability"])
 
 async def handle_new_certification(data):
     """Listens for new certifications and runs predictive fraud analysis."""
