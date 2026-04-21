@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, School, Stethoscope, Scale, Star, ShieldCheck, QrCode, User as UserIcon, Building2, TrendingUp, Globe, AlertCircle, ExternalLink, ShieldAlert, ArrowRight, Heart, CreditCard, Coins, Navigation2, Radar, Bot } from 'lucide-react';
+import { Search, School, Stethoscope, Scale, Star, ShieldCheck, QrCode, User as UserIcon, Building2, TrendingUp, Globe, AlertCircle, ExternalLink, ShieldAlert, ArrowRight, Heart, Coins, Navigation2, Radar, Bot } from 'lucide-react';
 import { CategoryCard, BottomNav } from '../Navigation';
 import { MOCK_DATA } from '../../lib/mock-data';
 import { useRegistryStore } from '../../store/useRegistryStore';
@@ -12,7 +12,6 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [checkoutPlan, setCheckoutPlan] = useState('auditor');
   const [isTracking, setIsTracking] = useState(false);
-  const [userLocation, setUserLocation] = useState(null);
   const [trackerStatus, setTrackerStatus] = useState('Standby');
   const {
     searchQuery,
@@ -34,13 +33,12 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
       if ("geolocation" in navigator) {
         setTrackerStatus('Initializing GPS...');
         navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setUserLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
+          () => {
             setIsTracking(true);
             setTrackerStatus('Sentinel Active');
             alert("Sentinel Tracker Activated. We will alert you if you enter high-fraud 'Danger Zones'.");
           },
-          (error) => {
+          () => {
             alert("Please enable location services to use the Danger Zone Tracker.");
             setTrackerStatus('Standby');
           }
@@ -48,7 +46,6 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
       }
     } else {
       setIsTracking(false);
-      setUserLocation(null);
       setTrackerStatus('Standby');
     }
   };
@@ -325,7 +322,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
                 Real-time Fraud Awareness
               </div>
               <p style={{ fontSize: '11px', color: '#64748B', lineHeight: 1.5, fontWeight: 600 }}>
-                Sentinel is monitoring your coordinates. High-risk 'Bogus College' clusters detected in <span style={{ color: '#111827', fontWeight: 800 }}>Braamfontein, JHB</span> and <span style={{ color: '#111827', fontWeight: 800 }}>Pretoria Central</span>. Stay alert.
+                Sentinel is monitoring your coordinates. High-risk &apos;Bogus College&apos; clusters detected in <span style={{ color: '#111827', fontWeight: 800 }}>Braamfontein, JHB</span> and <span style={{ color: '#111827', fontWeight: 800 }}>Pretoria Central</span>. Stay alert.
               </p>
             </motion.div>
           )}
