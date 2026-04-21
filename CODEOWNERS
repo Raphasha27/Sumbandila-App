@@ -1,0 +1,9 @@
+# Sumbandila Enterprise Platform Code Owners
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+*       @Raphasha27
+
+# Special ownership for critical paths
+/.github/workflows/   @Raphasha27
+/services/auth/       @Raphasha27
+/apps/web/src/lib/    @Raphasha27

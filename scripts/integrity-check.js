@@ -1,7 +1,11 @@
 #!/usr/bin/env node
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 console.log('🛡️  Sumbandila Sentinel: Environment Integrity Check\n');
 
@@ -19,7 +23,9 @@ function checkVersion(cmd, name) {
 // 1. Check Runtimes
 checkVersion('node -v', 'Node.js');
 checkVersion('npm -v', 'npm');
-checkVersion('python --version', 'Python');
+if (!checkVersion('python --version', 'Python')) {
+  checkVersion('py --version', 'Python (py)');
+}
 checkVersion('docker --version', 'Docker');
 
 // 2. Check Git Signing Status
