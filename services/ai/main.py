@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from shared_events.event_bus import EventBus
 from shared_otel.tracing import setup_otel
 from datetime import datetime
+from fraud_model import predict_fraud
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -23,8 +24,6 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Sumbandila AI Sentinel (Fraud Detection)", lifespan=lifespan)
 setup_otel(app, "ai-service")
 event_bus = EventBus()
-
-from fraud_model import predict_fraud
 
 def calculate_risk_score(payload: dict) -> float:
     """

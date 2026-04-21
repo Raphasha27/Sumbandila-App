@@ -10,7 +10,11 @@
   "executionEnvironments": [
     {
       "root": "services/core",
-      "extraPaths": ["."]
+      "extraPaths": ["../../packages", "../../"]
+    },
+    {
+      "root": "services/ai",
+      "extraPaths": ["../../packages", "../../"]
     }
   ]
 }
