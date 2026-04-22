@@ -33,6 +33,7 @@
     "react-native-svg": "15.12.1",
     "eslint": "^9.21.0",
     "jspdf": "^4.2.1",
-    "dompurify": "^3.4.0"
+    "dompurify": "^3.4.1",
+    "@xmldom/xmldom": "^0.8.13"
   }
 }
