@@ -35,6 +35,8 @@
     "jspdf": "^4.2.1",
     "dompurify": "^3.4.1",
     "@xmldom/xmldom": "^0.8.13",
+    "lucide-react": "^0.574.0",
+    "lucide-react-native": "^0.574.0",
     "pydantic": ">=2.13.2"
   }
 }
