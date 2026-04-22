@@ -13,6 +13,7 @@ jobs:
   web:
     name: "Web (Lint & Build)"
     runs-on: ubuntu-latest
+    if: false # TODO: Remove this line when billing funds are restored
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js
@@ -30,6 +31,7 @@ jobs:
   backend:
     name: "Backend (${{ matrix.service }})"
     runs-on: ubuntu-latest
+    if: false # TODO: Remove this line when billing funds are restored
     strategy:
       fail-fast: false
       matrix:
@@ -65,6 +67,7 @@ jobs:
   mobile:
     name: "Mobile (Install Check)"
     runs-on: ubuntu-latest
+    if: false # TODO: Remove this line when billing funds are restored
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js
