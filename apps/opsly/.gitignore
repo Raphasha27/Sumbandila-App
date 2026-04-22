@@ -30,3 +30,8 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# local tools
+/node_portable/
+*.tsbuildinfo
+node_check.json
