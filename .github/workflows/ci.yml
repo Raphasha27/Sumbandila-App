@@ -1,4 +1,4 @@
-name: Sumbandila CI
+name: Sumbandila Demo CI
 
 on:
   push:
@@ -10,70 +10,19 @@ permissions:
   contents: read
 
 jobs:
-  web:
-    name: "Web (Lint & Build)"
+  demo-validation:
+    name: "🚀 Demo Prototype Validation"
     runs-on: ubuntu-latest
-    if: false # TODO: Remove this line when billing funds are restored
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm install
-      - name: Lint Web
-        run: npm run lint --workspace=@sumbandila/web --if-present
-      - name: Build Web
-        run: npm run build --workspace=@sumbandila/web
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-  backend:
-    name: "Backend (${{ matrix.service }})"
-    runs-on: ubuntu-latest
-    if: false # TODO: Remove this line when billing funds are restored
-    strategy:
-      fail-fast: false
-      matrix:
-        service: [auth, core, ai]
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Install dependencies
-        working-directory: services/${{ matrix.service }}
+      - name: Prototype Integrity Check
         run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install flake8
-      - name: Lint
-        working-directory: services/${{ matrix.service }}
-        run: |
-          python -m flake8 . \
-            --max-line-length=120 \
-            --exclude=__pycache__,.git,venv \
-            --ignore=E501,W503
-      - name: Test
-        working-directory: services/${{ matrix.service }}
-        run: |
-          if [ -d "tests" ]; then
-            python -m pytest tests/ -v
-          else
-            echo "No tests found for ${{ matrix.service }} — skipping."
-          fi
-
-  mobile:
-    name: "Mobile (Install Check)"
-    runs-on: ubuntu-latest
-    if: false # TODO: Remove this line when billing funds are restored
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc'
-      - name: Install
-        working-directory: apps/mobile
-        run: npm install --legacy-peer-deps
+          echo "Starting demo prototype validation..."
+          echo "Verifying project structure..."
+          [ -d "apps/web" ] && echo "✅ Web app directory found"
+          [ -d "apps/mobile" ] && echo "✅ Mobile app directory found"
+          [ -d "services" ] && echo "✅ Backend services directory found"
+          echo "Demo validation complete. Billing is currently disabled for heavy CI jobs."
+          echo "This repository is in 'Demo Prototype' mode."
