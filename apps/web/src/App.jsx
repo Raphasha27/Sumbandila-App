@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ShieldCheck,
@@ -72,6 +72,8 @@ const OfficialBanner = () => (
 );
 
 export default function App() {
+  const certBlockId = useMemo(() => Math.random().toString(36).substring(2, 11).toUpperCase(), []);
+
   const {
     user, setUser,
     searchQuery, setSearchQuery,
@@ -525,7 +527,7 @@ export default function App() {
                     <CheckCircle2 size={24} strokeWidth={3} />
                     <span style={{ fontSize: '14px', fontWeight: 900 }}>DIGITALLY AUTHENTICATED</span>
                   </div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700, fontFamily: 'monospace', letterSpacing: '1px' }}>CERT_BLOCK_ID: {Math.random().toString(36).substring(2, 11).toUpperCase()}_ZA_SENTINEL</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700, fontFamily: 'monospace', letterSpacing: '1px' }}>CERT_BLOCK_ID: {certBlockId}_ZA_SENTINEL</div>
                 </div>
               </div>
 
