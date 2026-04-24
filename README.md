@@ -6,11 +6,8 @@
 
 *Building Africa's digital trust layer through AI-driven fraud detection and Blockchain integrity.*
 
-[![Vercel Deployment](https://img.shields.io/badge/Vercel-Success-3fb950?style=for-the-badge&logo=vercel&labelColor=0d1117)](https://sumbandila-app.vercel.app)
-[![Snyk Security](https://img.shields.io/badge/Snyk-Secure-8241f9?style=for-the-badge&logo=snyk&labelColor=0d1117)](https://snyk.io)
-[![GitHub Advanced Security](https://img.shields.io/badge/GitHub-Advanced%20Security-24292e?style=for-the-badge&logo=github&labelColor=0d1117)](https://github.com/Raphasha27/Sumbandila-App/security)
-[![AI Trust Engine](https://img.shields.io/badge/AI-Forest%20Sentinel-58a6ff?style=for-the-badge&logo=scikit-learn&labelColor=0d1117)](ai/fraud_model.py)
-[![Sovereign Infrastructure](https://img.shields.io/badge/Infrastructure-Sovereign-ffd700?style=for-the-badge&logo=data-guard&labelColor=0d1117)](ARCHITECTURE.md)
+[![GitHub Actions Badge](https://github.com/Raphasha27/Sumbandila-App/actions/workflows/sumbandila-ci.yml/badge.svg)](https://github.com/Raphasha27/Sumbandila-App/actions)
+[![CodeQL Badge](https://github.com/Raphasha27/Sumbandila-App/actions/workflows/codeql.yml/badge.svg)](https://github.com/Raphasha27/Sumbandila-App/actions/workflows/codeql.yml)
 
 ---
 
@@ -110,6 +107,53 @@ Ensure your local quality gate is "Green" before any integration.
 
 *"Sumbandila becomes Africa's digital trust layer."*
 **Expansion Plan:** South Africa 🚀 Namibia 🚀 Botswana 🚀 Kenya 🚀 Pan-African
+
+---
+
+## 🛠️ Setup & Usage
+
+### Prerequisites
+- Node.js 20 LTS
+- Python 3.11+
+- PostgreSQL 15
+
+### Setup
+```bash
+# Install dependencies
+npm install
+
+# Setup backend
+pip install -r requirements.txt
+```
+
+### Run Commands
+```bash
+# Start Web
+npm run dev:web
+
+# Start Backend
+npm run dev:backend
+```
+
+### Build & Test
+```bash
+# Build project
+npm run build
+
+# Run tests
+npm test
+```
+
+## 🔐 Environment Variables
+Refer to [.env.example](.env.example) for required keys. Run `node scripts/check-env.js` to validate your setup.
+
+## 🚀 Deployment
+Deployments are managed via GitHub Actions and triggered on merges to `main`.
+- **Vercel**: Web landing page and dashboard.
+- **Sovereign Cloud**: Backend services.
+
+## 🛡️ Security Policy
+See [SECURITY.md](SECURITY.md) for reporting vulnerabilities. CodeQL and Dependabot are active.
 
 ---
 
