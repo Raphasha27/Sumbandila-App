@@ -17,8 +17,7 @@
     },
     {
       "source": "/(.*)",
-      "destination": "/apps/landing-page/$1",
-      "check": true
+      "destination": "/apps/landing-page/$1"
     }
   ],
   "github": {
