@@ -32,12 +32,14 @@ Alternatively, you can email our security team directly:
 The Sumbandila Platform is engineered for **High Integrity** and **Digital Sovereignty**. We implement a multi-layered security stack to protect national-scale data.
 
 ### 🍱 Core Protections
+
 - **End-to-End Encryption**: All sensitive data is encrypted at rest (AES-256) and in transit (TLS 1.3).
 - **Blockchain Hashing**: Credential fingerprints are stored as SHA-256 hashes in a tamper-proof block-based vault to ensure data integrity without exposing private PII.
 - **Distributed Rate Limiting**: Powered by **FlowSentinel**, our API gateway prevents brute-force institutional lookups via Redis-backed sliding window algorithms.
 - **AI Fraud Shield**: Real-time identification of "Ghost Entities" and spoofing attempts through the Sentinel Random Forest model.
 
 ### 🔬 Automated Audits
+
 - **Local Sentinel**: Every commit is scanned for secrets and linted for security anti-patterns using `scripts/security-audit.ps1`.
 - **Dependency Scanning**: Continuous monitoring of third-party packages via GitHub Advanced Security and Snyk.
 
