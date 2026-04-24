@@ -57,17 +57,15 @@ jobs:
     needs: sentinel-security-gate
     steps:
       - name: Checkout Repository
-        if: ${{ secrets.SNYK_TOKEN != '' }}
         uses: actions/checkout@v4
 
       - name: Run Snyk to check for Python vulnerabilities
-        if: ${{ secrets.SNYK_TOKEN != '' }}
         uses: snyk/actions/python@master
         continue-on-error: true
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --severity-threshold=high
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN || '' }}
 
   # ─────────────────────────────────────────────────────────────
   # PILLAR 2: AI Model Integrity Test
