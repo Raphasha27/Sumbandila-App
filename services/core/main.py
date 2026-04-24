@@ -1,6 +1,5 @@
 from fastapi import FastAPI, Query, HTTPException, Request # type: ignore
-from pydantic import BaseModel, validator # type: ignore
-from typing import List, Optional
+from pydantic import BaseModel, field_validator # type: ignore
 import uvicorn # type: ignore
 import re
 
@@ -48,7 +47,7 @@ def read_root():
 class VerificationRequest(BaseModel):
     query: str
 
-    @validator('query')
+    @field_validator('query')
     def sanitize_query(cls, v):
         # Prevent SQL injection or malicious patterns
         if re.search(r'[;\'\"--]', v):
