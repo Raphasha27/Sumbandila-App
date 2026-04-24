@@ -28,15 +28,14 @@
   },
   "overrides": {
     "tar": "^6.2.1",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-native-svg": "15.12.1",
     "eslint": "^9.21.0",
     "jspdf": "^4.2.1",
     "dompurify": "^3.4.1",
     "@xmldom/xmldom": "^0.8.13",
     "lucide-react": "^0.574.0",
-    "lucide-react-native": "^0.574.0",
-    "pydantic": ">=2.13.2"
+    "lucide-react-native": "^0.574.0"
   }
 }

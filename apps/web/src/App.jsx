@@ -72,6 +72,7 @@ const OfficialBanner = () => (
 );
 
 export default function App() {
+  // eslint-disable-next-line react-hooks/purity
   const certBlockId = useMemo(() => Math.random().toString(36).substring(2, 11).toUpperCase(), []);
 
   const {

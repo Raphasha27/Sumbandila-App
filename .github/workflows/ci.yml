@@ -2,9 +2,10 @@ name: Sumbandila Enterprise CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ master ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   integrity:
