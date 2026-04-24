@@ -3,10 +3,7 @@
   "name": "sumbandila-app",
   "cleanUrls": true,
   "trailingSlash": false,
-  "framework": null,
   "outputDirectory": ".",
-  "buildCommand": "echo 'Skipping build'",
-  "installCommand": "echo 'Skipping install'",
   "rewrites": [
     {
       "source": "/",
