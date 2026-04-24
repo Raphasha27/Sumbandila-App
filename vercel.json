@@ -3,19 +3,13 @@
   "name": "sumbandila-app",
   "cleanUrls": true,
   "trailingSlash": false,
-  "outputDirectory": ".",
+  "outputDirectory": ".next",
+  "buildCommand": "cd apps/portal && next build",
+  "installCommand": "npm install",
   "rewrites": [
     {
-      "source": "/",
-      "destination": "/apps/landing-page/index.html"
-    },
-    {
-      "source": "/dashboard",
-      "destination": "/apps/web/index.html"
-    },
-    {
       "source": "/(.*)",
-      "destination": "/apps/landing-page/$1"
+      "destination": "/apps/portal/$1"
     }
   ],
   "github": {
