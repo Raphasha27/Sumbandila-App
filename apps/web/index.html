@@ -120,9 +120,11 @@
             <p style="color: #8b949e">Enter a name or HPCSA/LPC registration number to verify status.</p>
             
             <div class="search-box">
-                <input type="text" placeholder="Search professionals or institutions...">
-                <button class="btn">Verify</button>
+                <input type="text" id="search-input" placeholder="Search professionals or institutions...">
+                <button class="btn" id="verify-btn" onclick="handleVerification()">Verify</button>
             </div>
+
+            <div id="error-message" style="display: none; background: rgba(255, 69, 58, 0.1); border: 1px solid rgba(255, 69, 58, 0.3); color: #ff453a; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;"></div>
 
             <div class="card" id="result-card">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -141,15 +143,376 @@
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
                     <div>
                         <p style="color: #8b949e">Status</p>
-                        <p style="color: #3fb950; font-weight: 800">✓ ACTVE & REGISTERED</p>
+                        <p style="color: #3fb950; font-weight: 800">✓ ACTIVE & REGISTERED</p>
                     </div>
                     <div>
                         <p style="color: #8b949e">Authority</p>
                         <p>HPCSA (Medical Council)</p>
                     </div>
                 </div>
+
+                <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                    <button class="btn" onclick="downloadCertificate()" style="background: #3fb950;">📄 Download Certificate PDF</button>
+                    <button class="btn" onclick="downloadReceipt()" style="background: var(--accent);">🎫 Download Receipt</button>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Load jsPDF and DOMPurify from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.4.0/purify.min.js"></script>
+    
+    <script>
+        // Certificate data store
+        let currentCertificate = null;
+
+        /**
+         * Sanitize user input using DOMPurify
+         */
+        function sanitizeInput(input) {
+            return DOMPurify.sanitize(input, {
+                ALLOWED_TAGS: [],
+                ALLOWED_ATTR: [],
+                KEEP_CONTENT: true
+            }).trim();
+        }
+
+        /**
+         * Validate and sanitize search query
+         */
+        function validateSearchQuery(query) {
+            const sanitized = sanitizeInput(query);
+            
+            if (!sanitized) {
+                return { valid: false, error: 'Please enter a search query' };
+            }
+
+            // Check for malicious patterns
+            const maliciousPatterns = [
+                /[;\'\"--]/,
+                /<script/i,
+                /javascript:/i,
+                /on\w+=/i
+            ];
+
+            for (const pattern of maliciousPatterns) {
+                if (pattern.test(query)) {
+                    return { valid: false, error: 'Invalid characters detected in search query' };
+                }
+            }
+
+            if (sanitized.length > 200) {
+                return { valid: false, error: 'Search query too long (max 200 characters)' };
+            }
+
+            return { valid: true, sanitized };
+        }
+
+        /**
+         * Show error message
+         */
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        /**
+         * Handle verification button click
+         */
+        function handleVerification() {
+            const searchInput = document.getElementById('search-input');
+            const rawQuery = searchInput.value;
+
+            // Sanitize and validate input
+            const validation = validateSearchQuery(rawQuery);
+            
+            if (!validation.valid) {
+                showError(validation.error);
+                return;
+            }
+
+            // Use sanitized query
+            const query = validation.sanitized;
+            console.log('Searching for:', query);
+            
+            // Here you would typically make an API call
+            // For now, we'll use the mock data
+            if (query.toLowerCase().includes('jane smith')) {
+                showResultCard();
+            } else {
+                showError('No results found for: ' + query);
+            }
+        }
+
+        /**
+         * Show result card
+         */
+        function showResultCard() {
+            const resultCard = document.getElementById('result-card');
+            resultCard.style.display = 'block';
+            
+            // Store certificate data for PDF generation
+            currentCertificate = {
+                certificate_id: 'CERT-7F92E3A1B8C4',
+                issued_to: 'Dr Jane Smith',
+                registration: 'HPCSA-12345',
+                timestamp: new Date().toISOString(),
+                blockchain_fingerprint: '0x7f92e3a1b8c4d2e6f0a9b3c5d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6',
+                sentinel_signature: '0x8a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b',
+                official_url: 'https://sumbandila.gov.za/verify/7F92E3A1B8C4',
+                profession: 'Licensed General Practitioner',
+                authority: 'HPCSA (Medical Council)',
+                status: 'Active & Registered'
+            };
+        }
+
+        /**
+         * Download certificate as PDF
+         */
+        function downloadCertificate() {
+            if (!currentCertificate) {
+                showError('No certificate data available. Please verify first.');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const margin = 20;
+            const contentWidth = pageWidth - (margin * 2);
+
+            // Background
+            doc.setFillColor(255, 255, 255);
+            doc.rect(0, 0, pageWidth, pageHeight, 'F');
+
+            // Border
+            doc.setDrawColor(0, 45, 98);
+            doc.setLineWidth(2);
+            doc.rect(margin, margin, contentWidth, pageHeight - (margin * 2));
+
+            // Inner border
+            doc.setLineWidth(0.5);
+            doc.rect(margin + 3, margin + 3, contentWidth - 6, pageHeight - (margin * 2) - 6);
+
+            // Watermark
+            doc.setTextColor(88, 166, 255, 0.05);
+            doc.setFontSize(80);
+            doc.setFont('helvetica', 'bold');
+            doc.text('SENTINEL', pageWidth / 2, pageHeight / 2, {
+                align: 'center',
+                angle: 45
+            });
+
+            // Header
+            doc.setTextColor(0, 45, 98);
+            doc.setFontSize(28);
+            doc.setFont('helvetica', 'bold');
+            doc.text('SUMBANDILA', pageWidth / 2, margin + 25, { align: 'center' });
+
+            doc.setTextColor(139, 148, 158);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Sovereign Registry Certificate', pageWidth / 2, margin + 35, { align: 'center' });
+
+            // Status Badge
+            const statusY = margin + 50;
+            doc.setFillColor(63, 185, 80, 0.1);
+            doc.roundedRect(pageWidth / 2 - 40, statusY - 5, 80, 12, 3, 3, 'F');
+            doc.setTextColor(63, 185, 80);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('✓ VERIFIED & REGISTERED', pageWidth / 2, statusY + 2, { align: 'center' });
+
+            // Content
+            let currentY = margin + 75;
+
+            doc.setTextColor(36, 41, 46);
+            doc.setFontSize(24);
+            doc.setFont('helvetica', 'bold');
+            doc.text(currentCertificate.issued_to, pageWidth / 2, currentY, { align: 'center' });
+            currentY += 10;
+
+            doc.setTextColor(88, 166, 255);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text(currentCertificate.profession, pageWidth / 2, currentY, { align: 'center' });
+            currentY += 8;
+
+            doc.setTextColor(139, 148, 158);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            doc.text(currentCertificate.authority, pageWidth / 2, currentY, { align: 'center' });
+            currentY += 15;
+
+            // Description
+            doc.setTextColor(36, 41, 46);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            const description = 'This certificate serves as digital proof that the individual listed above is currently in good standing with the National Sovereignty Registry of South Africa.';
+            const descLines = doc.splitTextToSize(description, contentWidth - 20);
+            doc.text(descLines, pageWidth / 2, currentY, { align: 'center' });
+            currentY += descLines.length * 6 + 10;
+
+            // Blockchain Hash
+            doc.setFillColor(246, 248, 250);
+            doc.roundedRect(margin + 10, currentY, contentWidth - 20, 25, 3, 3, 'F');
+            
+            doc.setTextColor(139, 148, 158);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'bold');
+            doc.text('BLOCKCHAIN INTEGRITY HASH', margin + 15, currentY + 7);
+            
+            doc.setTextColor(36, 41, 46);
+            doc.setFontSize(9);
+            doc.setFont('courier', 'normal');
+            const hashText = currentCertificate.blockchain_fingerprint;
+            const hashLines = doc.splitTextToSize(hashText, contentWidth - 30);
+            doc.text(hashLines, margin + 15, currentY + 14);
+            currentY += 35;
+
+            // Certificate Details
+            doc.setTextColor(139, 148, 158);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Certificate ID:', margin + 15, currentY);
+            doc.text('Issued:', margin + 15 + (contentWidth / 2), currentY);
+
+            doc.setTextColor(36, 41, 46);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.text(currentCertificate.certificate_id, margin + 15, currentY + 6);
+            doc.text(new Date(currentCertificate.timestamp).toLocaleDateString('en-ZA', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            }), margin + 15 + (contentWidth / 2), currentY + 6);
+
+            currentY += 20;
+
+            // Sentinel Signature
+            doc.setFillColor(246, 248, 250);
+            doc.roundedRect(margin + 10, currentY, contentWidth - 20, 20, 3, 3, 'F');
+            
+            doc.setTextColor(139, 148, 158);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'bold');
+            doc.text('SENTINEL SIGNATURE', margin + 15, currentY + 7);
+            
+            doc.setTextColor(36, 41, 46);
+            doc.setFontSize(8);
+            doc.setFont('courier', 'normal');
+            doc.text(currentCertificate.sentinel_signature, margin + 15, currentY + 14);
+
+            // Footer
+            const footerY = pageHeight - margin - 20;
+            doc.setDrawColor(225, 228, 232);
+            doc.setLineWidth(0.5);
+            doc.line(margin + 10, footerY, pageWidth - margin - 10, footerY);
+
+            doc.setTextColor(139, 148, 158);
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Verification URL: ${currentCertificate.official_url}`, pageWidth / 2, footerY + 8, { align: 'center' });
+            doc.text('© 2026 Sumbandila Registry Sentinel | Sovereign Digital Trust Platform', pageWidth / 2, footerY + 14, { align: 'center' });
+
+            // Save
+            const fileName = `Sumbandila_Certificate_${currentCertificate.certificate_id}.pdf`;
+            doc.save(fileName);
+        }
+
+        /**
+         * Download verification receipt
+         */
+        function downloadReceipt() {
+            if (!currentCertificate) {
+                showError('No certificate data available. Please verify first.');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: [80, 120]
+            });
+
+            const width = doc.internal.pageSize.getWidth();
+            let y = 10;
+
+            // Header
+            doc.setFillColor(0, 45, 98);
+            doc.rect(0, 0, width, 20, 'F');
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('SUMBANDILA', width / 2, y + 5, { align: 'center' });
+            
+            doc.setFontSize(8);
+            doc.text('Verification Receipt', width / 2, y + 11, { align: 'center' });
+
+            y = 30;
+
+            doc.setTextColor(36, 41, 46);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Verified Entity:', 5, y);
+            y += 6;
+            
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(12);
+            doc.text(currentCertificate.issued_to, 5, y);
+            y += 8;
+
+            doc.setFontSize(9);
+            doc.setTextColor(139, 148, 158);
+            doc.text(`Registration: ${currentCertificate.registration}`, 5, y);
+            y += 6;
+            doc.text('Trust Score: 98%', 5, y);
+            y += 6;
+            doc.text(`Verified: ${new Date(currentCertificate.timestamp).toLocaleString()}`, 5, y);
+            y += 10;
+
+            // Hash
+            doc.setFillColor(246, 248, 250);
+            doc.rect(5, y, width - 10, 15, 'F');
+            doc.setFontSize(7);
+            doc.setFont('courier', 'normal');
+            doc.setTextColor(36, 41, 46);
+            const hashLines = doc.splitTextToSize(currentCertificate.blockchain_fingerprint, width - 15);
+            doc.text(hashLines, 7, y + 4);
+
+            y += 20;
+            doc.setFontSize(8);
+            doc.setTextColor(139, 148, 158);
+            doc.text('Scan QR to verify online', width / 2, y, { align: 'center' });
+
+            doc.save(`Verification_Receipt_${currentCertificate.issued_to.replace(/\s+/g, '_')}.pdf`);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide result card initially
+            document.getElementById('result-card').style.display = 'none';
+            
+            // Add enter key support
+            document.getElementById('search-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleVerification();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

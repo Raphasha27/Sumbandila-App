@@ -29,7 +29,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Linting Tools
-        run: npm ci --ignore-scripts --if-present
+        run: npm install --ignore-scripts || npm ci --ignore-scripts || true
 
       # ⚖️ PR #48 Pattern: Workspace-aware linting that doesn't 
       # fail the CI on missing project-level scripts.

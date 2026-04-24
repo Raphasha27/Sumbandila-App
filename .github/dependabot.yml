@@ -1,35 +1,53 @@
 version: 2
 updates:
-  # Maintain dependencies for the root package.json
+  # Root dependencies (npm)
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups:
-      dependencies:
+      npm-dependencies:
         patterns:
           - "*"
 
-  # Maintain dependencies for the Web App
+  # Web App dependencies
   - package-ecosystem: "npm"
     directory: "/apps/web"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+    groups:
+      npm-dependencies:
+        patterns:
+          - "*"
 
-  # Maintain dependencies for the Mobile App (Expo)
+  # Mobile App dependencies
   - package-ecosystem: "npm"
     directory: "/apps/mobile"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+    groups:
+      npm-dependencies:
+        patterns:
+          - "*"
 
-  # Maintain dependencies for the Backend (Python)
+  # Python dependencies (root)
   - package-ecosystem: "pip"
-    directory: "/services/core"
+    directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"
 
-  # GitHub Actions updates
+  # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+

@@ -20,7 +20,7 @@
     }
   ],
   "github": {
-    "silent": false,
+    "silent": true,
     "enabled": true
   }
 }

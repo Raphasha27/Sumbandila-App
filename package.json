@@ -22,6 +22,8 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "jspdf": "^4.2.1",
+    "dompurify": "^3.4.0"
   }
 }
