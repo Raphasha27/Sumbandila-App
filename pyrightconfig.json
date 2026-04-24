@@ -1,0 +1,26 @@
+{
+  "venvPath": ".",
+  "venv": ".venv",
+  "include": [
+    "services/core",
+    "ai",
+    "tests",
+    "packages"
+  ],
+  "executionEnvironments": [
+    {
+      "root": "services/core"
+    },
+    {
+      "root": "ai"
+    },
+    {
+      "root": "tests"
+    },
+    {
+      "root": "packages/core_logic"
+    }
+  ],
+  "reportMissingImports": "none",
+  "reportMissingModuleSource": "none"
+}

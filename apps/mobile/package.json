@@ -1,0 +1,30 @@
+{
+  "name": "@sumbandila/mobile",
+  "version": "4.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "lint": "eslint src --ext .ts,.tsx --fix-dry-run"
+  },
+  "dependencies": {
+    "expo": "~53.0.0",
+    "expo-linear-gradient": "~55.0.13",
+    "expo-status-bar": "~2.2.3",
+    "react": "18.3.2",
+    "react-native": "0.76.7",
+    "react-native-safe-area-context": "5.7.0",
+    "react-native-screens": "~4.4.0",
+    "@react-navigation/native": "7.2.2",
+    "@supabase/supabase-js": "^2.103.0",
+    "lucide-react-native": "^0.574.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@types/react": "~18.3.12",
+    "typescript": "^5.3.3"
+  }
+}

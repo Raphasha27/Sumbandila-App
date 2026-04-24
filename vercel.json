@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "name": "sumbandila-app",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/apps/landing-page/index.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/apps/web/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/apps/landing-page/$1",
+      "check": true
+    }
+  ],
+  "github": {
+    "silent": false,
+    "enabled": true
+  }
+}

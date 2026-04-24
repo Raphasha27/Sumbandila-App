@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sumbandila — Digital Trust Platform</title>
+    <meta name="description" content="Verify institutions and professionals instantly with South Africa's leading digital trust registry.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002D62; /* Sovereign Blue */
+            --primary-light: #005571;
+            --secondary: #002D62;
+            --bg: #0d1117;
+            --surface: rgba(22, 27, 34, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #f0f6fc;
+            --text-dim: #8b949e;
+            --accent: #FFD700; /* Gold */
+            --success: #3fb950;
+            --error: #ff453a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(88, 166, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(110, 64, 201, 0.05) 0%, transparent 40%);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 10%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--accent), #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            border: 1px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(0, 45, 98, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 45, 98, 0.4);
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        section {
+            padding: 8rem 10% 4rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-graphics {
+            margin-top: 4rem;
+            position: relative;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .floating-card {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 24px;
+            width: 320px;
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .status-badge {
+            background: rgba(46, 160, 67, 0.15);
+            color: #3fb950;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .trust-score {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 1rem 0;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        footer {
+            padding: 4rem 10%;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-dim);
+        }
+
+        /* Micro-animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    
+    <nav>
+        <div class="logo-container" style="display: flex; align-items: center; gap: 0.5rem;">
+            <img src="assets/logo.png" alt="Sumbandila Logo" style="height: 40px; border-radius: 8px;">
+            <div class="logo">SUMBANDILA</div>
+        </div>
+        <div class="nav-links">
+            <a href="#features">Capabilities</a>
+            <a href="#security">Security</a>
+            <a href="#verify">Verify Now</a>
+        </div>
+        <a href="#" class="btn btn-primary">Citizen Portal</a>
+    </nav>
+
+    <section class="hero">
+        <h1 class="reveal active">Building Africa's <br><span style="color: var(--primary)">Digital Trust</span> Layer.</h1>
+        <p class="reveal active">Verify institutions, medical professionals, and legal practitioners instantly with our AI-powered sovereign registry.</p>
+        <div class="reveal active">
+            <a href="#" class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.1rem;">Launch Registry</a>
+        </div>
+
+        <div class="hero-graphics reveal active">
+            <div class="floating-card" style="left: 10%; animation-delay: 0s;">
+                <span class="status-badge">✓ REGISTERED</span>
+                <h3>Damelin College</h3>
+                <div class="trust-score">98%</div>
+                <p style="font-size: 0.9rem">DHET Accredited | SAQA ID: 19283</p>
+                <div style="margin-top: 1.5rem; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                    <div style="width: 98%; height: 100%; background: var(--accent); border-radius: 2px;"></div>
+                </div>
+            </div>
+
+            <div class="floating-card" style="right: 10%; animation-delay: -3s; background: rgba(255, 69, 58, 0.05); border-color: rgba(255, 69, 58, 0.2);">
+                <span class="status-badge" style="background: rgba(255, 69, 58, 0.15); color: #ff453a;">⚠ WARNING</span>
+                <h3>Unregistered Inst.</h3>
+                <div class="trust-score" style="color: #ff453a;">12%</div>
+                <p style="font-size: 0.9rem">Fraudulent Registry Detected</p>
+                <div style="margin-top: 1.5rem; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                    <div style="width: 12%; height: 100%; background: #ff453a; border-radius: 2px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="reveal">
+        <h2 style="font-size: 2.5rem; margin-bottom: 3rem; text-align: center;">Government-Grade Capabilities</h2>
+        <div class="features">
+            <div class="feature-card">
+                <span class="feature-icon">🤖</span>
+                <h3>AI Fraud Detection</h3>
+                <p>Advanced machine learning models identify risk patterns and ghost institutions before they can cause harm.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">⛓️</span>
+                <h3>Blockchain Hashing</h3>
+                <p>Every certificate and registration is etched onto the blockchain, creating a permanent, tamper-proof record of truth.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🇿🇦</span>
+                <h3>5-Language Voice Reports</h3>
+                <p>Report fraud in your native tongue via our AI-native voice processing vault. Supporting English, Zulu, and more.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Sumbandila Registry Sentinel. All rights reserved.</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">Powered by Kirov Dynamics Technology • Built for National Integrity</p>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

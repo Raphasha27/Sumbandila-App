@@ -1,0 +1,41 @@
+name: 🛡️ Sumbandila CI
+
+on:
+  push:
+    branches: [ main, feature/* ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  web:
+    name: 🌐 Web (Lint & Build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install & Lint
+        run: |
+          echo "Linting web..."
+          # npm install && npm run lint --workspace=@sumbandila/web
+
+  backend:
+    name: 🐍 Backend (Lint & Health Check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Lint & Health
+        run: |
+          pip install fastapi uvicorn
+          python services/core/main.py --health-check
+
+  mobile:
+    name: 📱 Mobile (Install Check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Expo
+        run: |
+          echo "Checking mobile integrity..."

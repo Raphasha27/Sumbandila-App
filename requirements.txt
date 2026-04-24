@@ -1,0 +1,13 @@
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.2.0
+joblib>=1.2.0
+fastapi>=0.95.0
+uvicorn>=0.22.0
+pydantic>=1.10.0
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.0
+python-multipart>=0.0.6
+jose>=1.0.0
+passlib>=1.7.4
+argon2-cffi>=21.3.0

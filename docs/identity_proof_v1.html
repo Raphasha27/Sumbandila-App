@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sumbandila — Digital Identity Proof</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f4f7f6; display: flex; justify-content: center; padding: 50px; }
+        .cert { background: #fff; width: 600px; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative; border: 1px solid #e1e4e8; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .logo { font-size: 24px; font-weight: 800; color: #58a6ff; letter-spacing: -1px; }
+        .title { font-size: 18px; color: #8b949e; margin-top: 5px; }
+        .content { margin-top: 40px; }
+        .name { font-size: 28px; font-weight: 700; color: #24292e; margin-bottom: 5px; }
+        .profession { font-size: 16px; color: #58a6ff; font-weight: 600; margin-bottom: 20px; }
+        .status { padding: 8px 15px; background: rgba(63, 185, 80, 0.1); color: #3fb950; display: inline-block; border-radius: 5px; font-weight: 700; font-size: 14px; }
+        .footer { margin-top: 50px; border-top: 1px solid #e1e4e8; pt: 20px; font-size: 12px; color: #8b949e; }
+        .fingerprint { font-family: monospace; color: #24292e; background: #f6f8fa; padding: 10px; border-radius: 5px; margin-top: 10px; word-break: break-all; }
+        .watermark { position: absolute; top: 10%; right: -20px; font-size: 100px; color: rgba(88, 166, 255, 0.05); transform: rotate(45deg); pointer-events: none; }
+    </style>
+</head>
+<body>
+    <div class="cert">
+        <div class="watermark">SENTINEL</div>
+        <div class="header">
+            <div class="logo">SUMBANDILA</div>
+            <div class="title">Sovereign Registry Proof</div>
+        </div>
+        
+        <div class="content">
+            <div class="status">✓ VERIFIED & REGISTERED</div>
+            <div class="name">Dr Jane Smith</div>
+            <div class="profession">Licensed Medical Practitioner (HPCSA)</div>
+            
+            <p style="font-size: 14px; color: #24292e;">This document serves as digital proof that the individual listed above is currently in good standing with the National Sovereignty Registry of South Africa.</p>
+            
+            <div style="margin-top: 30px;">
+                <div style="font-size: 12px; font-weight: 600; color: #8b949e;">BLOCKCHAIN INTEGRITY HASH</div>
+                <div class="fingerprint">0x7f92e3a1b8c4d2e6f0a9b3c5d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Verification ID: SENT-2026-X83J2 | Issued: April 15, 2026</p>
+            <p>Verification URL: https://sumbandila.gov.za/verify/JaneSmith</p>
+        </div>
+    </div>
+</body>
+</html>

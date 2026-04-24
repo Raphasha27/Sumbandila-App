@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # FastAPI V4 Backend
+  backend:
+    build:
+      context: .
+      dockerfile: services/core/Dockerfile
+    ports:
+      - "8000:8000"
+    env_file: .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - sumbandila-net
+
+  # AI Fraud Strategy Service (Optional worker)
+  ai-agent:
+    build:
+      context: .
+      dockerfile: ai/Dockerfile
+    volumes:
+      - ./ai:/app/ai
+      - ./data:/app/data
+    networks:
+      - sumbandila-net
+
+  # PostgreSQL - Government-Grade Registry
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin_password
+      POSTGRES_DB: sumbandila
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - sumbandila-net
+
+  # Redis - Fast Query Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - sumbandila-net
+
+networks:
+  sumbandila-net:
+    driver: bridge
+
+volumes:
+  postgres_data:

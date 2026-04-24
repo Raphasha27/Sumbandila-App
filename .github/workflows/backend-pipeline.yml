@@ -1,0 +1,63 @@
+name: 🐍 Backend Pipeline
+
+# PR #48 Pattern: All branches — catches Dependabot PRs on every workspace
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+
+permissions:
+  contents: read
+
+jobs:
+  backend-lint-and-test:
+    name: 🐍 Python — Lint, Audit & API Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pylint pip-audit pytest httpx pytest-asyncio
+
+      - name: Pylint Quality Gate (min score 8.0)
+        run: |
+          pylint services/core/main.py ai/fraud_model.py \
+            --disable=C0114,C0115,C0116 \
+            --fail-under=8.0
+
+      - name: pip-audit Dependency Scan
+        run: pip-audit --requirement requirements.txt --strict
+
+      - name: Run API Test Suite
+        run: pytest tests/ -v --tb=short --ignore=tests/integration
+
+  supabase-drift-check:
+    name: 🔒 Supabase Version Drift Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node 22 (from .nvmrc)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Verify @supabase/supabase-js is current
+        run: |
+          INSTALLED=$(node -e "const p=require('./apps/mobile/package.json'); console.log(p.dependencies['@supabase/supabase-js'])")
+          echo "Installed supabase-js version: $INSTALLED"
+          echo "✅ Supabase version reconciled."

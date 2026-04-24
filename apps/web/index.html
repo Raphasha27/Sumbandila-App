@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sumbandila — Sentinel Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #58a6ff;
+            --bg: #0d1117;
+            --surface: rgba(22, 27, 34, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #f0f6fc;
+            --accent: #FF9D00;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(22, 27, 34, 0.95);
+            border-right: 1px solid var(--border);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main {
+            flex: 1;
+            padding: 3rem;
+            overflow-y: auto;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        input {
+            background: transparent;
+            border: none;
+            color: white;
+            flex: 1;
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .trust-badge {
+            background: rgba(255, 157, 0, 0.1);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        .hash-code {
+            font-family: monospace;
+            background: black;
+            padding: 1rem;
+            border-radius: 8px;
+            color: #3fb950;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2 style="font-family: 'Outfit'; color: var(--primary)">SENTINEL</h2>
+        <p style="color: #8b949e; font-size: 0.9rem">Digital Trust Platform</p>
+        <div style="margin-top: 2rem">
+            <div style="margin-bottom: 1rem; font-weight: 600">Verification</div>
+            <div style="margin-bottom: 1rem; opacity: 0.6">History</div>
+            <div style="margin-bottom: 1rem; opacity: 0.6">Risk Reports</div>
+            <div style="margin-bottom: 1rem; opacity: 0.6">Admin Pool</div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="search-container">
+            <h1>Identity Verification</h1>
+            <p style="color: #8b949e">Enter a name or HPCSA/LPC registration number to verify status.</p>
+            
+            <div class="search-box">
+                <input type="text" placeholder="Search professionals or institutions...">
+                <button class="btn">Verify</button>
+            </div>
+
+            <div class="card" id="result-card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <h2 style="margin: 0">Dr Jane Smith</h2>
+                        <p style="color: #8b949e">Licensed General Practitioner</p>
+                    </div>
+                    <div class="trust-badge">TRUST: 98%</div>
+                </div>
+                
+                <hr style="border: none; border-top: 1px solid var(--border); margin: 2rem 0;">
+                
+                <h3>Blockchain Verification Fingerprint</h3>
+                <div class="hash-code">0x7f92e3a1b8c4d2e6f0a9b3c5d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6</div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                    <div>
+                        <p style="color: #8b949e">Status</p>
+                        <p style="color: #3fb950; font-weight: 800">✓ ACTVE & REGISTERED</p>
+                    </div>
+                    <div>
+                        <p style="color: #8b949e">Authority</p>
+                        <p>HPCSA (Medical Council)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

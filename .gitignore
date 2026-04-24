@@ -1,0 +1,73 @@
+# ═══════════════════════════════════════
+# 🛡️ Sumbandila Sovereign .gitignore
+# Pillar 5: Secret & Dependency Hygiene
+# ═══════════════════════════════════════
+
+# ── Secrets & Credentials (NEVER commit these) ──
+.env
+.env.local
+.env.*.local
+.env.production
+*.pem
+*.key
+*.p12
+*.pfx
+*.cer
+*.crt
+creds.json
+credentials.json
+service-account*.json
+*_secret*
+*.secret
+
+# ── Dependency directories ──
+node_modules/
+.pnpm-store/
+.yarn/
+
+# ── Build & Distribution artifacts ──
+dist/
+build/
+.next/
+out/
+*.egg-info/
+*.egg
+*.whl
+*.pyc
+
+# ── Python Virtual Environments ──
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+.Python
+
+# ── AI Model artifacts (keep .pkl out of repo) ──
+*.pkl
+*.model
+*.h5
+ai/fraud_model.pkl
+
+# ── Logs ──
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+logs/
+
+# ── Mobile (Expo / EAS) ──
+.expo/
+*.jks
+*.mobileprovision
+android/app/google-services.json
+ios/GoogleService-Info.plist
+
+# ── OS & Editor junk ──
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/settings.json
