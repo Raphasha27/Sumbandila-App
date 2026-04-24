@@ -1,23 +1,29 @@
 # jspdf & DOMPurify Integration Guide
 
 ## Overview
+
 This guide explains how `jspdf` and `dompurify` have been integrated into the Sumbandila web application.
 
 ## What Was Added
 
 ### 1. Dependencies (package.json)
+
 - **jspdf v4.2.1**: PDF generation library
 - **dompurify v3.4.0**: HTML sanitization library
 
 ### 2. Utility Files
 
 #### `/apps/web/src/utils/certificateGenerator.ts`
+
 TypeScript utility for generating professional PDF certificates:
+
 - `generateCertificatePDF()`: Full A4 certificate with blockchain hash
 - `generateVerificationReceipt()`: Compact receipt format (80x120mm)
 
 #### `/apps/web/src/utils/inputSanitizer.ts`
+
 TypeScript utility for input sanitization:
+
 - `sanitizeInput()`: Basic XSS protection
 - `sanitizeSearchQuery()`: Search-specific validation
 - `sanitizeHTML()`: Safe HTML content rendering
@@ -27,27 +33,32 @@ TypeScript utility for input sanitization:
 ### 3. Web Dashboard Integration (`/apps/web/index.html`)
 
 #### Security Features
+
 ✅ **Input Sanitization**: All user inputs are sanitized with DOMPurify
 ✅ **XSS Protection**: Malicious patterns detected and blocked
 ✅ **SQL Injection Prevention**: Special characters filtered
 ✅ **Length Validation**: Max 200 characters for search queries
 
 #### PDF Generation Features
+
 ✅ **Certificate Download**: Full A4 PDF certificate with:
-  - Sumbandila branding (sovereign blue)
-  - Blockchain integrity hash
-  - Sentinel signature
-  - Verification URL
-  - Professional layout with watermark
+
+- Sumbandila branding (sovereign blue)
+- Blockchain integrity hash
+- Sentinel signature
+- Verification URL
+- Professional layout with watermark
 
 ✅ **Receipt Download**: Compact verification receipt with:
-  - Essential verification details
-  - Blockchain fingerprint
-  - Timestamp and registration info
+
+- Essential verification details
+- Blockchain fingerprint
+- Timestamp and registration info
 
 ## How to Use
 
 ### Installation
+
 ```bash
 npm install
 # or
@@ -57,6 +68,7 @@ yarn install
 ### Testing the Integration
 
 1. **Open the web dashboard**:
+
    ```bash
    npm run dev:web
    ```
@@ -100,6 +112,7 @@ generateCertificatePDF({
 ## Security Benefits
 
 ### DOMPurify Protection
+
 - ✅ Blocks XSS attacks
 - ✅ Removes malicious scripts
 - ✅ Sanitizes HTML content
@@ -107,6 +120,7 @@ generateCertificatePDF({
 - ✅ Prevents injection attacks
 
 ### Input Validation Layers
+
 1. **DOMPurify sanitization**: Removes dangerous HTML/JS
 2. **Pattern matching**: Detects SQL injection attempts
 3. **Length limits**: Prevents buffer overflow attacks
@@ -115,6 +129,7 @@ generateCertificatePDF({
 ## PDF Certificate Features
 
 ### Design Elements
+
 - Professional A4 layout
 - Sumbandila sovereign blue branding
 - SENTINEL watermark
@@ -124,6 +139,7 @@ generateCertificatePDF({
 - Verification URL
 
 ### Certificate Data
+
 - Certificate ID (unique)
 - Issued to (professional name)
 - Registration number
@@ -179,6 +195,7 @@ interface CertificateData {
 }
 
 generateCertificatePDF(data: CertificateData): void
+
 generateVerificationReceipt(data: ReceiptData): void
 ```
 
@@ -186,11 +203,16 @@ generateVerificationReceipt(data: ReceiptData): void
 
 ```typescript
 sanitizeInput(input: string): string
+
 sanitizeSearchQuery(query: string): { sanitized: string; isValid: boolean; error?: string }
+
 sanitizeHTML(html: string): string
+
 sanitizeURL(url: string): { sanitized: string; isValid: boolean }
+
 escapeHTML(text: string): string
 ```
 
 ## License
+
 Part of Sumbandila Digital Trust Platform v4.0
