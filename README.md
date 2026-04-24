@@ -87,12 +87,23 @@ Ensure your local quality gate is "Green" before any integration.
 
 ## 🌍 Vision & Expansion
 
-*"Sumbandila becomes Africa's digital trust layer."*
-**Expansion Plan:** South Africa 🚀 Namibia 🚀 Botswana 🚀 Kenya 🚀 Pan-African
+"Sumbandila becomes Africa's digital trust layer."
 
----
+```mermaid
+journey
+    title Sovereign Expansion Roadmap 2026-2027
+    section Phase 1: Foundation
+      South Africa (Gauteng Hub): 5: Sentinel Core
+      Limpopo Fruit Belt: 4: Agri-Nexus Integration
+    section Phase 2: SADC Scale
+      Namibia: 3: Digital Identity
+      Botswana: 3: Trade Corridors
+    section Phase 3: Pan-African
+      Kenya: 2: Mobile Money Sync
+      Nigeria: 2: Enterprise Registry
+```
 
-## 🛠️ Setup & Usage
+🛠️ Setup & Usage
 
 ### Prerequisites
 
