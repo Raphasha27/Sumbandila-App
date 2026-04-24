@@ -159,6 +159,7 @@ generateCertificatePDF({
 ## Troubleshooting
 
 ### Dependencies not installing
+
 ```bash
 # Clear cache and reinstall
 npm cache clean --force
@@ -167,11 +168,13 @@ npm install
 ```
 
 ### PDF not downloading
+
 - Check browser console for errors
 - Verify jspdf is loaded from CDN
 - Ensure certificate data is populated
 
 ### Sanitization blocking valid input
+
 - Review DOMPurify configuration
 - Adjust allowed tags/attributes
 - Check malicious pattern regex
