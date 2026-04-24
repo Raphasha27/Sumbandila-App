@@ -16,44 +16,24 @@
 The Sumbandila Platform is a professional, high-integrity digital registry designed for the pan-African landscape. It provides citizens and organizations with the tools to verify the legitimacy of institutions and professionals instantly.
 
 ```mermaid
-graph TB
-    subgraph "Public Infrastructure (Vercel)"
-        CP[Citizen Portal]
-        MA[Mobile App]
-    end
-
-    subgraph "Sovereign Trust Layer (Kirov Dynamics)"
-        GW[Sumbandila Gateway]
-        RE[Sentinel Reputation Engine]
-        
-        subgraph "Intelligence Core"
-            FM[AI Fraud Sentinel - RandomForest]
-            BV[Blockchain Vault - SHA-256]
-        end
-        
-        subgraph "Data Persistence"
-            DB[(PostgreSQL Primary)]
-            RD[Redis Distributed Cache]
-        end
-    end
-
-    CP & MA -->|JWT Authenticated| GW
-    GW --> RE
-    RE -->|Inference| FM
-    RE -->|Integrity Check| BV
-    RE --> DB
-    RE --> RD
+graph TD
+    User((Citizen/Entity)) -->|Verification Request| NextJS[Next.js Portal]
+    NextJS -->|API Call| FastAPI[FastAPI Sentinel Core]
+    FastAPI -->|Predictive Scoring| AI[Neural Sentinel - TensorFlow]
+    FastAPI -->|Audit Logs| DB[(PostgreSQL 15)]
+    AI -->|Fraud Risk| FastAPI
+    FastAPI -->|Signed Certificate| User
 ```
 
 ## 🚀 Key Capabilities
 
 | Capability | Sentinel Feature | Tech Stack |
 | :--- | :--- | :--- |
-| **Identity Verification** | Instant lookup of HPCSA, DHET, & SAQA data. | **FastAPI V4** |
-| **Fraud Detection** | AI identification of risk patterns & ghost entities. | **Scikit-Learn** |
-| **Credential Hashing** | Tamper-proof SHA-256 blockchain fingerprints. | **Sovereign Logic** |
-| **Multilingual Support** | Voice and text reporting in 5 native languages. | **Python Voice Engine** |
-| **High Integrity** | Block-based audit logs for every verification. | **PostgreSQL 15** |
+| **Identity Verification** | Instant lookup of HPCSA, DHET, & SAQA data. | FastAPI V4 / Pydantic |
+| **Neural Fraud Detection** | Deep Learning risk analysis & ghost detection. | TensorFlow / Keras |
+| **Credential Hashing** | Tamper-proof SHA-256 blockchain fingerprints. | Sovereign Logic |
+| **Regional Analytics** | Provincial trust distribution & growth insights. | Pandas / Matplotlib |
+| **High Integrity** | Block-based audit logs for every verification. | PostgreSQL 15 |
 
 ---
 
@@ -62,14 +42,15 @@ graph TB
 ```bash
 sumbandila/
 ├── apps/
-│   ├── landing-page/     # Premium Portal (Commercial Front-end)
-│   └── web/              # Sentinel Dashboard (Internal Interaction)
+│   └── portal/           # Premium Next.js Portal (Consolidated)
 ├── services/
 │   └── core/             # FastAPI V4 Backend (API & Security)
 ├── packages/
 │   └── core-logic/       # Blockchain, Reputation, & Voice Engines
 ├── ai/
-│   └── fraud_model.py    # ML Fraud Detection (RandomForest)
+│   ├── fraud_model.py    # ML Fraud Detection (RandomForest)
+│   ├── neural_sentinel.py# Deep Learning (TensorFlow)
+│   └── analytics_hub.py  # Data Insights (Pandas)
 ├── tests/                # 100% Green Unit Test Suite
 └── scripts/              # Local Sentinel & Security Audits
 ```
@@ -106,12 +87,23 @@ Ensure your local quality gate is "Green" before any integration.
 
 ## 🌍 Vision & Expansion
 
-*"Sumbandila becomes Africa's digital trust layer."*
-**Expansion Plan:** South Africa 🚀 Namibia 🚀 Botswana 🚀 Kenya 🚀 Pan-African
+"Sumbandila becomes Africa's digital trust layer."
 
----
+```mermaid
+journey
+    title Sovereign Expansion Roadmap 2026-2027
+    section Phase 1: Foundation
+      South Africa (Gauteng Hub): 5: Sentinel Core
+      Limpopo Fruit Belt: 4: Agri-Nexus Integration
+    section Phase 2: SADC Scale
+      Namibia: 3: Digital Identity
+      Botswana: 3: Trade Corridors
+    section Phase 3: Pan-African
+      Kenya: 2: Mobile Money Sync
+      Nigeria: 2: Enterprise Registry
+```
 
-## 🛠️ Setup & Usage
+🛠️ Setup & Usage
 
 ### Prerequisites
 
