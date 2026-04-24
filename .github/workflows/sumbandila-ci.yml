@@ -64,8 +64,6 @@ jobs:
         continue-on-error: true
         with:
           args: --severity-threshold=high
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN || '' }}
 
   # ─────────────────────────────────────────────────────────────
   # PILLAR 2: AI Model Integrity Test
