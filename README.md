@@ -79,9 +79,10 @@ sumbandila/
 - **Rate Limiting**: Protected against DoS via `SlowAPI` (5 req/min/IP).
 - **Input Sanitization**: Deep Pydantic validation and regex sanitization.
 - **Secret Sentinel**: Automated repository auditing via `security-audit.ps1`.
+
 ### 🛡️ Sentinel-AI Governance [DEVOPS v4.0]
 
-This repository has transitioned from legacy **ChatGPT Codex** connectors to the **Sentinel-AI (Antigravity)** governance suite. 
+This repository has transitioned from legacy **ChatGPT Codex** connectors to the **Sentinel-AI (Antigravity)** governance suite.
 
 - **Unified Intelligence**: Automated PR reviews and clinical code audits handled by the Sentinel-AI layer.
 - **Node v22 Runtime**: Aligned with Vercel edge runtime for zero-drift deployments.
@@ -113,11 +114,13 @@ Ensure your local quality gate is "Green" before any integration.
 ## 🛠️ Setup & Usage
 
 ### Prerequisites
+
 - Node.js 20 LTS
 - Python 3.11+
 - PostgreSQL 15
 
 ### Setup
+
 ```bash
 # Install dependencies
 npm install
@@ -127,6 +130,7 @@ pip install -r requirements.txt
 ```
 
 ### Run Commands
+
 ```bash
 # Start Web
 npm run dev:web
@@ -136,6 +140,7 @@ npm run dev:backend
 ```
 
 ### Build & Test
+
 ```bash
 # Build project
 npm run build
@@ -145,14 +150,18 @@ npm test
 ```
 
 ## 🔐 Environment Variables
+
 Refer to [.env.example](.env.example) for required keys. Run `node scripts/check-env.js` to validate your setup.
 
 ## 🚀 Deployment
+
 Deployments are managed via GitHub Actions and triggered on merges to `main`.
+
 - **Vercel**: Web landing page and dashboard.
 - **Sovereign Cloud**: Backend services.
 
 ## 🛡️ Security Policy
+
 See [SECURITY.md](SECURITY.md) for reporting vulnerabilities. CodeQL and Dependabot are active.
 
 ---
