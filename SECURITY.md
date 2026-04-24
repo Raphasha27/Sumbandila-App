@@ -17,7 +17,7 @@ If you discover a potential security vulnerability in the Sumbandila Platform, p
 
 Alternatively, you can email our security team directly:
 
-- **Email:** <mailto:raphashakokets69@gmail.com>
+- **Email:** <mailto:raphashakoketso69@gmail.com>
 - **Subject:** [SECURITY] Vulnerability Report - Sumbandila
 
 ### Our Process
