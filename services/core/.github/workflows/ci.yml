@@ -1,43 +1,33 @@
-name: Continuous Integration
+name: Core Service CI
 
 on:
   workflow_dispatch:
-
   push:
-    branches: [ master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
 
 jobs:
-  python:
-  workflow_dispatch:
-
-    name: Core Service (Python)
-    runs-on:
-  workflow_dispatch:
- ubuntu-latest
+  build:
+    name: Build & Test (Python)
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version:
-  workflow_dispatch:
- '3.11'
+          python-version: '3.11'
           cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Test
-        run: pytest || true
+      - name: Lint
+        run: python -m py_compile $(find . -name "*.py")
 
   security_scan:
     name: Security Scan (Trivy)
-    needs: python
-    runs-on:
-  workflow_dispatch:
- ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Run Trivy vulnerability scanner
@@ -48,4 +38,3 @@ jobs:
           format: 'table'
           exit-code: '0'
           severity: 'CRITICAL,HIGH'
-

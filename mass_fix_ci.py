@@ -1,70 +1,126 @@
 import os
-import subprocess
+import re
 
-KIROV_CI_TEMPLATE = """name: CI
+files_to_fix = [
+    "cybershield_standalone/.github/workflows/deploy.yml",
+    "finaxis_standalone/.github/workflows/ci.yml",
+    "finaxis_standalone/.github/workflows/main.yml",
+    "flowsentinel_standalone/.github/workflows/ci.yml",
+    "health_que/.github/workflows/ci.yml",
+    "kasipass_standalone/.github/workflows/ci.yml",
+    "kirov_core/.github/workflows/ci.yml",
+    "mochi_motion/.github/workflows/ci.yml",
+    "noshowiq_fs/.github/workflows/ci.yml",
+    "noshowiq_standalone/.github/workflows/ci.yml",
+    "octo_system/.github/workflows/ci.yml",
+    "pharmalink_standalone/.github/workflows/ci.yml",
+    "portfolio_standalone/.github/workflows/ci.yml",
+    "profile-repo/.github/workflows/metrics.yml",
+    "profile-repo/.github/workflows/security.yml",
+    "profile-repo/.github/workflows/snake.yml",
+    "python_dashboard/.github/workflows/ci.yml",
+    "restaurant_standalone/.github/workflows/ci.yml",
+    "services/ai/.github/workflows/ci.yml",
+    "services/core/.github/workflows/ci.yml",
+    "supporthive_standalone/.github/workflows/ci.yml",
+    "thuto_ai/.github/workflows/ci.yml",
+    "website_gen/.github/workflows/ci.yml"
+]
 
-on:
-  push:
-    branches: ["main", "master"]
-  pull_request:
-    branches: ["main", "master"]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Validate Project
-        run: echo "Standardized Kirov Infrastructure validated."
-"""
-
-
-# Wait, the template above has YAML syntax that needs to be valid.
-# Actually, I'll use a more generic but valid one.
-
-def fix_repo(path):
-    print(f"Checking {path}...")
-    try:
-        # Check if it's a git repo
-        if not os.path.exists(os.path.join(path, ".git")):
-            return
+def fix_yaml(content):
+    lines = content.splitlines()
+    new_lines = []
+    
+    # 1. Join split 'run' or 'image' lines
+    # Example: run: npm run\n    server:build -> run: npm run server:build
+    i = 0
+    while i < len(lines):
+        line = lines[i]
         
-        # Check for unmerged files
-        status = subprocess.check_output(["git", "status", "--porcelain"], cwd=path).decode()
-        if "UU" in status or "both modified" in subprocess.check_output(["git", "status"], cwd=path).decode():
-            print(f"  Conflict detected in {path}")
-            ci_path = os.path.join(path, ".github", "workflows", "ci.yml")
-            if os.path.exists(ci_path):
-                # We need to resolve the conflict.
-                # For now, let's just use a clean "Standard Kirov" ci.yml
-                # But since I don't want to break specific project logic, 
-                # I'll try to just remove conflict markers if I can, or use a safe default.
-                
-                # Simple approach: Overwrite with a safe, green-tagged Kirov CI
-                with open(ci_path, 'w') as f:
-                    f.write(KIROV_CI_TEMPLATE)
-                
-                subprocess.run(["git", "add", ".github/workflows/ci.yml"], cwd=path)
-                subprocess.run(["git", "commit", "-m", "Resolved merge conflict in ci.yml and standardized"], cwd=path)
-                print(f"  Fixed and committed in {path}")
-            else:
-                # Just abort merge if it's not the CI file we care about?
-                # No, user wants it functional.
-                subprocess.run(["git", "merge", "--abort"], cwd=path)
-    except Exception as e:
-        print(f"  Error fixing {path}: {e}")
+        # Join run: split across lines
+        if re.match(r'^\s+run:\s*$', line) and i + 1 < len(lines) and lines[i+1].strip() and not lines[i+1].strip().startswith('-'):
+            line = line.rstrip() + " " + lines[i+1].strip()
+            i += 1
+        elif re.search(r'run:\s*[a-zA-Z0-9]+$', line) and i + 1 < len(lines) and lines[i+1].strip() and not ":" in lines[i+1] and not lines[i+1].strip().startswith('-'):
+             # Handle cases like "run: npm run\n    server:build"
+             line = line.rstrip() + " " + lines[i+1].strip()
+             i += 1
+        
+        # Join image: split across lines
+        if re.match(r'^\s+image:\s*$', line) and i + 1 < len(lines) and lines[i+1].strip():
+            line = line.rstrip() + " " + lines[i+1].strip()
+            i += 1
+            
+        new_lines.append(line)
+        i += 1
+    
+    # 2. Fix Indentation of uses, with, run, env under steps
+    final_lines = []
+    for line in new_lines:
+        # If line starts with 'uses:', 'run:', 'with:', 'env:', 'name:' and is NOT indented enough
+        # We assume they should be indented at least 8 spaces if they follow a '- name:'
+        
+        # Fix 'uses:' at same level as '- name:'
+        if re.match(r'^      uses:', line):
+            line = "        " + line.strip()
+        if re.match(r'^      run:', line):
+            line = "        " + line.strip()
+        if re.match(r'^      with:', line):
+            line = "        " + line.strip()
+        if re.match(r'^      env:', line):
+            line = "        " + line.strip()
+            
+        # Fix lines starting with 3 or 6 spaces that should be 8 or 10
+        if line.startswith("   cache:"):
+            line = "          " + line.strip()
+        if line.startswith("   distribution:"):
+            line = "          " + line.strip()
+        if line.startswith("   java-version:"):
+            line = "          " + line.strip()
+        if line.startswith("   node-version:"):
+            line = "          " + line.strip()
+        if line.startswith("   python-version:"):
+            line = "          " + line.strip()
+        if line.startswith("   dotnet-version:"):
+            line = "          " + line.strip()
+            
+        # Fix 'name:' without dash that should be '- name:'
+        if re.match(r'^    name: Install dependencies', line):
+            line = "      - name: Install dependencies"
+            
+        # Fix specific profile-repo metrics/snake tokens
+        if "token: ${{ secrets.METRICS_TOKEN }}" in line:
+            line = "          token: ${{ secrets.METRICS_TOKEN }}"
+        if "github_user_name: ${{ github.repository_owner }}" in line:
+            line = "          github_user_name: ${{ github.repository_owner }}"
+            
+        final_lines.append(line)
+        
+    content = "\n".join(final_lines)
+    
+    # Global regex fixes
+    # Fix postgres/redis block in finaxis
+    if "postgres:15-alpine" in content:
+        content = content.replace("    services:\n      postgres:\n        image: postgres:15-alpine", "    services:\n      postgres:\n        image: postgres:15-alpine")
+        content = re.sub(r'image: postgres:15-alpine\s+env:', 'image: postgres:15-alpine\n        env:', content)
+        
+    return content
 
-root = os.getcwd()
-for item in os.listdir(root):
-    item_path = os.path.join(root, item)
-    if os.path.isdir(item_path):
-        fix_repo(item_path)
-
-# Also fix the root
-fix_repo(root)
-subprocess.run(["git", "add", "."], cwd=root)
-subprocess.run(["git", "commit", "-m", "Final mass conflict resolution and CI standardization"], cwd=root)
+for file_path in files_to_fix:
+    full_path = os.path.join(r"c:\Users\nelso\OneDrive\Desktop\git", file_path)
+    if os.path.exists(full_path):
+        with open(full_path, "r", encoding="utf-8") as f:
+            content = f.read()
+            
+        # Special case for security.yml which might be totally broken
+        if "security.yml" in file_path:
+            # If it has double 'on:' or missing jobs, we might need a template
+            pass
+            
+        fixed_content = fix_yaml(content)
+        
+        with open(full_path, "w", encoding="utf-8") as f:
+            f.write(fixed_content)
+        print(f"Fixed {file_path}")
+    else:
+        print(f"File not found: {file_path}")
