@@ -1,3 +1,4 @@
+
 import os
 import yaml
 import sys
@@ -15,6 +16,8 @@ def main():
     invalid_files = []
     
     for root, dirs, files in os.walk(root_dir):
+        if "node_modules" in root:
+            continue
         if ".github" in root and "workflows" in root:
             for file in files:
                 if file.endswith(".yml") or file.endswith(".yaml"):
