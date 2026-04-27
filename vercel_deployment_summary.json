@@ -1,26 +1,26 @@
 [
   {
     "name": "afro_fashion",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
     "name": "ai_agent_repo",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
     "name": "ai_chatkit",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
     "name": "ai_job_intel_retry",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
@@ -37,14 +37,14 @@
   },
   {
     "name": "bicycle_mgmt",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
     "name": "convo_chat",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
@@ -85,38 +85,38 @@
   },
   {
     "name": "fire4s_project1",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
     "name": "fire4s_solutions",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
     "name": "flowsentinel_standalone",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
     "name": "health_que",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
     "name": "java_calc",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
     "name": "kasipass_standalone",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
@@ -139,8 +139,8 @@
   },
   {
     "name": "noshowiq_standalone",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
@@ -193,8 +193,8 @@
   },
   {
     "name": "seatlock_standalone",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
@@ -211,8 +211,8 @@
   },
   {
     "name": "supporthive_standalone",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
@@ -235,8 +235,8 @@
   },
   {
     "name": "ticketza_standalone",
-    "type": "unknown",
-    "deployable": false,
+    "type": "showcase-static",
+    "deployable": true,
     "config_created": false
   },
   {
