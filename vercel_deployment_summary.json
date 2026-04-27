@@ -1,0 +1,248 @@
+[
+  {
+    "name": "afro_fashion",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "ai_agent_repo",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "ai_chatkit",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "ai_job_intel_retry",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "ai_resume",
+    "type": "static",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "aura_weather",
+    "type": "node",
+    "deployable": true,
+    "config_created": true
+  },
+  {
+    "name": "bicycle_mgmt",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "convo_chat",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "creative_writing",
+    "type": "static",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "cybershield_standalone",
+    "type": "node",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "cyclesync_standalone",
+    "type": "static",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "dashboard_v2",
+    "type": "python",
+    "deployable": true,
+    "config_created": true
+  },
+  {
+    "name": "edustream_standalone",
+    "type": "node",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "finaxis_standalone",
+    "type": "static",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "fire4s_project1",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "fire4s_solutions",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "flowsentinel_standalone",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "health_que",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "java_calc",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "kasipass_standalone",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "kirov_core",
+    "type": "node",
+    "deployable": true,
+    "config_created": true
+  },
+  {
+    "name": "mochi_motion",
+    "type": "node",
+    "deployable": true,
+    "config_created": true
+  },
+  {
+    "name": "noshowiq_fs",
+    "type": "node",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "noshowiq_standalone",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "octo_system",
+    "type": "node",
+    "deployable": true,
+    "config_created": true
+  },
+  {
+    "name": "opsly_standalone",
+    "type": "node",
+    "deployable": true,
+    "config_created": true
+  },
+  {
+    "name": "pharmalink_standalone",
+    "type": "static",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "portfolio_standalone",
+    "type": "node",
+    "deployable": true,
+    "config_created": true
+  },
+  {
+    "name": "profile-repo",
+    "type": "static",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "python_dashboard",
+    "type": "python",
+    "deployable": true,
+    "config_created": true
+  },
+  {
+    "name": "restaurant_standalone",
+    "type": "node",
+    "deployable": true,
+    "config_created": true
+  },
+  {
+    "name": "sa_id_gen",
+    "type": "static",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "seatlock_standalone",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "small_biz",
+    "type": "static",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "sovereign_ai_standalone",
+    "type": "node",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "supporthive_standalone",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "task_manager",
+    "type": "static",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "task_mgr_v2",
+    "type": "static",
+    "deployable": true,
+    "config_created": false
+  },
+  {
+    "name": "thuto_ai",
+    "type": "node",
+    "deployable": true,
+    "config_created": true
+  },
+  {
+    "name": "ticketza_standalone",
+    "type": "unknown",
+    "deployable": false,
+    "config_created": false
+  },
+  {
+    "name": "website_gen",
+    "type": "node",
+    "deployable": true,
+    "config_created": true
+  }
+]
