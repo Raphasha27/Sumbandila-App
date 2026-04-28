@@ -53,7 +53,7 @@ const SAFlag = () => (
 const OfficialBanner = () => (
   <div style={{
     background: 'white',
-    padding: '16px 24px',
+    padding: '12px 20px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -61,23 +61,23 @@ const OfficialBanner = () => (
     position: 'sticky',
     top: 0,
     zIndex: 100,
-    borderBottom: '1px solid #E2E8F0',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+    borderBottom: '1px solid #F1F5F9',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
   }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
-        alt="South Africa Flag"
-        style={{ height: '24px', borderRadius: '2px' }}
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <img 
+        src="https://upload.wikimedia.org/wikipedia/en/thumb/2/22/Coat_of_arms_of_South_Africa.svg/1200px-Coat_of_arms_of_South_Africa.svg.png" 
+        style={{ height: '32px', width: 'auto' }} 
+        alt="RSA Coat of Arms" 
       />
-      <div>
-        <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>Sumbandila</div>
-        <div style={{ fontSize: '14px', fontWeight: 900, color: 'var(--primary-dark)' }}>National Registry Sentinel</div>
+      <div style={{ textAlign: 'left' }}>
+        <div style={{ fontSize: '10px', fontWeight: 800, color: '#111827', lineHeight: 1.2 }}>Sumbandila:</div>
+        <div style={{ fontSize: '11px', fontWeight: 900, color: '#1E40AF', letterSpacing: '-0.2px' }}>National Registry Sentinel</div>
       </div>
     </div>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-       <button style={{ background: '#1E3A8A', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '6px', fontSize: '11px', fontWeight: 700 }}>MEMBER PORTAL</button>
-       <UserCircle size={32} color="#94A3B8" />
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#1E40AF', padding: '6px 12px', borderRadius: '100px' }}>
+      <span style={{ fontSize: '9px', fontWeight: 800, color: 'white', letterSpacing: '0.5px' }}>MEMBER PORTAL</span>
+      <UserCircle size={16} color="white" />
     </div>
   </div>
 );
