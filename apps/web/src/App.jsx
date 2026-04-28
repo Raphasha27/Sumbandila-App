@@ -171,49 +171,144 @@ export default function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="screen"
-            style={{ paddingBottom: '100px' }}
+            style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center', 
+              textAlign: 'center',
+              background: 'white',
+              minHeight: '100vh',
+              overflowX: 'hidden'
+            }}
           >
-                <p style={{ fontSize: '12px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '1px' }}>GET STARTED</p>
-                <h1 style={{ fontSize: '32px', fontWeight: 900, color: '#111827', lineHeight: 1.1, marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                  WELCOME TO <br/> SUMBANDILA <CheckCircle2 size={24} color="#22C55E" fill="#22C55E22" />
-                </h1>
-                <p style={{ fontSize: '14px', color: '#4B5563', lineHeight: 1.6, fontWeight: 500, maxWidth: '320px', margin: '0 auto' }}>
-                  Your secure gateway to official, verified information from verified government departments.
-                </p>
-                <p style={{ fontSize: '10px', fontWeight: 800, color: '#111827', marginTop: '12px', textTransform: 'uppercase' }}>
-                  (VETTED BY: DEPARTMENT OF BASIC EDUCATION & <br/> SA COUNCIL FOR EDUCATORS)
-                </p>
+            {/* Top Banner with Flag & Coat of Arms */}
+            <div style={{ width: '100%', position: 'relative', marginBottom: '24px' }}>
+              <div style={{ 
+                height: '180px', 
+                width: '100%', 
+                background: `url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/1200px-Flag_of_South_Africa.svg.png')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                opacity: 0.9,
+                position: 'relative'
+              }}>
+                <div style={{ 
+                  position: 'absolute', 
+                  inset: 0, 
+                  background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 95%)' 
+                }} />
               </div>
+              <motion.div 
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                style={{ 
+                  position: 'absolute', 
+                  top: '60px', 
+                  left: '50%', 
+                  transform: 'translateX(-50%)',
+                  zIndex: 10
+                }}
+              >
+                <img 
+                  src="https://upload.wikimedia.org/wikipedia/en/thumb/2/22/Coat_of_arms_of_South_Africa.svg/1200px-Coat_of_arms_of_South_Africa.svg.png" 
+                  style={{ height: '100px', width: 'auto', filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.1))' }} 
+                  alt="RSA Coat of Arms" 
+                />
+              </motion.div>
+            </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '440px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                  <motion.button
-                    whileTap={{ scale: 0.96 }}
-                    onClick={handleGetStarted}
-                    style={{ background: 'white', border: '2px solid #E2E8F0', color: '#111827', padding: '16px', borderRadius: '12px', fontWeight: 800, fontSize: '12px', textTransform: 'uppercase', cursor: 'pointer' }}
-                  >
-                    EXPLORE THE REGISTRY
-                  </motion.button>
-                  <motion.button
-                    whileTap={{ scale: 0.96 }}
-                    onClick={() => setScreen('practitioner-register')}
-                    style={{ background: '#1E40AF', border: 'none', color: 'white', padding: '16px', borderRadius: '12px', fontWeight: 800, fontSize: '12px', textTransform: 'uppercase', cursor: 'pointer' }}
-                  >
-                    JOIN AS A PROFESSIONAL
-                  </motion.button>
+            {/* Typography */}
+            <div style={{ padding: '0 24px', marginBottom: '32px' }}>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#111827', marginBottom: '2px' }}>Republic of South Africa</div>
+              <div style={{ fontSize: '13px', fontWeight: 800, color: '#4B5563', marginBottom: '16px' }}>Sumbandila: Registry Sentinel</div>
+              
+              <h1 style={{ fontSize: '26px', fontWeight: 900, color: '#111827', lineHeight: 1.2, marginBottom: '16px' }}>
+                National Registry Sentinel <br/> at the palm of your hand:
+              </h1>
+              
+              <p style={{ fontSize: '15px', color: '#4B5563', lineHeight: 1.5, fontWeight: 500, maxWidth: '340px', margin: '0 auto' }}>
+                The official South African gateway to verify schools, colleges, and professionals. <br/>
+                <span style={{ fontWeight: 800, color: '#111827' }}>Stay safe, stay verified.</span>
+              </p>
+            </div>
+
+            {/* CTA Button */}
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleGetStarted}
+              style={{
+                width: 'calc(100% - 48px)',
+                maxWidth: '340px',
+                background: '#1E40AF',
+                color: 'white',
+                padding: '18px',
+                borderRadius: '12px',
+                border: 'none',
+                fontSize: '16px',
+                fontWeight: 900,
+                cursor: 'pointer',
+                marginBottom: '40px',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                boxShadow: '0 10px 25px rgba(30, 64, 175, 0.25)'
+              }}
+            >
+              ENTER REGISTRY
+            </motion.button>
+
+            {/* Stats Row */}
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              gap: '40px', 
+              marginBottom: '40px',
+              width: '100%',
+              maxWidth: '340px'
+            }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', color: '#1E40AF', marginBottom: '4px' }}>
+                  <School size={20} />
+                  <span style={{ fontSize: '20px', fontWeight: 900 }}>24k+</span>
                 </div>
-                <button
-                  onClick={() => setScreen('how-it-works')}
-                  style={{ background: 'transparent', border: 'none', color: '#1E40AF', fontWeight: 800, fontSize: '13px', cursor: 'pointer', textDecoration: 'underline' }}
-                >
-                  SUPPORT
-                </button>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748B' }}>Vetted Schools</div>
               </div>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', color: '#1E40AF', marginBottom: '4px' }}>
+                  <ShieldCheck size={20} />
+                  <span style={{ fontSize: '20px', fontWeight: 900 }}>100%</span>
+                </div>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748B' }}>Official Data</div>
+              </div>
+            </div>
 
-              <div style={{ marginTop: 'auto', paddingTop: '40px', borderTop: '1px solid #F1F5F9', width: '100%', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
-                <div style={{ fontSize: '10px', fontWeight: 800, color: '#94A3B8' }}>© 2026 NATIONAL SENTINEL ADVISORY.</div>
-                <div style={{ fontSize: '9px', fontWeight: 700, color: '#CBD5E1' }}>(SA REGISTRATION 2026/001234/07)</div>
-              </div>
+            {/* Links */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '48px' }}>
+              <button 
+                onClick={() => setScreen('practitioner-register')}
+                style={{ background: 'none', border: 'none', color: '#1E40AF', fontWeight: 800, fontSize: '14px', cursor: 'pointer', textDecoration: 'underline' }}
+              >
+                Join as a Verified Practitioner
+              </button>
+              <button 
+                onClick={() => setScreen('how-it-works')}
+                style={{ background: 'none', border: 'none', color: '#1E40AF', fontWeight: 800, fontSize: '14px', cursor: 'pointer', textDecoration: 'underline' }}
+              >
+                Learn More About Our Mission
+              </button>
+            </div>
+
+            {/* Footer */}
+            <div style={{ 
+              marginTop: 'auto', 
+              paddingBottom: '32px',
+              fontSize: '10px', 
+              fontWeight: 800, 
+              color: '#94A3B8',
+              letterSpacing: '0.5px'
+            }}>
+              © 2026 NATIONAL SENTINEL ADVISORY
             </div>
           </motion.div>
         )}
