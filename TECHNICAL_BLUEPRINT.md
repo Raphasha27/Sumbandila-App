@@ -28,7 +28,9 @@ Sumbandila doesn't just check for existence; it checks for **Accreditation Scope
 ## 4. Verification Standards
 *   **EMIS Number**: The Gold Standard for school verification.
 *   **SANC Ref**: Mandatory for Nursing (Surname search is disabled for security).
-*   **LPC Fidelity Fund**: Verified for all legal practitioner trust accounts.
+*   **LPC Fidelity Fund**: Verified for all legal practitioner trust accounts. Explicitly check 'Practising: Yes/No'.
+*   **HPCSA QR Cards**: Modern practitioners use digital cards. The app supports direct QR scanning for instant verification.
+*   **Sustainability Note**: To avoid SAQA's April 2026 individual verification tariffs, the app prioritizes **Institutional Accreditation** and **Practitioner Standing**, ensuring the service remains free for the public.
 
 ---
 *Sumbandila: Fighting Corruption through Digital Integrity 🇿🇦*

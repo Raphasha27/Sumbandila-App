@@ -96,7 +96,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
         </div>
 
         {/* Integrated Official Search */}
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', gap: '12px' }}>
           <div style={{
             flex: 1,
             background: 'white',
@@ -106,7 +106,6 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
             padding: '0 24px',
             boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
             height: '60px',
-            width: '100%',
             border: '2px solid transparent'
           }}>
             <Search size={22} color="var(--primary)" style={{ opacity: 0.7 }} />
@@ -129,6 +128,25 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
               }}
             />
           </div>
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            onClick={() => alert("📷 Initializing Sentinel QR Scanner...\n\nPoint your camera at the HPCSA Digital Practitioner Card or LPC Fidelity Certificate to verify instantly.")}
+            style={{
+              width: '60px',
+              height: '60px',
+              background: 'white',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+              border: 'none',
+              cursor: 'pointer',
+              color: 'var(--primary)'
+            }}
+          >
+            <QrCode size={24} />
+          </motion.button>
         </div>
       </div>
 
