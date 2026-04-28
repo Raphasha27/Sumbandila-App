@@ -410,33 +410,147 @@ export const MOCK_DATA = {
       risk: "Low"
     },
     // High Risk / Unverified / Degistered Entities
+    // --- PRIVATE COLLEGES REGISTRY (UPDATED 15 APRIL 2026) ---
+    // SECTION A: Cancelled / Failure to maintain registration
     {
-      id: "med-risk-1",
-      name: "Gauteng Mobile Wellness Clinic",
-      category: "Healthcare",
-      type: "Mobile Clinic",
-      reg: "NO_RECORD_FOUND",
+      id: "edu-cancelled-1",
+      name: "Abakholwe Community Developers",
+      category: "Education",
+      type: "Private College",
+      reg: "2010/FE07/117",
       status: "De-registered",
-      standing: "Fraudulent Operation Suspected",
-      body: "HPCSA Enforcement List",
-      location: "Mobile - Various Locations",
-      specialization: "Unverified Health Checks",
-      risk: "Critical"
+      standing: "Cancelled",
+      body: "DHET (Section A List)",
+      location: "Zebediela, Limpopo",
+      risk: "Critical",
+      warning: "Registration cancelled due to failure to maintain standards. Enrollment is illegal."
     },
     {
-      id: "med-risk-2",
-      name: "Dr. X (Pseudo-practitioner)",
-      category: "Healthcare",
-      type: "General Practitioner",
-      reg: "FAKE_STAMP_771",
-      status: "Unverified",
-      standing: "Impersonation Alert",
-      body: "Discovery Fraud Unit Flag",
-      location: "Hillbrow, JHB",
-      specialization: "Pharmacy Over-the-counter",
-      risk: "High"
+      id: "edu-cancelled-2",
+      name: "Africa Institute of Management and Technology",
+      category: "Education",
+      type: "Private College",
+      reg: "2011/FE07/025",
+      status: "De-registered",
+      standing: "Cancelled",
+      body: "DHET (Section A List)",
+      location: "Johannesburg, Gauteng",
+      risk: "Critical",
+      warning: "Registration officially cancelled. This institution is no longer permitted to offer NC(V) or AET programmes."
+    },
+    {
+      id: "edu-cancelled-3",
+      name: "Anchor Lite College SA (Pty) Ltd",
+      category: "Education",
+      type: "Private College",
+      reg: "2009/FE07/095",
+      status: "De-registered",
+      standing: "Cancelled",
+      body: "DHET (Section A List)",
+      location: "Durban, KwaZulu-Natal",
+      risk: "Critical",
+      warning: "Registration has been cancelled for failure to maintain registration requirements."
+    },
+    // SECTION B: Registered Private Colleges
+    {
+      id: "edu-registered-1",
+      name: "Academy of Business & Computer Studies",
+      category: "Education",
+      type: "Private College",
+      reg: "2008/SFE07/108",
+      status: "Registered",
+      standing: "In Good Standing",
+      body: "DHET Official Register",
+      location: "Pretoria / Johannesburg / Durban",
+      courses: ["Finance", "Economics", "Accounting", "Marketing", "Office Administration"],
+      validUntil: "2028-12-31",
+      risk: "Low"
+    },
+    {
+      id: "edu-registered-2",
+      name: "Afric Training Centre & Security Studies",
+      category: "Education",
+      type: "Private College",
+      reg: "2025/FE07/001",
+      status: "Registered",
+      standing: "Active (New)",
+      body: "DHET Official Register",
+      location: "Maboneng, Johannesburg",
+      courses: ["Civil Engineering", "Safety in Society", "Engineering & Related Design"],
+      validUntil: "2030-04-15",
+      risk: "Low"
+    },
+    {
+      id: "edu-registered-3",
+      name: "Bolton Business College and Computer Studies",
+      category: "Education",
+      type: "Private College",
+      reg: "2019/FE07/030",
+      status: "Registered",
+      standing: "Active",
+      body: "DHET Official Register",
+      location: "Bloemfontein, Free State",
+      courses: ["Information Technology", "Computer Science", "Safety in Society"],
+      validUntil: "2027-12-31",
+      risk: "Low"
+    },
+    {
+      id: "edu-registered-4",
+      name: "Brooklyn City College",
+      category: "Education",
+      type: "Private College",
+      reg: "2009/FE07/018",
+      status: "Registered",
+      standing: "In Good Standing",
+      body: "DHET Official Register",
+      location: "Pretoria, Johannesburg, Durban, Polokwane, Nelspruit, Rustenburg",
+      courses: ["Management", "Electrical Infrastructure", "IT Computer Science", "Tourism", "Safety in Society"],
+      validUntil: "2029-06-30",
+      risk: "Low"
+    },
+    {
+      id: "edu-registered-5",
+      name: "Curro Holdings (Pty) Ltd",
+      category: "Education",
+      type: "Private College / HEI",
+      reg: "2018/FE07/054",
+      status: "Registered",
+      standing: "Active",
+      body: "DHET Official Register",
+      location: "Rivonia & Midrand, Gauteng",
+      courses: ["Information Technology", "Computer Science", "Finance", "Accounting"],
+      validUntil: "2030-12-31",
+      risk: "Low"
+    },
+    // More Section A (Illegal / Cancelled) for robust verification testing
+    {
+      id: "edu-cancelled-4",
+      name: "Aldabri 106 (Pty) Ltd",
+      category: "Education",
+      type: "Private College",
+      reg: "2007/FE07/010",
+      status: "De-registered",
+      standing: "Cancelled",
+      body: "DHET (Section A List)",
+      location: "Durban, KwaZulu-Natal",
+      risk: "Critical",
+      warning: "Registration cancelled. Offering qualifications here is illegal."
+    },
+    {
+      id: "edu-cancelled-5",
+      name: "Aranda Learnership College",
+      category: "Education",
+      type: "Private College",
+      reg: "2009/FE07/105",
+      status: "De-registered",
+      standing: "Cancelled",
+      body: "DHET (Section A List)",
+      location: "Randfontein, Gauteng",
+      risk: "Critical",
+      warning: "Registration officially cancelled by DHET."
     }
   ],
+
   trustedRecommendations: {
     Education: [
       { name: "University of the Witwatersrand", type: "Public University", body: "DHET Recognized" },
