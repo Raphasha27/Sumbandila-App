@@ -51,8 +51,8 @@ const SAFlag = () => (
 
 const OfficialBanner = () => (
   <div style={{
-    background: 'var(--primary)',
-    padding: '20px 24px',
+    background: 'white',
+    padding: '16px 24px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -60,24 +60,23 @@ const OfficialBanner = () => (
     position: 'sticky',
     top: 0,
     zIndex: 100,
-    overflow: 'hidden',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+    borderBottom: '1px solid #E2E8F0',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
   }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
         alt="South Africa Flag"
-        style={{ height: '36px', width: 'auto', borderRadius: '4px' }}
+        style={{ height: '24px', borderRadius: '2px' }}
       />
-      <div style={{ textAlign: 'left', borderLeft: '1px solid rgba(255,255,255,0.2)', paddingLeft: '20px' }}>
-        <div style={{ fontSize: '11px', fontWeight: 800, color: 'white', opacity: 0.9, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Republic of South Africa</div>
-        <div style={{ fontSize: '18px', fontWeight: 900, color: 'white', letterSpacing: '-0.3px', marginTop: '2px' }}>National Registry Sentinel</div>
+      <div>
+        <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>Sumbandila</div>
+        <div style={{ fontSize: '14px', fontWeight: 900, color: 'var(--primary-dark)' }}>National Registry Sentinel</div>
       </div>
     </div>
     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-      <div style={{ width: '44px', height: '44px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)' }}>
-        <ShieldCheck size={24} color="white" />
-      </div>
+       <button style={{ background: '#1E3A8A', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '6px', fontSize: '11px', fontWeight: 700 }}>MEMBER PORTAL</button>
+       <UserCircle size={32} color="#94A3B8" />
     </div>
   </div>
 );
