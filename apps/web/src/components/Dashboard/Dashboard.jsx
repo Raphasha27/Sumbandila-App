@@ -17,6 +17,7 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
   const [viewMode, setViewMode] = useState('registry'); // 'registry' or 'teacher'
 
   const {
+    user,
     searchQuery,
     setSearchQuery,
     integrityPulse,

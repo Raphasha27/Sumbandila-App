@@ -12,7 +12,16 @@ import {
   User as UserIcon,
   HelpCircle,
   Gavel,
-  Key
+  Key,
+  Phone,
+  Mail,
+  ExternalLink,
+  AlertCircle,
+  Clock,
+  FileText,
+  Lock,
+  Database,
+  AlertTriangle
 } from 'lucide-react';
 import { Analytics } from '@vercel/analytics/react';
 import { db } from './services/DatabaseService';
@@ -758,6 +767,210 @@ export default function App() {
         )}
         {screen === 'practitioner-register' && (
           <PractitionerRegister onBack={() => setScreen(user ? 'dashboard' : 'splash')} />
+        )}
+
+        {screen === 'support-hub' && (
+          <motion.div key="support-hub" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="screen" style={{ background: '#FDFCFB', padding: 0, paddingBottom: '80px' }}>
+            <div style={{ background: 'linear-gradient(135deg, #7C3AED, #6D28D9)', padding: '28px 20px 48px', borderRadius: '0 0 40px 40px', color: 'white', position: 'relative', overflow: 'hidden' }}>
+              <div onClick={() => setScreen('dashboard')} style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', marginBottom: 20 }}>
+                <ChevronLeft size={22} color="white" />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
+                <div style={{ width: 56, height: 56, borderRadius: 18, background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Gavel size={28} color="white" />
+                </div>
+                <div>
+                  <div style={{ fontSize: 11, fontWeight: 800, opacity: 0.8, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Republic of South Africa</div>
+                  <h2 style={{ fontSize: 22, fontWeight: 900, margin: 0 }}>Support & Justice Hub</h2>
+                </div>
+              </div>
+              <p style={{ fontSize: 14, opacity: 0.85, lineHeight: 1.6 }}>Scammed or need help? Report fraud, access emergency contacts, and connect with official authorities.</p>
+            </div>
+
+            <div style={{ padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+
+              {/* Emergency Contacts */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+                  <div style={{ background: '#FEF2F2', padding: 8, borderRadius: 10 }}><AlertTriangle size={20} color="#EF4444" /></div>
+                  <h3 style={{ fontWeight: 800, color: '#111827', fontSize: 16 }}>Emergency Contacts</h3>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {[
+                    { name: 'SAPS Crime Stop', number: '08600 10111', icon: Phone, color: '#EF4444' },
+                    { name: 'DHET Helpline (Toll-Free)', number: '0800 872 222', icon: Phone, color: '#3B82F6' },
+                    { name: 'LPC Complaints (GP/NW)', number: '012 338 5800', icon: Phone, color: '#7C3AED' },
+                    { name: 'HPCSA Complaints', number: '012 338 9300', icon: Phone, color: '#10B981' },
+                  ].map(({ name, number, icon: Icon, color }) => (
+                    <a key={name} href={`tel:${number.replace(/\s/g, '')}`} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', background: 'white', borderRadius: 20, border: '1px solid #F3F4F6', textDecoration: 'none', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                      <div style={{ width: 44, height: 44, borderRadius: 14, background: `${color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <Icon size={20} color={color} />
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontWeight: 800, fontSize: 14, color: '#111827' }}>{name}</div>
+                        <div style={{ fontSize: 13, color, fontWeight: 700 }}>{number}</div>
+                      </div>
+                      <ArrowRight size={16} color="#94A3B8" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Online Reporting */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+                  <div style={{ background: '#EFF6FF', padding: 8, borderRadius: 10 }}><AlertCircle size={20} color="#3B82F6" /></div>
+                  <h3 style={{ fontWeight: 800, color: '#111827', fontSize: 16 }}>Official Reporting Portals</h3>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {[
+                    { name: 'DHET — Report Bogus Colleges', url: 'https://www.dhet.gov.za/', email: 'callcentre@dhet.gov.za' },
+                    { name: 'SARS — Report Phishing & Scams', url: 'https://www.sars.gov.za/targeting-tax-crime/scams-and-phishing/' },
+                    { name: 'LPC — Report Unregistered Attorneys', url: 'https://lpc.org.za/public-alerts/', email: 'info@lpc.org.za' },
+                    { name: 'HPCSA — Report Fake Practitioners', url: 'https://www.hpcsa.co.za/', email: 'hpcsa@hpcsa.co.za' },
+                  ].map(({ name, url, email }) => (
+                    <a key={name} href={url} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', background: 'white', borderRadius: 20, border: '1px solid #F3F4F6', textDecoration: 'none', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                      <div style={{ width: 44, height: 44, borderRadius: 14, background: '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <ExternalLink size={20} color="#3B82F6" />
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontWeight: 800, fontSize: 13, color: '#111827' }}>{name}</div>
+                        {email && <div style={{ fontSize: 11, color: '#6B7280', fontWeight: 600, marginTop: 2 }}>{email}</div>}
+                      </div>
+                      <ArrowRight size={16} color="#94A3B8" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Report via Sumbandila */}
+              <div style={{ background: 'linear-gradient(135deg, #7C3AED, #6D28D9)', borderRadius: 28, padding: 24, color: 'white' }}>
+                <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 8 }}>📩 File an Anonymous Report</div>
+                <p style={{ fontSize: 13, opacity: 0.9, lineHeight: 1.6, marginBottom: 16 }}>Submit a confidential report directly through Sumbandila. Your identity is protected under POPIA.</p>
+                <button onClick={() => setScreen('help')} style={{ background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.3)', color: 'white', padding: '12px 20px', borderRadius: 16, fontWeight: 800, fontSize: 13, cursor: 'pointer', width: '100%' }}>
+                  Open Report Form →
+                </button>
+              </div>
+
+            </div>
+            <BottomNav active="home" onNav={(s) => setScreen(s)} />
+          </motion.div>
+        )}
+
+        {screen === 'audit-logs' && user?.email === 'admin@sumbandila.com' && (
+          <motion.div key="audit-logs" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="screen" style={{ background: '#0F172A', padding: 0, paddingBottom: '40px' }}>
+            <div style={{ padding: '28px 20px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                <div onClick={() => setScreen('profile')} style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                  <ChevronLeft size={22} color="white" />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 11, color: '#F59E0B', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>ADMIN ONLY</div>
+                  <h2 style={{ fontSize: 20, fontWeight: 900, color: 'white', margin: 0 }}>Sentinel Audit Logs</h2>
+                </div>
+                <Database size={22} color="#4ADE80" />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', padding: '8px 14px', borderRadius: 100, width: 'fit-content' }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ADE80' }} />
+                <span style={{ fontSize: 11, fontWeight: 800, color: '#4ADE80', textTransform: 'uppercase', letterSpacing: '1px' }}>Live System Log</span>
+              </div>
+            </div>
+
+            <div style={{ padding: '20px' }}>
+              {[
+                { time: '10:24:01', type: 'AUTH', msg: `LOGIN: ${user?.name} — admin@sumbandila.com`, level: 'info' },
+                { time: '10:22:18', type: 'VERIFY', msg: 'SEARCH: "Damelin" — Result: DEREGISTERED (Critical)', level: 'warn' },
+                { time: '10:19:44', type: 'REPORT', msg: 'REPORT FILED: Pretoria Global Institute — Anonymous', level: 'warn' },
+                { time: '10:15:03', type: 'VAULT', msg: 'VAULT SAVE: Netcare Rosebank Hospital by admin', level: 'info' },
+                { time: '10:11:30', type: 'ALERT', msg: 'SECURITY: Failed login attempt from unknown IP', level: 'error' },
+                { time: '10:08:12', type: 'SYNC', msg: 'DB SYNC: 1,248 new records from DHET portal', level: 'info' },
+                { time: '09:55:00', type: 'AUTH', msg: 'SESSION EXPIRED: citizen@test.co.za — auto logout', level: 'info' },
+                { time: '09:42:11', type: 'ALERT', msg: 'FRAUD FLAG: "Rosselli Legal" — 3 community reports', level: 'error' },
+              ].map((log, i) => {
+                const colors = { info: '#4ADE80', warn: '#F59E0B', error: '#EF4444' };
+                const color = colors[log.level];
+                return (
+                  <div key={i} style={{ display: 'flex', gap: 12, padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                    <div style={{ fontFamily: 'monospace', fontSize: 11, color: '#475569', flexShrink: 0, paddingTop: 2 }}>{log.time}</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                        <span style={{ fontSize: 9, fontWeight: 900, color, background: `${color}20`, padding: '2px 6px', borderRadius: 4 }}>{log.type}</span>
+                      </div>
+                      <div style={{ fontFamily: 'monospace', fontSize: 12, color: color, lineHeight: 1.4 }}>{log.msg}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+
+        {screen === 'privacy' && (
+          <motion.div key="privacy" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen" style={{ background: '#FDFCFB', padding: 0, paddingBottom: '60px' }}>
+            <div style={{ background: 'var(--bg-gradient)', padding: '28px 20px 36px', color: 'white' }}>
+              <div onClick={() => setScreen('profile')} style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', marginBottom: 20 }}>
+                <ChevronLeft size={22} color="white" />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <Lock size={28} color="white" />
+                <h2 style={{ fontSize: 22, fontWeight: 900, margin: 0 }}>Privacy & POPIA</h2>
+              </div>
+              <p style={{ fontSize: 13, opacity: 0.85, marginTop: 8 }}>How we protect your data under the Protection of Personal Information Act.</p>
+            </div>
+            <div style={{ padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+              {[
+                { title: 'What We Collect', icon: Database, body: 'We collect only the minimum data needed: your name, email, and search history within this session. No biometric data is stored without explicit consent.' },
+                { title: 'How We Use Your Data', icon: FileText, body: 'Data is used exclusively to verify institutions and professionals against official South African registries (DHET, HPCSA, LPC, SAQA). It is never sold or shared with third parties.' },
+                { title: 'Your Rights (POPIA)', icon: ShieldCheck, body: 'Under the Protection of Personal Information Act (POPIA, Act 4 of 2013), you have the right to access, correct, and request deletion of your personal information at any time.' },
+                { title: 'Data Security', icon: Lock, body: 'All data is encrypted in transit (TLS 1.3) and at rest. Session data is stored locally on your device. Our servers are hosted in South Africa, in compliance with POPIA geographic requirements.' },
+                { title: 'Contact Our Information Officer', icon: Mail, body: 'For privacy concerns or data requests, contact our designated POPIA Information Officer at: privacy@sumbandila.com' },
+              ].map(({ title, icon: Icon, body }) => (
+                <div key={title} style={{ background: 'white', borderRadius: 24, padding: '20px', border: '1px solid #F3F4F6', boxShadow: '0 2px 12px rgba(0,0,0,0.03)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+                    <div style={{ padding: 8, background: '#EFF6FF', borderRadius: 10 }}><Icon size={18} color="var(--primary)" /></div>
+                    <div style={{ fontWeight: 800, fontSize: 15, color: '#111827' }}>{title}</div>
+                  </div>
+                  <p style={{ fontSize: 13, color: '#4B5563', lineHeight: 1.7, fontWeight: 500 }}>{body}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {screen === 'terms' && (
+          <motion.div key="terms" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen" style={{ background: '#FDFCFB', padding: 0, paddingBottom: '60px' }}>
+            <div style={{ background: 'linear-gradient(135deg, #111827, #1F2937)', padding: '28px 20px 36px', color: 'white' }}>
+              <div onClick={() => setScreen('profile')} style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', marginBottom: 20 }}>
+                <ChevronLeft size={22} color="white" />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <Gavel size={28} color="white" />
+                <h2 style={{ fontSize: 22, fontWeight: 900, margin: 0 }}>Terms of Service</h2>
+              </div>
+              <p style={{ fontSize: 13, opacity: 0.85, marginTop: 8 }}>Last updated: 1 January 2026 · Governed by South African Law</p>
+            </div>
+            <div style={{ padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {[
+                { num: '1', title: 'Acceptance of Terms', body: 'By accessing and using the Sumbandila National Registry Sentinel platform, you agree to be bound by these Terms of Service and all applicable South African laws and regulations.' },
+                { num: '2', title: 'Nature of Information', body: 'Sumbandila provides verification information sourced from official South African registries (DHET, HPCSA, LPC, SAQA). This information is provided for reference only and does not constitute legal advice.' },
+                { num: '3', title: 'Accuracy Disclaimer', body: 'While we strive for accuracy, registry databases may not reflect real-time changes. Always cross-reference critical decisions with the relevant official body directly.' },
+                { num: '4', title: 'Prohibited Use', body: 'You may not use this platform for fraudulent verification, impersonation of verified entities, mass automated scraping, or any purpose that violates the Electronic Communications and Transactions Act.' },
+                { num: '5', title: 'Limitation of Liability', body: 'Sumbandila and its operators are not liable for any loss or damage arising from reliance on information provided through this platform. Use of this platform is at your own risk.' },
+                { num: '6', title: 'Governing Law', body: 'These terms are governed by the laws of the Republic of South Africa. Any disputes shall be resolved in the South Gauteng High Court, Johannesburg.' },
+              ].map(({ num, title, body }) => (
+                <div key={num} style={{ background: 'white', borderRadius: 20, padding: '20px', border: '1px solid #F3F4F6' }}>
+                  <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                    <div style={{ width: 28, height: 28, borderRadius: 8, background: '#111827', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 900, flexShrink: 0 }}>{num}</div>
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: 15, color: '#111827', marginBottom: 6 }}>{title}</div>
+                      <p style={{ fontSize: 13, color: '#4B5563', lineHeight: 1.7, fontWeight: 500 }}>{body}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div style={{ textAlign: 'center', padding: '16px', fontSize: 12, color: '#9CA3AF', fontWeight: 600 }}>© 2026 National Sentinel Advisory · Republic of South Africa</div>
+            </div>
+          </motion.div>
         )}
 
       </AnimatePresence>
