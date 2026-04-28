@@ -13,29 +13,35 @@ export const RegistryService = {
     const q = normalizeSearch(query);
     if (!q) return null;
 
+    // SANC Security Check: Nursing requires ID or SANC Ref (Numeric/Specific)
+    if (category === 'Healthcare' && q.length < 5 && !/\d/.test(q)) {
+      throw new Error("Nursing verification (SANC) requires an ID Number or SANC Reference Number for security.");
+    }
+
     // Simulate different latencies: Education (Cached) is fast, Healthcare/Legal (Live) take longer
     const latency = category === 'Education' ? 800 : 1800;
     await new Promise(resolve => setTimeout(resolve, latency));
 
     const results = MOCK_DATA.providers.filter(p => {
-      // Name match with Fuzzy Support
-      const nameMatch = fuzzyMatch(q, p.name);
+      // Name match with Fuzzy Support (Skip for strict ID-only SANC searches)
+      const nameMatch = category === 'Education' ? fuzzyMatch(q, p.name) : p.name.toLowerCase().includes(q);
       
-      // Exact matches for IDs
+      // Exact matches for IDs (EMIS, SANC, HPCSA, LPC)
       const regMatch = (p.reg && p.reg.toLowerCase().includes(q)) ||
                        (p.emisNumber && p.emisNumber.toLowerCase().includes(q)) ||
                        (p.hpcsaNumber && p.hpcsaNumber.toLowerCase().includes(q)) ||
                        (p.lpcNumber && p.lpcNumber.toLowerCase().includes(q));
 
-      // Course/Specialty match
-      const courseMatch = (p.courses && p.courses.some(c => c.toLowerCase().includes(q))) ||
-                          (p.specialization && p.specialization.toLowerCase().includes(q));
-
-      return nameMatch || regMatch || courseMatch;
+      return nameMatch || regMatch;
     });
 
     if (results.length > 0) {
-      return results[0];
+      const result = results[0];
+      // SENTINEL RED FLAG LOGIC: Institutional Registration vs Course Accreditation
+      if (result.category === 'Education' && result.institutionRegistration === 'Registered' && result.courseAccreditation === 'NOT ACCREDITED') {
+        result.sentinelAlert = "YELLOW WARNING: Institution is registered, but this course is NOT accredited.";
+      }
+      return result;
     }
 
     // Return high-risk/unverified entity profile if no match is found
