@@ -37,10 +37,23 @@ export const RegistryService = {
 
     if (results.length > 0) {
       const result = results[0];
-      // SENTINEL RED FLAG LOGIC: Institutional Registration vs Course Accreditation
+      
+      // 1. Expiry Check
+      if (result.validUntil && new Date(result.validUntil) < new Date()) {
+        result.status = 'Expired';
+        result.sentinelAlert = "RED ALERT: Registration has expired. This entity is no longer authorized to operate.";
+      }
+
+      // 2. Scope of Practice Check (Medical)
+      if (result.category === 'Healthcare' && result.type === 'General Practitioner' && result.specialization?.includes('Surgery')) {
+        result.sentinelAlert = "YELLOW WARNING: Practitioner is a GP but performing specialized surgery. Verify scope with HPCSA.";
+      }
+
+      // 3. Sentinel Red Flag (Institution vs Course)
       if (result.category === 'Education' && result.institutionRegistration === 'Registered' && result.courseAccreditation === 'NOT ACCREDITED') {
         result.sentinelAlert = "YELLOW WARNING: Institution is registered, but this course is NOT accredited.";
       }
+      
       return result;
     }
 
