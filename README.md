@@ -4,13 +4,23 @@
   #  Sumbandila — Digital Trust Platform
   ### *Verify institutions and professionals instantly — in the palm of your hand.*
 
-  
-   You Can Check |
-|---|---|---|
-|  Colleges & Universities | DHET / CHE / SAQA | Registration status, SAQA ID, NQF level, accreditation |
-|  Doctors & Specialists | HPCSA / Psytech | HPCSA number, specialisation, hospital affiliation |
-|  Lawyers & Advocates | LPC / GCB | Practising status, Fidelity Fund Certificate, LPC number |
-|  Psychologists | Psytech SA | Registration status and practice standing |
+  [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)](https://web-gamma-nine-c2cqi2h058.vercel.app)
+
+  | 🔍 Verification Area | 🏛️ Authority Checked | 🛡️ What You Get |
+  |---|---|---|
+  |  Colleges & Universities | DHET / CHE / SAQA | Registration status, SAQA ID, NQF level, accreditation |
+  |  Doctors & Specialists | HPCSA / Psytech | HPCSA number, specialisation, hospital affiliation |
+  |  Lawyers & Advocates | LPC / GCB | Practising status, Fidelity Fund Certificate, LPC number |
+  |  Psychologists | Psytech SA | Registration status and practice standing |
+
+  ---
+
+  ## ✨ New in V4.1 — Pitch-Ready Upgrades
+
+  - **💎 Practitioner Trust Network** — Official onboarding portal for verified professionals to join the registry.
+  - **📡 Live Portal Scraper** — Simulated real-time synchronization with DHET and HPCSA databases.
+  - **🥇 Gold Trust Badges** — Visual verification indicators for high-integrity practitioners.
+  - **🚀 Instant Verification Links** — One-click deep-links to official South African government search portals.
 
 ---
 
