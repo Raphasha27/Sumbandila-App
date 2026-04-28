@@ -29,6 +29,7 @@ import AssistanceRequest from './components/Support/AssistanceRequest';
 import { BottomNav } from './components/Navigation';
 import { MOCK_DATA } from './lib/mock-data';
 import SiphoAI from './components/SiphoAI';
+import PractitionerRegister from './components/PractitionerRegister';
 
 const SAFlag = () => (
   <div style={{ display: 'flex', gap: '2px', height: '6px', width: '100px', marginBottom: '12px' }}>
@@ -262,9 +263,16 @@ export default function App() {
                 GET STARTED <ArrowRight size={22} />
               </motion.button>
 
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setScreen('practitioner-register')}
+                style={{ marginTop: '16px', background: 'white', border: '2px solid #10B981', color: '#065F46', padding: '18px 24px', borderRadius: '22px', fontWeight: 900, fontSize: '15px', cursor: 'pointer', width: '100%', maxWidth: '440px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
+              >
+                <ShieldCheck size={20} color="#10B981" /> Join as a Verified Practitioner
+              </motion.button>
               <button
                 onClick={() => setScreen('how-it-works')}
-                style={{ marginTop: '24px', background: 'transparent', border: 'none', color: '#64748B', fontWeight: 700, fontSize: '14px', cursor: 'pointer' }}
+                style={{ marginTop: '16px', background: 'transparent', border: 'none', color: '#64748B', fontWeight: 700, fontSize: '14px', cursor: 'pointer' }}
               >
                 Learn More About Our Mission
               </button>
@@ -727,6 +735,10 @@ export default function App() {
             <BottomNav active="home" onNav={(s) => setScreen(s)} />
           </motion.div>
         )}
+        {screen === 'practitioner-register' && (
+          <PractitionerRegister onBack={() => setScreen(user ? 'dashboard' : 'splash')} />
+        )}
+
       </AnimatePresence>
       <SiphoAI />
       <Analytics />
