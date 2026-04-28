@@ -39,6 +39,7 @@
     "lucide-react": "^0.574.0",
     "lucide-react-native": "^0.574.0",
     "uuid": "^14.0.0",
-    "postcss": "^8.4.31"
+    "postcss": "^8.5.10"
   }
+}
 }
