@@ -16,17 +16,23 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
     );
   }
 
-  const isVerified = !['Unverified', 'Expired', 'Suspended', 'De-registered'].includes(provider.status);
-  const statusColor = isVerified ? '#2E7D32' : '#D32F2F';
-  const statusBg = isVerified ? '#E8F5E9' : '#FFEBEE';
-  const riskColor = provider.risk === 'Low' ? '#2E7D32' : provider.risk === 'High' ? '#F57C00' : '#D32F2F';
+  const isVerified = !['Unverified', 'Expired', 'Suspended', 'De-registered', 'Cancelled'].includes(provider.status);
+  const isCaution = provider.courseAccreditation === 'NOT ACCREDITED' || provider.standing === 'Non-practising';
+  
+  const statusColor = !isVerified ? '#D32F2F' : isCaution ? '#F59E0B' : '#2E7D32';
+  const statusBg = !isVerified ? '#FFEBEE' : isCaution ? '#FFF7ED' : '#E8F5E9';
+  const headerGradient = !isVerified 
+    ? 'linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%)' 
+    : isCaution 
+      ? 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)'
+      : 'var(--bg-gradient)';
 
   const recommendations = MOCK_DATA.trustedRecommendations[provider.category] || [];
 
   return (
     <div className="screen" style={{ background: '#FDFCFB', padding: '0', paddingBottom: '120px' }}>
       <header style={{
-        background: isVerified ? 'var(--bg-gradient)' : 'linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%)',
+        background: headerGradient,
         padding: '24px 20px 48px',
         borderRadius: '0 0 32px 32px',
         color: 'white',
@@ -156,6 +162,35 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
             </div>
           )}
 
+          {/* Red Flag Critical Warning */}
+          {((provider.institutionRegistration?.includes('Registered') && provider.courseAccreditation === 'NOT ACCREDITED') || 
+            (provider.status === 'Suspended' || provider.status === 'De-registered')) && (
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              style={{
+                background: '#FEF2F2',
+                padding: '24px',
+                borderRadius: '24px',
+                marginTop: '24px',
+                border: '3px solid #EF4444',
+                boxShadow: '0 10px 30px rgba(239, 68, 68, 0.15)'
+              }}
+            >
+              <div style={{ display: 'flex', gap: '16px', marginBottom: '12px' }}>
+                <ShieldAlert size={32} color="#EF4444" style={{ flexShrink: 0 }} />
+                <div>
+                  <h4 style={{ color: '#991B1B', fontWeight: 900, fontSize: '18px', textTransform: 'uppercase' }}>Registry Red Flag Detected</h4>
+                  <p style={{ color: '#B91C1C', fontSize: '14px', fontWeight: 700, marginTop: '4px' }}>
+                    {provider.courseAccreditation === 'NOT ACCREDITED' 
+                      ? "CRITICAL: This institution is legally registered, but the specific qualifications you are seeking are NOT accredited. Certificates from this program may not be recognized."
+                      : `WARNING: This practitioner is currently listed as ${provider.status.toUpperCase()} in the national registry.`}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
           {/* Sipho AI Analysis Integration */}
           <div style={{
             background: 'linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%)',
@@ -168,14 +203,14 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
               <div style={{ background: 'var(--primary)', padding: '6px', borderRadius: '10px' }}>
-                <ShieldCheck size={20} color="white" />
+                <Bot size={20} color="white" />
               </div>
-              <h4 style={{ color: '#0369A1', fontWeight: 900, fontSize: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Sipho AI Analysis</h4>
+              <h4 style={{ color: '#0369A1', fontWeight: 900, fontSize: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Sipho Sentinel Analysis</h4>
             </div>
             <p style={{ color: '#0C4A6E', fontSize: '14px', fontWeight: 600, lineHeight: 1.6 }}>
-              {isVerified
-                ? `Trust Score: 99.9%. I have cross-referenced ${provider.name} against the active national registry hashes. The accreditation with ${provider.body} is mathematically proven. You are safe to engage.`
-                : `Trust Score: 0.0%. WARNING! My algorithmic scans indicate ${provider.name} is a phantom entity. It perfectly matches the fingerprint of recent illegal scams. Do NOT pay any deposit fees and report all communications.`}
+              {isVerified && provider.courseAccreditation?.includes('Accredited')
+                ? `Trust Score: 99.9%. I have cross-referenced ${provider.name} against the official ${provider.body} registers. Both the institution and qualifications are active and valid.`
+                : `Trust Score: 12.0%. SENTINEL ALERT: My scans show a mismatch between DHET registration and SAQA/CHE accreditation. Do NOT proceed with payments until you verify the NQF level directly with Umalusi or CHE.`}
             </p>
           </div>
         </div>

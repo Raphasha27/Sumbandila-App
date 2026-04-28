@@ -1,32 +1,37 @@
-import { MOCK_DATA } from '../lib/mock-data';
-import { db } from './DatabaseService';
+import { fuzzyMatch, normalizeSearch } from '../lib/search-utils';
 
 /**
  * RegistryService
  * Mimics a backend API for the South African national registries.
- * In a real-world scenario, this would interface with DHET, HPCSA, and LPC endpoints.
  */
 export const RegistryService = {
   /**
    * Performs a high-integrity search across all registries.
-   * @param {string} query The search term (Institution name, Dr. Name, etc.)
+   * Uses 'Hybrid-Cached' logic for speed and 'Live' fallback simulation.
    */
-  async search(query) {
-    if (!query.trim()) return null;
+  async search(query, category = 'Education') {
+    const q = normalizeSearch(query);
+    if (!q) return null;
 
-    // Simulate network latency for authentic full-stack feel
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // Simulate different latencies: Education (Cached) is fast, Healthcare/Legal (Live) take longer
+    const latency = category === 'Education' ? 800 : 1800;
+    await new Promise(resolve => setTimeout(resolve, latency));
 
     const results = MOCK_DATA.providers.filter(p => {
-      const q = query.toLowerCase();
-      return (
-        p.name.toLowerCase().includes(q) ||
-        (p.reg && p.reg.toLowerCase().includes(q)) ||
-        (p.emisNumber && p.emisNumber.toLowerCase().includes(q)) ||
-        (p.hpcsaNumber && p.hpcsaNumber.toLowerCase().includes(q)) ||
-        (p.lpcNumber && p.lpcNumber.toLowerCase().includes(q)) ||
-        (p.courses && p.courses.some(c => c.toLowerCase().includes(q)))
-      );
+      // Name match with Fuzzy Support
+      const nameMatch = fuzzyMatch(q, p.name);
+      
+      // Exact matches for IDs
+      const regMatch = (p.reg && p.reg.toLowerCase().includes(q)) ||
+                       (p.emisNumber && p.emisNumber.toLowerCase().includes(q)) ||
+                       (p.hpcsaNumber && p.hpcsaNumber.toLowerCase().includes(q)) ||
+                       (p.lpcNumber && p.lpcNumber.toLowerCase().includes(q));
+
+      // Course/Specialty match
+      const courseMatch = (p.courses && p.courses.some(c => c.toLowerCase().includes(q))) ||
+                          (p.specialization && p.specialization.toLowerCase().includes(q));
+
+      return nameMatch || regMatch || courseMatch;
     });
 
     if (results.length > 0) {

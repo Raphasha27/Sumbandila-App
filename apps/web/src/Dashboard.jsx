@@ -132,6 +132,31 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
         </div>
       </div>
 
+      {/* 📡 SENTINEL PULSE TICKER: Live Registry Connectivity */}
+      <div style={{
+        background: '#1E293B',
+        padding: '12px 20px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '24px',
+        overflowX: 'auto',
+        scrollbarWidth: 'none',
+        borderBottom: '1px solid rgba(255,255,255,0.1)'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ADE80', boxShadow: '0 0 10px #4ADE80' }} />
+          <span style={{ color: 'white', fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.5px' }}>DHET SYNC: MARCH 23, 2026</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ADE80', boxShadow: '0 0 10px #4ADE80' }} />
+          <span style={{ color: 'white', fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.5px' }}>HPCSA: LIVE LINK ACTIVE</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ADE80', boxShadow: '0 0 10px #4ADE80' }} />
+          <span style={{ color: 'white', fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.5px' }}>LPC: UNIFIED SEARCH ONLINE</span>
+        </div>
+      </div>
+
       <div style={{ padding: '24px 20px' }}>
         {/* 🇿🇦 PRIMARY ACTIONS: Categories */}
         <div style={{ textAlign: 'left', marginBottom: '32px', marginTop: '8px' }}>

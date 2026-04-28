@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Send, X, Bot, Mic, Volume2, ChevronRight, Phone, Square, MicOff, Loader } from 'lucide-react';
 import { useRegistryStore } from '../store/useRegistryStore';
 
-const GREETING = "Greetings! I am Sipho, your National Registry Sentinel Assistant 🇿🇦. I'm here to help you navigate the Sumbandila ecosystem and verify credentials in the palm of your hand.\n\nWhere would you like to go today?";
+const GREETING = "Greetings! I am Sipho, your National Registry Sentinel Assistant 🇿🇦. I'm here to help you navigate the Sumbandila ecosystem and verify credentials using the latest official data (DHET Register Sync: April 15, 2026).\n\nWhere would you like to go today?";
 
 const QUICK_OPTIONS = [
   { label: "🏠 Dashboard", screen: "dashboard" },
