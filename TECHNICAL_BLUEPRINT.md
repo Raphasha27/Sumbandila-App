@@ -30,6 +30,8 @@ Sumbandila doesn't just check for existence; it checks for **Accreditation Scope
 *   **SANC Ref**: Mandatory for Nursing (Surname search is disabled for security).
 *   **LPC Fidelity Fund**: Verified for all legal practitioner trust accounts. Explicitly check 'Practising: Yes/No'.
 *   **HPCSA QR Cards**: Modern practitioners use digital cards. The app supports direct QR scanning for instant verification.
+*   **Heartbeat Monitor**: Run `scripts/sentinel_heartbeat.py` daily to detect government portal layout changes and alert the dev team.
+*   **POPIA Compliance**: Zero-persistence policy for sensitive practitioner data (e.g., ID numbers). Only cached public identifiers (Registration Numbers) are stored.
 *   **Sustainability Note**: To avoid SAQA's April 2026 individual verification tariffs, the app prioritizes **Institutional Accreditation** and **Practitioner Standing**, ensuring the service remains free for the public.
 
 ---
