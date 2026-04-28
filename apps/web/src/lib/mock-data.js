@@ -12,7 +12,7 @@ export const MOCK_DATA = {
       institutionRegistration: "Registered & Active",
       courseAccreditation: "Fully Accredited (CHE)",
       standing: "Good Standing",
-      body: "DHET Recognized",
+      body: "DHET Recognized (April 2026)",
       saqaId: "98212",
       nqfLevel: "Level 7-10",
       council: "CHE",
