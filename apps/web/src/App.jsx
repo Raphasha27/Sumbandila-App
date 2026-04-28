@@ -307,8 +307,11 @@ export default function App() {
                 Learn More About Our Mission
               </button>
 
-              <div style={{ marginTop: 'auto', paddingTop: '40px', borderTop: '1px solid #F1F5F9', width: '100%', display: 'flex', gap: '20px', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ marginTop: 'auto', paddingTop: '40px', borderTop: '1px solid #F1F5F9', width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ fontSize: '10px', fontWeight: 800, color: '#94A3B8' }}>© 2026 NATIONAL SENTINEL ADVISORY</div>
+                <p style={{ fontSize: '9px', color: '#CBD5E1', fontWeight: 600, textAlign: 'center', lineHeight: 1.4, maxWidth: '320px' }}>
+                  <strong>Disclaimer:</strong> Data aggregated from official DHET, HPCSA, and LPC public records. Information is subject to the update cycles of these bodies.
+                </p>
               </div>
             </div>
           </motion.div>
