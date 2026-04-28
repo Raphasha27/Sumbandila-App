@@ -162,7 +162,6 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <div style={{ position: 'fixed', top: 0, left: 0, background: 'red', color: 'white', zIndex: 9999 }}>RENDER TEST: SUCCESS</div>
       <AnimatePresence mode="wait">
         {screen === 'splash' && (
           <motion.div

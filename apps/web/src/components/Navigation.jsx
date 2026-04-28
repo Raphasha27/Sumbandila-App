@@ -41,14 +41,15 @@ export const CategoryCard = ({ icon, label, sublabel, bg, onClick }) => (
 );
 
 export const BottomNav = ({ active, onNav }) => {
-  const navItems = [
-    { id: 'dashboard', icon: HomeIcon, label: 'Portal', activeId: 'home' },
-    { id: 'history', icon: FileText, label: 'Vault', activeId: 'history' },
-    { id: 'profile', icon: UserIcon, label: 'Identity', activeId: 'profile' }
+  const items = [
+    { id: 'dashboard', icon: Home, label: 'Home' },
+    { id: 'trends', icon: TrendingUp, label: 'Top Charts' },
+    { id: 'search-view', icon: Search, label: 'Search' },
+    { id: 'profile', icon: User, label: 'Profile' }
   ];
 
   return (
-    <div className="glass-effect" style={{
+    <nav className="glass-effect" style={{
       position: 'fixed',
       bottom: '20px',
       left: '16px',
@@ -62,53 +63,31 @@ export const BottomNav = ({ active, onNav }) => {
       zIndex: 1000,
       boxShadow: '0 15px 35px -5px rgba(0,0,0,0.1)'
     }}>
-      {navItems.map((item) => {
-        const isActive = active === item.activeId;
+      {items.map((item) => {
+        const Icon = item.icon;
+        const isActive = active === item.id || (active === 'home' && item.id === 'dashboard');
+        
         return (
-          <div
+          <motion.div
             key={item.id}
-            style={{
+            whileTap={{ scale: 0.9 }}
+            onClick={() => onNav(item.id)}
+            style={{ 
+              flex: 1,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: '6px',
+              gap: '4px',
               cursor: 'pointer',
-              position: 'relative'
+              color: isActive ? '#007AFF' : '#94A3B8',
+              transition: 'color 0.2s'
             }}
-            onClick={() => onNav(item.id)}
           >
-            {isActive && (
-              <motion.div
-                layoutId="nav-glow"
-                style={{
-                  position: 'absolute',
-                  top: '-12px',
-                  width: '32px',
-                  height: '4px',
-                  background: 'var(--primary)',
-                  borderRadius: '100px'
-                }}
-              />
-            )}
-            <item.icon
-              size={22}
-              color={isActive ? 'var(--primary-orange)' : 'var(--text-muted)'}
-              strokeWidth={isActive ? 3 : 2}
-              style={{ transition: 'all 0.3s ease' }}
-            />
-            <span style={{
-              fontSize: '10px',
-              fontWeight: isActive ? 900 : 700,
-              color: isActive ? 'var(--primary-orange)' : 'var(--text-muted)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.8px',
-              marginTop: '4px'
-            }}>
-              {item.label}
-            </span>
-          </div>
+            <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
+            <span style={{ fontSize: '10px', fontWeight: 800 }}>{item.label}</span>
+          </motion.div>
         );
       })}
-    </div>
+    </nav>
   );
 };
