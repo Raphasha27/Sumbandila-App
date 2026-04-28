@@ -16,8 +16,9 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
     );
   }
 
-  const isVerified = !['Unverified', 'Expired', 'Suspended', 'De-registered', 'Cancelled'].includes(provider.status);
-  const isCaution = provider.courseAccreditation === 'NOT ACCREDITED' || provider.standing === 'Non-practising';
+  const isN1N3PhasedOut = provider.courses?.some(c => c.includes('N1') || c.includes('N2') || c.includes('N3'));
+  const isVerified = !['Unverified', 'Expired', 'Suspended', 'De-registered', 'Cancelled'].includes(provider.status) && !isN1N3PhasedOut;
+  const isCaution = provider.courseAccreditation === 'NOT ACCREDITED' || provider.standing === 'Non-practising' || isN1N3PhasedOut;
   
   const statusColor = !isVerified ? '#D32F2F' : isCaution ? '#F59E0B' : '#2E7D32';
   const statusBg = !isVerified ? '#FFEBEE' : isCaution ? '#FFF7ED' : '#E8F5E9';
@@ -52,10 +53,22 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
               alt="South Africa Flag"
               style={{ height: '28px', width: 'auto', borderRadius: '4px' }}
             />
-            <ShieldCheck size={24} color="white" />
+            {isVerified ? (
+              <ShieldCheck size={28} color="white" />
+            ) : isCaution ? (
+              <AlertTriangle size={28} color="white" />
+            ) : (
+              <ShieldAlert size={28} color="white" />
+            )}
           </div>
         </div>
-        <p style={{ opacity: 0.9, fontSize: '15px', fontWeight: 500 }}>{isVerified ? 'Official Data Match Found' : 'Registry Alert: Verification Failed'}</p>
+        <p style={{ opacity: 0.9, fontSize: '15px', fontWeight: 500 }}>
+          {isVerified 
+            ? 'Official Registry Link: ACTIVE (Safe to Proceed)' 
+            : isCaution 
+              ? 'Registry Warning: Caution Advised' 
+              : 'CRITICAL ALERT: Non-Compliant Entity'}
+        </p>
       </header>
 
       <div style={{ padding: '24px 20px' }}>

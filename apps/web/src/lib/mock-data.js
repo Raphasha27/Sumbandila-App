@@ -106,6 +106,23 @@ export const MOCK_DATA = {
       redFlags: ["Short duration degrees", "No physical address"],
       warning: "Reported for promising degrees in 3 months."
     },
+    // Fly-by-night: Registered but offering phased-out N1-N3 courses
+    {
+      id: "edu-bogus-2",
+      name: "Tshwane Technical Institute",
+      category: "Education",
+      type: "Private College",
+      reg: "2024/FE07/002",
+      emisNumber: "700999881",
+      status: "Registered",
+      institutionRegistration: "Registered",
+      courseAccreditation: "PHASED OUT",
+      standing: "Compliance Violation",
+      body: "DHET (Phased Out)",
+      risk: "High",
+      warning: "This institution is offering N1-N3 programmes which were officially phased out in April 2026. These qualifications are no longer valid.",
+      courses: ["N1 Mechanical", "N2 Electrical", "N3 Civil"]
+    },
     // Healthcare (Accredited)
     {
       id: "med-1",
