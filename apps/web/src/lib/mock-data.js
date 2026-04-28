@@ -9,6 +9,8 @@ export const MOCK_DATA = {
       reg: "U-1922-GP-01",
       emisNumber: "700400001",
       status: "Registered",
+      institutionRegistration: "Registered & Active",
+      courseAccreditation: "Fully Accredited (CHE)",
       standing: "Good Standing",
       body: "DHET Recognized",
       saqaId: "98212",
@@ -28,6 +30,8 @@ export const MOCK_DATA = {
       reg: "2001/HE07/006 (DHET)",
       emisNumber: "P-882201",
       status: "Registered",
+      institutionRegistration: "Registered & Active",
+      courseAccreditation: "Accredited (QCTO/CHE)",
       standing: "Accredited",
       body: "CHE & QCTO Accredited",
       saqaId: "91754",
@@ -36,6 +40,22 @@ export const MOCK_DATA = {
       courses: ["Business", "IT", "Media"],
       validUntil: "2026-12-31",
       risk: "Low"
+    },
+    // Example of fly-by-night: Registered Institution but Unaccredited Course
+    {
+      id: "edu-fly-1",
+      name: "Sunnyside Academy of Excellence",
+      category: "Education",
+      type: "Private College",
+      reg: "2023/FE07/999",
+      status: "Partial",
+      institutionRegistration: "Registered",
+      courseAccreditation: "NOT ACCREDITED",
+      standing: "Compliance Warning",
+      body: "DHET (Provincial)",
+      risk: "High",
+      warning: "This institution is registered with DHET, but the 'Nursing' and 'Engineering' courses offered are NOT accredited by SANC or ECSA.",
+      courses: ["Nursing (Unaccredited)", "Engineering (Unaccredited)"]
     },
     // Education (High Risk / Recently Deregistered)
     {

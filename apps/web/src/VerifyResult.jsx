@@ -93,22 +93,22 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-              <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px' }}>
-                <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
-                  {provider.category === 'Education' ? 'EMIS Number' : provider.category === 'Healthcare' ? 'HPCSA Reg' : 'LPC ID'}
-                </label>
-                <div style={{ fontSize: '15px', fontWeight: 800, color: '#111827' }}>
-                  {provider.emisNumber || provider.hpcsaNumber || provider.lpcNumber || provider.reg}
+              <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px', border: provider.institutionRegistration === 'Registered' || provider.institutionRegistration?.includes('Active') ? '1px solid #C8E6C9' : '1px solid #FFCDD2' }}>
+                <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>Institution Registration</label>
+                <div style={{ fontSize: '14px', fontWeight: 800, color: '#111827' }}>
+                  {provider.institutionRegistration || 'Verification Pending'}
                 </div>
               </div>
-              <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px' }}>
-                <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>Valid Until</label>
-                <div style={{ fontSize: '15px', fontWeight: 800, color: statusColor }}>{provider.validUntil || 'N/A'}</div>
+              <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px', border: provider.courseAccreditation?.includes('Accredited') ? '1px solid #C8E6C9' : '1px solid #FFCDD2' }}>
+                <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>Course Accreditation</label>
+                <div style={{ fontSize: '14px', fontWeight: 800, color: provider.courseAccreditation === 'NOT ACCREDITED' ? '#D32F2F' : '#111827' }}>
+                  {provider.courseAccreditation || 'Checking SANC/CHE/QCTO...'}
+                </div>
               </div>
             </div>
 
             <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px' }}>
-              <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>Accreditation Authority</label>
+              <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>Primary Regulatory Authority</label>
               <div style={{ fontSize: '16px', fontWeight: 800, color: '#111827' }}>{provider.body}</div>
             </div>
 
