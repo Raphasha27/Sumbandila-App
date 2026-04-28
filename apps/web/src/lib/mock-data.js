@@ -715,68 +715,53 @@ export const MOCK_DATA = {
       accreditation: "HEQSF Aligned"
     },
     {
-      id: "phei-10",
-      name: "Regenesys Education (Pty) Ltd",
+      id: "phei-11",
+      name: "Academy of Sound Engineering (Pty) Ltd",
       category: "Education",
       type: "Private HEI",
-      reg: "2000/HE07/023",
+      reg: "2009/HE07/011",
       status: "Registered",
       standing: "Active",
       body: "DHET Official Register (PHEI)",
-      location: "Sandton, Johannesburg",
-      courses: ["MBA (NQF 9)", "Bachelor of Business Administration (NQF 7)", "Higher Certificate in Business Management (NQF 5)"],
-      validUntil: "2030-02-28",
+      location: "Auckland Park (JHB), Zonneblom (CT)",
+      courses: ["Diploma in Audio Technology (NQF 6)", "HC in Television and Screen Media (NQF 5)"],
+      validUntil: "2029-05-30",
+      risk: "Low",
+      accreditation: "HEQSF Aligned"
+    },
+    {
+      id: "phei-12",
+      name: "Inscape Education Group (Pty) Ltd",
+      category: "Education",
+      type: "Private HEI",
+      reg: "2000/HE07/002",
+      status: "Registered",
+      standing: "Active",
+      body: "DHET Official Register (PHEI)",
+      location: "Pretoria, Midrand, Cape Town, Umhlanga, Stellenbosch",
+      courses: ["Bachelor of Design (NQF 7)", "Diploma in Graphic Design (NQF 6)", "HC in Architectural Technology (NQF 5)"],
+      validUntil: "2031-03-31",
+      risk: "Low",
+      accreditation: "HEQSF Aligned"
+    },
+    {
+      id: "phei-13",
+      name: "The Animation School (Pty) Ltd",
+      category: "Education",
+      type: "Private HEI",
+      reg: "2009/HE07/013",
+      status: "Registered",
+      standing: "Active",
+      body: "DHET Official Register (PHEI)",
+      location: "Woodstock (CT), Craighall Park (Randburg)",
+      courses: ["Diploma in Digital Animation (NQF 6)", "HC in 2D Animation (NQF 5)"],
+      validUntil: "2028-12-31",
       risk: "Low",
       accreditation: "HEQSF Aligned"
     }
   ],
 
 
-  trustedRecommendations: {
-    Education: [
-      { name: "University of the Witwatersrand", type: "Public University", body: "DHET Recognized" },
-      { name: "University of Pretoria", type: "Public University", body: "DHET Recognized" },
-      { name: "Stellenbosch University", type: "Public University", body: "DHET Recognized" }
-    ],
-    Healthcare: [
-      { name: "Netcare Group", type: "Hospital Network", body: "DOH Verified" },
-      { name: "Life Healthcare", type: "Hospital Network", body: "DOH Verified" },
-      { name: "Mediclinic Southern Africa", type: "Hospital Network", body: "DOH Verified" }
-    ],
-    Legal: [
-      { name: "ENSafrica", type: "Global Law Firm", body: "LPC Good Standing" },
-      { name: "Cliffe Dekker Hofmeyr", type: "Top Tier Firm", body: "LPC Good Standing" },
-      { name: "Norton Rose Fulbright", type: "Global Excellence", body: "LPC Good Standing" }
-    ]
-  },
-  officialResources: {
-    Education: [
-      { name: "Department of Higher Education & Training (DHET)", url: "https://www.dhet.gov.za/" },
-      { name: "South African Qualifications Authority (SAQA)", url: "https://www.saqa.org.za/" },
-      { name: "Council on Higher Education (CHE)", url: "https://www.che.ac.za/" }
-    ],
-    Healthcare: [
-      { name: "Health Professions Council of South Africa (HPCSA)", url: "https://www.hpcsa.co.za/" },
-      { name: "Psytech South Africa (Psychological Assessment)", url: "https://www.psytech.co.za/" },
-      { name: "Mediclinic Southern Africa", url: "https://www.mediclinic.co.za/" },
-      { name: "Netcare Private Health", url: "https://www.netcare.co.za/" },
-      { name: "Discovery Health Provider Search", url: "https://www.discovery.co.za/" }
-    ],
-    Legal: [
-      { name: "Legal Practice Council (LPC) Search", url: "https://lpc.org.za" },
-      { name: "LPC FIDELITY FUND (FFC) Verification", url: "https://lpc.org.za/ffc-verification" },
-      { name: "Law Society of South Africa (LSSA)", url: "https://www.lssa.org.za/" }
-    ],
-    Reporting: [
-      { name: "DHET Helpline (Toll-Free)", phone: "0800 872 222", email: "callcentre@dhet.gov.za" },
-      { name: "LPC GP/NW/MP/LP Office", phone: "012 338 5800", email: "info@lpc.org.za" },
-      { name: "LPC WC/EC/NC Office", phone: "021 443 6700", email: "infowc@lpc.org.za" },
-      { name: "LPC KZN Office", phone: "033 345 1304", email: "infokzn@lpc.org.za" },
-      { name: "LPC Free State Office", phone: "051 447 3237", email: "infofs@lpc.org.za" },
-      { name: "SAPS Crime Stop", phone: "08600 10111", email: "report.fake@saps.gov.za" },
-      { name: "SAQA Verification", url: "https://www.saqa.org.za/verification" }
-    ]
-  },
   registryNews: [
     { id: 1, title: "DHET unmasks 5 new bogus colleges in Mpumalanga", date: "23 Feb 2026", source: "DHET News" },
     { id: 2, title: "HPCSA warns against unregistered dental technicians", date: "21 Feb 2026", source: "Sentinel Alert" },
@@ -821,38 +806,6 @@ export const MOCK_DATA = {
       image: "https://ui-avatars.com/api/?name=Naledi+Madiba&background=0056b3&color=fff",
       text: "As a student, I'm always worried about my degree being valid. Verifying my institution here gave me total peace of mind for my future.",
       impact: "Career Security"
-    },
-    {
-      id: 4,
-      name: "Michael Chen",
-      location: "Durban, KZN",
-      image: "https://i.pravatar.cc/150?img=68",
-      text: "The scanner feature is incredible. I scanned a medical practice's registration seal and got an instant 'Vetted' confirmation. South Africa needs this!",
-      impact: "Instant Trust"
-    },
-    {
-      id: 5,
-      name: "Fatima Patel",
-      location: "Fordsburg, GP",
-      image: "https://ui-avatars.com/api/?name=Fatima+Patel&background=0056b3&color=fff",
-      text: "I was suspicious of a specialist claiming to be HPCSA registered for my mother's surgery. Sumbandila confirmed my suspicions—they were de-registered!",
-      impact: "Medical Safety"
-    },
-    {
-      id: 6,
-      name: "Rajesh Gupta",
-      location: "Umhlanga, KZN",
-      image: "https://i.pravatar.cc/150?img=57",
-      text: "Checking the legal standing of my property conveyancer took seconds. The app's integration with the LPC database is a game changer for property buyers.",
-      impact: "Property Protection"
-    },
-    {
-      id: 7,
-      name: "Elena Petrova",
-      location: "Cape Town, WC",
-      image: "https://ui-avatars.com/api/?name=Elena+Petrova&background=0056b3&color=fff",
-      text: "As an expat moving to SA, I needed to verify my local degree equivalent. The DHET resources linked here made the process transparent and simple.",
-      impact: "Seamless Integration"
     }
   ],
   scamTracker: [
@@ -916,85 +869,8 @@ export const MOCK_DATA = {
       source: "Cyber-Sentinel Hub",
       sourceUrl: "https://cyber-sentinel.gov.za"
     }
-  ],
-  // 🚨 Sentinel Scam Tracker Alerts
-  alerts: [
-    {
-      id: 'alert-1',
-      category: 'Education',
-      title: 'Bogus Nursing Colleges',
-      risk: 'Critical',
-      description: "Unregistered colleges in GP and KZN offering 'Nursing' diplomas without SANC accreditation. They often use 'Global' or 'International' in their names.",
-      source: 'Department of Higher Education (DHET)',
-      date: '2024-04-20'
-    },
-    {
-      id: 'alert-2',
-      category: 'Healthcare',
-      title: 'Fake HPCSA Inspectors',
-      risk: 'High',
-      description: "Scammers posing as HPCSA inspectors visiting private practices and demanding 'spot fines' for minor compliance issues.",
-      source: 'HPCSA Official Notice',
-      date: '2024-04-18'
-    },
-    {
-      id: 'alert-3',
-      category: 'Finance',
-      title: "SARS 'Overdue Refund' Phishing",
-      risk: 'Critical',
-      description: "SMS and emails claiming you have a R12,500 refund from SARS. Links to a landing page that steals banking credentials.",
-      source: 'SARS Scam Warning',
-      date: '2024-04-15'
-    },
-    {
-      id: 'alert-4',
-      category: 'Legal',
-      title: 'Ghost Conveyancers',
-      risk: 'High',
-      description: "Individuals claiming to be attorneys handling property transfers for low fees. They disappear once the 'transfer fee' is paid.",
-      source: 'Legal Practice Council (LPC)',
-      date: '2024-04-10'
-    }
-  ],
-
-  // 🏛️ Official Resources & Authorities
-  resources: {
-    education: [
-      { name: 'DHET Helpline', detail: 'Toll-Free Verification', link: 'https://www.dhet.gov.za/' },
-      { name: 'SAQA Verification', detail: 'Qualification Checks', link: 'https://www.saqa.org.za/' },
-      { name: 'CHE Council', detail: 'Higher Ed Accreditation', link: 'https://www.che.ac.za/' }
-    ],
-    medical: [
-      { name: 'HPCSA Search', detail: 'Practitioner Registry', link: 'https://www.hpcsa.co.za/' },
-      { name: 'Mediclinic Search', detail: 'Provider Verification', link: 'https://www.mediclinic.co.za/' },
-      { name: 'Discovery Health', detail: 'Verified Provider Search', link: 'https://www.discovery.co.za/' }
-    ],
-    legal: [
-      { name: 'LPC Registry', detail: 'Legal Practice Council', link: 'https://lpc.org.za/' },
-      { name: 'LSSA Search', detail: 'Law Society of SA', link: 'https://www.lssa.org.za/' },
-      { name: 'Fidelity Fund', detail: 'FFC Verification', link: 'https://www.fidfund.co.za/' }
-    ]
-  },
-
-  // 🗣️ Citizens' Voices (Testimonials)
-  testimonials: [
-    {
-      name: 'Thandiwe Nkosi',
-      location: 'Soweto, GP',
-      content: '"I was about to pay R5000 deposit for a nursing college in Joburg. Checked Sumbandila first and it was flagged as UNVERIFIED. This app saved my life savings!"',
-      category: 'Financial Loss Avoided'
-    },
-    {
-      name: 'Johannes van der Merwe',
-      location: 'Bellville, WC',
-      content: '"Used the legal registry to verify a \'consultant\' liquidating my business. Found out they weren\'t on the LPC list. Reported them immediately."',
-      category: 'Fraud Exposure'
-    },
-    {
-      name: 'Naledi Madiba',
-      location: 'Polokwane, LP',
-      content: '"As a student, I\'m always worried about my degree being valid. Verifying my institution here gave me total peace of mind for my future."',
-      category: 'Career Security'
-    }
+  ]
+};
+   }
   ]
 };
