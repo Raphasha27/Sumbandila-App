@@ -12,7 +12,8 @@ def run_security_check():
     # 1. Dependency Audit (Replaces Security Triage)
     print("[*] Checking dependencies for known vulnerabilities...")
     try:
-        audit_res = subprocess.run(["npm", "audit", "--json"], capture_output=True, text=True)
+        # Use shell=True for Windows to find npm
+        audit_res = subprocess.run(["npm", "audit", "--json"], capture_output=True, text=True, shell=True)
         audit_data = json.loads(audit_res.stdout)
         vulnerabilities = audit_data.get("metadata", {}).get("vulnerabilities", {})
         total_vulns = sum(vulnerabilities.values())
@@ -26,7 +27,7 @@ def run_security_check():
     # 2. Structural Integrity (Replaces CodeQL basic checks)
     print("[*] Verifying monorepo structural integrity...")
     required_paths = [
-        "apps/web/src/Dashboard.jsx",
+        "apps/web/src/components/Dashboard/Dashboard.jsx",
         "apps/web/src/services/registryService.js",
         "scripts/sentinel_heartbeat.py",
         "TECHNICAL_BLUEPRINT.md"
