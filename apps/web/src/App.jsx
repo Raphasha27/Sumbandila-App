@@ -176,104 +176,55 @@ export default function App() {
           >
             <OfficialBanner />
 
-              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '40px 24px', maxWidth: '500px', zIndex: 10 }}>
-                <div style={{ marginBottom: '32px' }}>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png" style={{ height: '40px', marginBottom: '12px' }} />
-                  <p style={{ fontSize: '12px', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Sumbandila National Registry Sentinel</p>
-                </div>
-
-                <div style={{ background: '#F1F5F9', padding: '32px', borderRadius: '32px', width: '100%', marginBottom: '32px', border: '1px solid #E2E8F0' }}>
-                   <ShieldCheck size={64} color="var(--primary)" style={{ marginBottom: '20px' }} />
-                   <h1 style={{ fontSize: '32px', fontWeight: 900, color: 'var(--primary-dark)', lineHeight: 1.1, marginBottom: '16px' }}>WELCOME TO <br/> SUMBANDILA</h1>
-                   <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '24px' }}>
-                     Your secure gateway to official, verified information from verified government departments.
-                   </p>
-                   <div style={{ background: '#22C55E22', padding: '12px', borderRadius: '12px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                      <CheckCircle2 size={16} color="#22C55E" />
-                      <span style={{ fontSize: '10px', fontWeight: 800, color: '#166534', textTransform: 'uppercase' }}>Vetted by DBE & SACE</span>
-                   </div>
-                </div>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-                  <motion.button
-                    whileTap={{ scale: 0.96 }}
-                    onClick={handleGetStarted}
-                    className="btn-primary"
-                    style={{ height: '60px', fontSize: '16px', letterSpacing: '1px' }}
-                  >
-                    EXPLORE THE REGISTRY
-                  </motion.button>
-                  <motion.button
-                    whileTap={{ scale: 0.96 }}
-                    className="btn-outline"
-                    style={{ height: '60px', fontSize: '16px', letterSpacing: '1px' }}
-                  >
-                    JOIN AS A PROFESSIONAL
-                  </motion.button>
-                </div>
-
-                <div style={{ marginTop: '40px' }}>
-                  <p style={{ fontSize: '12px', fontWeight: 800, color: 'var(--primary)', cursor: 'pointer' }}>SUPPORT</p>
-                </div>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '40px 24px', maxWidth: '500px', zIndex: 10 }}>
+              <div style={{ marginBottom: '32px' }}>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png" style={{ height: '40px', marginBottom: '12px' }} alt="RSA Flag" />
+                <p style={{ fontSize: '12px', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Sumbandila National Registry Sentinel</p>
               </div>
 
-              <motion.button
-                whileTap={{ scale: 0.96 }}
-                whileHover={{ scale: 1.02 }}
-                onClick={handleGetStarted}
-                style={{
-                  background: 'var(--primary-orange)',
-                  color: 'white',
-                  padding: '24px',
-                  borderRadius: '28px',
-                  fontSize: '18px',
-                  fontWeight: 900,
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  boxShadow: '0 20px 40px rgba(249, 115, 22, 0.25)',
-                  width: '100%',
-                  maxWidth: '440px',
-                  justifyContent: 'center',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px'
-                }}
-              >
-                ENTER REGISTRY <ArrowRight size={22} />
-              </motion.button>
-
-              <div style={{ marginTop: '40px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', width: '100%', maxWidth: '440px' }}>
-                <div style={{ background: '#F8FAFC', padding: '16px', borderRadius: '20px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#111827' }}>24k+</div>
-                  <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase' }}>Vetted Schools</div>
-                </div>
-                <div style={{ background: '#F8FAFC', padding: '16px', borderRadius: '20px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#111827' }}>100%</div>
-                  <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase' }}>Official Data</div>
-                </div>
+              <div style={{ background: '#F1F5F9', padding: '32px', borderRadius: '32px', width: '100%', marginBottom: '32px', border: '1px solid #E2E8F0' }}>
+                 <ShieldCheck size={64} color="var(--primary)" style={{ marginBottom: '20px' }} />
+                 <h1 style={{ fontSize: '32px', fontWeight: 900, color: 'var(--primary-dark)', lineHeight: 1.1, marginBottom: '16px' }}>WELCOME TO <br/> SUMBANDILA</h1>
+                 <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '24px' }}>
+                   Your secure gateway to official, verified information from verified government departments.
+                 </p>
+                 <div style={{ background: '#22C55E22', padding: '12px', borderRadius: '12px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                    <CheckCircle2 size={16} color="#22C55E" />
+                    <span style={{ fontSize: '10px', fontWeight: 800, color: '#166534', textTransform: 'uppercase' }}>Vetted by DBE & SACE</span>
+                 </div>
               </div>
 
-              <motion.button
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setScreen('practitioner-register')}
-                style={{ marginTop: '16px', background: 'white', border: '2px solid #10B981', color: '#065F46', padding: '18px 24px', borderRadius: '22px', fontWeight: 900, fontSize: '15px', cursor: 'pointer', width: '100%', maxWidth: '440px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
-              >
-                <ShieldCheck size={20} color="#10B981" /> Join as a Verified Practitioner
-              </motion.button>
-              <button
-                onClick={() => setScreen('how-it-works')}
-                style={{ marginTop: '16px', background: 'transparent', border: 'none', color: '#64748B', fontWeight: 700, fontSize: '14px', cursor: 'pointer' }}
-              >
-                Learn More About Our Mission
-              </button>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
+                <motion.button
+                  whileTap={{ scale: 0.96 }}
+                  onClick={handleGetStarted}
+                  className="btn-primary"
+                  style={{ height: '60px', fontSize: '16px', letterSpacing: '1px' }}
+                >
+                  EXPLORE THE REGISTRY
+                </motion.button>
+                <motion.button
+                  whileTap={{ scale: 0.96 }}
+                  className="btn-outline"
+                  onClick={() => setScreen('practitioner-register')}
+                  style={{ height: '60px', fontSize: '16px', letterSpacing: '1px' }}
+                >
+                  JOIN AS A PROFESSIONAL
+                </motion.button>
+                <button
+                  onClick={() => setScreen('how-it-works')}
+                  style={{ background: 'transparent', border: 'none', color: '#64748B', fontWeight: 700, fontSize: '14px', cursor: 'pointer', marginTop: '16px' }}
+                >
+                  Learn More About Our Mission
+                </button>
+              </div>
 
               <div style={{ marginTop: 'auto', paddingTop: '40px', borderTop: '1px solid #F1F5F9', width: '100%', display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ fontSize: '10px', fontWeight: 800, color: '#94A3B8' }}>© 2026 NATIONAL SENTINEL ADVISORY</div>
                 <p style={{ fontSize: '9px', color: '#CBD5E1', fontWeight: 600, textAlign: 'center', lineHeight: 1.4, maxWidth: '320px' }}>
                   <strong>Disclaimer:</strong> Data aggregated from official DHET, HPCSA, and LPC public records. Information is subject to the update cycles of these bodies.
                 </p>
+                <p style={{ fontSize: '12px', fontWeight: 800, color: 'var(--primary)', cursor: 'pointer', marginTop: '8px' }} onClick={() => window.open('https://www.sumbandila.com/support')}>SUPPORT</p>
               </div>
             </div>
           </motion.div>
