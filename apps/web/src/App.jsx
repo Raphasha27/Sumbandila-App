@@ -21,7 +21,8 @@ import {
   FileText,
   Lock,
   Database,
-  AlertTriangle
+  AlertTriangle,
+  UserCircle
 } from 'lucide-react';
 import { Analytics } from '@vercel/analytics/react';
 import { db } from './services/DatabaseService';
