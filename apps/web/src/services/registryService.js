@@ -1,4 +1,6 @@
 import { fuzzyMatch, normalizeSearch } from '../lib/search-utils';
+import { MOCK_DATA } from '../lib/mock-data';
+import { db } from './DatabaseService';
 
 /**
  * RegistryService

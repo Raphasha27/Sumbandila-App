@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { ShieldCheck, CheckCircle2, AlertTriangle, ChevronLeft, Star, ShieldAlert, ArrowRight, Award } from 'lucide-react';
-import { MOCK_DATA } from '../../lib/mock-data';
+import { ShieldCheck, CheckCircle2, AlertTriangle, ChevronLeft, Star, ShieldAlert, ArrowRight, Award, Bot } from 'lucide-react';
+import { MOCK_DATA } from './lib/mock-data';
 
 export default function VerifyResult({ provider, step, onBack, onSave }) {
   if (step === 'processing') {
@@ -22,6 +22,7 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
   
   const statusColor = !isVerified ? '#D32F2F' : isCaution ? '#F59E0B' : '#2E7D32';
   const statusBg = !isVerified ? '#FFEBEE' : isCaution ? '#FFF7ED' : '#E8F5E9';
+  const riskColor = provider.risk === 'High' ? '#EF4444' : provider.risk === 'Medium' ? '#F59E0B' : '#10B981';
   const headerGradient = !isVerified 
     ? 'linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%)' 
     : isCaution 

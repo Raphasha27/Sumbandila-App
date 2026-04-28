@@ -22,7 +22,9 @@ import {
   Lock,
   Database,
   AlertTriangle,
-  UserCircle
+  UserCircle,
+  Search,
+  School
 } from 'lucide-react';
 import { Analytics } from '@vercel/analytics/react';
 import { db } from './services/DatabaseService';
@@ -83,6 +85,7 @@ const OfficialBanner = () => (
 );
 
 export default function App() {
+  console.log("🚀 Sentinel Hub Initializing...");
   // eslint-disable-next-line react-hooks/purity
   const certBlockId = useMemo(() => Math.random().toString(36).substring(2, 11).toUpperCase(), []);
 
@@ -159,59 +162,17 @@ export default function App() {
 
   return (
     <div className="app-container">
+      <div style={{ position: 'fixed', top: 0, left: 0, background: 'red', color: 'white', zIndex: 9999 }}>RENDER TEST: SUCCESS</div>
       <AnimatePresence mode="wait">
         {screen === 'splash' && (
           <motion.div
             key="splash"
-            initial={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="screen"
-            style={{
-              padding: 0,
-              background: 'white',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              position: 'relative',
-              overflow: 'hidden'
-            }}
+            style={{ paddingBottom: '100px' }}
           >
-            <OfficialBanner />
-
-            <div style={{ width: '100%', background: '#1E40AF', padding: '24px 20px', color: 'white', textAlign: 'center', position: 'relative' }}>
-               <h2 style={{ fontSize: '18px', fontWeight: 900, letterSpacing: '1px', marginBottom: '16px', textTransform: 'uppercase' }}>SEARCH REGISTRY</h2>
-               <div style={{ position: 'relative', width: '100%', maxWidth: '400px', margin: '0 auto' }}>
-                 <input 
-                   type="text" 
-                   placeholder="Search Vetted Records" 
-                   value={searchQuery}
-                   onChange={(e) => setSearchQuery(e.target.value)}
-                   onKeyDown={(e) => e.key === 'Enter' && handleGetStarted()}
-                   style={{ width: '100%', padding: '12px 20px', borderRadius: '12px', border: 'none', background: 'white', color: '#111827', fontSize: '14px', fontWeight: 600 }}
-                 />
-                 <Search size={18} color="#94A3B8" style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)' }} />
-               </div>
-            </div>
-
-            <div style={{ flex: 1, width: '100%', padding: '40px 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', zIndex: 10, overflowY: 'auto' }}>
-              
-              {/* Quick Action Cards */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', width: '100%', maxWidth: '440px', marginBottom: '40px' }}>
-                <div onClick={handleGetStarted} style={{ background: 'white', padding: '24px 16px', borderRadius: '20px', border: '1px solid #F1F5F9', boxShadow: '0 10px 30px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
-                  <School size={32} color="#1E40AF" />
-                  <span style={{ fontSize: '14px', fontWeight: 800, color: '#111827' }}>Verify School</span>
-                </div>
-                <div style={{ background: 'white', padding: '24px 16px', borderRadius: '20px', border: '1px solid #F1F5F9', boxShadow: '0 10px 30px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', opacity: 0.6 }}>
-                  <FileText size={32} color="#1E40AF" />
-                  <span style={{ fontSize: '14px', fontWeight: 800, color: '#111827' }}>Assessor Logs</span>
-                </div>
-              </div>
-
-              <div style={{ marginBottom: '32px' }}>
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/en/thumb/2/22/Coat_of_arms_of_South_Africa.svg/1200px-Coat_of_arms_of_South_Africa.svg.png" 
-                  style={{ height: '80px', width: 'auto', marginBottom: '24px' }} 
-                  alt="RSA Coat of Arms Large" 
-                />
                 <p style={{ fontSize: '12px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '1px' }}>GET STARTED</p>
                 <h1 style={{ fontSize: '32px', fontWeight: 900, color: '#111827', lineHeight: 1.1, marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                   WELCOME TO <br/> SUMBANDILA <CheckCircle2 size={24} color="#22C55E" fill="#22C55E22" />
