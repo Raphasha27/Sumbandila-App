@@ -176,83 +176,46 @@ export default function App() {
           >
             <OfficialBanner />
 
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '40px 24px', maxWidth: '500px', zIndex: 10 }}>
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                style={{ position: 'relative', marginBottom: '48px', width: '260px', height: '260px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-              >
-                {/* Outer pulse ring 1 */}
-                <motion.div
-                  animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0, 0.3] }}
-                  transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', inset: '-20px', borderRadius: '50%', border: '2px solid var(--primary)', pointerEvents: 'none' }}
-                />
-                {/* Outer pulse ring 2 */}
-                <motion.div
-                  animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0, 0.5] }}
-                  transition={{ repeat: Infinity, duration: 3, delay: 0.8, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', inset: '-8px', borderRadius: '50%', border: '1.5px solid rgba(0,86,179,0.4)', pointerEvents: 'none' }}
-                />
-                {/* Rotating dashed ring */}
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
-                  style={{
-                    position: 'absolute',
-                    inset: '-12px',
-                    borderRadius: '50%',
-                    border: '2.5px dashed rgba(0,86,179,0.25)',
-                    pointerEvents: 'none'
-                  }}
-                />
-                {/* Emblem circle */}
-                <div style={{
-                  width: '220px',
-                  height: '220px',
-                  borderRadius: '64px',
-                  background: 'var(--bg-gradient)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 30px 60px rgba(37, 99, 235, 0.3)',
-                  position: 'relative',
-                  border: 'none'
-                }}>
-                  <SumbandilaLogo size={120} />
-
-                  {/* Internal gloss effect */}
-                  <div style={{
-                    position: 'absolute',
-                    top: '10%',
-                    left: '10%',
-                    width: '40%',
-                    height: '40%',
-                    background: 'rgba(255,255,255,0.2)',
-                    filter: 'blur(20px)',
-                    borderRadius: '50%'
-                  }} />
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '40px 24px', maxWidth: '500px', zIndex: 10 }}>
+                <div style={{ marginBottom: '32px' }}>
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png" style={{ height: '40px', marginBottom: '12px' }} />
+                  <p style={{ fontSize: '12px', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Sumbandila National Registry Sentinel</p>
                 </div>
-              </motion.div>
 
-              <div style={{ marginBottom: '8px' }}>
-                <SAFlag />
+                <div style={{ background: '#F1F5F9', padding: '32px', borderRadius: '32px', width: '100%', marginBottom: '32px', border: '1px solid #E2E8F0' }}>
+                   <ShieldCheck size={64} color="var(--primary)" style={{ marginBottom: '20px' }} />
+                   <h1 style={{ fontSize: '32px', fontWeight: 900, color: 'var(--primary-dark)', lineHeight: 1.1, marginBottom: '16px' }}>WELCOME TO <br/> SUMBANDILA</h1>
+                   <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '24px' }}>
+                     Your secure gateway to official, verified information from verified government departments.
+                   </p>
+                   <div style={{ background: '#22C55E22', padding: '12px', borderRadius: '12px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                      <CheckCircle2 size={16} color="#22C55E" />
+                      <span style={{ fontSize: '10px', fontWeight: 800, color: '#166534', textTransform: 'uppercase' }}>Vetted by DBE & SACE</span>
+                   </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
+                  <motion.button
+                    whileTap={{ scale: 0.96 }}
+                    onClick={handleGetStarted}
+                    className="btn-primary"
+                    style={{ height: '60px', fontSize: '16px', letterSpacing: '1px' }}
+                  >
+                    EXPLORE THE REGISTRY
+                  </motion.button>
+                  <motion.button
+                    whileTap={{ scale: 0.96 }}
+                    className="btn-outline"
+                    style={{ height: '60px', fontSize: '16px', letterSpacing: '1px' }}
+                  >
+                    JOIN AS A PROFESSIONAL
+                  </motion.button>
+                </div>
+
+                <div style={{ marginTop: '40px' }}>
+                  <p style={{ fontSize: '12px', fontWeight: 800, color: 'var(--primary)', cursor: 'pointer' }}>SUPPORT</p>
+                </div>
               </div>
-
-              <div style={{ fontSize: '14px', fontWeight: 900, color: '#64748B', textTransform: 'uppercase', letterSpacing: '4px', marginBottom: '12px' }}>
-                Republic of South Africa
-              </div>
-
-              <h1 style={{ color: '#0F172A', fontSize: '42px', fontWeight: 900, marginBottom: '24px', letterSpacing: '-1.5px', lineHeight: 1.1 }}>
-                Sumbandila <span style={{ color: 'var(--primary-orange)' }}>App</span>
-                <div style={{ fontSize: '18px', color: '#64748B', marginTop: '8px', letterSpacing: '2px', textTransform: 'uppercase' }}>Registry Sentinel</div>
-                <div style={{ fontSize: '16px', color: 'var(--primary)', marginTop: '4px', fontStyle: 'italic', textTransform: 'none', letterSpacing: '0', fontWeight: 700 }}>at the palm of your hand</div>
-              </h1>
-
-              <p style={{ color: '#64748B', fontSize: '16px', lineHeight: 1.6, marginBottom: '32px', fontWeight: 500 }}>
-                The official South African gateway to verify schools, colleges, and professionals. 
-                <span style={{ color: '#0F172A', fontWeight: 700 }}> Stay safe, stay verified.</span>
-              </p>
 
               <motion.button
                 whileTap={{ scale: 0.96 }}
