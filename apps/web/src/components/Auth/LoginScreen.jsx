@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Lock, ArrowRight, ChevronLeft, Mail, CheckCircle2, Mic } from 'lucide-react';
+import { SumbandilaLogo } from '../Branding/Logo';
 
 export default function LoginScreen({ onLogin, onBack }) {
   const [email, setEmail] = useState('');
@@ -69,67 +70,32 @@ export default function LoginScreen({ onLogin, onBack }) {
 
       <div style={{ width: '100%', maxWidth: '440px', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '32px', marginBottom: '40px' }}>
-          {/* Emblem with verification badge */}
+          {/* Professional Logo */}
           <div style={{ position: 'relative', width: '110px', height: '110px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {/* Rotating dashed ring */}
+            <SumbandilaLogo size={100} />
+            
+            {/* Verified badge dot */}
             <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.5, type: 'spring', stiffness: 300 }}
               style={{
                 position: 'absolute',
-                inset: '-10px',
+                bottom: '0px',
+                right: '0px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '50%',
-                border: '2px dashed rgba(0,86,179,0.25)',
-                pointerEvents: 'none'
+                background: '#4ADE80',
+                border: '3px solid white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
               }}
-            />
-            {/* Pulse ring */}
-            <motion.div
-              animate={{ scale: [1, 1.12, 1], opacity: [0.4, 0, 0.4] }}
-              transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
-              style={{ position: 'absolute', inset: '-4px', borderRadius: '50%', border: '2px solid var(--primary)', pointerEvents: 'none' }}
-            />
-            {/* Emblem */}
-            <div style={{
-              width: '100px',
-              height: '100px',
-              borderRadius: '50px',
-              background: 'white',
-              border: '2.5px solid var(--primary)',
-              boxShadow: '0 8px 24px rgba(0,86,179,0.12)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'relative'
-            }}>
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
-                alt="South Africa Flag"
-                style={{ width: '56px', height: 'auto', borderRadius: '4px' }}
-              />
-              {/* Verified badge dot */}
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.5, type: 'spring', stiffness: 300 }}
-                style={{
-                  position: 'absolute',
-                  bottom: '4px',
-                  right: '4px',
-                  width: '28px',
-                  height: '28px',
-                  borderRadius: '50%',
-                  background: 'var(--primary)',
-                  border: '2.5px solid white',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 2px 8px rgba(0,86,179,0.35)'
-                }}
-              >
-                <CheckCircle2 size={14} color="white" strokeWidth={3} />
-              </motion.div>
-            </div>
+            >
+              <CheckCircle2 size={16} color="white" strokeWidth={3} />
+            </motion.div>
           </div>
           <div style={{ width: '2px', height: '70px', background: 'rgba(0,0,0,0.06)', borderRadius: '2px' }} />
           <div style={{

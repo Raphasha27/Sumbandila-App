@@ -5,6 +5,7 @@ import {
   Stethoscope, Scale, GraduationCap, FileText, Phone, Mail, MapPin,
   AlertCircle, Star, Clock, Award
 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 const PROFESSION_TYPES = [
   { id: 'doctor', label: 'Medical Doctor / Specialist', icon: Stethoscope, body: 'HPCSA', color: '#10B981', ref: 'MP Number (e.g. MP 0488271)' },
@@ -46,8 +47,7 @@ export default function PractitionerRegister({ onBack }) {
     setStep(s => Math.min(s + 1, 3));
   };
 
-  const handleSubmit = () => {
-    // In production this would POST to Supabase/API
+  const handleSubmit = async () => {
     const application = {
       id: `APP-${Date.now()}`,
       profession: profession.label,
@@ -56,8 +56,23 @@ export default function PractitionerRegister({ onBack }) {
       submittedAt: new Date().toISOString(),
       status: 'Under Review'
     };
+
+    // 1. Always save to LocalStorage for immediate pitch feedback
     const existing = JSON.parse(localStorage.getItem('sumbandila_applications') || '[]');
     localStorage.setItem('sumbandila_applications', JSON.stringify([...existing, application]));
+
+    // 2. Optional: Save to Supabase if client is initialized
+    if (supabase) {
+      try {
+        const { error } = await supabase
+          .from('practitioner_applications')
+          .insert([application]);
+        if (error) console.warn("Supabase Sync Error:", error.message);
+      } catch (err) {
+        console.warn("Supabase Connection Failed:", err);
+      }
+    }
+
     setSubmitted(true);
   };
 

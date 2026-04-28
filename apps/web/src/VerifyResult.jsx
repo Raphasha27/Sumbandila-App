@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ShieldCheck, CheckCircle2, AlertTriangle, ChevronLeft, Star, ShieldAlert } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, AlertTriangle, ChevronLeft, Star, ShieldAlert, ArrowRight, Award } from 'lucide-react';
 import { MOCK_DATA } from '../../lib/mock-data';
 
 export default function VerifyResult({ provider, step, onBack, onSave }) {
@@ -182,12 +182,30 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px' }}>
           {isVerified && (
-            <button
-              onClick={() => onSave(provider)}
-              style={{ padding: '20px', background: 'var(--primary-orange)', color: 'white', borderRadius: '20px', border: 'none', fontSize: '17px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', boxShadow: '0 10px 25px rgba(230, 81, 0, 0.2)' }}
-            >
-              <ShieldCheck size={22} /> Save to Sentinel Vault
-            </button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <button
+                onClick={() => onSave(provider)}
+                style={{ padding: '20px', background: 'var(--primary-orange)', color: 'white', borderRadius: '20px', border: 'none', fontSize: '17px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', boxShadow: '0 10px 25px rgba(230, 81, 0, 0.2)' }}
+              >
+                <ShieldCheck size={22} /> Save to Sentinel Vault
+              </button>
+              
+              {provider.externalLink && (
+                <button
+                  onClick={() => window.open(provider.externalLink, '_blank')}
+                  style={{ padding: '20px', background: 'white', color: 'var(--primary)', borderRadius: '20px', border: '2px solid var(--primary)', fontSize: '17px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}
+                >
+                  <ArrowRight size={22} /> Verify on Official {provider.body} Portal
+                </button>
+              )}
+              
+              {provider.isVerified && (
+                <div style={{ background: '#F0FDF4', border: '1px solid #BBF7D0', padding: '16px', borderRadius: '20px', display: 'flex', alignItems: 'center', gap: '12px', marginTop: '8px' }}>
+                  <Award size={20} color="#10B981" />
+                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#065F46' }}>Sumbandila Trust Badge: Gold Verified Practitioner</span>
+                </div>
+              )}
+            </div>
           )}
           <button
             onClick={onBack}

@@ -30,6 +30,7 @@ import { BottomNav } from './components/Navigation';
 import { MOCK_DATA } from './lib/mock-data';
 import SiphoAI from './components/SiphoAI';
 import PractitionerRegister from './components/PractitionerRegister';
+import { SumbandilaLogo } from './components/Branding/Logo';
 
 const SAFlag = () => (
   <div style={{ display: 'flex', gap: '2px', height: '6px', width: '100px', marginBottom: '12px' }}>
@@ -95,14 +96,19 @@ export default function App() {
   const [selectedProvider, setSelectedProvider] = useState(null);
   const { selectedCategory, setSelectedCategory } = useRegistryStore();
 
-  // 🛡️ Mandatory Splash Force: Ensures "Get Started" is the entry point every time
+  // 🛡️ Mandatory Onboarding Flow: Splash -> Login -> Dashboard
   useEffect(() => {
-    // Only set to splash if there is no user session
-    if (!user) {
+    if (!user && screen !== 'splash' && screen !== 'login') {
       setScreen('splash');
     }
-    console.log("🛡️ Entry Point Reset: Enforcing State Integrity");
-  }, [user, setScreen]);
+  }, [user, screen, setScreen]);
+
+  const handleGetStarted = () => setScreen('login');
+  const handleLoginSuccess = (userData) => {
+    setUser(userData);
+    setScreen('dashboard');
+  };
+  const handleBackToSplash = () => setScreen('splash');
 
   useEffect(() => {
     if (screen === 'audit-logs' && user?.email === 'admin@sumbandila.com') {
@@ -205,7 +211,7 @@ export default function App() {
                   position: 'relative',
                   border: 'none'
                 }}>
-                  <ShieldCheck size={110} color="white" strokeWidth={1.5} />
+                  <SumbandilaLogo size={120} />
 
                   {/* Internal gloss effect */}
                   <div style={{
@@ -235,11 +241,15 @@ export default function App() {
                 <div style={{ fontSize: '16px', color: 'var(--primary)', marginTop: '4px', fontStyle: 'italic', textTransform: 'none', letterSpacing: '0', fontWeight: 700 }}>at the palm of your hand</div>
               </h1>
 
+              <p style={{ color: '#64748B', fontSize: '16px', lineHeight: 1.6, marginBottom: '32px', fontWeight: 500 }}>
+                The official South African gateway to verify schools, colleges, and professionals. 
+                <span style={{ color: '#0F172A', fontWeight: 700 }}> Stay safe, stay verified.</span>
+              </p>
 
               <motion.button
                 whileTap={{ scale: 0.96 }}
                 whileHover={{ scale: 1.02 }}
-                onClick={() => setScreen('login')}
+                onClick={handleGetStarted}
                 style={{
                   background: 'var(--primary-orange)',
                   color: 'white',
@@ -260,8 +270,19 @@ export default function App() {
                   letterSpacing: '1px'
                 }}
               >
-                GET STARTED <ArrowRight size={22} />
+                ENTER REGISTRY <ArrowRight size={22} />
               </motion.button>
+
+              <div style={{ marginTop: '40px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', width: '100%', maxWidth: '440px' }}>
+                <div style={{ background: '#F8FAFC', padding: '16px', borderRadius: '20px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#111827' }}>24k+</div>
+                  <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase' }}>Vetted Schools</div>
+                </div>
+                <div style={{ background: '#F8FAFC', padding: '16px', borderRadius: '20px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#111827' }}>100%</div>
+                  <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase' }}>Official Data</div>
+                </div>
+              </div>
 
               <motion.button
                 whileTap={{ scale: 0.98 }}
@@ -359,8 +380,8 @@ export default function App() {
 
         {screen === 'login' && (
           <LoginScreen
-            onLogin={handleLogin}
-            onBack={() => setScreen('splash')}
+            onLogin={handleLoginSuccess}
+            onBack={handleBackToSplash}
             onShowAbout={() => setScreen('how-it-works')}
           />
         )}

@@ -16,7 +16,9 @@ export const MOCK_DATA = {
       council: "CHE",
       courses: ["Medicine", "Engineering", "Commerce", "Law"],
       validUntil: "2030-12-31",
-      risk: "Low"
+      risk: "Low",
+      externalLink: "https://www.dhet.gov.za/SitePages/Docregisters.aspx",
+      isVerified: true
     },
     {
       id: "edu-3",
@@ -121,7 +123,9 @@ export const MOCK_DATA = {
       body: "HPCSA Registered",
       specialization: "Internal Medicine",
       validUntil: "2025-12-31",
-      risk: "Low"
+      risk: "Low",
+      externalLink: "https://www.hpcsa.co.za/i_register",
+      isVerified: true
     },
     // Legal (Accredited / Vetted)
     {
@@ -137,7 +141,9 @@ export const MOCK_DATA = {
       ffcStatus: "Valid (2024 Certificate)",
       expertise: "Corporate & Commercial",
       validUntil: "2026-12-31",
-      risk: "Low"
+      risk: "Low",
+      externalLink: "https://lpc.org.za/ffc-verification/",
+      isVerified: true
     },
     {
       id: "leg-2",
@@ -577,6 +583,86 @@ export const MOCK_DATA = {
       riskLevel: "High",
       source: "Cyber-Sentinel Hub",
       sourceUrl: "https://cyber-sentinel.gov.za"
+    }
+  ],
+  // 🚨 Sentinel Scam Tracker Alerts
+  alerts: [
+    {
+      id: 'alert-1',
+      category: 'Education',
+      title: 'Bogus Nursing Colleges',
+      risk: 'Critical',
+      description: "Unregistered colleges in GP and KZN offering 'Nursing' diplomas without SANC accreditation. They often use 'Global' or 'International' in their names.",
+      source: 'Department of Higher Education (DHET)',
+      date: '2024-04-20'
+    },
+    {
+      id: 'alert-2',
+      category: 'Healthcare',
+      title: 'Fake HPCSA Inspectors',
+      risk: 'High',
+      description: "Scammers posing as HPCSA inspectors visiting private practices and demanding 'spot fines' for minor compliance issues.",
+      source: 'HPCSA Official Notice',
+      date: '2024-04-18'
+    },
+    {
+      id: 'alert-3',
+      category: 'Finance',
+      title: "SARS 'Overdue Refund' Phishing",
+      risk: 'Critical',
+      description: "SMS and emails claiming you have a R12,500 refund from SARS. Links to a landing page that steals banking credentials.",
+      source: 'SARS Scam Warning',
+      date: '2024-04-15'
+    },
+    {
+      id: 'alert-4',
+      category: 'Legal',
+      title: 'Ghost Conveyancers',
+      risk: 'High',
+      description: "Individuals claiming to be attorneys handling property transfers for low fees. They disappear once the 'transfer fee' is paid.",
+      source: 'Legal Practice Council (LPC)',
+      date: '2024-04-10'
+    }
+  ],
+
+  // 🏛️ Official Resources & Authorities
+  resources: {
+    education: [
+      { name: 'DHET Helpline', detail: 'Toll-Free Verification', link: 'https://www.dhet.gov.za/' },
+      { name: 'SAQA Verification', detail: 'Qualification Checks', link: 'https://www.saqa.org.za/' },
+      { name: 'CHE Council', detail: 'Higher Ed Accreditation', link: 'https://www.che.ac.za/' }
+    ],
+    medical: [
+      { name: 'HPCSA Search', detail: 'Practitioner Registry', link: 'https://www.hpcsa.co.za/' },
+      { name: 'Mediclinic Search', detail: 'Provider Verification', link: 'https://www.mediclinic.co.za/' },
+      { name: 'Discovery Health', detail: 'Verified Provider Search', link: 'https://www.discovery.co.za/' }
+    ],
+    legal: [
+      { name: 'LPC Registry', detail: 'Legal Practice Council', link: 'https://lpc.org.za/' },
+      { name: 'LSSA Search', detail: 'Law Society of SA', link: 'https://www.lssa.org.za/' },
+      { name: 'Fidelity Fund', detail: 'FFC Verification', link: 'https://www.fidfund.co.za/' }
+    ]
+  },
+
+  // 🗣️ Citizens' Voices (Testimonials)
+  testimonials: [
+    {
+      name: 'Thandiwe Nkosi',
+      location: 'Soweto, GP',
+      content: '"I was about to pay R5000 deposit for a nursing college in Joburg. Checked Sumbandila first and it was flagged as UNVERIFIED. This app saved my life savings!"',
+      category: 'Financial Loss Avoided'
+    },
+    {
+      name: 'Johannes van der Merwe',
+      location: 'Bellville, WC',
+      content: '"Used the legal registry to verify a \'consultant\' liquidating my business. Found out they weren\'t on the LPC list. Reported them immediately."',
+      category: 'Fraud Exposure'
+    },
+    {
+      name: 'Naledi Madiba',
+      location: 'Polokwane, LP',
+      content: '"As a student, I\'m always worried about my degree being valid. Verifying my institution here gave me total peace of mind for my future."',
+      category: 'Career Security'
     }
   ]
 };

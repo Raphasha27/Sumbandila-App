@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, School, Stethoscope, Scale, Star, ShieldCheck, QrCode, User as UserIcon, Building2, TrendingUp, Globe, AlertCircle, ExternalLink, ShieldAlert, ArrowRight, Heart, Coins, Navigation2, Radar, Bot } from 'lucide-react';
+import { Search, School, Stethoscope, Scale, Star, ShieldCheck, QrCode, User as UserIcon, Building2, TrendingUp, Globe, AlertCircle, ExternalLink, ShieldAlert, ArrowRight, Heart, Coins, Navigation2, Radar, Bot, GraduationCap, Activity, ChevronRight, History, Mic, CheckCircle2 } from 'lucide-react';
 import { CategoryCard, BottomNav } from '../Navigation';
 import { MOCK_DATA } from '../../lib/mock-data';
 import { useRegistryStore } from '../../store/useRegistryStore';
 import ReportModal from '../Report/ReportModal';
 import CheckoutModal from './CheckoutModal';
+import { SumbandilaLogo } from '../Branding/Logo';
 
 export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
   const [isReportOpen, setIsReportOpen] = useState(false);
@@ -58,9 +59,10 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
       style={{ background: '#FDFCFB', minHeight: '100vh', paddingBottom: '80px' }}
     >
       {/* Header */}
+      {/* Official Registry Header */}
       <div style={{
         background: 'var(--bg-gradient)',
-        padding: '24px 20px 48px',
+        padding: '28px 20px 48px',
         borderRadius: '0 0 40px 40px',
         color: 'white',
         position: 'relative',
@@ -69,86 +71,48 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
       }}>
         <div className="scanning-line" />
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', width: '100%', marginBottom: '32px' }}>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
-            alt="South Africa Flag"
-            style={{ height: '44px', width: 'auto', borderRadius: '6px' }}
-          />
-          <div style={{ textAlign: 'left', borderLeft: '1px solid rgba(255,255,255,0.2)', paddingLeft: '20px' }}>
-            <div style={{ fontSize: '12px', fontWeight: 800, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'white' }}>Republic of South Africa</div>
-            <div style={{ fontSize: '26px', fontWeight: 900, marginTop: '2px', lineHeight: 1.1, color: 'white' }}>National Registry Sentinel</div>
+        {/* 🇿🇦 Consistent SA National Branding */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', width: '100%', marginBottom: '28px' }}>
+          <div style={{ background: 'white', padding: '4px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(0,0,0,0.1)' }}>
+            <SumbandilaLogo size={48} />
+          </div>
+          <div style={{ textAlign: 'left', borderLeft: '1px solid rgba(255,255,255,0.3)', paddingLeft: '20px' }}>
+            <div style={{ fontSize: '11px', fontWeight: 900, opacity: 0.9, textTransform: 'uppercase', letterSpacing: '2px', color: 'white' }}>Republic of South Africa</div>
+            <div style={{ fontSize: '24px', fontWeight: 900, marginTop: '2px', lineHeight: 1.1, color: 'white', letterSpacing: '-0.5px' }}>National Registry Sentinel</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-          {/* 🟢 Live Sync Badge - Centered Top */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            marginBottom: '24px',
-            background: 'rgba(255,255,255,0.15)',
-            padding: '4px 12px',
-            borderRadius: '100px',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255,255,255,0.1)'
-          }}>
-            <motion.div
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ADE80' }}
-            />
-            <span style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1.2px' }}>Registry Live Sync</span>
-          </div>
-
-          {/* Action Row - Consolidated Card */}
-          <div style={{
-            display: 'flex',
-            gap: '20px',
-            marginBottom: '24px',
-            background: 'rgba(255,255,255,0.1)',
-            padding: '12px 20px',
-            borderRadius: '24px',
-            backdropFilter: 'blur(15px)',
-            border: '1px solid rgba(255,255,255,0.1)'
-          }}>
-            <div onClick={() => onNav('qr-scan')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '60px' }}>
-              <QrCode size={20} color="white" />
-              <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Scanner</span>
+        {/* Personalized Welcome */}
+        <div style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)', padding: '20px', borderRadius: '28px', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '24px', textAlign: 'left', width: '100%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ width: '56px', height: '56px', borderRadius: '18px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', fontWeight: 900, color: 'var(--primary)', boxShadow: '0 8px 20px rgba(0,0,0,0.1)' }}>
+              {user?.avatar || '👤'}
             </div>
-            <div onClick={() => onNav('profile')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '60px' }}>
-              <UserIcon size={20} color="white" />
-              <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Profile</span>
-            </div>
-            <div onClick={() => onNav('alerts')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '60px' }}>
-              <TrendingUp size={20} color="white" />
-              <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>Alerts</span>
-            </div>
-            <div onClick={() => onNav('news')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', width: '60px' }}>
-              <Globe size={20} color="white" />
-              <span style={{ fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>News</span>
+            <div>
+              <h2 style={{ fontSize: '20px', fontWeight: 900, color: 'white', margin: 0 }}>Molo, {user?.name.split(' ')[0] || 'Citizen'}!</h2>
+              <p style={{ margin: 0, fontSize: '13px', color: 'rgba(255,255,255,0.8)', fontWeight: 600 }}>Registry Status: <span style={{ color: '#4ADE80' }}>Secure & Vetted</span></p>
             </div>
           </div>
         </div>
 
-        {/* Refined Modern Search Bar */}
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '8px' }}>
+        {/* Integrated Official Search */}
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           <div style={{
             flex: 1,
-            background: 'rgba(255, 255, 255, 0.2)',
-            backdropFilter: 'blur(10px)',
+            background: 'white',
             borderRadius: '100px',
             display: 'flex',
             alignItems: 'center',
             padding: '0 24px',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            height: '56px',
-            width: '100%'
+            boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+            height: '60px',
+            width: '100%',
+            border: '2px solid transparent'
           }}>
+            <Search size={22} color="var(--primary)" style={{ opacity: 0.7 }} />
             <input
               type="text"
-              placeholder="Search ID, Name, Medical/Legal Reg, Course..."
+              placeholder="Search Name, ID or Registration Number..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && onVerify(searchQuery)}
@@ -157,100 +121,159 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
                 border: 'none',
                 outline: 'none',
                 width: '100%',
-                color: 'white',
-                fontSize: '15px',
+                color: '#1E293B',
+                fontSize: '16px',
                 fontWeight: 600,
-                textAlign: 'left'
+                textAlign: 'left',
+                paddingLeft: '16px'
               }}
-            />
-            <Search
-              size={22}
-              color="white"
-              style={{ cursor: 'pointer', opacity: 0.9 }}
-              onClick={() => onVerify(searchQuery)}
             />
           </div>
         </div>
       </div>
 
-      <div style={{ padding: '32px 20px' }}>
+      <div style={{ padding: '24px 20px' }}>
+        {/* 🇿🇦 PRIMARY ACTIONS: Categories */}
+        <div style={{ textAlign: 'left', marginBottom: '32px', marginTop: '8px' }}>
+          <h2 style={{ fontSize: '24px', fontWeight: 900, color: '#111827', marginBottom: '8px' }}>What would you like to verify?</h2>
+          <p style={{ color: '#64748B', fontSize: '15px', fontWeight: 600 }}>Select a category to begin official verification</p>
+        </div>
 
-        {/* Quick Voice Access - Sipho AI */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '40px' }}>
+          {[
+            { id: 'Education', icon: GraduationCap, color: '#2563EB', bg: '#EFF6FF', label: 'Education', desc: 'Schools & Colleges' },
+            { id: 'Medical', icon: Activity, color: '#059669', bg: '#ECFDF5', label: 'Medical', desc: 'Doctors & Clinics' },
+            { id: 'Legal', icon: Scale, color: '#7C3AED', bg: '#F5F3FF', label: 'Legal', desc: 'Lawyers & Firms' },
+            { id: 'Support', icon: ShieldAlert, color: '#DC2626', bg: '#FEF2F2', label: 'Justice Hub', desc: 'Scammed? Help' }
+          ].map((cat) => (
+            <motion.div
+              key={cat.id}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => cat.id === 'Support' ? onNav('support-hub') : onSelectCategory(cat.id)}
+              style={{
+                background: 'white',
+                padding: '24px 20px',
+                borderRadius: '28px',
+                border: '1px solid #F1F5F9',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+                cursor: 'pointer',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+              }}
+            >
+              <div style={{ width: '48px', height: '48px', borderRadius: '16px', background: cat.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <cat.icon size={24} color={cat.color} />
+              </div>
+              <div>
+                <div style={{ fontWeight: 800, fontSize: '17px', color: '#111827' }}>{cat.label}</div>
+                <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, marginTop: '2px' }}>{cat.desc}</div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* 📊 SECURITY INSIGHTS */}
+        <div style={{ marginBottom: '40px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '20px' }}>
+            <div>
+              <h3 style={{ fontSize: '20px', fontWeight: 900, color: '#111827' }}>Security Insights</h3>
+              <p style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>National Registry Health Status</p>
+            </div>
+            <div style={{ padding: '8px 16px', background: '#F0FDF4', borderRadius: '100px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22C55E' }} />
+              <span style={{ fontSize: '12px', fontWeight: 800, color: '#166534' }}>LIVE STATUS</span>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
+            <div style={{ background: 'white', padding: '16px', borderRadius: '24px', border: '1px solid #F1F5F9' }}>
+              <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', marginBottom: '4px' }}>Integrity Score</div>
+              <div style={{ fontSize: '22px', fontWeight: 900, color: 'var(--primary)' }}>98.28%</div>
+            </div>
+            <div style={{ background: 'white', padding: '16px', borderRadius: '24px', border: '1px solid #F1F5F9' }}>
+              <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', marginBottom: '4px' }}>Vetted Today</div>
+              <div style={{ fontSize: '22px', fontWeight: 900, color: '#059669' }}>1,248</div>
+            </div>
+            <div style={{ background: 'white', padding: '16px', borderRadius: '24px', border: '1px solid #F1F5F9' }}>
+              <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', marginBottom: '4px' }}>Pro Vetted</div>
+              <div style={{ fontSize: '22px', fontWeight: 900, color: 'var(--primary-orange)' }}>45k+</div>
+            </div>
+          </div>
+        </div>
+
+        {/* 🚨 SENTINEL SCAM TRACKER */}
+        <div style={{ marginBottom: '40px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <h3 style={{ fontSize: '20px', fontWeight: 900, color: '#111827' }}>Sentinel Scam Tracker</h3>
+            <div style={{ fontSize: '12px', fontWeight: 800, color: '#DC2626', textTransform: 'uppercase', letterSpacing: '1px' }}>Live Alerts</div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {MOCK_DATA.alerts?.map((alert) => (
+              <div key={alert.id} style={{ background: 'white', padding: '20px', borderRadius: '24px', border: '1px solid #FEE2E2', borderLeft: '6px solid #DC2626' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 900, color: '#DC2626', textTransform: 'uppercase' }}>{alert.category} · {alert.risk} Risk</span>
+                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#94A3B8' }}>{alert.date}</span>
+                </div>
+                <h4 style={{ fontSize: '16px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>{alert.title}</h4>
+                <p style={{ fontSize: '13px', color: '#4B5563', lineHeight: 1.5, marginBottom: '12px' }}>{alert.description}</p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Source: {alert.source}</div>
+                  <button style={{ background: 'transparent', border: 'none', color: 'var(--primary)', fontWeight: 800, fontSize: '12px', cursor: 'pointer' }}>View Alert</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 🚀 Pitch Highlight: Live Registry Scraper Simulation */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           style={{
-            background: 'white',
+            background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
             borderRadius: '28px',
             padding: '24px',
             marginBottom: '32px',
-            border: '2px solid #F1F5F9',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.04)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '20px',
+            border: '1px solid rgba(255,255,255,0.1)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
             position: 'relative',
             overflow: 'hidden'
           }}
         >
-          <div style={{ position: 'absolute', top: 0, right: 0, height: '4px', width: '100%', background: 'linear-gradient(90deg, #3B82F6, #6366F1)' }} />
-          <div style={{ width: '56px', height: '56px', background: 'var(--primary)', borderRadius: '18px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
-            <Bot size={28} color="white" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div style={{ width: '56px', height: '56px', background: 'rgba(255,255,255,0.1)', borderRadius: '18px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
+              <Radar size={28} color="#38BDF8" />
+            </div>
+            <div style={{ flex: 1 }}>
+              <h4 style={{ fontSize: '16px', fontWeight: 900, color: 'white', marginBottom: '4px' }}>Live Portal Scraper</h4>
+              <p style={{ fontSize: '12px', color: '#94A3B8', fontWeight: 600, lineHeight: 1.4 }}>
+                Synchronize with DHET, HPCSA, and LPC databases in real-time.
+              </p>
+            </div>
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                alert("🚀 Initializing Sentinel Scrape Engine...\n\n1. Connecting to DHET 'Bogus Colleges' Register...\n2. Cross-referencing HPCSA Active Practitioners...\n3. Auditing LPC Fidelity Fund Certificates...\n\n✅ Sync Complete: 12 New Alerts Found.");
+              }}
+              style={{
+                padding: '12px 20px',
+                borderRadius: '16px',
+                background: '#38BDF8',
+                border: 'none',
+                color: '#0F172A',
+                fontSize: '12px',
+                fontWeight: 900,
+                cursor: 'pointer'
+              }}
+            >
+              RUN SYNC
+            </motion.button>
           </div>
-          <div style={{ flex: 1 }}>
-            <h4 style={{ fontSize: '15px', fontWeight: 900, color: '#111827', marginBottom: '4px' }}>Speak to Sipho</h4>
-            <p style={{ fontSize: '13px', color: '#64748B', fontWeight: 600, lineHeight: 1.4 }}>
-              Record a voice note in your preferred language.
-            </p>
-          </div>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => useRegistryStore.getState().setAiOpen(true)}
-            style={{ padding: '10px 16px', borderRadius: '14px', background: 'var(--primary)', border: 'none', color: 'white', fontSize: '12px', fontWeight: 800, cursor: 'pointer' }}
-          >
-            RECORD
-          </motion.button>
         </motion.div>
 
-        {/* Sipho Security Briefing - AI Action Bar */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          style={{
-            background: 'white',
-            borderRadius: '28px',
-            padding: '24px',
-            marginBottom: '32px',
-            border: '2px solid #F1F5F9',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.04)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '20px',
-            position: 'relative',
-            overflow: 'hidden'
-          }}
-        >
-          <div style={{ position: 'absolute', top: 0, right: 0, height: '4px', width: '100%', background: 'linear-gradient(90deg, #3B82F6, #6366F1)' }} />
-          <div style={{ width: '56px', height: '56px', background: 'var(--primary)', borderRadius: '18px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
-            <Bot size={28} color="white" />
-          </div>
-          <div style={{ flex: 1 }}>
-            <h4 style={{ fontSize: '15px', fontWeight: 900, color: '#111827', marginBottom: '4px' }}>Executive Briefing</h4>
-            <p style={{ fontSize: '13px', color: '#64748B', fontWeight: 600, lineHeight: 1.4 }}>
-              Sipho has flagged <span style={{ color: '#EF4444', fontWeight: 800 }}>3 new bogus colleges</span> in Gauteng this morning.
-            </p>
-          </div>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            style={{ padding: '10px 16px', borderRadius: '14px', background: '#F1F5F9', border: 'none', color: '#111827', fontSize: '12px', fontWeight: 800, cursor: 'pointer' }}
-          >
-            Read Report
-          </motion.button>
-        </motion.div>
-
-        {/* Sentinel Danger Zone Tracker */}
+        {/* 🏛️ OFFICIAL RESOURCE HUB */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -489,70 +512,6 @@ export default function Dashboard({ onVerify, onSelectCategory, onNav }) {
             </button>
           </div>
         </div>
-
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h2 style={{ fontSize: '26px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>What would you like to verify?</h2>
-          <p style={{ color: '#6B7280', fontSize: '15px', fontWeight: 500, marginBottom: '24px' }}>Select a category to begin verification</p>
-        </div>
-
-        {/* Category Grid */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '48px' }}>
-          <CategoryCard
-            icon={<School color="white" size={32} />}
-            label="Education"
-            sublabel="Schools, Colleges & Courses"
-            bg="linear-gradient(135deg, #3B82F6, #2563EB)"
-            onClick={() => onSelectCategory('Education')}
-          />
-          <CategoryCard
-            icon={<Stethoscope color="white" size={32} />}
-            label="Medical"
-            sublabel="Doctors & Healthcare Professionals"
-            bg="linear-gradient(135deg, #10B981, #059669)"
-            onClick={() => onSelectCategory('Healthcare')}
-          />
-          <CategoryCard
-            icon={<Scale color="white" size={32} />}
-            label="Legal"
-            sublabel="Lawyers & Legal Professionals"
-            bg="linear-gradient(135deg, #8B5CF6, #7C3AED)"
-            onClick={() => onSelectCategory('Legal')}
-          />
-        </div>
-
-        {/* Justice & Support Hub Card */}
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          onClick={() => onNav('help')}
-          style={{
-            background: 'var(--bg-gradient)',
-            borderRadius: '32px',
-            padding: '24px',
-            marginBottom: '40px',
-            color: 'white',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '20px',
-            cursor: 'pointer',
-            boxShadow: '0 15px 35px rgba(37, 99, 235, 0.25)',
-            position: 'relative',
-            overflow: 'hidden'
-          }}
-        >
-          <div style={{ position: 'absolute', top: '-20px', right: '-20px', opacity: 0.1 }}>
-            <Scale size={120} color="white" />
-          </div>
-          <div style={{ width: '60px', height: '60px', borderRadius: '20px', background: 'rgba(255,255,255,0.2)', display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
-            <Scale size={32} color="white" />
-          </div>
-          <div>
-            <h4 style={{ fontSize: '18px', fontWeight: 900, marginBottom: '4px' }}>Support & Justice Hub</h4>
-            <p style={{ fontSize: '13px', opacity: 0.9, lineHeight: 1.4, fontWeight: 500 }}>
-              Scammed or Need Help? Verify Student Registration, Law Services, Healthcare Compliance, and more. Protecting our community together.
-            </p>
-          </div>
-          <ArrowRight size={20} style={{ marginLeft: 'auto', flexShrink: 0 }} />
-        </motion.div>
 
         {/* Official Registry Resources */}
         <div style={{ marginBottom: '48px' }}>
