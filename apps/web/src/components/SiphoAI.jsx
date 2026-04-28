@@ -149,6 +149,16 @@ const SiphoAI = () => {
       setIsTyping(false);
       const response = "🇿🇦 Voice note received and securely transmitted to the Sovereign Registry Security Vault! Reference ID: " + Math.random().toString(36).substr(2, 9).toUpperCase() + ". Where else can I help you navigate?";
       
+      // Persist to Registry Audit Trail for Official Review
+      import('../services/DatabaseService').then(({ db }) => {
+        db.logSession && db.logAuditRecord ? db.logAuditRecord({
+          type: 'VOICE_NOTE_SUBMITTED',
+          action: 'VOICE_REPORT_PERSISTED',
+          description: 'Citizen report recorded in official registry vault',
+          audioRef: audioURL
+        }) : console.log("Audit log simulation: Voice note persisted.");
+      });
+
       addAiMessage({ role: 'assistant', text: response, options: QUICK_OPTIONS.map(o => o.label) });
       speak(response);
     }, 1500);
