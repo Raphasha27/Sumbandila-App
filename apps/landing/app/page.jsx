@@ -30,101 +30,152 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center bg-[#030712] selection:bg-emerald-500/30 selection:text-emerald-200">
-      {/* Mesh Background */}
-      <div className="fixed inset-0 mesh-gradient opacity-40 pointer-events-none" />
+      
+      {/* Light Theme Government Navigation */}
+      <nav className="w-full bg-white px-6 md:px-12 py-4 flex justify-between items-center z-50">
+        <div className="flex items-center gap-8">
+          {/* SA Flag & Sumbandila Logo */}
+          <div className="flex items-center gap-3">
+            <div className="flex flex-col">
+              <div className="flex">
+                <div className="w-4 h-3 bg-red-600 skew-x-12" />
+                <div className="w-4 h-3 bg-blue-600 -skew-x-12" />
+              </div>
+              <div className="flex">
+                <div className="w-4 h-3 bg-green-600 skew-x-12" />
+                <div className="w-4 h-3 bg-yellow-400 -skew-x-12" />
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xl md:text-2xl font-black tracking-tighter text-slate-900 leading-none">SUMBANDILA</span>
+              <span className="text-[10px] font-bold text-slate-600 tracking-widest uppercase">National Sentinel</span>
+              <span className="text-[8px] font-medium text-slate-500 mt-1">Building a trusted South Africa, together.</span>
+            </div>
+          </div>
+          
+          <div className="hidden lg:block w-px h-10 bg-slate-200 mx-2" />
 
-      {/* Navigation */}
-      <nav className="w-full max-w-7xl px-6 py-8 flex justify-between items-center z-50">
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="flex items-center gap-4"
-        >
-          <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-2xl shadow-emerald-500/40">
-            <ShieldCheck size={28} className="text-white" />
+          {/* Coat of Arms (Simplified) */}
+          <div className="hidden lg:flex items-center gap-3">
+            <div className="w-8 h-10 bg-amber-500 rounded-t-full flex items-center justify-center">
+              <ShieldCheck size={16} className="text-white" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[10px] font-black text-slate-900 tracking-widest uppercase">Republic of South Africa</span>
+              <span className="text-[9px] font-medium text-slate-600 italic">Batho Pele • We Care. We Act.</span>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <span className="text-2xl font-black tracking-tighter text-white leading-none">SUMBANDILA</span>
-            <span className="text-[10px] font-black text-emerald-500 tracking-[0.4em] uppercase">National Sentinel</span>
-          </div>
-        </motion.div>
+        </div>
         
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="hidden md:flex items-center gap-10 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]"
-        >
-          <Link href="#solutions" className="hover:text-white transition-colors">Solutions</Link>
-          <Link href="#impact" className="hover:text-white transition-colors">National Impact</Link>
-          <Link href="/admin" className="px-8 py-3 rounded-xl border border-white/10 text-white hover:bg-white/5 transition-all backdrop-blur-md">Admin Portal</Link>
-        </motion.div>
+        <div className="hidden md:flex items-center gap-8 text-[11px] font-black text-slate-800 uppercase tracking-widest">
+          <Link href="#solutions" className="hover:text-emerald-600 transition-colors">Solutions</Link>
+          <Link href="#impact" className="hover:text-emerald-600 transition-colors">National Impact</Link>
+          <Link href="#about" className="hover:text-emerald-600 transition-colors">About Us</Link>
+          <Link href="/admin" className="px-5 py-3 rounded-lg bg-[#0E3B29] text-white flex items-center gap-2 hover:bg-emerald-900 transition-all">
+            <Lock size={14} /> Admin Portal
+          </Link>
+          <div className="flex items-center gap-1 cursor-pointer">
+            <span className="text-lg">🇿🇦</span> ZA ˅
+          </div>
+        </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative w-full max-w-7xl px-6 pt-24 pb-40 flex flex-col lg:flex-row items-center gap-20">
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          style={{ opacity, scale }}
-          className="lg:w-1/2 flex flex-col items-start text-left z-10"
-        >
-          <motion.div
-            variants={itemVariants}
-            className="mb-8 px-6 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-3 backdrop-blur-md"
+      {/* Ndebele Pattern Divider */}
+      <div className="w-full h-3 flex" style={{ background: "repeating-linear-gradient(45deg, #E63946 0px, #E63946 10px, #F1FAEE 10px, #F1FAEE 20px, #1D3557 20px, #1D3557 30px, #457B9D 30px, #457B9D 40px, #F4A261 40px, #F4A261 50px)" }} />
+      <div className="w-full h-1 bg-[#0E3B29]" />
+
+      {/* Hero Section with Background Image */}
+      <section className="relative w-full min-h-[85vh] flex flex-col justify-center px-6 md:px-12 py-20 overflow-hidden">
+        {/* Background Image (Table Mountain Placeholder) */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=2000&q=80')" }}
+        />
+        {/* Dark Gradient Overlay */}
+        <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0B1120] via-[#0B1120]/80 to-transparent" />
+        
+        <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 z-10">
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="lg:w-1/2 flex flex-col items-start text-left"
           >
-            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-            <span className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.3em]">System Version 6.0 Live</span>
+            <motion.div
+              variants={itemVariants}
+              className="mb-6 px-4 py-1.5 rounded-full bg-[#0E3B29]/80 border border-emerald-500/20 flex items-center gap-2 backdrop-blur-md"
+            >
+              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+              <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">System Version 6.0 Live</span>
+            </motion.div>
+
+            <motion.h1 
+              variants={itemVariants}
+              className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.95] mb-6"
+            >
+              <span className="text-white">Unified</span> <br />
+              <span className="text-emerald-500">Trust for</span> <br />
+              <span className="text-amber-400">South Africa</span>
+            </motion.h1>
+
+            <motion.p 
+              variants={itemVariants}
+              className="text-base md:text-lg text-slate-300 font-medium max-w-lg leading-relaxed mb-10"
+            >
+              The official national trust infrastructure for South Africa. Verify the legitimacy of institutions, healthcare professionals, and legal practitioners in real-time.
+            </motion.p>
+
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
+            >
+              <Link href="/verify" className="px-6 py-3.5 rounded-lg bg-emerald-600 text-white font-bold tracking-widest text-sm uppercase hover:bg-emerald-500 transition-all flex items-center justify-center gap-3">
+                <ShieldCheck size={18} /> START VERIFICATION <ChevronRight size={18} />
+              </Link>
+              <Link href="/admin" className="px-6 py-3.5 rounded-lg border-2 border-white/20 text-white font-bold tracking-widest text-sm uppercase hover:bg-white/10 transition-all flex items-center justify-center gap-3 backdrop-blur-sm">
+                <Activity size={18} /> DASHBOARD ACCESS
+              </Link>
+            </motion.div>
           </motion.div>
-
-          <motion.h1 
-            variants={itemVariants}
-            className="text-6xl md:text-8xl font-black tracking-tighter text-white leading-[0.85] mb-8"
-          >
-            Unified <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-600">Trust Layer</span>
-          </motion.h1>
-
-          <motion.p 
-            variants={itemVariants}
-            className="text-lg md:text-xl text-slate-400 font-medium max-w-xl leading-relaxed mb-12"
-          >
-            The official national trust infrastructure for South Africa. Verify the legitimacy of institutions, healthcare professionals, and legal practitioners in real-time.
-          </motion.p>
 
           <motion.div 
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:w-1/2 w-full flex justify-end"
           >
-            <Link href="/verify" className="btn-primary group flex items-center justify-center gap-4">
-              START VERIFICATION <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link href="/admin" className="btn-secondary flex items-center justify-center gap-4">
-              DASHBOARD ACCESS
-            </Link>
-          </motion.div>
-        </motion.div>
-
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
-          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:w-1/2 w-full relative perspective-1000"
-        >
-          <div className="relative z-10 animate-float">
             <Image 
               src="/hero-dashboard.png" 
               alt="National Trust Dashboard" 
-              width={800} 
-              height={600} 
-              className="rounded-[40px] shadow-2xl border border-white/10 backdrop-blur-2xl"
+              width={700} 
+              height={500} 
+              className="rounded-2xl shadow-2xl border border-white/10"
               priority
             />
-          </div>
-          {/* Decorative elements */}
-          <div className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/20 blur-[80px] rounded-full" />
-          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-500/20 blur-[80px] rounded-full" />
-        </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* White Bottom Info Bar */}
+      <section className="w-full bg-white px-6 md:px-12 py-8 border-b border-slate-200">
+        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+          {[
+            { icon: Lock, title: "Secure. Transparent. Trusted.", desc: "Built for every South African." },
+            { icon: CheckCircle2, title: "Protecting Identities", desc: "Securing our communities." },
+            { icon: Globe, title: "Batho Pele in Action", desc: "People first, always." },
+            { icon: Star, title: "Proudly South African", desc: "Developed for Mzansi." }
+          ].map((item, i) => (
+            <div key={i} className="flex items-center gap-4">
+              <div className="text-slate-400">
+                <item.icon size={32} strokeWidth={1.5} />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-slate-900">{item.title}</span>
+                <span className="text-xs font-medium text-slate-500">{item.desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Bento Grid Solutions */}
