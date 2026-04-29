@@ -45,7 +45,22 @@ export default function SiteFooter() {
           <Link href="/admin" className="text-xs font-semibold text-slate-400 hover:text-emerald-500 transition-colors">Admin Portal</Link>
         </div>
 
-        <div className="flex flex-col items-center md:items-end gap-3 col-span-2 md:col-span-1">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 flex flex-col md:flex-row justify-between items-center gap-10 border-t border-white/5 mt-10">
+        <div className="flex flex-col items-center md:items-start gap-4">
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Coat_of_arms_of_South_Africa.svg/100px-Coat_of_arms_of_South_Africa.svg.png" 
+            alt="Official Coat of Arms"
+            className="h-16 w-auto brightness-0 invert opacity-40"
+          />
+          <div className="text-center md:text-left">
+            <h4 className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-1">Government of South Africa</h4>
+            <p className="text-[9px] font-bold text-white/20 italic max-w-xs">
+              Sumbandila is an official initiative powered by the National Digital Infrastructure.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center md:items-end gap-3">
           <h4 className="text-sm font-black text-white uppercase tracking-tighter mb-2">EXPERIENCE ON MOBILE</h4>
           <div className="bg-white p-4 rounded-[28px] shadow-2xl relative">
              {/* Realistic QR Code Graphic using SVG */}
@@ -87,6 +102,7 @@ export default function SiteFooter() {
           </div>
           <span className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-[0.2em] mt-2">SCAN TO ACCESS THE HUB</span>
         </div>
+      </div>
 
       </div>
 

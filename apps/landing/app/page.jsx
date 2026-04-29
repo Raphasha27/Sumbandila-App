@@ -1,67 +1,40 @@
 "use client";
 
+import { Search, ChevronRight, GraduationCap, HandCoins, HeartPulse, ShieldCheck, Activity, Users, Globe, BookOpen, Star, Sparkles, MapPin, Briefcase, PlayCircle, Scale } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-import { 
-  ChevronRight, Search, MapPin, MonitorSmartphone, GraduationCap,
-  Video, Users, Rocket, Palette, HeartHandshake, ShieldCheck, Bus,
-  Check, Lock, Facebook, Twitter, Instagram, Youtube, Smile,
-  HeartPulse, HandCoins, Activity, Globe, Sparkles, ArrowRight
-} from "lucide-react";
-
 import SiteNav from "../components/SiteNav";
 import SiteFooter from "../components/SiteFooter";
+import SiphoFloatingAssistant from "../components/SiphoFloatingAssistant";
 
-export default function HomeLanding() {
+export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans selection:bg-emerald-500/30">
-      
       <SiteNav />
+      <SiphoFloatingAssistant />
 
-      {/* Ndebele Pattern Divider */}
-      <div className="w-full h-4 flex" style={{ 
-        backgroundImage: "repeating-linear-gradient(45deg, #000 0px, #000 10px, #fff 10px, #fff 12px, #E03C31 12px, #E03C31 22px, #fff 22px, #fff 24px, #007749 24px, #007749 34px, #fff 34px, #fff 36px, #002395 36px, #002395 46px, #fff 46px, #fff 48px, #FFB81C 48px, #FFB81C 58px)",
-        backgroundSize: "80px 100%"
-      }} />
-
-      {/* Hero Section */}
-      <section className="relative w-full overflow-hidden bg-slate-100 min-h-[600px] flex items-center">
-        {/* Background Image Container */}
-        <div className="absolute inset-0 z-0">
-          <Image 
-            src="https://images.unsplash.com/photo-1577934421111-c918c57a9170?auto=format&fit=crop&q=80&w=2000"
-            alt="Johannesburg Skyline" 
-            fill 
-            className="object-cover opacity-20"
-            priority
-          />
-          {/* Fading gradient to blend the image */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/90 to-transparent w-full md:w-2/3" />
-        </div>
+      {/* ── HERO SECTION ── */}
+      <section className="relative pt-24 pb-32 px-6 md:px-12 overflow-hidden bg-white">
+        {/* Ndebele-inspired background elements */}
+        <div className="absolute top-0 left-0 w-full h-1 flex" style={{ 
+          backgroundImage: "repeating-linear-gradient(90deg, #FFB81C 0px, #FFB81C 20px, #007749 20px, #007749 40px, #E03C31 40px, #E03C31 60px, #002395 60px, #002395 80px, #000 80px, #000 100px)",
+        }} />
         
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-20 flex flex-col lg:flex-row items-center justify-between gap-12 z-10 relative">
-          
-          {/* Left Text */}
-          <div className="lg:w-5/12 flex flex-col items-start text-left">
-            <h1 className="text-5xl md:text-[64px] font-black tracking-tighter leading-[1.05] mb-6 text-slate-900 relative">
-              Empower the<br />youth.<br />
-              <span className="text-[#007749]">Build</span><br />
-              <span className="text-[#F59E0B]">Tomorrow.</span>
-              {/* SA Flag Underline */}
-              <div className="absolute -bottom-4 left-0 h-1.5 flex w-48">
-                <div className="h-full bg-[#007749] w-1/4"></div>
-                <div className="h-full bg-[#F59E0B] w-1/4"></div>
-                <div className="h-full bg-[#E03C31] w-1/4"></div>
-                <div className="h-full bg-[#002395] w-1/4"></div>
-                <div className="h-full bg-black w-1/4"></div>
-              </div>
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 relative z-10">
+          <div className="w-full lg:w-3/5">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-100 mb-8 animate-fade-in">
+              <Sparkles size={16} className="text-[#007749]" />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#007749]">National Youth Growth Ecosystem 2026</span>
+            </div>
+            
+            <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-[0.95] text-slate-900 mb-8">
+              Grow with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#007749] to-[#002395]">Sumbandila.</span>
             </h1>
-
-            <p className="text-base md:text-lg text-slate-600 font-bold max-w-md leading-relaxed mb-10 mt-6">
-              A national ecosystem connecting South African youth (18-35) with skills, tech infrastructure, webinars, and cross-sector collaborations to defeat unemployment.
+            
+            <p className="text-xl md:text-2xl font-semibold text-slate-600 mb-12 max-w-2xl leading-relaxed">
+              The official gateway to verified opportunities, skills, and national services for the youth of South Africa.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <div className="flex flex-wrap gap-4">
               <Link href="/opportunities" className="px-8 py-4 rounded-xl bg-[#007749] text-white font-bold tracking-widest text-xs uppercase hover:bg-[#0E3B29] transition-all flex items-center justify-center gap-3 shadow-lg shadow-green-900/20">
                 <Search size={18} /> EXPLORE OPPORTUNITIES
               </Link>
@@ -71,193 +44,38 @@ export default function HomeLanding() {
             </div>
           </div>
 
-          {/* Right Grid of Services */}
-          <div className="lg:w-7/12 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
-            {/* Watermark Pattern */}
-            <div className="absolute inset-0 z-[-1] opacity-[0.03] pointer-events-none" style={{ 
-              backgroundImage: "repeating-linear-gradient(45deg, #000 0px, #000 20px, transparent 20px, transparent 40px)",
-              backgroundSize: "60px 60px"
-            }} />
-            
-            {/* Tech & Developers */}
-            <Link href="/category/tech" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
-              <div className="w-12 h-12 bg-blue-50 text-[#002395] rounded-xl flex items-center justify-center mb-4">
-                <MonitorSmartphone size={24} />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-1">Tech & Devs</h3>
-              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Infrastructure, Coding, Hackathons</p>
-              <div className="flex justify-end text-[#002395] group-hover:translate-x-1 transition-transform">
-                <ChevronRight size={20} />
-              </div>
-            </Link>
-
-            {/* Skills & TVET */}
-            <Link href="/category/skills" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
-              <div className="w-12 h-12 bg-green-50 text-[#007749] rounded-xl flex items-center justify-center mb-4">
-                <GraduationCap size={24} />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-1">Skills Dev</h3>
-              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Learnerships, TVET, Upskilling</p>
-              <div className="flex justify-end text-[#007749] group-hover:translate-x-1 transition-transform">
-                <ChevronRight size={20} />
-              </div>
-            </Link>
-
-            {/* Rural & Township */}
-            <Link href="/category/rural" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
-              <div className="w-12 h-12 bg-amber-50 text-[#F59E0B] rounded-xl flex items-center justify-center mb-4">
-                <MapPin size={24} />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-1">Townships</h3>
-              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Rural Inclusion, Local Biz</p>
-              <div className="flex justify-end text-[#F59E0B] group-hover:translate-x-1 transition-transform">
-                <ChevronRight size={20} />
-              </div>
-            </Link>
-
-            {/* Webinars & Collabs */}
-            <Link href="/category/webinars" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
-              <div className="w-12 h-12 bg-red-50 text-[#E03C31] rounded-xl flex items-center justify-center mb-4">
-                <Video size={24} />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-1">Webinars</h3>
-              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Global Talks, Partnerships</p>
-              <div className="flex justify-end text-[#E03C31] group-hover:translate-x-1 transition-transform">
-                <ChevronRight size={20} />
-              </div>
-            </Link>
-
-            {/* Entrepreneurship */}
-            <Link href="/category/business" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
-              <div className="w-12 h-12 bg-green-50 text-[#007749] rounded-xl flex items-center justify-center mb-4">
-                <Rocket size={24} />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-1">Founders</h3>
-              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Startup Funding, Incubation</p>
-              <div className="flex justify-end text-[#007749] group-hover:translate-x-1 transition-transform">
-                <ChevronRight size={20} />
-              </div>
-            </Link>
-
-            {/* Creative Economy */}
-            <Link href="/category/creative" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
-              <div className="w-12 h-12 bg-amber-50 text-[#F59E0B] rounded-xl flex items-center justify-center mb-4">
-                <Palette size={24} />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-1">Creatives</h3>
-              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Arts, Media, Entertainment</p>
-              <div className="flex justify-end text-[#F59E0B] group-hover:translate-x-1 transition-transform">
-                <ChevronRight size={20} />
-              </div>
-            </Link>
-
-            {/* Leadership */}
-            <Link href="/leadership" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
-              <div className="w-12 h-12 bg-blue-50 text-[#002395] rounded-xl flex items-center justify-center mb-4">
-                <Users size={24} />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-1">Leadership</h3>
-              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Mentorship, Future Paving</p>
-              <div className="flex justify-end text-[#002395] group-hover:translate-x-1 transition-transform">
-                <ChevronRight size={20} />
-              </div>
-            </Link>
-
-            {/* Social Impact */}
-            <Link href="/category/social" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
-              <div className="w-12 h-12 bg-red-50 text-[#E03C31] rounded-xl flex items-center justify-center mb-4">
-                <HeartHandshake size={24} />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-1">Social Dev</h3>
-              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Community Growth, NGO</p>
-              <div className="flex justify-end text-[#E03C31] group-hover:translate-x-1 transition-transform">
-                <ChevronRight size={20} />
-              </div>
-            </Link>
-
-            {/* Transport */}
-            <Link href="/category/transport" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
-              <div className="w-12 h-12 bg-green-50 text-[#007749] rounded-xl flex items-center justify-center mb-4">
-                <Bus size={24} />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-1">Transport</h3>
-              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Licenses, Permits, Transport Services</p>
-              <div className="flex justify-end text-[#007749] group-hover:translate-x-1 transition-transform">
-                <ChevronRight size={20} />
-              </div>
-            </Link>
-
-          </div>
-        </div>
-      </section>
-
-      {/* National Verification Pillars */}
-      <section className="w-full bg-[#F8FAFC] py-24 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
-            <div className="max-w-2xl">
-              <span className="text-[10px] font-black text-[#007749] uppercase tracking-[0.3em] mb-4 block">National Infrastructure</span>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">The Three Pillars of <span className="text-[#007749]">Digital Integrity.</span></h2>
-            </div>
-            <p className="text-slate-500 font-bold max-w-sm">
-              Sumbandila aggregates data from South Africa's primary regulatory bodies to ensure your safety and trust.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Education Pillar */}
-            <div className="bg-white p-10 rounded-[40px] shadow-sm border border-slate-100 group hover:shadow-xl hover:-translate-y-2 transition-all">
-              <div className="w-16 h-16 bg-blue-50 text-[#002395] rounded-2xl flex items-center justify-center mb-8 border border-blue-100">
-                <GraduationCap size={32} />
-              </div>
-              <h3 className="text-2xl font-black text-slate-900 mb-4">Education</h3>
-              <p className="text-slate-500 font-medium mb-8 leading-relaxed">
-                Verify Private Higher Education Institutions (PHEIs) and TVET colleges. Check SAQA ID and NQF levels.
-              </p>
-              <div className="flex flex-col gap-3 pt-6 border-t border-slate-50">
-                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
-                   <ShieldCheck size={16} className="text-[#007749]" /> Authority: DHET / CHE
+          <div className="w-full lg:w-2/5">
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-[#007749]/20 to-[#002395]/20 blur-2xl rounded-full" />
+              <div className="relative bg-white p-8 rounded-[40px] shadow-2xl border border-slate-100">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Live Registry Pulse</div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[9px] font-bold text-emerald-600">CONNECTED</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
-                   <Check size={16} className="text-[#007749]" /> SAQA Accredited
+                
+                <div className="space-y-6">
+                  {[
+                    { label: "Verified Institutions", value: "4,208", icon: ShieldCheck, color: "text-[#007749]" },
+                    { label: "Opportunities Listed", value: "12,450", icon: Briefcase, color: "text-[#002395]" },
+                    { label: "Youth Registered", value: "1.2M+", icon: Users, color: "text-[#E03C31]" },
+                  ].map((stat, i) => (
+                    <div key={i} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <stat.icon size={20} className={stat.color} />
+                        <span className="text-sm font-black text-slate-900">{stat.label}</span>
+                      </div>
+                      <span className="text-lg font-black text-slate-900 tracking-tighter">{stat.value}</span>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            </div>
 
-            {/* Healthcare Pillar */}
-            <div className="bg-white p-10 rounded-[40px] shadow-sm border border-slate-100 group hover:shadow-xl hover:-translate-y-2 transition-all">
-              <div className="w-16 h-16 bg-red-50 text-[#E03C31] rounded-2xl flex items-center justify-center mb-8 border border-red-100">
-                <HeartPulse size={32} />
-              </div>
-              <h3 className="text-2xl font-black text-slate-900 mb-4">Healthcare</h3>
-              <p className="text-slate-500 font-medium mb-8 leading-relaxed">
-                Verify GP and Specialist registrations. Check professional standing and hospital affiliation status.
-              </p>
-              <div className="flex flex-col gap-3 pt-6 border-t border-slate-50">
-                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
-                   <ShieldCheck size={16} className="text-[#E03C31]" /> Authority: HPCSA
-                </div>
-                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
-                   <Check size={16} className="text-[#E03C31]" /> Licensed Practice
-                </div>
-              </div>
-            </div>
-
-            {/* Legal Pillar */}
-            <div className="bg-white p-10 rounded-[40px] shadow-sm border border-slate-100 group hover:shadow-xl hover:-translate-y-2 transition-all">
-              <div className="w-16 h-16 bg-amber-50 text-[#F59E0B] rounded-2xl flex items-center justify-center mb-8 border border-amber-100">
-                <ShieldCheck size={32} />
-              </div>
-              <h3 className="text-2xl font-black text-slate-900 mb-4">Legal Services</h3>
-              <p className="text-slate-500 font-medium mb-8 leading-relaxed">
-                Verify Attorney and Advocate standing. Check Fidelity Fund Certificates (FFC) and LPC numbers.
-              </p>
-              <div className="flex flex-col gap-3 pt-6 border-t border-slate-50">
-                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
-                   <ShieldCheck size={16} className="text-[#F59E0B]" /> Authority: LPC
-                </div>
-                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
-                   <Check size={16} className="text-[#F59E0B]" /> FFC Compliant
+                <div className="mt-10 pt-8 border-t border-slate-100 text-center">
+                   <Link href="/verify" className="text-[10px] font-black text-[#007749] uppercase tracking-widest hover:underline">
+                      Launch National Verification Engine →
+                   </Link>
                 </div>
               </div>
             </div>
@@ -265,158 +83,66 @@ export default function HomeLanding() {
         </div>
       </section>
 
-      {/* Live Registry Pulse Ticker */}
-      <div className="w-full bg-slate-900 border-y border-white/5 py-3 overflow-hidden whitespace-nowrap flex items-center relative">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-900 to-transparent z-10" />
-        
-        <div className="flex animate-marquee gap-12 items-center">
+      {/* ── SERVICES GRID ── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12 py-24">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+          <div className="max-w-2xl">
+            <span className="text-[10px] font-black text-[#007749] uppercase tracking-[0.3em] mb-2 block">The Ecosystem</span>
+            <h2 className="text-4xl font-black text-slate-900 tracking-tight">One Platform, Endless Pathways.</h2>
+          </div>
+          <Link href="/services" className="text-sm font-black text-[#007749] hover:underline uppercase tracking-widest flex items-center gap-1">
+             View All Services <ChevronRight size={14} />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { name: "University of Johannesburg", status: "VERIFIED", time: "Just now" },
-            { name: "HPCSA: Dr. M. Sibeko", status: "ACTIVE", time: "1m ago" },
-            { name: "LPC: Adv. R. Pillay", status: "SECURE", time: "4m ago" },
-            { name: "Damelin", status: "CANCELLED", time: "12m ago" },
-            { name: "City Varsity", status: "CANCELLED", time: "15m ago" },
-            { name: "Rhodes University", status: "VERIFIED", time: "22m ago" },
-          ].map((item, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <span className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Audit:</span>
-              <span className="text-xs font-bold text-white/90">{item.name}</span>
-              <span className={`text-[10px] font-black px-2 py-0.5 rounded ${item.status === 'CANCELLED' ? 'bg-red-500/20 text-red-400' : 'bg-emerald-500/20 text-emerald-400'}`}>
-                {item.status}
-              </span>
-              <span className="text-[9px] font-bold text-white/20">{item.time}</span>
-            </div>
+            { id: "tech", label: "Tech & Digital", icon: Globe, color: "bg-blue-50 text-blue-600", desc: "Software, Data & AI" },
+            { id: "skills", label: "Skills Hub", icon: BookOpen, color: "bg-emerald-50 text-[#007749]", desc: "TVET & Certifications" },
+            { id: "rural", label: "Rural Growth", icon: MapPin, color: "bg-amber-50 text-amber-600", desc: "Agri & Community" },
+            { id: "webinars", label: "Webinars", icon: PlayCircle, color: "bg-purple-50 text-purple-600", desc: "Live Learning" },
+            { id: "business", label: "Business Hub", icon: Briefcase, color: "bg-slate-100 text-slate-900", desc: "Grants & Startups" },
+            { id: "creative", label: "Creative Arts", icon: Sparkles, color: "bg-rose-50 text-rose-600", desc: "Media & Design" },
+            { id: "leadership", label: "Leadership", icon: Users, color: "bg-indigo-50 text-indigo-600", desc: "Mentorship & Gov" },
+            { id: "social", label: "Social Good", icon: HeartPulse, color: "bg-green-50 text-green-600", desc: "NGOs & Impact" },
+          ].map((cat, i) => (
+            <Link key={i} href={cat.id === "leadership" ? "/leadership" : `/category/${cat.id}`} className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
+              <div className={`w-12 h-12 ${cat.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                <cat.icon size={24} />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-1">{cat.label}</h3>
+              <p className="text-xs font-medium text-slate-500 mb-4">{cat.desc}</p>
+              <div className="mt-auto flex items-center gap-1 text-[10px] font-black text-[#007749] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                 Explore <ChevronRight size={10} />
+              </div>
+            </Link>
           ))}
         </div>
-      </div>
-
-      {/* Dark Green Stats Banner */}
-      <section className="w-full bg-[#0E3B29] py-12 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400/5 blur-[80px] rounded-full" />
-        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 divide-y md:divide-y-0 md:divide-x divide-white/10">
-          
-          <div className="flex flex-col items-center md:items-start gap-2 pt-6 md:pt-0">
-            <div className="flex items-center gap-3">
-               <Users size={24} className="text-emerald-400" />
-               <span className="text-3xl font-black text-white tracking-tighter">1.8M+</span>
-            </div>
-            <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] ml-9">Active Citizens</span>
-          </div>
-
-          <div className="flex flex-col items-center md:items-start gap-2 pt-8 md:pt-0 md:pl-12">
-            <div className="flex items-center gap-3">
-               <ShieldCheck size={24} className="text-emerald-400" />
-               <span className="text-3xl font-black text-white tracking-tighter">98.2%</span>
-            </div>
-            <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] ml-9">Trust Rating</span>
-          </div>
-
-          <div className="flex flex-col items-center md:items-start gap-2 pt-8 md:pt-0 md:pl-12">
-            <div className="flex items-center gap-3">
-               <Activity size={24} className="text-emerald-400" />
-               <span className="text-3xl font-black text-white tracking-tighter">Real-Time</span>
-            </div>
-            <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] ml-9">Registry Sync</span>
-          </div>
-
-          <div className="flex flex-col items-center md:items-start gap-2 pt-8 md:pt-0 md:pl-12">
-            <div className="flex items-center gap-3">
-               <Globe size={24} className="text-emerald-400" />
-               <span className="text-3xl font-black text-white tracking-tighter">National</span>
-            </div>
-            <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] ml-9">Coverage</span>
-          </div>
-
-        </div>
       </section>
 
-      {/* Sipho AI Section */}
-      <section className="w-full bg-white py-24 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div className="relative">
-            <div className="absolute -top-20 -left-20 w-64 h-64 bg-emerald-50/50 blur-[100px] rounded-full z-0" />
-            <div className="relative z-10">
-              <span className="inline-block px-4 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 border border-emerald-100">
-                AI Powered Compliance
-              </span>
-              <h2 className="text-5xl font-black text-slate-900 mb-8 leading-[1.1] tracking-tight">
-                Meet Sipho.<br />Your National <span className="text-[#007749]">Guide.</span>
-              </h2>
-              <p className="text-lg text-slate-600 font-medium mb-10 leading-relaxed max-w-lg">
-                Sipho AI simplifies complex government processes, provides instant accreditation checks, and guides you through opportunities in any official South African language.
+      {/* ── POPULAR SERVICES ── */}
+      <section className="bg-white py-24 border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <div className="lg:col-span-1">
+            <div className="bg-slate-900 rounded-[40px] p-10 text-white relative overflow-hidden h-full">
+              <div className="absolute top-0 right-0 p-8">
+                <Activity size={40} className="text-[#FFB81C] opacity-20" />
+              </div>
+              <h3 className="text-3xl font-black mb-6">Popular Services</h3>
+              <p className="text-white/60 font-medium mb-8">
+                The most accessed government services by youth this month.
               </p>
-              
-              <div className="space-y-4">
-                <div className="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
-                  <div className="w-10 h-10 bg-white shadow-sm rounded-xl flex items-center justify-center shrink-0 border border-slate-100"><Sparkles size={20} className="text-[#F59E0B]" /></div>
-                  <div>
-                    <h4 className="font-black text-slate-900 text-sm">Language Agnostic</h4>
-                    <p className="text-xs text-slate-500 font-bold">Ask questions in isiZulu, Sepedi, Afrikaans or English.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
-                  <div className="w-10 h-10 bg-white shadow-sm rounded-xl flex items-center justify-center shrink-0 border border-slate-100"><ShieldCheck size={20} className="text-[#007749]" /></div>
-                  <div>
-                    <h4 className="font-black text-slate-900 text-sm">Regulatory Proof</h4>
-                    <p className="text-xs text-slate-500 font-bold">Direct cross-referencing with DHET and SAQA databases.</p>
-                  </div>
-                </div>
-              </div>
-              
-              <Link href="/sipho-ai" className="mt-12 inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10 group">
-                Talk to Sipho <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </div>
-          
-          <div className="relative lg:block hidden">
-            <div className="bg-slate-900 rounded-[40px] p-8 shadow-2xl relative overflow-hidden border border-white/5">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#007749] via-[#FFB81C] to-[#E03C31]" />
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center border border-white/10">
-                  <Sparkles size={24} className="text-[#FFB81C]" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-black text-white">Sipho AI</h3>
-                  <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Always Active</p>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div className="bg-white/5 p-4 rounded-2xl rounded-tl-none border border-white/10 max-w-[85%]">
-                  <p className="text-sm text-white/80 font-medium">Sawubona! How can I help you verify your institution today?</p>
-                </div>
-                <div className="bg-[#007749] p-4 rounded-2xl rounded-tr-none border border-emerald-400/20 max-w-[85%] ml-auto">
-                  <p className="text-sm text-white font-medium">Is Damelin still a registered college?</p>
-                </div>
-                <div className="bg-white/5 p-4 rounded-2xl rounded-tl-none border border-white/10 max-w-[85%]">
-                  <p className="text-sm text-white/80 font-medium">⚠️ Registration Alert: Damelin (and subsidiaries) registration was cancelled by DHET. Use caution.</p>
-                </div>
-              </div>
-            </div>
-            {/* Floating badges */}
-            <div className="absolute -bottom-10 -right-10 bg-[#FFB81C] p-6 rounded-3xl shadow-xl transform rotate-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white"><Activity size={20} /></div>
-                <div>
-                  <p className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Trust Index</p>
-                  <p className="text-2xl font-black text-slate-900">99.4%</p>
-                </div>
+              <div className="flex items-center gap-2 text-xs font-black text-[#FFB81C] uppercase tracking-widest">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81C] animate-pulse" />
+                Live Demand Data
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Bottom Content Area */}
-      <section className="w-full bg-[#F8FAFC] py-16">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-          
-          {/* Popular Services Card */}
-          <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 flex flex-col">
-            <div className="flex justify-between items-end mb-6">
-              <h3 className="text-xl font-black text-slate-900">Popular Services</h3>
+          <div className="lg:col-span-2 bg-white rounded-[40px] border border-slate-100 p-10">
+            <div className="flex justify-between items-center mb-10">
+              <h3 className="text-xl font-black text-slate-900">Recommended for You</h3>
               <Link href="/services" className="text-xs font-bold text-[#007749] hover:underline">View all</Link>
             </div>
             
@@ -461,52 +187,83 @@ export default function HomeLanding() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Stay Informed Card */}
-          <div className="bg-[#FEF3C7] rounded-3xl p-8 shadow-sm flex flex-col justify-between relative overflow-hidden">
-            <div className="z-10 relative">
-              <h3 className="text-2xl font-black text-slate-900 mb-3">Stay Informed</h3>
-              <p className="text-sm font-semibold text-slate-700 max-w-[200px] mb-8">
-                Get updates on opportunities, deadlines and important announcements.
+      {/* ── HOW IT WORKS ── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12 py-24">
+        <div className="text-center mb-16">
+          <span className="text-[10px] font-black text-[#007749] uppercase tracking-[0.3em] mb-2 block">National Growth Pathway</span>
+          <h2 className="text-4xl font-black text-slate-900 tracking-tight">How it Works</h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+          <div className="hidden md:block absolute top-24 left-[20%] right-[20%] h-px border-t-2 border-dashed border-slate-200 z-0" />
+          
+          <div className="flex flex-col items-center text-center relative z-10">
+            <div className="w-20 h-20 bg-white rounded-3xl shadow-xl border border-slate-100 flex items-center justify-center text-3xl font-black text-[#007749] mb-6">1</div>
+            <h3 className="text-xl font-black text-slate-900 mb-3">Verify Status</h3>
+            <p className="text-sm font-medium text-slate-500 leading-relaxed max-w-xs">
+              Verify institutions, practitioners, or your credentials in seconds with our National Sentinel.
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center relative z-10">
+            <div className="w-20 h-20 bg-[#007749] rounded-3xl shadow-xl shadow-green-900/20 flex items-center justify-center text-3xl font-black text-white mb-6">2</div>
+            <h3 className="text-xl font-black text-slate-900 mb-3">Apply for Growth</h3>
+            <p className="text-sm font-medium text-slate-500 leading-relaxed max-w-xs">
+              Discover verified opportunities — from NSFAS and SASSA to skills bursaries and leadership hubs.
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center relative z-10">
+            <div className="w-20 h-20 bg-white rounded-3xl shadow-xl border border-slate-100 flex items-center justify-center text-3xl font-black text-[#002395] mb-6">3</div>
+            <h3 className="text-xl font-black text-slate-900 mb-3">Scale Future</h3>
+            <p className="text-sm font-medium text-slate-500 leading-relaxed max-w-xs">
+              Connect with mentors, track applications, and unlock national membership benefits for sustained success.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-20 text-center">
+          <Link href="/membership" className="inline-flex items-center gap-3 px-10 py-5 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-800 transition-all shadow-2xl">
+            GET STARTED NOW <ChevronRight size={18} />
+          </Link>
+        </div>
+      </section>
+
+      {/* ── BOTTM CARDS ── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12 py-24 border-t border-slate-100">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white rounded-[40px] p-10 shadow-lg border border-slate-100 flex flex-col justify-between relative overflow-hidden group">
+            <div className="relative z-10">
+              <h3 className="text-2xl font-black text-slate-900 mb-4">Registry Pulse</h3>
+              <p className="text-sm font-semibold text-slate-700 max-w-xs mb-8">
+                Get real-time updates on opportunities, deadlines and important announcements across the nation.
               </p>
               <Link href="/membership" className="px-6 py-3 rounded-xl bg-[#007749] text-white font-bold tracking-widest text-xs uppercase hover:bg-[#0E3B29] transition-all shadow-md inline-block text-center">
                 SUBSCRIBE FOR UPDATES
               </Link>
             </div>
-            {/* Waving Flag Graphic Placeholder */}
-            <div className="absolute right-[-20px] bottom-10 opacity-90 z-0">
-               {/* Decorative SA Flag vector shape */}
-               <svg width="180" height="120" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform rotate-12">
-                <path d="M0 0H100V60H0V0Z" fill="#E03C31"/>
-                <path d="M0 30L30 30L100 30" stroke="white" strokeWidth="12"/>
-                <path d="M0 60L50 30L100 0" stroke="white" strokeWidth="12"/>
-                <path d="M0 0L50 30L100 60" stroke="white" strokeWidth="12"/>
-                <path d="M0 60L50 30L100 0" stroke="#007749" strokeWidth="8"/>
-                <path d="M0 0L50 30L100 60" stroke="#007749" strokeWidth="8"/>
-                <path d="M0 30L30 30L100 30" stroke="#007749" strokeWidth="8"/>
-                <path d="M0 0V60L40 30L0 0Z" fill="black"/>
-                <path d="M0 5V55L33 30L0 5Z" fill="#FFB81C"/>
-              </svg>
+            <div className="absolute right-0 bottom-0 p-8 opacity-5 group-hover:scale-110 transition-transform">
+              <Activity size={160} />
             </div>
           </div>
 
-          {/* Batho Pele in Action Card */}
-          <div className="bg-[#0E3B29] rounded-3xl p-8 shadow-sm flex flex-col justify-between relative overflow-hidden text-white">
-            <div className="z-10 relative">
-              <h3 className="text-2xl font-black mb-3">Batho Pele in Action</h3>
-              <p className="text-sm font-semibold text-white/80 max-w-[200px] mb-8">
-                Putting people first by delivering services with care, respect and integrity.
+          <div className="bg-[#0E3B29] rounded-[40px] p-10 shadow-lg flex flex-col justify-between relative overflow-hidden text-white group">
+            <div className="relative z-10">
+              <h3 className="text-2xl font-black mb-4">Batho Pele in Action</h3>
+              <p className="text-sm font-semibold text-white/80 max-w-xs mb-8">
+                Putting people first by delivering services with care, respect, and national integrity.
               </p>
               <Link href="/about" className="inline-block px-6 py-3 rounded-xl bg-transparent border-2 border-white/30 text-white font-bold tracking-widest text-xs uppercase hover:bg-white hover:text-[#0E3B29] transition-all">
                 LEARN MORE
               </Link>
             </div>
-            {/* Outline illustration of people */}
-            <div className="absolute right-[-10px] bottom-0 opacity-40 z-0">
-               <Users size={180} strokeWidth={0.5} className="text-white" />
+            <div className="absolute right-[-20px] bottom-[-20px] p-8 opacity-10 group-hover:scale-110 transition-transform">
+              <Users size={180} />
             </div>
           </div>
-
         </div>
       </section>
 
