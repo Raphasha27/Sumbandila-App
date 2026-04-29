@@ -2,7 +2,7 @@
 
 import SiteNav from "../../components/SiteNav";
 import SiteFooter from "../../components/SiteFooter";
-import { Send, Mic, Sparkles, MessageSquare } from "lucide-react";
+import { Send, Mic, Sparkles, MessageSquare, ShieldAlert, ChevronRight, Database, Globe, ShieldCheck } from "lucide-react";
 
 export default function SiphoAIPage() {
   return (
