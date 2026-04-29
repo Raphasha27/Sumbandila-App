@@ -21,7 +21,8 @@
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^9.21.0"
+    "eslint": "^9.21.0",
+    "yallist": "^5.0.0"
   },
   "engines": {
     "node": ">=20.0.0",
@@ -40,5 +41,9 @@
     "lucide-react-native": "^0.574.0",
     "uuid": "^14.0.0",
     "postcss": "^8.5.10"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.10.2",
+    "@supabase/supabase-js": "^2.105.1"
   }
 }

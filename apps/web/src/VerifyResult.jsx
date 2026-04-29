@@ -104,46 +104,50 @@ export default function VerifyResult({ provider, step, onBack, onSave }) {
             </div>
           </div>
 
-          {/* Details */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px' }}>
-              <label style={{ color: '#9CA3AF', fontSize: '12px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', display: 'block', marginBottom: '8px' }}>Institutional Entity</label>
-              <div style={{ fontSize: '20px', fontWeight: 900, color: '#111827' }}>{provider.name}</div>
-              <div style={{ fontSize: '14px', color: '#6B7280', fontWeight: 600, marginTop: '4px' }}>{provider.type}</div>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-              <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px', border: provider.institutionRegistration === 'Registered' || provider.institutionRegistration?.includes('Active') ? '1px solid #C8E6C9' : '1px solid #FFCDD2' }}>
-                <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>Institution Registration</label>
-                <div style={{ fontSize: '14px', fontWeight: 800, color: '#111827' }}>
-                  {provider.institutionRegistration || 'Verification Pending'}
-                </div>
-              </div>
-              <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px', border: provider.courseAccreditation?.includes('Accredited') ? '1px solid #C8E6C9' : '1px solid #FFCDD2' }}>
-                <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>Course Accreditation</label>
-                <div style={{ fontSize: '14px', fontWeight: 800, color: provider.courseAccreditation === 'NOT ACCREDITED' ? '#D32F2F' : '#111827' }}>
-                  {provider.courseAccreditation || 'Checking SANC/CHE/QCTO...'}
-                </div>
-              </div>
-            </div>
-
-            <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px' }}>
-              <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>Primary Regulatory Authority</label>
-              <div style={{ fontSize: '16px', fontWeight: 800, color: '#111827' }}>{provider.body}</div>
-            </div>
-
-            {(provider.courses || provider.expertise || provider.specialization) && (
+          {/* Details - Grid on Laptop */}
+          <div className="grid-layout grid-layout-2" style={{ gap: '24px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px' }}>
-                <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '12px' }}>Verified Registry Records</label>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                  {(provider.courses || [provider.expertise || provider.specialization]).map((item, idx) => (
-                    <span key={idx} style={{ background: isVerified ? '#E3F2FD' : '#EEEEEE', color: isVerified ? '#1565C0' : '#424242', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 700 }}>
-                      {item}
-                    </span>
-                  ))}
+                <label style={{ color: '#9CA3AF', fontSize: '12px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', display: 'block', marginBottom: '8px' }}>Institutional Entity</label>
+                <div style={{ fontSize: '20px', fontWeight: 900, color: '#111827' }}>{provider.name}</div>
+                <div style={{ fontSize: '14px', color: '#6B7280', fontWeight: 600, marginTop: '4px' }}>{provider.type}</div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px', border: provider.institutionRegistration === 'Registered' || provider.institutionRegistration?.includes('Active') ? '1px solid #C8E6C9' : '1px solid #FFCDD2' }}>
+                  <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>Institution Registration</label>
+                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#111827' }}>
+                    {provider.institutionRegistration || 'Verification Pending'}
+                  </div>
+                </div>
+                <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px', border: provider.courseAccreditation?.includes('Accredited') ? '1px solid #C8E6C9' : '1px solid #FFCDD2' }}>
+                  <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>Course Accreditation</label>
+                  <div style={{ fontSize: '14px', fontWeight: 800, color: provider.courseAccreditation === 'NOT ACCREDITED' ? '#D32F2F' : '#111827' }}>
+                    {provider.courseAccreditation || 'Checking SANC/CHE/QCTO...'}
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px' }}>
+                <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>Primary Regulatory Authority</label>
+                <div style={{ fontSize: '16px', fontWeight: 800, color: '#111827' }}>{provider.body}</div>
+              </div>
+
+              {(provider.courses || provider.expertise || provider.specialization) && (
+                <div style={{ padding: '20px', background: '#F9FAFB', borderRadius: '20px', flex: 1 }}>
+                  <label style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', display: 'block', marginBottom: '12px' }}>Verified Registry Records</label>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                    {(provider.courses || [provider.expertise || provider.specialization]).map((item, idx) => (
+                      <span key={idx} style={{ background: isVerified ? '#E3F2FD' : '#EEEEEE', color: isVerified ? '#1565C0' : '#424242', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 700 }}>
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {!isVerified && (

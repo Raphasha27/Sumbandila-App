@@ -41,8 +41,9 @@ import AssistanceRequest from './components/Support/AssistanceRequest';
 import { BottomNav } from './components/Navigation';
 import { MOCK_DATA } from './lib/mock-data';
 import SiphoAI from './components/SiphoAI';
-import PractitionerRegister from './components/PractitionerRegister';
+import { PractitionerRegister } from './components/PractitionerRegister';
 import { SumbandilaLogo } from './components/Branding/Logo';
+import LandingPage from './components/Landing/LandingPage';
 
 const SAFlag = () => (
   <div style={{ display: 'flex', gap: '2px', height: '6px', width: '100px', marginBottom: '12px' }}>
@@ -54,7 +55,7 @@ const SAFlag = () => (
 
 const OfficialBanner = () => (
   <div style={{
-    background: 'white',
+    background: 'var(--card-bg)',
     padding: '12px 20px',
     display: 'flex',
     alignItems: 'center',
@@ -63,8 +64,8 @@ const OfficialBanner = () => (
     position: 'sticky',
     top: 0,
     zIndex: 100,
-    borderBottom: '1px solid #F1F5F9',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
+    borderBottom: '1px solid var(--border)',
+    boxShadow: 'var(--shadow)'
   }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
       <img 
@@ -73,19 +74,19 @@ const OfficialBanner = () => (
         alt="RSA Coat of Arms" 
       />
       <div style={{ textAlign: 'left' }}>
-        <div style={{ fontSize: '10px', fontWeight: 800, color: '#111827', lineHeight: 1.2 }}>Sumbandila:</div>
-        <div style={{ fontSize: '11px', fontWeight: 900, color: '#1E40AF', letterSpacing: '-0.2px' }}>National Registry Sentinel</div>
+        <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--text-muted)', lineHeight: 1.2 }}>Sumbandila:</div>
+        <div style={{ fontSize: '11px', fontWeight: 900, color: '#10B981', letterSpacing: '-0.2px' }}>National Registry Sentinel</div>
       </div>
     </div>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#1E40AF', padding: '6px 12px', borderRadius: '100px' }}>
-      <span style={{ fontSize: '9px', fontWeight: 800, color: 'white', letterSpacing: '0.5px' }}>MEMBER PORTAL</span>
-      <UserCircle size={16} color="white" />
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#10B981', padding: '6px 12px', borderRadius: '100px' }}>
+      <span style={{ fontSize: '9px', fontWeight: 800, color: 'white', letterSpacing: '0.5px' }}>SENTINEL ACCESS</span>
+      <ShieldCheck size={16} color="white" />
     </div>
   </div>
 );
 
 export default function App() {
-  console.log("🚀 Sentinel Hub Initializing...");
+  console.log("💎 Sumbandila Sentinel Booting...");
   // eslint-disable-next-line react-hooks/purity
   const certBlockId = useMemo(() => Math.random().toString(36).substring(2, 11).toUpperCase(), []);
 
@@ -95,6 +96,8 @@ export default function App() {
     vault, addToVault, removeFromVault, clearVault,
     activeScreen: screen,
     setScreen,
+    selectedProvider,
+    setSelectedProvider,
     logout: storeLogout
   } = useRegistryStore();
 
@@ -105,22 +108,21 @@ export default function App() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [verifyStep, setVerifyStep] = useState('input');
-  const [selectedProvider, setSelectedProvider] = useState(null);
   const { selectedCategory, setSelectedCategory } = useRegistryStore();
 
-  // 🛡️ Mandatory Onboarding Flow: Splash -> Login -> Dashboard
+  // 🛡️ Mandatory Onboarding Flow: Landing -> Login -> Dashboard
   useEffect(() => {
-    if (!user && screen !== 'splash' && screen !== 'login') {
-      setScreen('splash');
+    if (!user && screen !== 'landing' && screen !== 'login') {
+      setScreen('landing');
     }
   }, [user, screen, setScreen]);
 
-  const handleGetStarted = () => setScreen('login');
+  const handleGetStarted = () => setScreen('verify-now'); // Deep link to search
   const handleLoginSuccess = (userData) => {
     setUser(userData);
     setScreen('dashboard');
   };
-  const handleBackToSplash = () => setScreen('splash');
+  const handleBackToLanding = () => setScreen('landing');
 
   useEffect(() => {
     if (screen === 'audit-logs' && user?.email === 'admin@sumbandila.com') {
@@ -163,90 +165,61 @@ export default function App() {
   return (
     <div className="app-container">
       <AnimatePresence mode="wait">
+        {screen === 'landing' && (
+          <LandingPage 
+            onGetStarted={() => setScreen('login')} 
+            onLogin={() => setScreen('login')} 
+          />
+        )}
+
         {screen === 'splash' && (
-          <motion.div
-            key="splash"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="screen"
+          <motion.div 
+            key="splash" 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            className="screen" 
             style={{ 
               display: 'flex', 
               flexDirection: 'column', 
               alignItems: 'center', 
-              textAlign: 'center',
-              background: 'white',
-              minHeight: '100vh',
-              overflowX: 'hidden'
+              justifyContent: 'center', 
+              background: 'var(--bg-main)', 
+              padding: '24px',
+              textAlign: 'center'
             }}
           >
-            {/* Top Banner with Flag & Coat of Arms */}
-            <div style={{ width: '100%', position: 'relative', marginBottom: '24px' }}>
+            <SAFlag />
+            <div style={{ marginBottom: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <div style={{ 
-                height: '180px', 
-                width: '100%', 
-                background: `url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/1200px-Flag_of_South_Africa.svg.png')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                opacity: 0.9,
-                position: 'relative'
+                width: '100px', 
+                height: '100px', 
+                borderRadius: '30px', 
+                background: 'rgba(16, 185, 129, 0.1)', 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center',
+                marginBottom: '24px',
+                border: '1px solid rgba(16, 185, 129, 0.2)'
               }}>
-                <div style={{ 
-                  position: 'absolute', 
-                  inset: 0, 
-                  background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 95%)' 
-                }} />
+                <ShieldCheck size={56} color="#10B981" />
               </div>
-              <motion.div 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                style={{ 
-                  position: 'absolute', 
-                  top: '60px', 
-                  left: '50%', 
-                  transform: 'translateX(-50%)',
-                  zIndex: 10
-                }}
-              >
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/en/thumb/2/22/Coat_of_arms_of_South_Africa.svg/1200px-Coat_of_arms_of_South_Africa.svg.png" 
-                  style={{ height: '100px', width: 'auto', filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.1))' }} 
-                  alt="RSA Coat of Arms" 
-                />
-              </motion.div>
+              <h1 style={{ fontSize: '48px', fontWeight: 900, color: 'var(--text-main)', margin: 0, letterSpacing: '-1.5px', lineHeight: 1 }}>Sumbandila</h1>
+              <p style={{ fontSize: '18px', fontWeight: 600, color: '#94A3B8', marginTop: '12px', letterSpacing: '0.5px' }}>National Registry Sentinel</p>
             </div>
 
-            {/* Typography */}
-            <div style={{ padding: '0 24px', marginBottom: '32px' }}>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#111827', marginBottom: '2px' }}>Republic of South Africa</div>
-              <div style={{ fontSize: '13px', fontWeight: 800, color: '#4B5563', marginBottom: '16px' }}>Sumbandila: Registry Sentinel</div>
-              
-              <h1 style={{ fontSize: '26px', fontWeight: 900, color: '#111827', lineHeight: 1.2, marginBottom: '16px' }}>
-                National Registry Sentinel <br/> at the palm of your hand:
-              </h1>
-              
-              <p style={{ fontSize: '15px', color: '#4B5563', lineHeight: 1.5, fontWeight: 500, maxWidth: '340px', margin: '0 auto' }}>
-                The official South African gateway to verify schools, colleges, and professionals. <br/>
-                <span style={{ fontWeight: 800, color: '#111827' }}>Stay safe, stay verified.</span>
-              </p>
-            </div>
-
-            {/* CTA Button */}
             <motion.button
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              onClick={handleGetStarted}
+              onClick={() => setScreen('dashboard')}
               style={{
-                width: '100%',
-                maxWidth: '480px',
-                background: '#1E40AF',
+                background: '#10B981',
                 color: 'white',
-                padding: '18px',
-                borderRadius: '12px',
+                padding: '22px 48px',
+                borderRadius: '24px',
                 border: 'none',
-                fontSize: '16px',
                 fontWeight: 900,
+                fontSize: '16px',
                 cursor: 'pointer',
                 marginBottom: '40px',
                 textTransform: 'uppercase',
@@ -405,7 +378,7 @@ export default function App() {
         )}
 
         {screen === 'category-list' && (
-          <motion.div key="cat-list" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen" style={{ background: '#FDFCFB', paddingBottom: '120px' }}>
+          <motion.div key="cat-list" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen" style={{ background: 'var(--bg-main)', paddingBottom: '120px' }}>
             <header style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '32px', width: '100%', padding: '24px 20px' }}>
               <div onClick={() => setScreen('dashboard')} style={{ padding: '12px', background: 'white', borderRadius: '14px', cursor: 'pointer', display: 'flex', border: '1px solid #E5E7EB', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', marginBottom: '16px' }}>
                 <ChevronLeft size={24} color="#111827" />
@@ -426,36 +399,58 @@ export default function App() {
                     transition={{ delay: i * 0.05 }}
                     key={i}
                     style={{
-                      background: 'white',
+                      background: 'var(--card-bg)',
                       borderRadius: '24px',
-                      padding: '24px',
+                      padding: '20px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '20px',
+                      gap: '16px',
                       cursor: 'pointer',
-                      boxShadow: '0 4px 15px rgba(0,0,0,0.03)',
-                      border: isVerified ? '1px solid #F3F4F6' : '1px solid #FFCDD2',
-                      textAlign: 'left'
+                      boxShadow: 'var(--shadow)',
+                      border: isVerified ? '1px solid var(--border)' : '1px solid var(--error)',
+                      textAlign: 'left',
+                      marginBottom: '12px'
                     }}
                     onClick={() => startVerification(p.name)}
                   >
-                    <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: isVerified ? '#F9FAFB' : '#FFEBEE', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid #F3F4F6' }}>
-                      <Building2 size={24} color={isVerified ? 'var(--primary-orange)' : '#D32F2F'} />
+                    <div style={{ 
+                      width: '56px', 
+                      height: '56px', 
+                      borderRadius: '16px', 
+                      background: isVerified ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', 
+                      display: 'flex', 
+                      justifyContent: 'center', 
+                      alignItems: 'center', 
+                      border: `1px solid ${isVerified ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)'}` 
+                    }}>
+                      <Building2 size={24} color={isVerified ? '#10B981' : '#EF4444'} />
                     </div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: 800, fontSize: '18px', color: '#111827', marginBottom: '2px' }}>{p.name}</div>
-                      <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600 }}>{p.type} • {p.body}</div>
-                      <div style={{ fontSize: '11px', color: 'var(--primary)', fontWeight: 800, textTransform: 'uppercase', marginTop: '4px', letterSpacing: '0.5px' }}>
-                        {p.category === 'Education' ? `EMIS: ${p.emisNumber || 'N/A'}` : p.category === 'Healthcare' ? `HPCSA: ${p.hpcsaNumber || 'N/A'}` : `LPC: ${p.lpcNumber || 'N/A'}`}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <div style={{ fontWeight: 800, fontSize: '17px', color: 'var(--text-main)' }}>{p.name}</div>
+                        {isVerified && <ShieldCheck size={16} color="#10B981" />}
+                      </div>
+                      <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 500, marginTop: '2px' }}>{p.type} • {p.body}</div>
+                      
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '10px' }}>
+                        <div style={{ fontSize: '10px', color: '#10B981', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px', background: 'rgba(16, 185, 129, 0.1)', padding: '4px 8px', borderRadius: '6px' }}>
+                          {p.category === 'Education' ? `EMIS: ${p.emisNumber || 'N/A'}` : p.category === 'Healthcare' ? `HPCSA: ${p.hpcsaNumber || 'N/A'}` : `LPC: ${p.lpcNumber || 'N/A'}`}
+                        </div>
+                        {p.category === 'Education' && p.courseAccreditation && (
+                          <div style={{ fontSize: '10px', color: '#3B82F6', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px', background: 'rgba(59, 130, 246, 0.1)', padding: '4px 8px', borderRadius: '6px' }}>
+                            {p.courseAccreditation}
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div style={{
-                      background: isVerified ? '#E8F5E9' : '#FFEBEE',
-                      color: isVerified ? '#2E7D32' : '#D32F2F',
-                      padding: '6px 14px',
-                      borderRadius: '100px',
-                      fontSize: '12px',
-                      fontWeight: 800
+                      background: isVerified ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)',
+                      color: isVerified ? '#10B981' : '#EF4444',
+                      padding: '6px 12px',
+                      borderRadius: '10px',
+                      fontSize: '11px',
+                      fontWeight: 900,
+                      textTransform: 'uppercase'
                     }}>
                       {p.status}
                     </div>
@@ -463,7 +458,16 @@ export default function App() {
                 );
               })}
             </div>
-            <BottomNav active="home" onNav={(id) => setScreen(id)} />
+            <BottomNav 
+              active="dashboard" 
+              onNav={(id) => {
+                if (id === 'sipho-ai') {
+                  useRegistryStore.getState().setAiOpen(true);
+                } else {
+                  setScreen(id);
+                }
+              }} 
+            />
           </motion.div>
         )}
 

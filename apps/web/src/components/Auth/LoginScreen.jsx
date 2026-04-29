@@ -23,7 +23,6 @@ export default function LoginScreen({ onLogin, onBack }) {
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript.toLowerCase().replace(/\s/g, '');
       if (field === 'email') {
-        // Simple heuristic for email: replace 'at' with '@' if common
         const formatted = transcript.replace(/at/g, '@');
         setEmail(formatted);
       } else {
@@ -41,7 +40,7 @@ export default function LoginScreen({ onLogin, onBack }) {
       exit={{ opacity: 0 }}
       className="screen"
       style={{
-        background: 'var(--surface-secondary)',
+        background: 'var(--bg-main)',
         padding: '0',
         display: 'flex',
         flexDirection: 'column',
@@ -54,17 +53,17 @@ export default function LoginScreen({ onLogin, onBack }) {
         <button
           onClick={onBack}
           style={{
-            background: 'white',
+            background: 'var(--card-bg)',
             padding: '12px',
             borderRadius: '16px',
-            border: '1px solid #E2E8F0',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow)',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center'
           }}
         >
-          <ChevronLeft size={20} color="#1F2937" />
+          <ChevronLeft size={20} color="white" />
         </button>
       </header>
 
@@ -86,101 +85,126 @@ export default function LoginScreen({ onLogin, onBack }) {
                 width: '32px',
                 height: '32px',
                 borderRadius: '50%',
-                background: '#4ADE80',
-                border: '3px solid white',
+                background: '#10B981',
+                border: '3px solid var(--card-bg)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
+                boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
               }}
             >
               <CheckCircle2 size={16} color="white" strokeWidth={3} />
             </motion.div>
           </div>
-          <div style={{ width: '2px', height: '70px', background: 'rgba(0,0,0,0.06)', borderRadius: '2px' }} />
+          <div style={{ width: '2px', height: '70px', background: 'var(--border)', borderRadius: '2px' }} />
           <div style={{
-            background: 'var(--bg-gradient)',
-            boxShadow: '0 15px 30px rgba(37, 99, 235, 0.2)',
+            background: 'linear-gradient(135deg, #1E40AF 0%, #1E3A8A 100%)',
+            boxShadow: '0 15px 30px rgba(30, 64, 175, 0.2)',
             width: '64px',
             height: '64px',
             borderRadius: '18px',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            border: '1px solid rgba(255,255,255,0.1)'
           }}>
             <ShieldCheck size={36} color="white" strokeWidth={2.5} />
           </div>
         </div>
 
         <div style={{ marginBottom: '40px' }}>
-          <div style={{ fontSize: '13px', fontWeight: 900, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '4px', marginBottom: '8px' }}>
+          <div style={{ fontSize: '12px', fontWeight: 900, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '4px', marginBottom: '8px' }}>
             Republic of South Africa
           </div>
-          <h2 style={{ fontSize: '32px', fontWeight: 900, color: 'var(--text-main)', marginBottom: '8px', letterSpacing: '-1.2px', lineHeight: 1.1 }}>
-            National Registry <span style={{ color: 'var(--primary-orange)' }}>Sentinel</span>
+          <h2 style={{ fontSize: '32px', fontWeight: 900, color: 'white', marginBottom: '8px', letterSpacing: '-1.2px', lineHeight: 1.1 }}>
+            Login
           </h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '15px', fontWeight: 600 }}>Access Hub: Authorized Personnel Only</p>
+          <p style={{ color: '#64748B', fontSize: '15px', fontWeight: 600 }}>Access Hub: Authorized Personnel Only</p>
         </div>
 
-        <div style={{ width: '100%', background: 'white', padding: '40px 32px', borderRadius: '32px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.08)', border: '1px solid #F1F5F9' }}>
+        <div style={{ width: '100%', background: 'var(--card-bg)', padding: '40px 32px', borderRadius: '32px', boxShadow: 'var(--shadow)', border: '1px solid var(--border)' }}>
           <div style={{ marginBottom: '24px', textAlign: 'left' }}>
-            <label style={{ display: 'block', fontWeight: 800, fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Registry Email</label>
-            <div className="input-field-container" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-              <Mail size={18} color="#94A3B8" />
+            <label style={{ display: 'block', fontWeight: 800, fontSize: '11px', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Email Address</label>
+            <div className="input-field-container" style={{ position: 'relative', display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid var(--border)' }}>
+              <div style={{ paddingLeft: '16px', display: 'flex', alignItems: 'center' }}>
+                <Mail size={18} color="#94A3B8" />
+              </div>
               <input
                 type="email"
                 placeholder="sentinel@sumbandila.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                style={{ flex: 1, paddingRight: '40px' }}
+                style={{ flex: 1, padding: '16px', background: 'transparent', border: 'none', color: 'white', outline: 'none', fontWeight: 600 }}
               />
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => startVoiceInput('email')}
-                style={{ position: 'absolute', right: '12px', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-              >
-                <Mic size={18} color="var(--primary)" />
-              </motion.button>
             </div>
           </div>
 
           <div style={{ marginBottom: '32px', textAlign: 'left' }}>
-            <label style={{ display: 'block', fontWeight: 800, fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Sentinel Key</label>
-            <div className="input-field-container" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-              <Lock size={18} color="#94A3B8" />
+            <label style={{ display: 'block', fontWeight: 800, fontSize: '11px', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Password</label>
+            <div className="input-field-container" style={{ position: 'relative', display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid var(--border)' }}>
+              <div style={{ paddingLeft: '16px', display: 'flex', alignItems: 'center' }}>
+                <Lock size={18} color="#94A3B8" />
+              </div>
               <input
                 type="password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                style={{ flex: 1, paddingRight: '40px' }}
+                style={{ flex: 1, padding: '16px', background: 'transparent', border: 'none', color: 'white', outline: 'none', fontWeight: 600 }}
               />
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => startVoiceInput('password')}
-                style={{ position: 'absolute', right: '12px', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-              >
-                <Mic size={18} color="var(--primary)" />
-              </motion.button>
             </div>
           </div>
 
           <button
             onClick={() => onLogin({ email, password })}
-            className="primary-btn"
             style={{
+              width: '100%',
               height: '64px',
+              background: '#10B981',
+              color: 'white',
+              borderRadius: '20px',
+              border: 'none',
               fontSize: '17px',
+              fontWeight: 800,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '12px',
+              boxShadow: '0 8px 25px rgba(16, 185, 129, 0.2)',
               textTransform: 'uppercase',
-              letterSpacing: '1px'
+              letterSpacing: '1px',
+              marginBottom: '16px'
             }}
           >
-            Authenticate <ArrowRight size={20} />
+            Login <ArrowRight size={20} />
           </button>
 
-          <p style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginTop: '32px' }}>
-            Securing Sovereign Registry Data
-          </p>
+          <button
+            style={{
+              width: '100%',
+              height: '64px',
+              background: 'transparent',
+              color: 'white',
+              borderRadius: '20px',
+              border: '1px solid var(--border)',
+              fontSize: '15px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '12px'
+            }}
+          >
+            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" style={{ height: '20px' }} />
+            Continue with Google
+          </button>
+
+          <div style={{ marginTop: '32px', display: 'flex', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: '13px', color: '#94A3B8', fontWeight: 700, cursor: 'pointer' }}>Forgot Password?</span>
+            <span style={{ fontSize: '13px', color: '#10B981', fontWeight: 800, cursor: 'pointer' }}>Create Account</span>
+          </div>
         </div>
 
         <button
@@ -189,7 +213,7 @@ export default function LoginScreen({ onLogin, onBack }) {
             marginTop: '32px',
             background: 'transparent',
             border: 'none',
-            color: 'var(--primary)',
+            color: '#10B981',
             fontWeight: 800,
             fontSize: '13px',
             cursor: 'pointer',

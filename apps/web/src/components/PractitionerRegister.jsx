@@ -169,7 +169,7 @@ export default function PractitionerRegister({ onBack }) {
                 <span style={{ fontSize: 13, fontWeight: 700, color: profession.color }}>{profession.label} · {profession.body}</span>
               </div>
               <h3 style={{ fontSize: 20, fontWeight: 900, color: '#111827', marginBottom: 20 }}>Your Details</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div className="grid-layout grid-layout-2" style={{ gap: 16 }}>
                 {[
                   { key: 'name', label: 'First Name', icon: User, placeholder: 'e.g. Sipho' },
                   { key: 'surname', label: 'Surname', icon: User, placeholder: 'e.g. Dlamini' },

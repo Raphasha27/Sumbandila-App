@@ -1,18 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --primary: #1E40AF;
+  --primary: #10B981;
   --secondary: #3B82F6;
   --accent: #F59E0B;
   --success: #10B981;
   --error: #EF4444;
-  --bg-main: #F8FAFC;
-  --card-bg: #FFFFFF;
-  --text-main: #111827;
-  --text-muted: #6B7280;
+  --bg-main: #0B1120;
+  --card-bg: #1E293B;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
   --ios-blue: #007AFF;
-  --border: #F1F5F9;
-  --shadow: 0 10px 30px rgba(0,0,0,0.04);
+  --border: #334155;
+  --shadow: 0 10px 30px rgba(0,0,0,0.4);
+  
+  /* Restoring missing legacy variables */
+  --primary-orange: #FF6B00;
+  --primary-dark: #111827;
+  --surface-main: #1E293B;
+  --surface-secondary: #0F172A;
+  --bg-gradient: linear-gradient(135deg, #111827 0%, #000000 100%);
 }
 
 * {
@@ -35,7 +42,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: white;
+  background: var(--bg-main);
 }
 
 .screen {
@@ -87,10 +94,10 @@ p { font-size: 15px; color: var(--text-muted); }
   left: 0;
   right: 0;
   height: 84px;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(11, 17, 32, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(0,0,0,0.05);
+  border-top: 1px solid rgba(255,255,255,0.05);
   display: flex;
   justify-content: space-around;
   align-items: center;

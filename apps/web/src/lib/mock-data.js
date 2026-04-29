@@ -765,98 +765,59 @@ export const MOCK_DATA = {
       validUntil: "2028-12-31",
       risk: "Low",
       accreditation: "HEQSF Aligned"
-    },
-    {
-      id: "phei-14",
-      name: "Academy for Facility Management (Pty) Ltd (A4FM)",
-      category: "Education",
-      type: "Private HEI",
-      reg: "2009/HE07/012",
-      status: "Registered",
-      standing: "Active",
-      body: "DHET Official Register (PHEI)",
-      location: "Waterkloof Ridge, Pretoria",
-      courses: ["HC in Facilities Management", "Advanced Diploma in Facility Management"],
-      validUntil: "2026-12-31",
-      risk: "Low"
-    },
-    {
-      id: "phei-15",
-      name: "ACT Cape Town (Pty) Ltd",
-      category: "Education",
-      type: "Private HEI",
-      reg: "2013/HE07/002",
-      status: "Registered",
-      standing: "Active",
-      body: "DHET Official Register (PHEI)",
-      location: "Pinelands, Cape Town",
-      courses: ["HC in Acting for Film", "Advanced Certificate in Acting for Film"],
-      validUntil: "2027-01-01",
-      risk: "Low"
-    },
-    {
-      id: "phei-16",
-      name: "Akemiese Reformatoriese Opleiding en Studies (AROS) NPC",
-      category: "Education",
-      type: "Private HEI",
-      reg: "2012/HE08/001",
-      status: "Registered",
-      standing: "Active",
-      body: "DHET Official Register (PHEI)",
-      location: "Montana Park, Pretoria",
-      courses: ["BEd in Foundation Phase Teaching", "Diploma in Grade R Teaching"],
-      validUntil: "2029-12-31",
-      risk: "Low"
-    },
-    {
-      id: "phei-17",
-      name: "Baptist Theological College of Southern Africa (The) NPC",
-      category: "Education",
-      type: "Private HEI",
-      reg: "2000/HE08/004",
-      status: "Registered",
-      standing: "Active",
-      body: "DHET Official Register (PHEI)",
-      location: "Randburg",
-      courses: ["Bachelor of Theology", "Master of Theology"],
-      validUntil: "2030-12-31",
-      risk: "Low"
-    },
-    {
-      id: "phei-18",
-      name: "Berea College of Technology (Pty) Ltd",
-      category: "Education",
-      type: "Private HEI",
-      reg: "2000/HE07/004",
-      status: "Registered",
-      standing: "Active",
-      body: "DHET Official Register (PHEI)",
-      location: "Durban",
-      courses: ["Diploma in Hospitality Management", "BCom in Accounting"],
-      validUntil: "2028-12-31",
-      risk: "Low"
-    },
-    {
-      id: "phei-19",
-      name: "BHC School of Design (Pty) Ltd",
-      category: "Education",
-      type: "Private HEI",
-      reg: "2010/HE07/003",
-      status: "Registered",
-      standing: "Active",
-      body: "DHET Official Register (PHEI)",
-      location: "Woodstock, Cape Town",
-      courses: ["Bachelor of Arts in Interior Design", "Diploma in Interior Design"],
-      validUntil: "2026-12-31",
-      risk: "Low"
     }
   ],
 
+  trustedRecommendations: {
+    Education: [
+      { name: "University of the Witwatersrand", type: "Public University", body: "DHET Recognized" },
+      { name: "University of Pretoria", type: "Public University", body: "DHET Recognized" },
+      { name: "Stellenbosch University", type: "Public University", body: "DHET Recognized" }
+    ],
+    Healthcare: [
+      { name: "Netcare Group", type: "Hospital Network", body: "DOH Verified" },
+      { name: "Life Healthcare", type: "Hospital Network", body: "DOH Verified" },
+      { name: "Mediclinic Southern Africa", type: "Hospital Network", body: "DOH Verified" }
+    ],
+    Legal: [
+      { name: "ENSafrica", type: "Global Law Firm", body: "LPC Good Standing" },
+      { name: "Cliffe Dekker Hofmeyr", type: "Top Tier Firm", body: "LPC Good Standing" },
+      { name: "Norton Rose Fulbright", type: "Global Excellence", body: "LPC Good Standing" }
+    ]
+  },
+  officialResources: {
+    Education: [
+      { name: "Department of Higher Education & Training (DHET)", url: "https://www.dhet.gov.za/" },
+      { name: "South African Qualifications Authority (SAQA)", url: "https://www.saqa.org.za/" },
+      { name: "Council on Higher Education (CHE)", url: "https://www.che.ac.za/" }
+    ],
+    Healthcare: [
+      { name: "Health Professions Council of South Africa (HPCSA)", url: "https://www.hpcsa.co.za/" },
+      { name: "Psytech South Africa (Psychological Assessment)", url: "https://www.psytech.co.za/" },
+      { name: "Mediclinic Southern Africa", url: "https://www.mediclinic.co.za/" },
+      { name: "Netcare Private Health", url: "https://www.netcare.co.za/" },
+      { name: "Discovery Health Provider Search", url: "https://www.discovery.co.za/" }
+    ],
+    Legal: [
+      { name: "Legal Practice Council (LPC) Search", url: "https://lpc.org.za" },
+      { name: "LPC FIDELITY FUND (FFC) Verification", url: "https://lpc.org.za/ffc-verification" },
+      { name: "Law Society of South Africa (LSSA)", url: "https://www.lssa.org.za/" }
+    ],
+    Reporting: [
+      { name: "DHET Helpline (Toll-Free)", phone: "0800 872 222", email: "callcentre@dhet.gov.za" },
+      { name: "LPC GP/NW/MP/LP Office", phone: "012 338 5800", email: "info@lpc.org.za" },
+      { name: "LPC WC/EC/NC Office", phone: "021 443 6700", email: "infowc@lpc.org.za" },
+      { name: "LPC KZN Office", phone: "033 345 1304", email: "infokzn@lpc.org.za" },
+      { name: "LPC Free State Office", phone: "051 447 3237", email: "infofs@lpc.org.za" },
+      { name: "SAPS Crime Stop", phone: "08600 10111", email: "report.fake@saps.gov.za" },
+      { name: "SAQA Verification", url: "https://www.saqa.org.za/verification" }
+    ]
+  },
+
 
   registryNews: [
-    { id: 1, title: "Official DHET Registry Update: December 2025 Edition Published", date: "11 Dec 2025", source: "DHET Official" },
-    { id: 2, title: "Reinstatement of Registration for Major Private Institutions", date: "05 Dec 2025", source: "Government Gazette" },
-    { id: 3, title: "HPCSA warns against unregistered dental technicians", date: "21 Feb 2026", source: "Sentinel Alert" }
+    { id: 1, title: "DHET unmasks 5 new bogus colleges in Mpumalanga", date: "23 Feb 2026", source: "DHET News" },
+    { id: 2, title: "HPCSA warns against unregistered dental technicians", date: "21 Feb 2026", source: "Sentinel Alert" },
   ],
   securityAlerts: [
     { id: 1, type: "Critical", text: "Identity theft spike: Beware of fake verification SMS from 'Registry Center'." },
@@ -899,66 +860,82 @@ export const MOCK_DATA = {
       impact: "Career Security"
     }
   ],
-  scamTracker: [
+  // 🚨 Sentinel Scam Tracker Alerts
+  alerts: [
     {
-      id: "scam-1",
-      title: "Bogus Nursing Colleges",
-      department: "Education",
+      id: 'alert-1',
+      category: 'Education',
+      title: 'Bogus Nursing Colleges',
+      risk: 'Critical',
       description: "Unregistered colleges in GP and KZN offering 'Nursing' diplomas without SANC accreditation. They often use 'Global' or 'International' in their names.",
-      status: "Active",
-      riskLevel: "Critical",
-      source: "Department of Higher Education (DHET)",
-      sourceUrl: "https://www.dhet.gov.za/SitePages/Docregisters.aspx"
+      source: 'Department of Higher Education (DHET)',
+      date: '2024-04-20'
     },
     {
-      id: "scam-2",
-      title: "Fake HPCSA Inspectors",
-      department: "Healthcare",
+      id: 'alert-2',
+      category: 'Healthcare',
+      title: 'Fake HPCSA Inspectors',
+      risk: 'High',
       description: "Scammers posing as HPCSA inspectors visiting private practices and demanding 'spot fines' for minor compliance issues.",
-      status: "New",
-      riskLevel: "High",
-      source: "HPCSA Official Notice",
-      sourceUrl: "https://www.hpcsa.co.za/Media/Notices"
+      source: 'HPCSA Official Notice',
+      date: '2024-04-18'
     },
     {
-      id: "scam-3",
+      id: 'alert-3',
+      category: 'Finance',
       title: "SARS 'Overdue Refund' Phishing",
-      department: "Finance",
+      risk: 'Critical',
       description: "SMS and emails claiming you have a R12,500 refund from SARS. Links to a landing page that steals banking credentials.",
-      status: "Persistent",
-      riskLevel: "Critical",
-      source: "SARS Scam Warning",
-      sourceUrl: "https://www.sars.gov.za/targeting-tax-crime/scams-and-phishing/"
+      source: 'SARS Scam Warning',
+      date: '2024-04-15'
     },
     {
-      id: "scam-4",
-      title: "Ghost Conveyancers",
-      department: "Legal",
+      id: 'alert-4',
+      category: 'Legal',
+      title: 'Ghost Conveyancers',
+      risk: 'High',
       description: "Individuals claiming to be attorneys handling property transfers for low fees. They disappear once the 'transfer fee' is paid.",
-      status: "Active",
-      riskLevel: "High",
-      source: "Legal Practice Council (LPC)",
-      sourceUrl: "https://lpc.org.za/public-alerts/"
+      source: 'Legal Practice Council (LPC)',
+      date: '2024-04-10'
+    }
+  ],
+  // 🏛️ Official Resources & Authorities
+  resources: {
+    education: [
+      { name: 'DHET Helpline', detail: 'Toll-Free Verification', link: 'https://www.dhet.gov.za/' },
+      { name: 'SAQA Verification', detail: 'Qualification Checks', link: 'https://www.saqa.org.za/' },
+      { name: 'CHE Council', detail: 'Higher Ed Accreditation', link: 'https://www.che.ac.za/' }
+    ],
+    medical: [
+      { name: 'HPCSA Search', detail: 'Practitioner Registry', link: 'https://www.hpcsa.co.za/' },
+      { name: 'Mediclinic Search', detail: 'Provider Verification', link: 'https://www.mediclinic.co.za/' },
+      { name: 'Discovery Health', detail: 'Verified Provider Search', link: 'https://www.discovery.co.za/' }
+    ],
+    legal: [
+      { name: 'LPC Registry', detail: 'Legal Practice Council', link: 'https://lpc.org.za/' },
+      { name: 'LSSA Search', detail: 'Law Society of SA', link: 'https://www.lssa.org.za/' },
+      { name: 'Fidelity Fund', detail: 'FFC Verification', link: 'https://www.fidfund.co.za/' }
+    ]
+  },
+  // 🗣️ Citizens' Voices (Testimonials)
+  testimonials: [
+    {
+      name: 'Thandiwe Nkosi',
+      location: 'Soweto, GP',
+      content: '"I was about to pay R5000 deposit for a nursing college in Joburg. Checked Sumbandila first and it was flagged as UNVERIFIED. This app saved my life savings!"',
+      category: 'Financial Loss Avoided'
     },
     {
-      id: "scam-5",
-      title: "SASSA Social Relief Grant Hack",
-      department: "Social Development",
-      description: "Third-party agents offering to 'expedite' R370 grant applications in exchange for a fee. SASSA never charges for applications.",
-      status: "Active",
-      riskLevel: "Medium",
-      source: "SASSA Official",
-      sourceUrl: "https://www.sassa.gov.za/"
+      name: 'Johannes van der Merwe',
+      location: 'Bellville, WC',
+      content: '"Used the legal registry to verify a \'consultant\' liquidating my business. Found out they weren\'t on the LPC list. Reported them immediately."',
+      category: 'Fraud Exposure'
     },
     {
-      id: "scam-6",
-      title: "Ransomware & Cyber Extortion",
-      department: "Cyber Security",
-      description: "Business owners receiving emails claiming their registry data has been hacked. They demand Bitcoin to 'stop the leak'. These are typically empty threats using leaked passwords from other breaches.",
-      status: "Active",
-      riskLevel: "High",
-      source: "Cyber-Sentinel Hub",
-      sourceUrl: "https://cyber-sentinel.gov.za"
+      name: 'Naledi Madiba',
+      location: 'Polokwane, LP',
+      content: '"As a student, I\'m always worried about my degree being valid. Verifying my institution here gave me total peace of mind for my future."',
+      category: 'Career Security'
     }
   ]
 };

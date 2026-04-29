@@ -16,8 +16,33 @@ const QUICK_OPTIONS = [
   { label: "📞 Support Hub", screen: "support-hub" },
 ];
 
-const getSmartResponse = (text) => {
+const getSmartResponse = (text, context = {}) => {
   const t = text.toLowerCase();
+  const { activeScreen, selectedProvider } = context;
+
+  // Search logic
+  if (t.includes('verify') || t.includes('check') || t.includes('is ') || t.includes('search')) {
+    const searchTerms = t.replace('verify', '').replace('check', '').replace('is ', '').replace('search', '').trim();
+    if (searchTerms.length > 2) {
+      const found = MOCK_DATA.providers.find(p => p.name.toLowerCase().includes(searchTerms));
+      if (found) {
+        return {
+          text: `🔍 I found a match in the registry: **${found.name}** (${found.status}). Would you like me to open their official verification file for you?`,
+          options: [`📄 View ${found.name}`, "🏠 Dashboard"],
+          action: { type: 'VERIFY', provider: found }
+        };
+      }
+    }
+  }
+
+  if (activeScreen === 'verify' && selectedProvider) {
+    if (t.includes('save') || t.includes('vault') || t.includes('keep')) {
+      return { text: `🔐 Great idea. I can save **${selectedProvider.name}** to your secure Sentinel Vault. Shall I proceed?`, options: ["✅ Save to Vault", "❌ Not now"] };
+    }
+    if (t.includes('risk') || t.includes('safe')) {
+      return { text: `🛡️ My analysis shows this entity is ${selectedProvider.risk} risk. ${selectedProvider.status === 'Registered' ? "They are currently in good standing with " + selectedProvider.body + "." : "Caution is advised as they are currently " + selectedProvider.status + "."}`, options: ["🔐 Save to Vault", "📞 Support Hub"] };
+    }
+  }
 
   if (t.includes('hello') || t.includes('hi') || t.includes('hey') || t.includes('greet'))
     return { text: "Hello! I'm Sipho, your guide to the Sumbandila National Registry. I can help you navigate to any part of the app or answer questions about verification. What can I help you find?", options: QUICK_OPTIONS.map(o => o.label) };
@@ -53,7 +78,19 @@ const getSmartResponse = (text) => {
 };
 
 const SiphoAI = () => {
-  const { aiOpen: isOpen, setAiOpen: setIsOpen, aiMessages: messages, addAiMessage, clearAiMessages, setScreen, setSelectedCategory } = useRegistryStore();
+  const { 
+    aiOpen: isOpen, 
+    setAiOpen: setIsOpen, 
+    aiMessages: messages, 
+    addAiMessage, 
+    clearAiMessages, 
+    setScreen, 
+    setSelectedCategory,
+    activeScreen,
+    selectedProvider,
+    setSelectedProvider,
+    addToVault
+  } = useRegistryStore();
   const [input, setInput] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -175,8 +212,10 @@ const SiphoAI = () => {
     const delay = 800 + Math.random() * 600;
     setTimeout(() => {
       setIsTyping(false);
-      const { text: responseText, options } = getSmartResponse(text);
-      addAiMessage({ role: 'assistant', text: responseText, options });
+      const context = { activeScreen, selectedProvider };
+      const { text: responseText, options, action } = getSmartResponse(text, context);
+      
+      addAiMessage({ role: 'assistant', text: responseText, options, action });
       speak(responseText);
     }, delay);
   }, [input, addAiMessage]);
@@ -206,9 +245,28 @@ const SiphoAI = () => {
     if (opt === "🏠 Dashboard") {
       setScreen('dashboard');
       setIsOpen(false);
-    } else {
-      sendMessage(opt);
+      return;
+    } 
+
+    if (opt === "✅ Save to Vault" && selectedProvider) {
+      addToVault(selectedProvider);
+      const msg = `✅ Saved ${selectedProvider.name} to your vault. Access it anytime from the 'Vault' tab.`;
+      addAiMessage({ role: 'assistant', text: msg });
+      speak(msg);
+      return;
     }
+
+    if (opt.startsWith("📄 View ") && messages.length > 0) {
+      const lastMsg = messages[messages.length - 1];
+      if (lastMsg.action?.type === 'VERIFY') {
+        setSelectedProvider(lastMsg.action.provider);
+        setScreen('verify');
+        setIsOpen(false);
+        return;
+      }
+    }
+
+    sendMessage(opt);
   };
 
   return (
