@@ -47,26 +47,26 @@ export default function Verify() {
   return (
     <div className="min-h-screen bg-[#0B1120] text-slate-200 pb-20">
       {/* Header */}
-      <header className={`pt-12 pb-24 px-6 border-b border-white/5 transition-all duration-700 ${isVerified ? 'bg-emerald-950/20' : result ? 'bg-red-950/20' : 'bg-transparent'}`}>
-        <div className="max-w-xl mx-auto">
-          <Link href="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8 group">
-            <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-            <span className="text-sm font-bold uppercase tracking-widest">Back to Portal</span>
+      <header className={`pt-20 pb-16 px-6 transition-all duration-700`}>
+        <div className="max-w-3xl mx-auto">
+          <Link href="/" className="inline-flex items-center gap-3 text-[#94A3B8] hover:text-white transition-colors mb-12 group">
+            <ChevronLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform" />
+            <span className="text-[11px] font-black uppercase tracking-[0.1em]">Back to Portal</span>
           </Link>
           
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/20">
-              <ShieldCheck size={28} className="text-emerald-500" />
+          <div className="flex items-center gap-5 mb-8">
+            <div className="w-14 h-14 bg-[#062F21] rounded-2xl flex items-center justify-center border border-emerald-500/10 shadow-lg shadow-emerald-900/20">
+              <ShieldCheck size={28} className="text-[#10B981]" />
             </div>
-            <div>
-              <div className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-1">National Registry</div>
-              <h1 className="text-3xl font-black text-white tracking-tighter">Instant Verification</h1>
+            <div className="flex flex-col justify-center">
+              <div className="text-[10px] font-black text-[#64748B] uppercase tracking-[0.2em] mb-1">National Registry</div>
+              <h1 className="text-[40px] font-black text-white tracking-tight leading-none">Instant Verification</h1>
             </div>
           </div>
 
           <div className="relative">
             <input
-              className="w-full bg-slate-900/80 border border-white/10 rounded-2xl py-5 px-6 text-white font-bold text-lg outline-none focus:border-emerald-500/50 focus:ring-8 focus:ring-emerald-500/5 transition-all placeholder:text-slate-600"
+              className="w-full bg-[#0F172A] border border-[#1E293B] rounded-[24px] py-6 px-8 text-white font-medium text-lg outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all placeholder:text-[#475569] shadow-2xl"
               placeholder="Institution name or Reg Number..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -75,15 +75,15 @@ export default function Verify() {
             <button
               onClick={handleVerify}
               disabled={isVerifying}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center text-white hover:bg-emerald-600 transition-colors disabled:opacity-50"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-14 h-14 bg-[#10B981] rounded-[20px] flex items-center justify-center text-white hover:bg-emerald-500 transition-all disabled:opacity-50 shadow-lg shadow-emerald-500/20"
             >
-              {isVerifying ? <Activity size={20} className="animate-spin" /> : <Search size={20} />}
+              {isVerifying ? <Activity size={24} className="animate-spin" /> : <Search size={24} strokeWidth={2.5} />}
             </button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-xl mx-auto px-6 -mt-12">
+      <main className="max-w-3xl mx-auto px-6">
         <AnimatePresence mode="wait">
           {isVerifying && (
             <motion.div 
@@ -180,11 +180,12 @@ export default function Verify() {
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }}
-              className="text-center pt-10"
+              className="w-full flex flex-col items-center mt-20"
             >
-              <div className="flex flex-col items-center gap-6 opacity-40">
-                <Database size={64} className="text-slate-600" />
-                <p className="text-sm font-bold uppercase tracking-[0.3em] text-slate-600">Secure National Registry Stream Active</p>
+              <div className="w-screen h-px bg-gradient-to-r from-transparent via-[#1E293B] to-transparent mb-20" />
+              <div className="flex flex-col items-center gap-6 opacity-30">
+                <Database size={56} strokeWidth={1} className="text-[#64748B]" />
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#64748B]">Secure National Registry Stream Active</p>
               </div>
             </motion.div>
           )}
