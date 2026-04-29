@@ -178,64 +178,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bento Grid Solutions */}
-      <section id="solutions" className="w-full max-w-7xl px-6 py-40">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col items-center text-center mb-24"
-        >
-          <div className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-6">Multi-Sector Coverage</div>
-          <h2 className="text-4xl md:text-7xl font-black tracking-tighter text-white max-w-4xl leading-tight">Consolidated National Registries</h2>
-        </motion.div>
+      {/* Clean Dark Bento Grid Solutions */}
+      <section id="solutions" className="w-full max-w-7xl px-6 py-32 bg-[#0B1120]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-24 pt-10">
+          
+          {/* Education Portal */}
+          <div className="flex flex-col items-start">
+            <div className="w-14 h-14 bg-[#062F21] rounded-2xl flex items-center justify-center mb-6">
+              <Building2 size={24} className="text-[#10B981]" />
+            </div>
+            <h3 className="text-[32px] font-black text-white mb-4 tracking-tight">Education Portal</h3>
+            <p className="text-[#94A3B8] text-base font-medium leading-relaxed max-w-[90%]">
+              DHET-linked registry verifying accreditation status for private and public higher education institutions.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-6 h-auto md:h-[600px]">
-          <motion.div 
-            whileHover={{ scale: 1.02 }}
-            className="md:col-span-3 glass-card p-12 rounded-[48px] flex flex-col justify-end"
-          >
-            <div className="w-16 h-16 bg-emerald-500/10 rounded-3xl flex items-center justify-center mb-8 border border-emerald-500/20">
-              <Building2 size={32} className="text-emerald-500" />
+          {/* Healthcare Sentinel */}
+          <div className="flex flex-col items-start">
+            <div className="w-14 h-14 bg-[#0F2942] rounded-2xl flex items-center justify-center mb-6">
+              <Users size={24} className="text-[#3B82F6]" />
             </div>
-            <h3 className="text-3xl font-black text-white mb-4">Education Portal</h3>
-            <p className="text-slate-400 font-medium leading-relaxed max-w-md">DHET-linked registry verifying accreditation status for private and public higher education institutions.</p>
-          </motion.div>
+            <h3 className="text-[32px] font-black text-white mb-4 tracking-tight">Healthcare Sentinel</h3>
+            <p className="text-[#94A3B8] text-base font-medium leading-relaxed max-w-[90%]">
+              Live validation of registered medical practitioners, clinics, and pharmacies via HPCSA protocols.
+            </p>
+          </div>
 
-          <motion.div 
-            whileHover={{ scale: 1.02 }}
-            className="md:col-span-3 glass-card p-12 rounded-[48px] flex flex-col justify-end"
-          >
-            <div className="w-16 h-16 bg-blue-500/10 rounded-3xl flex items-center justify-center mb-8 border border-blue-500/20">
-              <Users size={32} className="text-blue-500" />
+          {/* Legal Practice */}
+          <div className="flex flex-col items-center text-center mt-12 md:mt-0">
+            <div className="w-14 h-14 bg-[#3B2610] rounded-2xl flex items-center justify-center mb-6">
+              <Scale size={24} className="text-[#F59E0B]" />
             </div>
-            <h3 className="text-3xl font-black text-white mb-4">Healthcare Sentinel</h3>
-            <p className="text-slate-400 font-medium leading-relaxed max-w-md">Live validation of registered medical practitioners, clinics, and pharmacies via HPCSA protocols.</p>
-          </motion.div>
+            <h3 className="text-xl font-black text-white mb-3">Legal Practice</h3>
+            <p className="text-[#64748B] text-xs font-bold uppercase tracking-[0.2em]">
+              LPC RECORDS SYNC
+            </p>
+          </div>
 
-          <motion.div 
-            whileHover={{ scale: 1.02 }}
-            className="md:col-span-2 glass-card p-10 rounded-[48px] flex flex-col justify-center items-center text-center"
-          >
-            <div className="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6 border border-amber-500/20">
-              <Scale size={28} className="text-amber-500" />
+          {/* Enterprise API */}
+          <div className="flex items-center justify-between relative mt-12 md:mt-0">
+            <div className="flex flex-col items-start z-10">
+              <h3 className="text-[32px] font-black text-white mb-2 tracking-tight">Enterprise API</h3>
+              <p className="text-[#94A3B8] text-base font-medium">
+                Seamless integration for HR & Fintech.
+              </p>
             </div>
-            <h3 className="text-xl font-black text-white mb-2">Legal Practice</h3>
-            <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">LPC Records Sync</p>
-          </motion.div>
+            <div className="absolute right-0 -bottom-8 opacity-20 pointer-events-none">
+              <Cpu size={240} className="text-[#64748B]" strokeWidth={1} />
+            </div>
+          </div>
 
-          <motion.div 
-            whileHover={{ scale: 1.02 }}
-            className="md:col-span-4 glass-card p-10 rounded-[48px] flex items-center justify-between overflow-hidden relative"
-          >
-            <div className="z-10">
-              <h3 className="text-3xl font-black text-white mb-2">Enterprise API</h3>
-              <p className="text-slate-400 font-medium">Seamless integration for HR & Fintech.</p>
-            </div>
-            <div className="w-1/2 opacity-20 transform translate-x-10 translate-y-10">
-              <Cpu size={200} className="text-white" />
-            </div>
-          </motion.div>
         </div>
       </section>
 
