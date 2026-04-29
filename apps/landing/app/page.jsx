@@ -152,7 +152,7 @@ export default function HomeLanding() {
             </Link>
 
             {/* Leadership */}
-            <Link href="/category/leadership" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
+            <Link href="/leadership" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
               <div className="w-12 h-12 bg-blue-50 text-[#002395] rounded-xl flex items-center justify-center mb-4">
                 <Users size={24} />
               </div>
@@ -469,9 +469,9 @@ export default function HomeLanding() {
               <p className="text-sm font-semibold text-slate-700 max-w-[200px] mb-8">
                 Get updates on opportunities, deadlines and important announcements.
               </p>
-              <button className="px-6 py-3 rounded-xl bg-[#007749] text-white font-bold tracking-widest text-xs uppercase hover:bg-[#0E3B29] transition-all shadow-md">
+              <Link href="/membership" className="px-6 py-3 rounded-xl bg-[#007749] text-white font-bold tracking-widest text-xs uppercase hover:bg-[#0E3B29] transition-all shadow-md inline-block text-center">
                 SUBSCRIBE FOR UPDATES
-              </button>
+              </Link>
             </div>
             {/* Waving Flag Graphic Placeholder */}
             <div className="absolute right-[-20px] bottom-10 opacity-90 z-0">
