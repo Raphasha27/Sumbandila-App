@@ -255,48 +255,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* API Preview / Code Section */}
-      <section className="w-full max-w-7xl px-6 py-40">
-        <div className="glass p-12 md:p-24 rounded-[64px] border-emerald-500/10 flex flex-col lg:flex-row gap-20 items-center overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 blur-[100px] rounded-full" />
+      {/* Clean Dark API Preview Section */}
+      <section className="w-full max-w-7xl px-6 py-32 bg-[#0B1120]">
+        <div className="bg-[#0F172A] p-12 md:p-20 rounded-[48px] flex flex-col lg:flex-row gap-16 items-center overflow-hidden">
           
+          {/* Left Text Content */}
           <div className="lg:w-1/2 text-left">
-            <div className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.4em] mb-6">Developer First</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white mb-8">Integrated Trust for Every System.</h2>
-            <p className="text-lg text-slate-400 font-medium mb-10 leading-relaxed">
+            <div className="text-[10px] font-black text-[#10B981] uppercase tracking-[0.3em] mb-6">Developer First</div>
+            <h2 className="text-[48px] md:text-[56px] font-black tracking-tighter text-white mb-6 leading-[1.05]">
+              Integrated Trust<br />for Every<br />System.
+            </h2>
+            <p className="text-base text-[#94A3B8] font-medium mb-10 leading-relaxed max-w-[90%]">
               Connect your HR portal, banking app, or government database directly to the national registry via our high-performance REST API.
             </p>
-            <div className="flex gap-4">
-              <button className="btn-primary">Get API Key</button>
-              <button className="btn-secondary">View Docs</button>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="bg-[#10B981] hover:bg-emerald-500 text-white font-bold px-8 py-4 rounded-xl text-sm transition-colors">
+                Get API Key
+              </button>
+              <button className="bg-[#1E293B] hover:bg-[#334155] text-white font-bold px-8 py-4 rounded-xl text-sm transition-colors">
+                View Docs
+              </button>
             </div>
           </div>
 
+          {/* Right Terminal Component */}
           <div className="lg:w-1/2 w-full">
-            <div className="bg-slate-950/80 backdrop-blur-2xl rounded-[32px] p-10 border border-white/10 shadow-2xl">
+            <div className="bg-[#030712] rounded-[24px] p-8 md:p-10 border border-[#1E293B]/50 shadow-2xl">
               <div className="flex items-center gap-2 mb-8">
-                <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-amber-500" />
-                <div className="w-3 h-3 rounded-full bg-emerald-500" />
-                <span className="text-[9px] font-bold text-slate-600 uppercase tracking-widest ml-4">Terminal — v1/verify</span>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
+                <span className="text-[9px] font-bold text-[#475569] uppercase tracking-widest ml-4">Terminal — v1/verify</span>
               </div>
-              <div className="font-mono text-sm space-y-4">
+              <div className="font-mono text-xs md:text-sm space-y-4 leading-relaxed">
                 <div className="flex gap-4">
-                  <span className="text-slate-700">01</span>
-                  <p className="text-blue-400">curl -X POST &quot;https://api.sumbandila.gov.za/v1/verify&quot; \</p>
+                  <span className="text-[#1E293B] select-none">01</span>
+                  <p className="text-[#60A5FA]">curl -X POST<br className="sm:hidden" /><span className="sm:inline hidden"> </span>"https://api.sumbandila.gov.za/v1/verify" \</p>
                 </div>
                 <div className="flex gap-4">
-                  <span className="text-slate-700">02</span>
-                  <p className="text-blue-400 ml-8">-H &quot;Authorization: Bearer $SENTINEL_KEY&quot; \</p>
+                  <span className="text-[#1E293B] select-none">02</span>
+                  <p className="text-[#60A5FA] sm:ml-8">-H "Authorization: Bearer $SENTINEL_KEY" \</p>
                 </div>
                 <div className="flex gap-4">
-                  <span className="text-slate-700">03</span>
-                  <p className="text-blue-400 ml-8">-d &apos;{"{"} &quot;query&quot;: &quot;MP-10294&quot; {"}"}&apos;</p>
+                  <span className="text-[#1E293B] select-none">03</span>
+                  <p className="text-[#60A5FA] sm:ml-8">-d '{'{'} "query": "MP 10294" {'}'}'</p>
                 </div>
-                <br />
-                <div className="flex gap-4">
-                  <span className="text-slate-700">04</span>
-                  <p className="text-slate-500">// Result: [VERIFIED] Dr. Sipho M.</p>
+                <div className="flex gap-4 pt-2">
+                  <span className="text-[#1E293B] select-none">04</span>
+                  <p className="text-[#64748B]">// Result: [VERIFIED] Dr. Sipho M.</p>
                 </div>
               </div>
             </div>
