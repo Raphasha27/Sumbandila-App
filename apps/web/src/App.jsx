@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ShieldCheck,
@@ -12,7 +12,19 @@ import {
   User as UserIcon,
   HelpCircle,
   Gavel,
-  Key
+  Key,
+  Phone,
+  Mail,
+  ExternalLink,
+  AlertCircle,
+  Clock,
+  FileText,
+  Lock,
+  Database,
+  AlertTriangle,
+  UserCircle,
+  Search,
+  School
 } from 'lucide-react';
 import { Analytics } from '@vercel/analytics/react';
 import { db } from './services/DatabaseService';
@@ -29,6 +41,9 @@ import AssistanceRequest from './components/Support/AssistanceRequest';
 import { BottomNav } from './components/Navigation';
 import { MOCK_DATA } from './lib/mock-data';
 import SiphoAI from './components/SiphoAI';
+import { PractitionerRegister } from './components/PractitionerRegister';
+import { SumbandilaLogo } from './components/Branding/Logo';
+import LandingPage from './components/Landing/LandingPage';
 
 const SAFlag = () => (
   <div style={{ display: 'flex', gap: '2px', height: '6px', width: '100px', marginBottom: '12px' }}>
@@ -40,8 +55,8 @@ const SAFlag = () => (
 
 const OfficialBanner = () => (
   <div style={{
-    background: 'var(--primary)',
-    padding: '20px 24px',
+    background: 'var(--card-bg)',
+    padding: '12px 20px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -49,35 +64,40 @@ const OfficialBanner = () => (
     position: 'sticky',
     top: 0,
     zIndex: 100,
-    overflow: 'hidden',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+    borderBottom: '1px solid var(--border)',
+    boxShadow: 'var(--shadow)'
   }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png"
-        alt="South Africa Flag"
-        style={{ height: '36px', width: 'auto', borderRadius: '4px' }}
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <img 
+        src="https://upload.wikimedia.org/wikipedia/en/thumb/2/22/Coat_of_arms_of_South_Africa.svg/1200px-Coat_of_arms_of_South_Africa.svg.png" 
+        style={{ height: '32px', width: 'auto' }} 
+        alt="RSA Coat of Arms" 
       />
-      <div style={{ textAlign: 'left', borderLeft: '1px solid rgba(255,255,255,0.2)', paddingLeft: '20px' }}>
-        <div style={{ fontSize: '11px', fontWeight: 800, color: 'white', opacity: 0.9, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Republic of South Africa</div>
-        <div style={{ fontSize: '18px', fontWeight: 900, color: 'white', letterSpacing: '-0.3px', marginTop: '2px' }}>National Registry Sentinel</div>
+      <div style={{ textAlign: 'left' }}>
+        <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--text-muted)', lineHeight: 1.2 }}>Sumbandila:</div>
+        <div style={{ fontSize: '11px', fontWeight: 900, color: '#10B981', letterSpacing: '-0.2px' }}>National Registry Sentinel</div>
       </div>
     </div>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-      <div style={{ width: '44px', height: '44px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)' }}>
-        <ShieldCheck size={24} color="white" />
-      </div>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#10B981', padding: '6px 12px', borderRadius: '100px' }}>
+      <span style={{ fontSize: '9px', fontWeight: 800, color: 'white', letterSpacing: '0.5px' }}>SENTINEL ACCESS</span>
+      <ShieldCheck size={16} color="white" />
     </div>
   </div>
 );
 
 export default function App() {
+  console.log("💎 Sumbandila Sentinel Booting...");
+  // eslint-disable-next-line react-hooks/purity
+  const certBlockId = useMemo(() => Math.random().toString(36).substring(2, 11).toUpperCase(), []);
+
   const {
     user, setUser,
     searchQuery, setSearchQuery,
     vault, addToVault, removeFromVault, clearVault,
     activeScreen: screen,
     setScreen,
+    selectedProvider,
+    setSelectedProvider,
     logout: storeLogout
   } = useRegistryStore();
 
@@ -88,17 +108,21 @@ export default function App() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [verifyStep, setVerifyStep] = useState('input');
-  const [selectedProvider, setSelectedProvider] = useState(null);
   const { selectedCategory, setSelectedCategory } = useRegistryStore();
 
-  // 🛡️ Mandatory Splash Force: Ensures "Get Started" is the entry point every time
+  // 🛡️ Mandatory Onboarding Flow: Landing -> Login -> Dashboard
   useEffect(() => {
-    // Only set to splash if there is no user session
-    if (!user) {
-      setScreen('splash');
+    if (!user && screen !== 'landing' && screen !== 'login') {
+      setScreen('landing');
     }
-    console.log("🛡️ Entry Point Reset: Enforcing State Integrity");
-  }, [user, setScreen]);
+  }, [user, screen, setScreen]);
+
+  const handleGetStarted = () => setScreen('verify-now'); // Deep link to search
+  const handleLoginSuccess = (userData) => {
+    setUser(userData);
+    setScreen('dashboard');
+  };
+  const handleBackToLanding = () => setScreen('landing');
 
   useEffect(() => {
     if (screen === 'audit-logs' && user?.email === 'admin@sumbandila.com') {
@@ -141,134 +165,122 @@ export default function App() {
   return (
     <div className="app-container">
       <AnimatePresence mode="wait">
+        {screen === 'landing' && (
+          <LandingPage 
+            onGetStarted={() => setScreen('login')} 
+            onLogin={() => setScreen('login')} 
+          />
+        )}
+
         {screen === 'splash' && (
-          <motion.div
-            key="splash"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="screen"
-            style={{
-              padding: 0,
-              background: 'white',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              position: 'relative',
-              overflow: 'hidden'
+          <motion.div 
+            key="splash" 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            className="screen" 
+            style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              background: 'var(--bg-main)', 
+              padding: '24px',
+              textAlign: 'center'
             }}
           >
-            <OfficialBanner />
+            <SAFlag />
+            <div style={{ marginBottom: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ 
+                width: '100px', 
+                height: '100px', 
+                borderRadius: '30px', 
+                background: 'rgba(16, 185, 129, 0.1)', 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center',
+                marginBottom: '24px',
+                border: '1px solid rgba(16, 185, 129, 0.2)'
+              }}>
+                <ShieldCheck size={56} color="#10B981" />
+              </div>
+              <h1 style={{ fontSize: '48px', fontWeight: 900, color: 'var(--text-main)', margin: 0, letterSpacing: '-1.5px', lineHeight: 1 }}>Sumbandila</h1>
+              <p style={{ fontSize: '18px', fontWeight: 600, color: '#94A3B8', marginTop: '12px', letterSpacing: '0.5px' }}>National Registry Sentinel</p>
+            </div>
 
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '40px 24px', maxWidth: '500px', zIndex: 10 }}>
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                style={{ position: 'relative', marginBottom: '48px', width: '260px', height: '260px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-              >
-                {/* Outer pulse ring 1 */}
-                <motion.div
-                  animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0, 0.3] }}
-                  transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', inset: '-20px', borderRadius: '50%', border: '2px solid var(--primary)', pointerEvents: 'none' }}
-                />
-                {/* Outer pulse ring 2 */}
-                <motion.div
-                  animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0, 0.5] }}
-                  transition={{ repeat: Infinity, duration: 3, delay: 0.8, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', inset: '-8px', borderRadius: '50%', border: '1.5px solid rgba(0,86,179,0.4)', pointerEvents: 'none' }}
-                />
-                {/* Rotating dashed ring */}
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
-                  style={{
-                    position: 'absolute',
-                    inset: '-12px',
-                    borderRadius: '50%',
-                    border: '2.5px dashed rgba(0,86,179,0.25)',
-                    pointerEvents: 'none'
-                  }}
-                />
-                {/* Emblem circle */}
-                <div style={{
-                  width: '220px',
-                  height: '220px',
-                  borderRadius: '64px',
-                  background: 'var(--bg-gradient)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 30px 60px rgba(37, 99, 235, 0.3)',
-                  position: 'relative',
-                  border: 'none'
-                }}>
-                  <ShieldCheck size={110} color="white" strokeWidth={1.5} />
+            <motion.button
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setScreen('dashboard')}
+              style={{
+                background: '#10B981',
+                color: 'white',
+                padding: '22px 48px',
+                borderRadius: '24px',
+                border: 'none',
+                fontWeight: 900,
+                fontSize: '16px',
+                cursor: 'pointer',
+                marginBottom: '40px',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                boxShadow: '0 10px 25px rgba(30, 64, 175, 0.25)'
+              }}
+            >
+              ENTER REGISTRY
+            </motion.button>
 
-                  {/* Internal gloss effect */}
-                  <div style={{
-                    position: 'absolute',
-                    top: '10%',
-                    left: '10%',
-                    width: '40%',
-                    height: '40%',
-                    background: 'rgba(255,255,255,0.2)',
-                    filter: 'blur(20px)',
-                    borderRadius: '50%'
-                  }} />
+            {/* Stats Row */}
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              gap: '40px', 
+              marginBottom: '40px',
+              width: '100%',
+              maxWidth: '480px'
+            }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', color: '#1E40AF', marginBottom: '4px' }}>
+                  <School size={20} />
+                  <span style={{ fontSize: '20px', fontWeight: 900 }}>24k+</span>
                 </div>
-              </motion.div>
-
-              <div style={{ marginBottom: '8px' }}>
-                <SAFlag />
+                <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748B' }}>Vetted Schools</div>
               </div>
-
-              <div style={{ fontSize: '14px', fontWeight: 900, color: '#64748B', textTransform: 'uppercase', letterSpacing: '4px', marginBottom: '12px' }}>
-                Republic of South Africa
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', color: '#1E40AF', marginBottom: '4px' }}>
+                  <ShieldCheck size={20} />
+                  <span style={{ fontSize: '20px', fontWeight: 900 }}>100%</span>
+                </div>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748B' }}>Official Data</div>
               </div>
+            </div>
 
-              <h1 style={{ color: '#0F172A', fontSize: '42px', fontWeight: 900, marginBottom: '24px', letterSpacing: '-1.5px', lineHeight: 1.1 }}>
-                Sumbandila <span style={{ color: 'var(--primary-orange)' }}>App</span>
-                <div style={{ fontSize: '18px', color: '#64748B', marginTop: '8px', letterSpacing: '2px', textTransform: 'uppercase' }}>Registry Sentinel</div>
-                <div style={{ fontSize: '16px', color: 'var(--primary)', marginTop: '4px', fontStyle: 'italic', textTransform: 'none', letterSpacing: '0', fontWeight: 700 }}>at the palm of your hand</div>
-              </h1>
-
-
-              <motion.button
-                whileTap={{ scale: 0.96 }}
-                whileHover={{ scale: 1.02 }}
-                onClick={() => setScreen('login')}
-                style={{
-                  background: 'var(--primary-orange)',
-                  color: 'white',
-                  padding: '24px',
-                  borderRadius: '28px',
-                  fontSize: '18px',
-                  fontWeight: 900,
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  boxShadow: '0 20px 40px rgba(249, 115, 22, 0.25)',
-                  width: '100%',
-                  maxWidth: '440px',
-                  justifyContent: 'center',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px'
-                }}
+            {/* Links */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '48px' }}>
+              <button 
+                onClick={() => setScreen('practitioner-register')}
+                style={{ background: 'none', border: 'none', color: '#1E40AF', fontWeight: 800, fontSize: '14px', cursor: 'pointer', textDecoration: 'underline' }}
               >
-                GET STARTED <ArrowRight size={22} />
-              </motion.button>
-
-              <button
+                Join as a Verified Practitioner
+              </button>
+              <button 
                 onClick={() => setScreen('how-it-works')}
-                style={{ marginTop: '24px', background: 'transparent', border: 'none', color: '#64748B', fontWeight: 700, fontSize: '14px', cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: '#1E40AF', fontWeight: 800, fontSize: '14px', cursor: 'pointer', textDecoration: 'underline' }}
               >
                 Learn More About Our Mission
               </button>
+            </div>
 
-              <div style={{ marginTop: 'auto', paddingTop: '40px', borderTop: '1px solid #F1F5F9', width: '100%', display: 'flex', gap: '20px', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ fontSize: '10px', fontWeight: 800, color: '#94A3B8' }}>© 2026 NATIONAL SENTINEL ADVISORY</div>
-              </div>
+            {/* Footer */}
+            <div style={{ 
+              marginTop: 'auto', 
+              paddingBottom: '32px',
+              fontSize: '10px', 
+              fontWeight: 800, 
+              color: '#94A3B8',
+              letterSpacing: '0.5px'
+            }}>
+              © 2026 NATIONAL SENTINEL ADVISORY
             </div>
           </motion.div>
         )}
@@ -348,8 +360,8 @@ export default function App() {
 
         {screen === 'login' && (
           <LoginScreen
-            onLogin={handleLogin}
-            onBack={() => setScreen('splash')}
+            onLogin={handleLoginSuccess}
+            onBack={handleBackToSplash}
             onShowAbout={() => setScreen('how-it-works')}
           />
         )}
@@ -366,7 +378,7 @@ export default function App() {
         )}
 
         {screen === 'category-list' && (
-          <motion.div key="cat-list" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen" style={{ background: '#FDFCFB', paddingBottom: '120px' }}>
+          <motion.div key="cat-list" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen" style={{ background: 'var(--bg-main)', paddingBottom: '120px' }}>
             <header style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '32px', width: '100%', padding: '24px 20px' }}>
               <div onClick={() => setScreen('dashboard')} style={{ padding: '12px', background: 'white', borderRadius: '14px', cursor: 'pointer', display: 'flex', border: '1px solid #E5E7EB', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', marginBottom: '16px' }}>
                 <ChevronLeft size={24} color="#111827" />
@@ -387,36 +399,58 @@ export default function App() {
                     transition={{ delay: i * 0.05 }}
                     key={i}
                     style={{
-                      background: 'white',
+                      background: 'var(--card-bg)',
                       borderRadius: '24px',
-                      padding: '24px',
+                      padding: '20px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '20px',
+                      gap: '16px',
                       cursor: 'pointer',
-                      boxShadow: '0 4px 15px rgba(0,0,0,0.03)',
-                      border: isVerified ? '1px solid #F3F4F6' : '1px solid #FFCDD2',
-                      textAlign: 'left'
+                      boxShadow: 'var(--shadow)',
+                      border: isVerified ? '1px solid var(--border)' : '1px solid var(--error)',
+                      textAlign: 'left',
+                      marginBottom: '12px'
                     }}
                     onClick={() => startVerification(p.name)}
                   >
-                    <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: isVerified ? '#F9FAFB' : '#FFEBEE', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid #F3F4F6' }}>
-                      <Building2 size={24} color={isVerified ? 'var(--primary-orange)' : '#D32F2F'} />
+                    <div style={{ 
+                      width: '56px', 
+                      height: '56px', 
+                      borderRadius: '16px', 
+                      background: isVerified ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', 
+                      display: 'flex', 
+                      justifyContent: 'center', 
+                      alignItems: 'center', 
+                      border: `1px solid ${isVerified ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)'}` 
+                    }}>
+                      <Building2 size={24} color={isVerified ? '#10B981' : '#EF4444'} />
                     </div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: 800, fontSize: '18px', color: '#111827', marginBottom: '2px' }}>{p.name}</div>
-                      <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600 }}>{p.type} • {p.body}</div>
-                      <div style={{ fontSize: '11px', color: 'var(--primary)', fontWeight: 800, textTransform: 'uppercase', marginTop: '4px', letterSpacing: '0.5px' }}>
-                        {p.category === 'Education' ? `EMIS: ${p.emisNumber || 'N/A'}` : p.category === 'Healthcare' ? `HPCSA: ${p.hpcsaNumber || 'N/A'}` : `LPC: ${p.lpcNumber || 'N/A'}`}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <div style={{ fontWeight: 800, fontSize: '17px', color: 'var(--text-main)' }}>{p.name}</div>
+                        {isVerified && <ShieldCheck size={16} color="#10B981" />}
+                      </div>
+                      <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 500, marginTop: '2px' }}>{p.type} • {p.body}</div>
+                      
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '10px' }}>
+                        <div style={{ fontSize: '10px', color: '#10B981', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px', background: 'rgba(16, 185, 129, 0.1)', padding: '4px 8px', borderRadius: '6px' }}>
+                          {p.category === 'Education' ? `EMIS: ${p.emisNumber || 'N/A'}` : p.category === 'Healthcare' ? `HPCSA: ${p.hpcsaNumber || 'N/A'}` : `LPC: ${p.lpcNumber || 'N/A'}`}
+                        </div>
+                        {p.category === 'Education' && p.courseAccreditation && (
+                          <div style={{ fontSize: '10px', color: '#3B82F6', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px', background: 'rgba(59, 130, 246, 0.1)', padding: '4px 8px', borderRadius: '6px' }}>
+                            {p.courseAccreditation}
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div style={{
-                      background: isVerified ? '#E8F5E9' : '#FFEBEE',
-                      color: isVerified ? '#2E7D32' : '#D32F2F',
-                      padding: '6px 14px',
-                      borderRadius: '100px',
-                      fontSize: '12px',
-                      fontWeight: 800
+                      background: isVerified ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)',
+                      color: isVerified ? '#10B981' : '#EF4444',
+                      padding: '6px 12px',
+                      borderRadius: '10px',
+                      fontSize: '11px',
+                      fontWeight: 900,
+                      textTransform: 'uppercase'
                     }}>
                       {p.status}
                     </div>
@@ -424,7 +458,16 @@ export default function App() {
                 );
               })}
             </div>
-            <BottomNav active="home" onNav={(id) => setScreen(id)} />
+            <BottomNav 
+              active="dashboard" 
+              onNav={(id) => {
+                if (id === 'sipho-ai') {
+                  useRegistryStore.getState().setAiOpen(true);
+                } else {
+                  setScreen(id);
+                }
+              }} 
+            />
           </motion.div>
         )}
 
@@ -525,7 +568,7 @@ export default function App() {
                     <CheckCircle2 size={24} strokeWidth={3} />
                     <span style={{ fontSize: '14px', fontWeight: 900 }}>DIGITALLY AUTHENTICATED</span>
                   </div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700, fontFamily: 'monospace', letterSpacing: '1px' }}>CERT_BLOCK_ID: {Math.random().toString(36).substring(2, 11).toUpperCase()}_ZA_SENTINEL</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700, fontFamily: 'monospace', letterSpacing: '1px' }}>CERT_BLOCK_ID: {certBlockId}_ZA_SENTINEL</div>
                 </div>
               </div>
 
@@ -724,6 +767,214 @@ export default function App() {
             <BottomNav active="home" onNav={(s) => setScreen(s)} />
           </motion.div>
         )}
+        {screen === 'practitioner-register' && (
+          <PractitionerRegister onBack={() => setScreen(user ? 'dashboard' : 'splash')} />
+        )}
+
+        {screen === 'support-hub' && (
+          <motion.div key="support-hub" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="screen" style={{ background: '#FDFCFB', padding: 0, paddingBottom: '80px' }}>
+            <div style={{ background: 'linear-gradient(135deg, #7C3AED, #6D28D9)', padding: '28px 20px 48px', borderRadius: '0 0 40px 40px', color: 'white', position: 'relative', overflow: 'hidden' }}>
+              <div onClick={() => setScreen('dashboard')} style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', marginBottom: 20 }}>
+                <ChevronLeft size={22} color="white" />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
+                <div style={{ width: 56, height: 56, borderRadius: 18, background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Gavel size={28} color="white" />
+                </div>
+                <div>
+                  <div style={{ fontSize: 11, fontWeight: 800, opacity: 0.8, textTransform: 'uppercase', letterSpacing: '1.5px' }}>Republic of South Africa</div>
+                  <h2 style={{ fontSize: 22, fontWeight: 900, margin: 0 }}>Support & Justice Hub</h2>
+                </div>
+              </div>
+              <p style={{ fontSize: 14, opacity: 0.85, lineHeight: 1.6 }}>Scammed or need help? Report fraud, access emergency contacts, and connect with official authorities.</p>
+            </div>
+
+            <div style={{ padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+
+              {/* Emergency Contacts */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+                  <div style={{ background: '#FEF2F2', padding: 8, borderRadius: 10 }}><AlertTriangle size={20} color="#EF4444" /></div>
+                  <h3 style={{ fontWeight: 800, color: '#111827', fontSize: 16 }}>Emergency Contacts</h3>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {[
+                    { name: 'SAPS Crime Stop', number: '08600 10111', icon: Phone, color: '#EF4444' },
+                    { name: 'DHET Helpline (Toll-Free)', number: '0800 872 222', icon: Phone, color: '#3B82F6' },
+                    { name: 'LPC Complaints (GP/NW)', number: '012 338 5800', icon: Phone, color: '#7C3AED' },
+                    { name: 'HPCSA Complaints', number: '012 338 9300', icon: Phone, color: '#10B981' },
+                  ].map(({ name, number, icon: Icon, color }) => (
+                    <a key={name} href={`tel:${number.replace(/\s/g, '')}`} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', background: 'white', borderRadius: 20, border: '1px solid #F3F4F6', textDecoration: 'none', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                      <div style={{ width: 44, height: 44, borderRadius: 14, background: `${color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <Icon size={20} color={color} />
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontWeight: 800, fontSize: 14, color: '#111827' }}>{name}</div>
+                        <div style={{ fontSize: 13, color, fontWeight: 700 }}>{number}</div>
+                      </div>
+                      <ArrowRight size={16} color="#94A3B8" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Online Reporting */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+                  <div style={{ background: '#EFF6FF', padding: 8, borderRadius: 10 }}><AlertCircle size={20} color="#3B82F6" /></div>
+                  <h3 style={{ fontWeight: 800, color: '#111827', fontSize: 16 }}>Official Reporting Portals</h3>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {[
+                    { name: 'DHET — Report Bogus Colleges', url: 'https://www.dhet.gov.za/', email: 'callcentre@dhet.gov.za' },
+                    { name: 'SARS — Report Phishing & Scams', url: 'https://www.sars.gov.za/targeting-tax-crime/scams-and-phishing/' },
+                    { name: 'LPC — Report Unregistered Attorneys', url: 'https://lpc.org.za/public-alerts/', email: 'info@lpc.org.za' },
+                    { name: 'HPCSA — Report Fake Practitioners', url: 'https://www.hpcsa.co.za/', email: 'hpcsa@hpcsa.co.za' },
+                  ].map(({ name, url, email }) => (
+                    <a key={name} href={url} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', background: 'white', borderRadius: 20, border: '1px solid #F3F4F6', textDecoration: 'none', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                      <div style={{ width: 44, height: 44, borderRadius: 14, background: '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <ExternalLink size={20} color="#3B82F6" />
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontWeight: 800, fontSize: 13, color: '#111827' }}>{name}</div>
+                        {email && <div style={{ fontSize: 11, color: '#6B7280', fontWeight: 600, marginTop: 2 }}>{email}</div>}
+                      </div>
+                      <ArrowRight size={16} color="#94A3B8" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Report via Sumbandila */}
+              <div style={{ background: 'linear-gradient(135deg, #7C3AED, #6D28D9)', borderRadius: 28, padding: 24, color: 'white' }}>
+                <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 8 }}>📩 File an Anonymous Report</div>
+                <p style={{ fontSize: 13, opacity: 0.9, lineHeight: 1.6, marginBottom: 16 }}>Submit a confidential report directly through Sumbandila. Your identity is protected under POPIA.</p>
+                <button onClick={() => setScreen('help')} style={{ background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.3)', color: 'white', padding: '12px 20px', borderRadius: 16, fontWeight: 800, fontSize: 13, cursor: 'pointer', width: '100%' }}>
+                  Open Report Form →
+                </button>
+              </div>
+
+            </div>
+            <BottomNav active="home" onNav={(s) => setScreen(s)} />
+          </motion.div>
+        )}
+
+        {screen === 'audit-logs' && user?.email === 'admin@sumbandila.com' && (
+          <motion.div key="audit-logs" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="screen" style={{ background: '#0F172A', padding: 0, paddingBottom: '40px' }}>
+            <div style={{ padding: '28px 20px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                <div onClick={() => setScreen('profile')} style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                  <ChevronLeft size={22} color="white" />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 11, color: '#F59E0B', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>ADMIN ONLY</div>
+                  <h2 style={{ fontSize: 20, fontWeight: 900, color: 'white', margin: 0 }}>Sentinel Audit Logs</h2>
+                </div>
+                <Database size={22} color="#4ADE80" />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', padding: '8px 14px', borderRadius: 100, width: 'fit-content' }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ADE80' }} />
+                <span style={{ fontSize: 11, fontWeight: 800, color: '#4ADE80', textTransform: 'uppercase', letterSpacing: '1px' }}>Live System Log</span>
+              </div>
+            </div>
+
+            <div style={{ padding: '20px' }}>
+              {[
+                { time: '10:24:01', type: 'AUTH', msg: `LOGIN: ${user?.name} — admin@sumbandila.com`, level: 'info' },
+                { time: '10:22:18', type: 'VERIFY', msg: 'SEARCH: "Damelin" — Result: DEREGISTERED (Critical)', level: 'warn' },
+                { time: '10:19:44', type: 'REPORT', msg: 'REPORT FILED: Pretoria Global Institute — Anonymous', level: 'warn' },
+                { time: '10:15:03', type: 'VAULT', msg: 'VAULT SAVE: Netcare Rosebank Hospital by admin', level: 'info' },
+                { time: '10:11:30', type: 'ALERT', msg: 'SECURITY: Failed login attempt from unknown IP', level: 'error' },
+                { time: '10:08:12', type: 'SYNC', msg: 'DB SYNC: 1,248 new records from DHET portal', level: 'info' },
+                { time: '09:55:00', type: 'AUTH', msg: 'SESSION EXPIRED: citizen@test.co.za — auto logout', level: 'info' },
+                { time: '09:42:11', type: 'ALERT', msg: 'FRAUD FLAG: "Rosselli Legal" — 3 community reports', level: 'error' },
+              ].map((log, i) => {
+                const colors = { info: '#4ADE80', warn: '#F59E0B', error: '#EF4444' };
+                const color = colors[log.level];
+                return (
+                  <div key={i} style={{ display: 'flex', gap: 12, padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                    <div style={{ fontFamily: 'monospace', fontSize: 11, color: '#475569', flexShrink: 0, paddingTop: 2 }}>{log.time}</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                        <span style={{ fontSize: 9, fontWeight: 900, color, background: `${color}20`, padding: '2px 6px', borderRadius: 4 }}>{log.type}</span>
+                      </div>
+                      <div style={{ fontFamily: 'monospace', fontSize: 12, color: color, lineHeight: 1.4 }}>{log.msg}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+
+        {screen === 'privacy' && (
+          <motion.div key="privacy" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen" style={{ background: '#FDFCFB', padding: 0, paddingBottom: '60px' }}>
+            <div style={{ background: 'var(--bg-gradient)', padding: '28px 20px 36px', color: 'white' }}>
+              <div onClick={() => setScreen('profile')} style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', marginBottom: 20 }}>
+                <ChevronLeft size={22} color="white" />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <Lock size={28} color="white" />
+                <h2 style={{ fontSize: 22, fontWeight: 900, margin: 0 }}>Privacy & POPIA</h2>
+              </div>
+              <p style={{ fontSize: 13, opacity: 0.85, marginTop: 8 }}>How we protect your data under the Protection of Personal Information Act.</p>
+            </div>
+            <div style={{ padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+              {[
+                { title: 'What We Collect', icon: Database, body: 'We collect only the minimum data needed: your name, email, and search history within this session. No biometric data is stored without explicit consent.' },
+                { title: 'How We Use Your Data', icon: FileText, body: 'Data is used exclusively to verify institutions and professionals against official South African registries (DHET, HPCSA, LPC, SAQA). It is never sold or shared with third parties.' },
+                { title: 'Your Rights (POPIA)', icon: ShieldCheck, body: 'Under the Protection of Personal Information Act (POPIA, Act 4 of 2013), you have the right to access, correct, and request deletion of your personal information at any time.' },
+                { title: 'Data Security', icon: Lock, body: 'All data is encrypted in transit (TLS 1.3) and at rest. Session data is stored locally on your device. Our servers are hosted in South Africa, in compliance with POPIA geographic requirements.' },
+                { title: 'Contact Our Information Officer', icon: Mail, body: 'For privacy concerns or data requests, contact our designated POPIA Information Officer at: privacy@sumbandila.com' },
+              ].map(({ title, icon: Icon, body }) => (
+                <div key={title} style={{ background: 'white', borderRadius: 24, padding: '20px', border: '1px solid #F3F4F6', boxShadow: '0 2px 12px rgba(0,0,0,0.03)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+                    <div style={{ padding: 8, background: '#EFF6FF', borderRadius: 10 }}><Icon size={18} color="var(--primary)" /></div>
+                    <div style={{ fontWeight: 800, fontSize: 15, color: '#111827' }}>{title}</div>
+                  </div>
+                  <p style={{ fontSize: 13, color: '#4B5563', lineHeight: 1.7, fontWeight: 500 }}>{body}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {screen === 'terms' && (
+          <motion.div key="terms" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="screen" style={{ background: '#FDFCFB', padding: 0, paddingBottom: '60px' }}>
+            <div style={{ background: 'linear-gradient(135deg, #111827, #1F2937)', padding: '28px 20px 36px', color: 'white' }}>
+              <div onClick={() => setScreen('profile')} style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', marginBottom: 20 }}>
+                <ChevronLeft size={22} color="white" />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <Gavel size={28} color="white" />
+                <h2 style={{ fontSize: 22, fontWeight: 900, margin: 0 }}>Terms of Service</h2>
+              </div>
+              <p style={{ fontSize: 13, opacity: 0.85, marginTop: 8 }}>Last updated: 1 January 2026 · Governed by South African Law</p>
+            </div>
+            <div style={{ padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {[
+                { num: '1', title: 'Acceptance of Terms', body: 'By accessing and using the Sumbandila National Registry Sentinel platform, you agree to be bound by these Terms of Service and all applicable South African laws and regulations.' },
+                { num: '2', title: 'Nature of Information', body: 'Sumbandila provides verification information sourced from official South African registries (DHET, HPCSA, LPC, SAQA). This information is provided for reference only and does not constitute legal advice.' },
+                { num: '3', title: 'Accuracy Disclaimer', body: 'While we strive for accuracy, registry databases may not reflect real-time changes. Always cross-reference critical decisions with the relevant official body directly.' },
+                { num: '4', title: 'Prohibited Use', body: 'You may not use this platform for fraudulent verification, impersonation of verified entities, mass automated scraping, or any purpose that violates the Electronic Communications and Transactions Act.' },
+                { num: '5', title: 'Limitation of Liability', body: 'Sumbandila and its operators are not liable for any loss or damage arising from reliance on information provided through this platform. Use of this platform is at your own risk.' },
+                { num: '6', title: 'Governing Law', body: 'These terms are governed by the laws of the Republic of South Africa. Any disputes shall be resolved in the South Gauteng High Court, Johannesburg.' },
+              ].map(({ num, title, body }) => (
+                <div key={num} style={{ background: 'white', borderRadius: 20, padding: '20px', border: '1px solid #F3F4F6' }}>
+                  <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                    <div style={{ width: 28, height: 28, borderRadius: 8, background: '#111827', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 900, flexShrink: 0 }}>{num}</div>
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: 15, color: '#111827', marginBottom: 6 }}>{title}</div>
+                      <p style={{ fontSize: 13, color: '#4B5563', lineHeight: 1.7, fontWeight: 500 }}>{body}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div style={{ textAlign: 'center', padding: '16px', fontSize: 12, color: '#9CA3AF', fontWeight: 600 }}>© 2026 National Sentinel Advisory · Republic of South Africa</div>
+            </div>
+          </motion.div>
+        )}
+
       </AnimatePresence>
       <SiphoAI />
       <Analytics />

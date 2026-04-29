@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 11, 17, 32;
+  --background-end-rgb: 3, 7, 18;
+  
+  --primary: #10B981;
+  --primary-dark: #059669;
+  --secondary: #3B82F6;
+  --accent: #F59E0B;
+  --error: #EF4444;
+  --card-bg: rgba(30, 41, 59, 0.7);
+  --border: rgba(255, 255, 255, 0.08);
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  
+  --font-inter: 'Inter', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #030712;
+  min-height: 100vh;
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-outfit);
+}
+
+@layer components {
+  .glass {
+    background-color: rgb(15 23 42 / 0.4);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgb(255 255 255 / 0.08);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+  }
+  
+  .glass-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .glass-card:hover {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    border-color: rgba(16, 185, 129, 0.3);
+    transform: translateY(-4px);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    color: white;
+    font-weight: 800;
+    padding: 1.25rem 2.5rem;
+    border-radius: 1.25rem;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+  }
+  .btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px -5px rgba(16, 185, 129, 0.6);
+  }
+
+  .btn-secondary {
+    background-color: rgba(255, 255, 255, 0.03);
+    color: white;
+    font-weight: 700;
+    padding: 1.25rem 2.5rem;
+    border-radius: 1.25rem;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+  }
+  .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .mesh-gradient {
+    background: radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(239, 68, 68, 0.1) 0px, transparent 50%);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Animations */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}

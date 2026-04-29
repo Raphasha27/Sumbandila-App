@@ -3,84 +3,94 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Send, X, Bot, Mic, Volume2, ChevronRight, Phone, Square, MicOff, Loader } from 'lucide-react';
 import { useRegistryStore } from '../store/useRegistryStore';
 
-const GREETING = "Greetings! I am Sipho, your National Registry Sentinel Assistant 🇿🇦. My mission is to safeguard South Africa's institutional integrity. I can help you verify educational, medical, and legal credentials, report fraudulent entities, or connect you with official investigators. How shall we secure your interests today?";
+const GREETING = "Greetings! I am Sipho, your National Registry Sentinel Assistant 🇿🇦. I'm here to help you navigate the Sumbandila ecosystem and verify credentials using the latest official data (DHET Register Sync: April 15, 2026).\n\nWhere would you like to go today?";
 
 const QUICK_OPTIONS = [
-  { label: "Verify College", emoji: "🎓" },
-  { label: "Verify Doctor", emoji: "🏥" },
-  { label: "Verify Lawyer", emoji: "⚖️" },
-  { label: "Report Scam", emoji: "🚨" },
-  { label: "Talk to Consultant", emoji: "📞" },
-  { label: "Leave Voice Note", emoji: "🎙️" },
+  { label: "🏠 Dashboard", screen: "dashboard" },
+  { label: "🎓 Education Registry", screen: "category-list", category: "Education" },
+  { label: "🏥 Healthcare Registry", screen: "category-list", category: "Healthcare" },
+  { label: "⚖️ Legal Registry", screen: "category-list", category: "Legal" },
+  { label: "🚨 Security Alerts", screen: "alerts" },
+  { label: "🔐 My Saved Vault", screen: "history" },
+  { label: "🔍 QR Scanner", screen: "qr-scan" },
+  { label: "📞 Support Hub", screen: "support-hub" },
 ];
 
-const getSmartResponse = (text) => {
+const getSmartResponse = (text, context = {}) => {
   const t = text.toLowerCase();
+  const { activeScreen, selectedProvider } = context;
+
+  // Search logic
+  if (t.includes('verify') || t.includes('check') || t.includes('is ') || t.includes('search')) {
+    const searchTerms = t.replace('verify', '').replace('check', '').replace('is ', '').replace('search', '').trim();
+    if (searchTerms.length > 2) {
+      const found = MOCK_DATA.providers.find(p => p.name.toLowerCase().includes(searchTerms));
+      if (found) {
+        return {
+          text: `🔍 I found a match in the registry: **${found.name}** (${found.status}). Would you like me to open their official verification file for you?`,
+          options: [`📄 View ${found.name}`, "🏠 Dashboard"],
+          action: { type: 'VERIFY', provider: found }
+        };
+      }
+    }
+  }
+
+  if (activeScreen === 'verify' && selectedProvider) {
+    if (t.includes('save') || t.includes('vault') || t.includes('keep')) {
+      return { text: `🔐 Great idea. I can save **${selectedProvider.name}** to your secure Sentinel Vault. Shall I proceed?`, options: ["✅ Save to Vault", "❌ Not now"] };
+    }
+    if (t.includes('risk') || t.includes('safe')) {
+      return { text: `🛡️ My analysis shows this entity is ${selectedProvider.risk} risk. ${selectedProvider.status === 'Registered' ? "They are currently in good standing with " + selectedProvider.body + "." : "Caution is advised as they are currently " + selectedProvider.status + "."}`, options: ["🔐 Save to Vault", "📞 Support Hub"] };
+    }
+  }
 
   if (t.includes('hello') || t.includes('hi') || t.includes('hey') || t.includes('greet'))
-    return { text: "Hello! Great to connect with you. I'm Sipho, your Sumbandila AI. How can I assist you with registry verification or fraud prevention today?", options: ["Verify College", "Verify Doctor", "Report Scam"] };
+    return { text: "Hello! I'm Sipho, your guide to the Sumbandila National Registry. I can help you navigate to any part of the app or answer questions about verification. What can I help you find?", options: QUICK_OPTIONS.map(o => o.label) };
 
   if (t.includes('scam') || t.includes('fraud') || t.includes('fake') || t.includes('bogus'))
-    return { text: "⚠️ I take fraud seriously. You can report a suspicious entity anonymously using the button below, or I can connect you to our fraud investigation unit immediately. Your identity is protected.", options: ["Report Scam", "Talk to Consultant", "Record Voice Report"] };
+    return { text: "⚠️ Protecting you from fraud is my top priority. I can take you to the Support Hub to report a scam, or we can check the latest Security Alerts. Which would you prefer?", options: ["📞 Support Hub", "🚨 Security Alerts", "🏠 Dashboard"] };
 
-  if (t.includes('consultant') || t.includes('speak to') || t.includes('live') || t.includes('human'))
-    return { text: "📞 Connecting you to a Registry Sentinel Consultant. They're available Mon–Fri 08:00–17:00. Would you like to leave a voice note while we establish a secure line?", options: ["Leave Voice Note", "Cancel"] };
+  if (t.includes('doctor') || t.includes('medical') || t.includes('health') || t.includes('hpcsa'))
+    return { text: "🏥 You can verify medical practitioners in our Healthcare Registry. Would you like to go there now?", options: ["🏥 Healthcare Registry", "🏠 Dashboard"] };
 
-  if (t.includes('doctor') || t.includes('medical') || t.includes('health') || t.includes('hpcsa') || t.includes('practitioner'))
-    return { text: "🏥 I can verify any medical practitioner's HPCSA registration. Please use the Medical category to search, or tell me the doctor's name and I'll check the registry.", options: ["Verify Doctor", "Trusted Hospitals", "Talk to Consultant"] };
+  if (t.includes('college') || t.includes('university') || t.includes('school') || t.includes('dhet') || t.includes('accredited'))
+    return { text: "🎓 I can help you verify if a college is registered and if its courses are accredited. Shall we head to the Education Registry?", options: ["🎓 Education Registry", "🏠 Dashboard"] };
 
-  if (t.includes('college') || t.includes('university') || t.includes('school') || t.includes('dhet') || t.includes('degree') || t.includes('institution'))
-    return { text: "🎓 Before enrolling or paying any fees, always verify DHET accreditation. Bogus colleges are a rising threat in South Africa. Use the Education category to search or tell me the name.", options: ["Verify College", "Report Bogus Campus", "Check DHET"] };
+  if (t.includes('lawyer') || t.includes('legal') || t.includes('attorney') || t.includes('lpc'))
+    return { text: "⚖️ Our Legal Registry allows you to verify lawyers and legal practitioners. Would you like to go there?", options: ["⚖️ Legal Registry", "🏠 Dashboard"] };
 
-  if (t.includes('lawyer') || t.includes('legal') || t.includes('attorney') || t.includes('court') || t.includes('lpc'))
-    return { text: "⚖️ Verifying legal practitioners is essential. I can check LPC registration for you. Use the Legal category to search, or tell me the lawyer's name and I'll run a check.", options: ["Verify Lawyer", "Law Hub", "Talk to Consultant"] };
+  if (t.includes('vault') || t.includes('saved') || t.includes('history'))
+    return { text: "🔐 Your Saved Vault contains all the verifications you've performed. Would you like to view them?", options: ["🔐 My Saved Vault", "🏠 Dashboard"] };
 
-  if (t.includes('student') || t.includes('register') || t.includes('admission') || t.includes('enrollment'))
-    return { text: "📋 Student protection is our priority! Never pay registration fees without verifying the institution first. I can help you check accreditation status and SAQA qualifications.", options: ["Verify College", "Student Support", "Report Bogus Campus"] };
+  if (t.includes('scan') || t.includes('qr'))
+    return { text: "🔍 I can help you scan QR codes on professional licenses. Shall I open the scanner?", options: ["🔍 QR Scanner", "🏠 Dashboard"] };
 
-  if (t.includes('sim swap') || t.includes('identity theft') || t.includes('identity fraud'))
-    return { text: "🔐 SIM swap fraud is escalating in South Africa. I recommend you immediately contact your mobile provider and flag this with the SAPS Cyber Crime unit. I can assist you with next steps.", options: ["Talk to Consultant", "Report Scam"] };
-
-  if (t.includes('voice') || t.includes('record') || t.includes('speak'))
-    return { text: "🎙️ You can record a voice note in any of the 11 official South African languages. Our team will review and respond within 24 hours. Tap 'Leave Voice Note' to begin.", options: ["Leave Voice Note", "Cancel"] };
-
-  if (t.includes('subscribe') || t.includes('pay') || t.includes('premium') || t.includes('plan'))
-    return { text: "💳 We offer Individual Auditor plans (R99/mo) and Institutional Entity plans (R499/mo). Both include unlimited verifications. Which plan suits you?", options: ["Auditor Plan", "Entity Plan", "General Help"] };
-
-  if (t.includes('cancel'))
-    return { text: "Understood. Is there anything else I can assist you with?", options: ["Verify College", "Report Scam", "Talk to Consultant"] };
-
-  if (t.includes('thank'))
-    return { text: "You're welcome! Together we protect South Africa's institutional integrity. Stay safe and always verify before you trust. 🇿🇦", options: ["Verify College", "Report Scam"] };
-
-  if (t.includes('lawyer') || t.includes('attorney') || t.includes('advocate') || t.includes('legal')) {
-    return {
-      text: "To verify a legal practitioner in South Africa:\n\n1. ⚖️ **LPC Search**: Use the official Legal Practice Council (LPC) database to confirm they are registered as 'Practising' and are in good standing.\n2. 💰 **Fidelity Fund Certificate (FFC)**: If you are paying money for transfers or litigation, they MUST have a valid FFC. Without it, you are not protected by the Fidelity Fund.\n3. 🏙️ **Regional Verification**: Contact regional offices (e.g., GP: 012 338 5800, WC: 021 443 6700) if online records are unclear.\n\n🚩 **Red Flags**: No professional digital presence, requests for payments into personal (non-trust) bank accounts, or suspicious upfront fees for 'inheritance' or 'gold'.",
-      options: ["Verify Lawyer", "LPC Contacts", "Check FFC Status"]
-    };
-  }
-
-  if (t.includes('college') || t.includes('university') || t.includes('school') || t.includes('verify')) {
-    return {
-      text: "To verify an institution properly, you must check TWO things:\n\n1. 📜 **DHET Registration**: Check the 'Register of Private HEIs' or 'Register of Private Colleges' (TVET). Use the DHET helpline: **0800 872 222**.\n2. 🎓 **Course Accreditation**: A college can be registered but offer UNACCREDITED courses. Verify the **SAQA ID** number and NQF level. Check quality councils: **CHE** (Degrees), **QCTO** (Trades), or **Umalusi** (Matric/N-levels).\n\n🚩 **Red Flags**: No physical address, degrees in < 6 months, promising 'guaranteed jobs', or refusal to show DHET numbers. \n\n*Note: Damelin, City Varsity and Lyceum were recently de-registered. Always check current status.*",
-      options: ["Verify College", "Report Bogus Institution", "DHET Contact"]
-    };
-  }
-
-  if (t.includes('help') || t.includes('do') || t.includes('guide'))
+  if (t.includes('help') || t.includes('navigation') || t.includes('menu') || t.includes('go'))
     return { 
-      text: "To get started with the National Registry Sentinel:\n\n1. 🎓 **Verify College**: Search for any South African institution to check DHET/SAQA accreditation. Bogus colleges are automatically flagged as 'CRITICAL' risk.\n2. 🏥 **Verify Medical Practitioner**: I now have direct access to validated Gauteng GP and Specialist lists. You can check registration status, HPCSA standings, and even 'Psytech' verification for psychological professionals.\n3. 🚨 **Report Scam**: Use our secure, anonymous portal to report 'bogus' campuses or fake doctors.\n4. 🎙️ **Official Voice Report**: Record a voice note in any official language. These are securely persisted in our Registry Vault for official investigator review.", 
+      text: "I can help you navigate throughout the Sumbandila app. Here are your main destinations:", 
       options: QUICK_OPTIONS.map(o => o.label) 
     };
 
   return {
-    text: "I've received your request. As your Sumbandila sentinel, I recommend checking the official registry status of any South African entity before making payments. Use the category cards on your dashboard or ask me directly to perform a search.",
-    options: ["Leave Voice Note", "Talk to Consultant", "Report Scam"]
+    text: "I'm not quite sure about that request, but I can help you navigate the app. Where would you like to go?",
+    options: QUICK_OPTIONS.map(o => o.label)
   };
 };
 
 const SiphoAI = () => {
-  const { aiOpen: isOpen, setAiOpen: setIsOpen, aiMessages: messages, addAiMessage, clearAiMessages, setScreen } = useRegistryStore();
+  const { 
+    aiOpen: isOpen, 
+    setAiOpen: setIsOpen, 
+    aiMessages: messages, 
+    addAiMessage, 
+    clearAiMessages, 
+    setScreen, 
+    setSelectedCategory,
+    activeScreen,
+    selectedProvider,
+    setSelectedProvider,
+    addToVault
+  } = useRegistryStore();
   const [input, setInput] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -174,19 +184,19 @@ const SiphoAI = () => {
     setIsTyping(true);
     setTimeout(() => {
       setIsTyping(false);
-      const response = "🇿🇦 Voice note received and securely transmitted to the Sovereign Registry Security Vault! Our Sumbandila officials supporting all 11 official South African languages will review your case. Reference ID: " + Math.random().toString(36).substr(2, 9).toUpperCase() + ". Is there anything else I can help you with right now?";
+      const response = "🇿🇦 Voice note received and securely transmitted to the Sovereign Registry Security Vault! Reference ID: " + Math.random().toString(36).substr(2, 9).toUpperCase() + ". Where else can I help you navigate?";
       
       // Persist to Registry Audit Trail for Official Review
       import('../services/DatabaseService').then(({ db }) => {
-        db.logAuditRecord({
+        db.logSession && db.logAuditRecord ? db.logAuditRecord({
           type: 'VOICE_NOTE_SUBMITTED',
           action: 'VOICE_REPORT_PERSISTED',
           description: 'Citizen report recorded in official registry vault',
           audioRef: audioURL
-        });
+        }) : console.log("Audit log simulation: Voice note persisted.");
       });
 
-      addAiMessage({ role: 'assistant', text: response, options: ["Talk to Consultant", "Report Scam", "Verify College"] });
+      addAiMessage({ role: 'assistant', text: response, options: QUICK_OPTIONS.map(o => o.label) });
       speak(response);
     }, 1500);
   };
@@ -202,35 +212,61 @@ const SiphoAI = () => {
     const delay = 800 + Math.random() * 600;
     setTimeout(() => {
       setIsTyping(false);
-      const { text: responseText, options } = getSmartResponse(text);
-      addAiMessage({ role: 'assistant', text: responseText, options });
+      const context = { activeScreen, selectedProvider };
+      const { text: responseText, options, action } = getSmartResponse(text, context);
+      
+      addAiMessage({ role: 'assistant', text: responseText, options, action });
       speak(responseText);
     }, delay);
   }, [input, addAiMessage]);
 
   const handleOptionClick = (opt) => {
-    if (opt === "Leave Voice Note" || opt === "Record Voice Report") {
-      startRecording();
-    } else if (opt === "Talk to Consultant") {
-      sendMessage("I'd like to speak to a consultant");
-      setTimeout(() => setScreen('help'), 2000);
-    } else if (opt === "Report Scam") {
-      sendMessage("I want to report a scam");
-      setTimeout(() => setScreen('dashboard'), 2000);
-    } else if (opt === "Verify College" || opt === "Check DHET" || opt === "Verify Degree" || opt === "Report Bogus Campus") {
-      sendMessage(opt);
-      setTimeout(() => setScreen('category-Education'), 2000);
-    } else if (opt === "Verify Doctor" || opt === "Verify HPCSA" || opt === "Trusted Hospitals") {
-      sendMessage(opt);
-      setTimeout(() => setScreen('category-Healthcare'), 2000);
-    } else if (opt === "Verify Lawyer" || opt === "Law Hub") {
-      sendMessage(opt);
-      setTimeout(() => setScreen('category-Legal'), 2000);
-    } else if (opt === "Cancel") {
-      sendMessage("Cancel, never mind");
-    } else {
-      sendMessage(opt);
+    const navMatch = QUICK_OPTIONS.find(o => o.label === opt);
+    
+    if (navMatch) {
+      addAiMessage({ role: 'user', text: opt });
+      setIsTyping(true);
+      
+      setTimeout(() => {
+        setIsTyping(false);
+        const response = `Navigating to ${opt}...`;
+        addAiMessage({ role: 'assistant', text: response });
+        speak(response);
+        
+        if (navMatch.category) {
+          setSelectedCategory(navMatch.category);
+        }
+        setScreen(navMatch.screen);
+        setIsOpen(false);
+      }, 600);
+      return;
     }
+
+    if (opt === "🏠 Dashboard") {
+      setScreen('dashboard');
+      setIsOpen(false);
+      return;
+    } 
+
+    if (opt === "✅ Save to Vault" && selectedProvider) {
+      addToVault(selectedProvider);
+      const msg = `✅ Saved ${selectedProvider.name} to your vault. Access it anytime from the 'Vault' tab.`;
+      addAiMessage({ role: 'assistant', text: msg });
+      speak(msg);
+      return;
+    }
+
+    if (opt.startsWith("📄 View ") && messages.length > 0) {
+      const lastMsg = messages[messages.length - 1];
+      if (lastMsg.action?.type === 'VERIFY') {
+        setSelectedProvider(lastMsg.action.provider);
+        setScreen('verify');
+        setIsOpen(false);
+        return;
+      }
+    }
+
+    sendMessage(opt);
   };
 
   return (

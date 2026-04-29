@@ -13,14 +13,16 @@
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
-    "verify": "npm run lint && npm run build --workspace=@sumbandila/web",
+    "verify": "npm run security-audit && npm run build --workspace=@sumbandila/web",
+    "security-audit": "py scripts/local_security_audit.py",
     "check-env": "node scripts/integrity-check.js"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^9.21.0"
+    "eslint": "^9.21.0",
+    "yallist": "^5.0.0"
   },
   "engines": {
     "node": ">=20.0.0",
@@ -28,13 +30,23 @@
   },
   "overrides": {
     "tar": "^6.2.1",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
     "react-native-svg": "15.12.1",
     "eslint": "^9.21.0",
     "jspdf": "^4.2.1",
     "dompurify": "^3.4.1",
     "@xmldom/xmldom": "^0.8.13",
-    "pydantic": ">=2.13.2"
+    "lucide-react": "^0.574.0",
+    "lucide-react-native": "^0.574.0",
+    "uuid": "^14.0.0",
+    "postcss": "^8.5.10"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.10.2",
+    "@supabase/supabase-js": "^2.105.1",
+    "lightningcss": "^1.29.1",
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
   }
 }

@@ -224,7 +224,7 @@ export default function AssistanceRequest({ onBack, onHome, user }) {
 
                 <section style={{ marginBottom: '32px' }}>
                     <h4 style={{ fontWeight: 800, color: '#111827', marginBottom: '16px', fontSize: '15px', textTransform: 'uppercase' }}>Expert Recommendations</h4>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div className="grid-layout grid-layout-2" style={{ gap: '12px' }}>
                         {recommendations.map((rec, i) => (
                             <div key={i} style={{ background: rec.bg, padding: '20px', borderRadius: '20px', border: '1px solid rgba(0,0,0,0.03)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                                 <div style={{ display: 'flex', gap: '16px' }}>
