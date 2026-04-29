@@ -248,8 +248,8 @@ export default function Home() {
               transition={{ delay: i * 0.1 }}
               className="flex flex-col items-center text-center"
             >
-              <div className={`text-6xl font-black ${stat.color} mb-4 tracking-tighter`}>{stat.value}</div>
-              <div className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">{stat.label}</div>
+              <div className={`text-[64px] font-black ${stat.color} mb-3 tracking-tight`}>{stat.value}</div>
+              <div className="text-[10px] font-black text-[#64748B] uppercase tracking-[0.25em]">{stat.label}</div>
             </motion.div>
           ))}
         </div>
