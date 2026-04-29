@@ -31,19 +31,58 @@ body {
 
 @layer components {
   .glass {
-    @apply bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl;
+    background-color: rgb(15 23 42 / 0.7);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   }
   
   .btn-primary {
-    @apply bg-emerald-500 hover:bg-emerald-600 text-white font-black py-4 px-8 rounded-2xl transition-all active:scale-95 shadow-lg shadow-emerald-500/20;
+    background-color: #10B981;
+    color: white;
+    font-weight: 900;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    transition: all 0.2s;
+    box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+  }
+  .btn-primary:hover {
+    background-color: #059669;
+  }
+  .btn-primary:active {
+    transform: scale(0.95);
   }
 
   .btn-secondary {
-    @apply bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 px-8 rounded-2xl transition-all active:scale-95 border border-white/5;
+    background-color: #1E293B;
+    color: white;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    transition: all 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .btn-secondary:hover {
+    background-color: #334155;
+  }
+  .btn-secondary:active {
+    transform: scale(0.95);
   }
 
   .input-field {
-    @apply w-full bg-slate-900/50 border border-white/10 rounded-2xl py-4 px-6 text-white font-semibold outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all;
+    width: 100%;
+    background-color: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+    color: white;
+    font-weight: 600;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .input-field:focus {
+    border-color: rgba(16, 185, 129, 0.5);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
   }
 }
 
