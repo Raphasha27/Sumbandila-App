@@ -76,7 +76,7 @@ export default function Dashboard({ onVerify }) {
           <h2 style={{ fontSize: '20px', fontWeight: 800 }}>Explore Registries</h2>
           <span style={{ fontSize: '13px', fontWeight: 700, color: '#007AFF', cursor: 'pointer' }}>See All</span>
         </div>
-        <div style={{ display: 'flex', gap: '16px', overflowX: 'auto', padding: '0 20px 16px', scrollbarWidth: 'none' }}>
+        <div className="grid-layout grid-layout-2 grid-layout-4" style={{ padding: '0 20px 16px' }}>
           {[
             { title: "Verify Doctor", icon: Stethoscope, color: "#10B981", sub: "Check HPCSA status" },
             { title: "Check School", icon: School, color: "#3B82F6", sub: "Confirm accreditation" },
@@ -88,7 +88,7 @@ export default function Dashboard({ onVerify }) {
               whileTap={{ scale: 0.95 }}
               onClick={() => onVerify(app.title)}
               style={{
-                minWidth: '160px',
+                width: '100%',
                 background: 'white',
                 borderRadius: '24px',
                 padding: '20px',
@@ -170,7 +170,7 @@ export default function Dashboard({ onVerify }) {
       {/* Suggested for You */}
       <div style={{ padding: '0 20px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '16px' }}>Suggested for You</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        <div className="grid-layout grid-layout-2" style={{ gap: '16px' }}>
           {[
             { title: "Talent Marketplace", icon: Award, sub: "Discover verified experts" },
             { title: "Compliance Portal", icon: ShieldCheck, sub: "Institutional checks" }
@@ -207,5 +207,4 @@ export default function Dashboard({ onVerify }) {
       </div>
     </div>
   );
-}
 }

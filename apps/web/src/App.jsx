@@ -238,8 +238,8 @@ export default function App() {
               whileTap={{ scale: 0.98 }}
               onClick={handleGetStarted}
               style={{
-                width: 'calc(100% - 48px)',
-                maxWidth: '340px',
+                width: '100%',
+                maxWidth: '480px',
                 background: '#1E40AF',
                 color: 'white',
                 padding: '18px',
@@ -264,7 +264,7 @@ export default function App() {
               gap: '40px', 
               marginBottom: '40px',
               width: '100%',
-              maxWidth: '340px'
+              maxWidth: '480px'
             }}>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', color: '#1E40AF', marginBottom: '4px' }}>

@@ -63,35 +63,42 @@ export const MOCK_DATA = {
       name: "Damelin (various campuses)",
       category: "Education",
       type: "Private HEI/College",
-      reg: "Deregistered 2024",
-      status: "Deregistered",
-      standing: "Administrative Cancellation",
-      body: "DHET Official Alert",
-      risk: "Critical",
-      warning: "Recently deregistered by DHET. Confirm current status before payment."
+      reg: "2001/HE07/009",
+      status: "Registered",
+      standing: "Registered (Dec 2025)",
+      body: "DHET Official Register",
+      risk: "Low",
+      location: "Randburg, Braamfontein, Overport, Durban",
+      courses: ["HC in Business Management", "Diploma in IT", "BCom in Accounting"],
+      warning: "Status updated: Re-registered as of December 2025."
     },
     {
       id: "edu-risk-102",
       name: "City Varsity",
       category: "Education",
       type: "Private HEI",
-      reg: "Deregistered 2024",
-      status: "Deregistered",
-      standing: "Academic Audit Failure",
-      body: "DHET Official Alert",
-      risk: "Critical",
-      warning: "Deregistration notice issued by Department of Higher Education."
+      reg: "2001/HE07/004",
+      status: "Registered",
+      standing: "Registered (Dec 2025)",
+      body: "DHET Official Register",
+      risk: "Low",
+      location: "Cape Town",
+      courses: ["BA in Film and Television", "Diploma in Animation", "HC in Acting for Camera"],
+      warning: "Status updated: Re-registered as of December 2025."
     },
     {
       id: "edu-risk-103",
       name: "Lyceum College",
       category: "Education",
       type: "Private HEI",
-      reg: "Deregistered 2024",
-      status: "Deregistered",
-      standing: "Compliance Failure",
-      body: "DHET Official Alert",
-      risk: "Critical"
+      reg: "2001/HE07/011",
+      status: "Registered",
+      standing: "Registered (Dec 2025)",
+      body: "DHET Official Register",
+      risk: "Low",
+      location: "Woodmead/Sandton",
+      courses: ["Diploma in Criminal Justice", "BCom in Management", "HC in Paralegal Studies"],
+      warning: "Status updated: Re-registered as of December 2025."
     },
     {
       id: "edu-fake-1",
@@ -758,14 +765,98 @@ export const MOCK_DATA = {
       validUntil: "2028-12-31",
       risk: "Low",
       accreditation: "HEQSF Aligned"
+    },
+    {
+      id: "phei-14",
+      name: "Academy for Facility Management (Pty) Ltd (A4FM)",
+      category: "Education",
+      type: "Private HEI",
+      reg: "2009/HE07/012",
+      status: "Registered",
+      standing: "Active",
+      body: "DHET Official Register (PHEI)",
+      location: "Waterkloof Ridge, Pretoria",
+      courses: ["HC in Facilities Management", "Advanced Diploma in Facility Management"],
+      validUntil: "2026-12-31",
+      risk: "Low"
+    },
+    {
+      id: "phei-15",
+      name: "ACT Cape Town (Pty) Ltd",
+      category: "Education",
+      type: "Private HEI",
+      reg: "2013/HE07/002",
+      status: "Registered",
+      standing: "Active",
+      body: "DHET Official Register (PHEI)",
+      location: "Pinelands, Cape Town",
+      courses: ["HC in Acting for Film", "Advanced Certificate in Acting for Film"],
+      validUntil: "2027-01-01",
+      risk: "Low"
+    },
+    {
+      id: "phei-16",
+      name: "Akemiese Reformatoriese Opleiding en Studies (AROS) NPC",
+      category: "Education",
+      type: "Private HEI",
+      reg: "2012/HE08/001",
+      status: "Registered",
+      standing: "Active",
+      body: "DHET Official Register (PHEI)",
+      location: "Montana Park, Pretoria",
+      courses: ["BEd in Foundation Phase Teaching", "Diploma in Grade R Teaching"],
+      validUntil: "2029-12-31",
+      risk: "Low"
+    },
+    {
+      id: "phei-17",
+      name: "Baptist Theological College of Southern Africa (The) NPC",
+      category: "Education",
+      type: "Private HEI",
+      reg: "2000/HE08/004",
+      status: "Registered",
+      standing: "Active",
+      body: "DHET Official Register (PHEI)",
+      location: "Randburg",
+      courses: ["Bachelor of Theology", "Master of Theology"],
+      validUntil: "2030-12-31",
+      risk: "Low"
+    },
+    {
+      id: "phei-18",
+      name: "Berea College of Technology (Pty) Ltd",
+      category: "Education",
+      type: "Private HEI",
+      reg: "2000/HE07/004",
+      status: "Registered",
+      standing: "Active",
+      body: "DHET Official Register (PHEI)",
+      location: "Durban",
+      courses: ["Diploma in Hospitality Management", "BCom in Accounting"],
+      validUntil: "2028-12-31",
+      risk: "Low"
+    },
+    {
+      id: "phei-19",
+      name: "BHC School of Design (Pty) Ltd",
+      category: "Education",
+      type: "Private HEI",
+      reg: "2010/HE07/003",
+      status: "Registered",
+      standing: "Active",
+      body: "DHET Official Register (PHEI)",
+      location: "Woodstock, Cape Town",
+      courses: ["Bachelor of Arts in Interior Design", "Diploma in Interior Design"],
+      validUntil: "2026-12-31",
+      risk: "Low"
     }
   ],
 
 
   registryNews: [
-    { id: 1, title: "DHET unmasks 5 new bogus colleges in Mpumalanga", date: "23 Feb 2026", source: "DHET News" },
-    { id: 2, title: "HPCSA warns against unregistered dental technicians", date: "21 Feb 2026", source: "Sentinel Alert" },
-    { id: 3, title: "SAQA updates verification protocols for online degrees", date: "19 Feb 2026", source: "SAQA Media" }
+    { id: 1, title: "Official DHET Registry Update: December 2025 Edition Published", date: "11 Dec 2025", source: "DHET Official" },
+    { id: 2, title: "Reinstatement of Registration for Major Private Institutions", date: "05 Dec 2025", source: "Government Gazette" },
+    { id: 3, title: "HPCSA warns against unregistered dental technicians", date: "21 Feb 2026", source: "Sentinel Alert" }
   ],
   securityAlerts: [
     { id: 1, type: "Critical", text: "Identity theft spike: Beware of fake verification SMS from 'Registry Center'." },
@@ -869,8 +960,5 @@ export const MOCK_DATA = {
       source: "Cyber-Sentinel Hub",
       sourceUrl: "https://cyber-sentinel.gov.za"
     }
-  ]
-};
-   }
   ]
 };

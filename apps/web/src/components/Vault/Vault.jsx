@@ -39,7 +39,7 @@ export default function Vault({ onViewCert }) {
           <p style={{ color: 'var(--text-muted)', maxWidth: '280px', marginTop: '8px', fontWeight: 500 }}>Verified institutions you save will appear here for quick access.</p>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '20px' }}>
+        <div className="grid-layout grid-layout-2">
           {vaultItems.map((item, i) => (
             <motion.div
               key={item.id || i}

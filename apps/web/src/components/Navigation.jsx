@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Home as HomeIcon, FileText, User as UserIcon } from 'lucide-react';
+import { Home, TrendingUp, Search, User } from 'lucide-react';
 
 export const CategoryCard = ({ icon, label, sublabel, bg, onClick }) => (
   <motion.div
@@ -60,7 +60,8 @@ export const BottomNav = ({ active, onNav }) => {
       justifyContent: 'space-around',
       alignItems: 'center',
       padding: '0 12px',
-      zIndex: 1000,
+      maxWidth: '600px',
+      margin: '0 auto',
       boxShadow: '0 15px 35px -5px rgba(0,0,0,0.1)'
     }}>
       {items.map((item) => {
