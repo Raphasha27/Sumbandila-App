@@ -333,6 +333,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col gap-6">
             <span className="text-[10px] font-black text-white uppercase tracking-widest">Resources</span>
+            <Link href="/news/bogus-colleges-alert" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Latest News & Alerts</Link>
             <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Case Studies</Link>
             <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Transparency Report</Link>
             <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Help Center</Link>

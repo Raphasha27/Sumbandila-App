@@ -55,6 +55,41 @@ export async function nationalVerify(query) {
     console.error("Registry Query Failure:", err);
   }
 
+  // ❌ LOCAL FALLBACK (Demo Safe)
+  const LOCAL_MOCK_DB = [
+    {
+      id: "edu-boston-01",
+      name: "Boston City Campus",
+      category: "Education",
+      type: "Private HEI",
+      status: "VERIFIED",
+      standing: "Active",
+      source: "Department of Higher Education & Training (DHET)",
+      regNumber: "1996/HE07/003",
+      accredited: true
+    },
+    {
+      id: "phei-01",
+      name: "Boston City Campus & Business College",
+      category: "Education",
+      type: "Private HEI",
+      status: "VERIFIED",
+      standing: "Active",
+      source: "Department of Higher Education & Training (DHET)",
+      regNumber: "1996/HE07/003",
+      accredited: true
+    }
+  ];
+
+  const localMatch = LOCAL_MOCK_DB.find(item => 
+    item.name.toLowerCase().includes(query.toLowerCase()) || 
+    (item.regNumber && item.regNumber.toLowerCase() === query.toLowerCase())
+  );
+
+  if (localMatch) {
+    return localMatch;
+  }
+
   // ❌ NOT FOUND FALLBACK (Demo Safe)
   return {
     name: query,

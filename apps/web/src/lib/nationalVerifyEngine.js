@@ -8,6 +8,16 @@
 export function nationalVerify(query) {
   const db = [
     {
+      id: "edu-boston-01",
+      name: "Boston City Campus",
+      type: "Education",
+      status: "VERIFIED",
+      standing: "Active",
+      source: "Department of Higher Education & Training (DHET)",
+      regNumber: "1996/HE07/003",
+      accredited: true
+    },
+    {
       id: "edu-001",
       name: "ABC College",
       type: "Education",
