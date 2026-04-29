@@ -14,7 +14,12 @@ const outfit = Outfit({
 export const metadata = {
   title: "Sumbandila | National Verification System",
   description: "Official South African Trust Registry for Institutions and Professionals. Verify education, healthcare, and legal practitioners in real-time.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({ children }) {
