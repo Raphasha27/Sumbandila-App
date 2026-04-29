@@ -22,6 +22,8 @@ export const viewport = {
   maximumScale: 1,
 };
 
+import SiphoFloatingAssistant from "../components/SiphoFloatingAssistant";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
@@ -35,6 +37,8 @@ export default function RootLayout({ children }) {
         <main className="min-h-screen">
           {children}
         </main>
+        
+        <SiphoFloatingAssistant />
       </body>
     </html>
   );

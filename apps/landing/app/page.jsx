@@ -2,307 +2,406 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { 
-  ShieldCheck, CheckCircle2, Search, ArrowRight, 
-  Building2, Users, Scale, Activity, Globe,
-  Lock, Zap, Star, Code, Smartphone, Check,
-  Database, TrendingUp, ShieldAlert, Cpu, ChevronRight
+  ChevronRight, Search, MapPin, MonitorSmartphone, GraduationCap,
+  Video, Users, Rocket, Palette, HeartHandshake, ShieldCheck, Bus,
+  Check, Lock, Facebook, Twitter, Instagram, Youtube, Smile,
+  HeartPulse, HandCoins, Activity, Globe, Sparkles, ArrowRight
 } from "lucide-react";
 
-export default function Home() {
-  const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
+import SiteNav from "../components/SiteNav";
+import SiteFooter from "../components/SiteFooter";
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-  };
-
+export default function HomeLanding() {
   return (
-    <div className="flex flex-col items-center bg-[#030712] selection:bg-emerald-500/30 selection:text-emerald-200">
+    <div className="min-h-screen bg-[#F8FAFC] font-sans selection:bg-emerald-500/30">
       
-      {/* Light Theme Government Navigation */}
-      <nav className="w-full bg-white px-6 md:px-12 py-4 flex justify-between items-center z-50">
-        <div className="flex items-center gap-8">
-          {/* SA Flag & Sumbandila Logo */}
-          <div className="flex items-center gap-3">
-            <div className="flex flex-col">
-              <div className="flex">
-                <div className="w-4 h-3 bg-red-600 skew-x-12" />
-                <div className="w-4 h-3 bg-blue-600 -skew-x-12" />
-              </div>
-              <div className="flex">
-                <div className="w-4 h-3 bg-green-600 skew-x-12" />
-                <div className="w-4 h-3 bg-yellow-400 -skew-x-12" />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl md:text-2xl font-black tracking-tighter text-slate-900 leading-none">SUMBANDILA</span>
-              <span className="text-[10px] font-bold text-slate-600 tracking-widest uppercase">National Sentinel</span>
-              <span className="text-[8px] font-medium text-slate-500 mt-1">Building a trusted South Africa, together.</span>
-            </div>
-          </div>
-          
-          <div className="hidden lg:block w-px h-10 bg-slate-200 mx-2" />
-
-          {/* Coat of Arms (Simplified) */}
-          <div className="hidden lg:flex items-center gap-3">
-            <div className="w-8 h-10 bg-amber-500 rounded-t-full flex items-center justify-center">
-              <ShieldCheck size={16} className="text-white" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[10px] font-black text-slate-900 tracking-widest uppercase">Republic of South Africa</span>
-              <span className="text-[9px] font-medium text-slate-600 italic">Batho Pele • We Care. We Act.</span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="hidden md:flex items-center gap-8 text-[11px] font-black text-slate-800 uppercase tracking-widest">
-          <Link href="#solutions" className="hover:text-emerald-600 transition-colors">Solutions</Link>
-          <Link href="#impact" className="hover:text-emerald-600 transition-colors">National Impact</Link>
-          <Link href="#about" className="hover:text-emerald-600 transition-colors">About Us</Link>
-          <Link href="/admin" className="px-5 py-3 rounded-lg bg-[#0E3B29] text-white flex items-center gap-2 hover:bg-emerald-900 transition-all">
-            <Lock size={14} /> Admin Portal
-          </Link>
-          <div className="flex items-center gap-1 cursor-pointer">
-            <span className="text-lg">🇿🇦</span> ZA ˅
-          </div>
-        </div>
-      </nav>
+      <SiteNav />
 
       {/* Ndebele Pattern Divider */}
-      <div className="w-full h-3 flex" style={{ background: "repeating-linear-gradient(45deg, #E63946 0px, #E63946 10px, #F1FAEE 10px, #F1FAEE 20px, #1D3557 20px, #1D3557 30px, #457B9D 30px, #457B9D 40px, #F4A261 40px, #F4A261 50px)" }} />
-      <div className="w-full h-1 bg-[#0E3B29]" />
+      <div className="w-full h-4 flex" style={{ 
+        backgroundImage: "repeating-linear-gradient(45deg, #000 0px, #000 10px, #fff 10px, #fff 12px, #E03C31 12px, #E03C31 22px, #fff 22px, #fff 24px, #007749 24px, #007749 34px, #fff 34px, #fff 36px, #002395 36px, #002395 46px, #fff 46px, #fff 48px, #FFB81C 48px, #FFB81C 58px)",
+        backgroundSize: "80px 100%"
+      }} />
 
-      {/* Hero Section with Background Image */}
-      <section className="relative w-full min-h-[85vh] flex flex-col justify-center px-6 md:px-12 py-20 overflow-hidden">
-        {/* Background Image (Table Mountain Placeholder) */}
-        <div 
-          className="absolute inset-0 z-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=2000&q=80')" }}
-        />
-        {/* Dark Gradient Overlay */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0B1120] via-[#0B1120]/80 to-transparent" />
+      {/* Hero Section */}
+      <section className="relative w-full overflow-hidden bg-slate-100 min-h-[600px] flex items-center">
+        {/* Background Image Container */}
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src="https://images.unsplash.com/photo-1577934421111-c918c57a9170?auto=format&fit=crop&q=80&w=2000"
+            alt="Johannesburg Skyline" 
+            fill 
+            className="object-cover opacity-20"
+            priority
+          />
+          {/* Fading gradient to blend the image */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/90 to-transparent w-full md:w-2/3" />
+        </div>
         
-        <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 z-10">
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="lg:w-1/2 flex flex-col items-start text-left"
-          >
-            <motion.div
-              variants={itemVariants}
-              className="mb-6 px-4 py-1.5 rounded-full bg-[#0E3B29]/80 border border-emerald-500/20 flex items-center gap-2 backdrop-blur-md"
-            >
-              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">System Version 6.0 Live</span>
-            </motion.div>
-
-            <motion.h1 
-              variants={itemVariants}
-              className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.95] mb-6"
-            >
-              <span className="text-white">Unified</span> <br />
-              <span className="text-emerald-500">Trust for</span> <br />
-              <span className="text-amber-400">South Africa</span>
-            </motion.h1>
-
-            <motion.p 
-              variants={itemVariants}
-              className="text-base md:text-lg text-slate-300 font-medium max-w-lg leading-relaxed mb-10"
-            >
-              The official national trust infrastructure for South Africa. Verify the legitimacy of institutions, healthcare professionals, and legal practitioners in real-time.
-            </motion.p>
-
-            <motion.div 
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
-            >
-              <Link href="/verify" className="px-6 py-3.5 rounded-lg bg-emerald-600 text-white font-bold tracking-widest text-sm uppercase hover:bg-emerald-500 transition-all flex items-center justify-center gap-3">
-                <ShieldCheck size={18} /> START VERIFICATION <ChevronRight size={18} />
-              </Link>
-              <Link href="/admin" className="px-6 py-3.5 rounded-lg border-2 border-white/20 text-white font-bold tracking-widest text-sm uppercase hover:bg-white/10 transition-all flex items-center justify-center gap-3 backdrop-blur-sm">
-                <Activity size={18} /> DASHBOARD ACCESS
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:w-1/2 w-full flex justify-end"
-          >
-            <Image 
-              src="/hero-dashboard.png" 
-              alt="National Trust Dashboard" 
-              width={700} 
-              height={500} 
-              className="rounded-2xl shadow-2xl border border-white/10"
-              priority
-            />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* White Bottom Info Bar */}
-      <section className="w-full bg-white px-6 md:px-12 py-8 border-b border-slate-200">
-        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-          {[
-            { icon: Lock, title: "Secure. Transparent. Trusted.", desc: "Built for every South African." },
-            { icon: CheckCircle2, title: "Protecting Identities", desc: "Securing our communities." },
-            { icon: Globe, title: "Batho Pele in Action", desc: "People first, always." },
-            { icon: Star, title: "Proudly South African", desc: "Developed for Mzansi." }
-          ].map((item, i) => (
-            <div key={i} className="flex items-center gap-4">
-              <div className="text-slate-400">
-                <item.icon size={32} strokeWidth={1.5} />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-bold text-slate-900">{item.title}</span>
-                <span className="text-xs font-medium text-slate-500">{item.desc}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Clean Dark Bento Grid Solutions */}
-      <section id="solutions" className="w-full max-w-7xl px-6 py-32 bg-[#0B1120]">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-24 pt-10">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-20 flex flex-col lg:flex-row items-center justify-between gap-12 z-10 relative">
           
-          {/* Education Portal */}
-          <div className="flex flex-col items-start">
-            <div className="w-14 h-14 bg-[#062F21] rounded-2xl flex items-center justify-center mb-6">
-              <Building2 size={24} className="text-[#10B981]" />
+          {/* Left Text */}
+          <div className="lg:w-5/12 flex flex-col items-start text-left">
+            <h1 className="text-5xl md:text-[64px] font-black tracking-tighter leading-[1.05] mb-6 text-slate-900 relative">
+              Empower the<br />youth.<br />
+              <span className="text-[#007749]">Build</span><br />
+              <span className="text-[#F59E0B]">Tomorrow.</span>
+              {/* SA Flag Underline */}
+              <div className="absolute -bottom-4 left-0 h-1.5 flex w-48">
+                <div className="h-full bg-[#007749] w-1/4"></div>
+                <div className="h-full bg-[#F59E0B] w-1/4"></div>
+                <div className="h-full bg-[#E03C31] w-1/4"></div>
+                <div className="h-full bg-[#002395] w-1/4"></div>
+                <div className="h-full bg-black w-1/4"></div>
+              </div>
+            </h1>
+
+            <p className="text-base md:text-lg text-slate-600 font-bold max-w-md leading-relaxed mb-10 mt-6">
+              A national ecosystem connecting South African youth (18-35) with skills, tech infrastructure, webinars, and cross-sector collaborations to defeat unemployment.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+              <Link href="/opportunities" className="px-8 py-4 rounded-xl bg-[#007749] text-white font-bold tracking-widest text-xs uppercase hover:bg-[#0E3B29] transition-all flex items-center justify-center gap-3 shadow-lg shadow-green-900/20">
+                <Search size={18} /> EXPLORE OPPORTUNITIES
+              </Link>
+              <Link href="/membership" className="px-8 py-4 rounded-xl bg-white border border-slate-200 text-slate-800 font-bold tracking-widest text-xs uppercase hover:bg-slate-50 transition-all flex items-center justify-center gap-3 shadow-sm">
+                <Users size={18} /> JOIN THE COMMUNITY
+              </Link>
             </div>
-            <h3 className="text-[32px] font-black text-white mb-4 tracking-tight">Education Portal</h3>
-            <p className="text-[#94A3B8] text-base font-medium leading-relaxed max-w-[90%]">
-              DHET-linked registry verifying accreditation status for private and public higher education institutions.
+          </div>
+
+          {/* Right Grid of Services */}
+          <div className="lg:w-7/12 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
+            {/* Watermark Pattern */}
+            <div className="absolute inset-0 z-[-1] opacity-[0.03] pointer-events-none" style={{ 
+              backgroundImage: "repeating-linear-gradient(45deg, #000 0px, #000 20px, transparent 20px, transparent 40px)",
+              backgroundSize: "60px 60px"
+            }} />
+            
+            {/* Tech & Developers */}
+            <Link href="/category/tech" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
+              <div className="w-12 h-12 bg-blue-50 text-[#002395] rounded-xl flex items-center justify-center mb-4">
+                <MonitorSmartphone size={24} />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-1">Tech & Devs</h3>
+              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Infrastructure, Coding, Hackathons</p>
+              <div className="flex justify-end text-[#002395] group-hover:translate-x-1 transition-transform">
+                <ChevronRight size={20} />
+              </div>
+            </Link>
+
+            {/* Skills & TVET */}
+            <Link href="/category/skills" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
+              <div className="w-12 h-12 bg-green-50 text-[#007749] rounded-xl flex items-center justify-center mb-4">
+                <GraduationCap size={24} />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-1">Skills Dev</h3>
+              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Learnerships, TVET, Upskilling</p>
+              <div className="flex justify-end text-[#007749] group-hover:translate-x-1 transition-transform">
+                <ChevronRight size={20} />
+              </div>
+            </Link>
+
+            {/* Rural & Township */}
+            <Link href="/category/rural" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
+              <div className="w-12 h-12 bg-amber-50 text-[#F59E0B] rounded-xl flex items-center justify-center mb-4">
+                <MapPin size={24} />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-1">Townships</h3>
+              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Rural Inclusion, Local Biz</p>
+              <div className="flex justify-end text-[#F59E0B] group-hover:translate-x-1 transition-transform">
+                <ChevronRight size={20} />
+              </div>
+            </Link>
+
+            {/* Webinars & Collabs */}
+            <Link href="/category/webinars" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
+              <div className="w-12 h-12 bg-red-50 text-[#E03C31] rounded-xl flex items-center justify-center mb-4">
+                <Video size={24} />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-1">Webinars</h3>
+              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Global Talks, Partnerships</p>
+              <div className="flex justify-end text-[#E03C31] group-hover:translate-x-1 transition-transform">
+                <ChevronRight size={20} />
+              </div>
+            </Link>
+
+            {/* Entrepreneurship */}
+            <Link href="/category/business" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
+              <div className="w-12 h-12 bg-green-50 text-[#007749] rounded-xl flex items-center justify-center mb-4">
+                <Rocket size={24} />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-1">Founders</h3>
+              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Startup Funding, Incubation</p>
+              <div className="flex justify-end text-[#007749] group-hover:translate-x-1 transition-transform">
+                <ChevronRight size={20} />
+              </div>
+            </Link>
+
+            {/* Creative Economy */}
+            <Link href="/category/creative" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
+              <div className="w-12 h-12 bg-amber-50 text-[#F59E0B] rounded-xl flex items-center justify-center mb-4">
+                <Palette size={24} />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-1">Creatives</h3>
+              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Arts, Media, Entertainment</p>
+              <div className="flex justify-end text-[#F59E0B] group-hover:translate-x-1 transition-transform">
+                <ChevronRight size={20} />
+              </div>
+            </Link>
+
+            {/* Leadership */}
+            <Link href="/category/leadership" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
+              <div className="w-12 h-12 bg-blue-50 text-[#002395] rounded-xl flex items-center justify-center mb-4">
+                <Users size={24} />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-1">Leadership</h3>
+              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Mentorship, Future Paving</p>
+              <div className="flex justify-end text-[#002395] group-hover:translate-x-1 transition-transform">
+                <ChevronRight size={20} />
+              </div>
+            </Link>
+
+            {/* Social Impact */}
+            <Link href="/category/social" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
+              <div className="w-12 h-12 bg-red-50 text-[#E03C31] rounded-xl flex items-center justify-center mb-4">
+                <HeartHandshake size={24} />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-1">Social Dev</h3>
+              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Community Growth, NGO</p>
+              <div className="flex justify-end text-[#E03C31] group-hover:translate-x-1 transition-transform">
+                <ChevronRight size={20} />
+              </div>
+            </Link>
+
+            {/* Transport */}
+            <Link href="/category/transport" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group flex flex-col">
+              <div className="w-12 h-12 bg-green-50 text-[#007749] rounded-xl flex items-center justify-center mb-4">
+                <Bus size={24} />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-1">Transport</h3>
+              <p className="text-xs font-semibold text-slate-500 mb-4 flex-grow">Licenses, Permits, Transport Services</p>
+              <div className="flex justify-end text-[#007749] group-hover:translate-x-1 transition-transform">
+                <ChevronRight size={20} />
+              </div>
+            </Link>
+
+          </div>
+        </div>
+      </section>
+
+      {/* National Verification Pillars */}
+      <section className="w-full bg-[#F8FAFC] py-24 border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+            <div className="max-w-2xl">
+              <span className="text-[10px] font-black text-[#007749] uppercase tracking-[0.3em] mb-4 block">National Infrastructure</span>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">The Three Pillars of <span className="text-[#007749]">Digital Integrity.</span></h2>
+            </div>
+            <p className="text-slate-500 font-bold max-w-sm">
+              Sumbandila aggregates data from South Africa's primary regulatory bodies to ensure your safety and trust.
             </p>
           </div>
 
-          {/* Healthcare Sentinel */}
-          <div className="flex flex-col items-start">
-            <div className="w-14 h-14 bg-[#0F2942] rounded-2xl flex items-center justify-center mb-6">
-              <Users size={24} className="text-[#3B82F6]" />
-            </div>
-            <h3 className="text-[32px] font-black text-white mb-4 tracking-tight">Healthcare Sentinel</h3>
-            <p className="text-[#94A3B8] text-base font-medium leading-relaxed max-w-[90%]">
-              Live validation of registered medical practitioners, clinics, and pharmacies via HPCSA protocols.
-            </p>
-          </div>
-
-          {/* Legal Practice */}
-          <div className="flex flex-col items-center text-center mt-12 md:mt-0">
-            <div className="w-14 h-14 bg-[#3B2610] rounded-2xl flex items-center justify-center mb-6">
-              <Scale size={24} className="text-[#F59E0B]" />
-            </div>
-            <h3 className="text-xl font-black text-white mb-3">Legal Practice</h3>
-            <p className="text-[#64748B] text-xs font-bold uppercase tracking-[0.2em]">
-              LPC RECORDS SYNC
-            </p>
-          </div>
-
-          {/* Enterprise API */}
-          <div className="flex items-center justify-between relative mt-12 md:mt-0">
-            <div className="flex flex-col items-start z-10">
-              <h3 className="text-[32px] font-black text-white mb-2 tracking-tight">Enterprise API</h3>
-              <p className="text-[#94A3B8] text-base font-medium">
-                Seamless integration for HR & Fintech.
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Education Pillar */}
+            <div className="bg-white p-10 rounded-[40px] shadow-sm border border-slate-100 group hover:shadow-xl hover:-translate-y-2 transition-all">
+              <div className="w-16 h-16 bg-blue-50 text-[#002395] rounded-2xl flex items-center justify-center mb-8 border border-blue-100">
+                <GraduationCap size={32} />
+              </div>
+              <h3 className="text-2xl font-black text-slate-900 mb-4">Education</h3>
+              <p className="text-slate-500 font-medium mb-8 leading-relaxed">
+                Verify Private Higher Education Institutions (PHEIs) and TVET colleges. Check SAQA ID and NQF levels.
               </p>
+              <div className="flex flex-col gap-3 pt-6 border-t border-slate-50">
+                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
+                   <ShieldCheck size={16} className="text-[#007749]" /> Authority: DHET / CHE
+                </div>
+                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
+                   <Check size={16} className="text-[#007749]" /> SAQA Accredited
+                </div>
+              </div>
             </div>
-            <div className="absolute right-0 -bottom-8 opacity-20 pointer-events-none">
-              <Cpu size={240} className="text-[#64748B]" strokeWidth={1} />
+
+            {/* Healthcare Pillar */}
+            <div className="bg-white p-10 rounded-[40px] shadow-sm border border-slate-100 group hover:shadow-xl hover:-translate-y-2 transition-all">
+              <div className="w-16 h-16 bg-red-50 text-[#E03C31] rounded-2xl flex items-center justify-center mb-8 border border-red-100">
+                <HeartPulse size={32} />
+              </div>
+              <h3 className="text-2xl font-black text-slate-900 mb-4">Healthcare</h3>
+              <p className="text-slate-500 font-medium mb-8 leading-relaxed">
+                Verify GP and Specialist registrations. Check professional standing and hospital affiliation status.
+              </p>
+              <div className="flex flex-col gap-3 pt-6 border-t border-slate-50">
+                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
+                   <ShieldCheck size={16} className="text-[#E03C31]" /> Authority: HPCSA
+                </div>
+                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
+                   <Check size={16} className="text-[#E03C31]" /> Licensed Practice
+                </div>
+              </div>
+            </div>
+
+            {/* Legal Pillar */}
+            <div className="bg-white p-10 rounded-[40px] shadow-sm border border-slate-100 group hover:shadow-xl hover:-translate-y-2 transition-all">
+              <div className="w-16 h-16 bg-amber-50 text-[#F59E0B] rounded-2xl flex items-center justify-center mb-8 border border-amber-100">
+                <ShieldCheck size={32} />
+              </div>
+              <h3 className="text-2xl font-black text-slate-900 mb-4">Legal Services</h3>
+              <p className="text-slate-500 font-medium mb-8 leading-relaxed">
+                Verify Attorney and Advocate standing. Check Fidelity Fund Certificates (FFC) and LPC numbers.
+              </p>
+              <div className="flex flex-col gap-3 pt-6 border-t border-slate-50">
+                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
+                   <ShieldCheck size={16} className="text-[#F59E0B]" /> Authority: LPC
+                </div>
+                <div className="flex items-center gap-3 text-xs font-black text-slate-400 uppercase tracking-widest">
+                   <Check size={16} className="text-[#F59E0B]" /> FFC Compliant
+                </div>
+              </div>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* Impact Stats */}
-      <section id="impact" className="w-full max-w-7xl px-6 py-40 flex flex-col items-center">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 w-full max-w-5xl">
+      {/* Live Registry Pulse Ticker */}
+      <div className="w-full bg-slate-900 border-y border-white/5 py-3 overflow-hidden whitespace-nowrap flex items-center relative">
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-900 to-transparent z-10" />
+        
+        <div className="flex animate-marquee gap-12 items-center">
           {[
-            { label: "Verifications", value: "1.2M+", color: "text-emerald-500" },
-            { label: "Institutions", value: "38K+", color: "text-blue-500" },
-            { label: "Fraud Blocked", value: "12K+", color: "text-red-500" },
-            { label: "Uptime", value: "99.9%", color: "text-purple-500" }
-          ].map((stat, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="flex flex-col items-center text-center"
-            >
-              <div className={`text-[64px] font-black ${stat.color} mb-3 tracking-tight`}>{stat.value}</div>
-              <div className="text-[10px] font-black text-[#64748B] uppercase tracking-[0.25em]">{stat.label}</div>
-            </motion.div>
+            { name: "University of Johannesburg", status: "VERIFIED", time: "Just now" },
+            { name: "HPCSA: Dr. M. Sibeko", status: "ACTIVE", time: "1m ago" },
+            { name: "LPC: Adv. R. Pillay", status: "SECURE", time: "4m ago" },
+            { name: "Damelin", status: "CANCELLED", time: "12m ago" },
+            { name: "City Varsity", status: "CANCELLED", time: "15m ago" },
+            { name: "Rhodes University", status: "VERIFIED", time: "22m ago" },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center gap-3">
+              <span className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Audit:</span>
+              <span className="text-xs font-bold text-white/90">{item.name}</span>
+              <span className={`text-[10px] font-black px-2 py-0.5 rounded ${item.status === 'CANCELLED' ? 'bg-red-500/20 text-red-400' : 'bg-emerald-500/20 text-emerald-400'}`}>
+                {item.status}
+              </span>
+              <span className="text-[9px] font-bold text-white/20">{item.time}</span>
+            </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* Clean Dark API Preview Section */}
-      <section className="w-full max-w-7xl px-6 py-32 bg-[#0B1120]">
-        <div className="bg-[#0F172A] p-12 md:p-20 rounded-[48px] flex flex-col lg:flex-row gap-16 items-center overflow-hidden">
+      {/* Dark Green Stats Banner */}
+      <section className="w-full bg-[#0E3B29] py-12 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400/5 blur-[80px] rounded-full" />
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 divide-y md:divide-y-0 md:divide-x divide-white/10">
           
-          {/* Left Text Content */}
-          <div className="lg:w-1/2 text-left">
-            <div className="text-[10px] font-black text-[#10B981] uppercase tracking-[0.3em] mb-6">Developer First</div>
-            <h2 className="text-[48px] md:text-[56px] font-black tracking-tighter text-white mb-6 leading-[1.05]">
-              Integrated Trust<br />for Every<br />System.
-            </h2>
-            <p className="text-base text-[#94A3B8] font-medium mb-10 leading-relaxed max-w-[90%]">
-              Connect your HR portal, banking app, or government database directly to the national registry via our high-performance REST API.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-[#10B981] hover:bg-emerald-500 text-white font-bold px-8 py-4 rounded-xl text-sm transition-colors">
-                Get API Key
-              </button>
-              <button className="bg-[#1E293B] hover:bg-[#334155] text-white font-bold px-8 py-4 rounded-xl text-sm transition-colors">
-                View Docs
-              </button>
+          <div className="flex flex-col items-center md:items-start gap-2 pt-6 md:pt-0">
+            <div className="flex items-center gap-3">
+               <Users size={24} className="text-emerald-400" />
+               <span className="text-3xl font-black text-white tracking-tighter">1.8M+</span>
             </div>
+            <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] ml-9">Active Citizens</span>
           </div>
 
-          {/* Right Terminal Component */}
-          <div className="lg:w-1/2 w-full">
-            <div className="bg-[#030712] rounded-[24px] p-8 md:p-10 border border-[#1E293B]/50 shadow-2xl">
-              <div className="flex items-center gap-2 mb-8">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
-                <span className="text-[9px] font-bold text-[#475569] uppercase tracking-widest ml-4">Terminal — v1/verify</span>
+          <div className="flex flex-col items-center md:items-start gap-2 pt-8 md:pt-0 md:pl-12">
+            <div className="flex items-center gap-3">
+               <ShieldCheck size={24} className="text-emerald-400" />
+               <span className="text-3xl font-black text-white tracking-tighter">98.2%</span>
+            </div>
+            <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] ml-9">Trust Rating</span>
+          </div>
+
+          <div className="flex flex-col items-center md:items-start gap-2 pt-8 md:pt-0 md:pl-12">
+            <div className="flex items-center gap-3">
+               <Activity size={24} className="text-emerald-400" />
+               <span className="text-3xl font-black text-white tracking-tighter">Real-Time</span>
+            </div>
+            <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] ml-9">Registry Sync</span>
+          </div>
+
+          <div className="flex flex-col items-center md:items-start gap-2 pt-8 md:pt-0 md:pl-12">
+            <div className="flex items-center gap-3">
+               <Globe size={24} className="text-emerald-400" />
+               <span className="text-3xl font-black text-white tracking-tighter">National</span>
+            </div>
+            <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] ml-9">Coverage</span>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Sipho AI Section */}
+      <section className="w-full bg-white py-24 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="relative">
+            <div className="absolute -top-20 -left-20 w-64 h-64 bg-emerald-50/50 blur-[100px] rounded-full z-0" />
+            <div className="relative z-10">
+              <span className="inline-block px-4 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 border border-emerald-100">
+                AI Powered Compliance
+              </span>
+              <h2 className="text-5xl font-black text-slate-900 mb-8 leading-[1.1] tracking-tight">
+                Meet Sipho.<br />Your National <span className="text-[#007749]">Guide.</span>
+              </h2>
+              <p className="text-lg text-slate-600 font-medium mb-10 leading-relaxed max-w-lg">
+                Sipho AI simplifies complex government processes, provides instant accreditation checks, and guides you through opportunities in any official South African language.
+              </p>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="w-10 h-10 bg-white shadow-sm rounded-xl flex items-center justify-center shrink-0 border border-slate-100"><Sparkles size={20} className="text-[#F59E0B]" /></div>
+                  <div>
+                    <h4 className="font-black text-slate-900 text-sm">Language Agnostic</h4>
+                    <p className="text-xs text-slate-500 font-bold">Ask questions in isiZulu, Sepedi, Afrikaans or English.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="w-10 h-10 bg-white shadow-sm rounded-xl flex items-center justify-center shrink-0 border border-slate-100"><ShieldCheck size={20} className="text-[#007749]" /></div>
+                  <div>
+                    <h4 className="font-black text-slate-900 text-sm">Regulatory Proof</h4>
+                    <p className="text-xs text-slate-500 font-bold">Direct cross-referencing with DHET and SAQA databases.</p>
+                  </div>
+                </div>
               </div>
-              <div className="font-mono text-xs md:text-sm space-y-4 leading-relaxed">
-                <div className="flex gap-4">
-                  <span className="text-[#1E293B] select-none">01</span>
-                  <p className="text-[#60A5FA]">curl -X POST<br className="sm:hidden" /><span className="sm:inline hidden"> </span>"https://api.sumbandila.gov.za/v1/verify" \</p>
+              
+              <Link href="/sipho-ai" className="mt-12 inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10 group">
+                Talk to Sipho <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </div>
+          
+          <div className="relative lg:block hidden">
+            <div className="bg-slate-900 rounded-[40px] p-8 shadow-2xl relative overflow-hidden border border-white/5">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#007749] via-[#FFB81C] to-[#E03C31]" />
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center border border-white/10">
+                  <Sparkles size={24} className="text-[#FFB81C]" />
                 </div>
-                <div className="flex gap-4">
-                  <span className="text-[#1E293B] select-none">02</span>
-                  <p className="text-[#60A5FA] sm:ml-8">-H "Authorization: Bearer $SENTINEL_KEY" \</p>
+                <div>
+                  <h3 className="text-xl font-black text-white">Sipho AI</h3>
+                  <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Always Active</p>
                 </div>
-                <div className="flex gap-4">
-                  <span className="text-[#1E293B] select-none">03</span>
-                  <p className="text-[#60A5FA] sm:ml-8">-d '{'{'} "query": "MP 10294" {'}'}'</p>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="bg-white/5 p-4 rounded-2xl rounded-tl-none border border-white/10 max-w-[85%]">
+                  <p className="text-sm text-white/80 font-medium">Sawubona! How can I help you verify your institution today?</p>
                 </div>
-                <div className="flex gap-4 pt-2">
-                  <span className="text-[#1E293B] select-none">04</span>
-                  <p className="text-[#64748B]">// Result: [VERIFIED] Dr. Sipho M.</p>
+                <div className="bg-[#007749] p-4 rounded-2xl rounded-tr-none border border-emerald-400/20 max-w-[85%] ml-auto">
+                  <p className="text-sm text-white font-medium">Is Damelin still a registered college?</p>
+                </div>
+                <div className="bg-white/5 p-4 rounded-2xl rounded-tl-none border border-white/10 max-w-[85%]">
+                  <p className="text-sm text-white/80 font-medium">⚠️ Registration Alert: Damelin (and subsidiaries) registration was cancelled by DHET. Use caution.</p>
+                </div>
+              </div>
+            </div>
+            {/* Floating badges */}
+            <div className="absolute -bottom-10 -right-10 bg-[#FFB81C] p-6 rounded-3xl shadow-xl transform rotate-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white"><Activity size={20} /></div>
+                <div>
+                  <p className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Trust Index</p>
+                  <p className="text-2xl font-black text-slate-900">99.4%</p>
                 </div>
               </div>
             </div>
@@ -310,42 +409,108 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="w-full max-w-7xl px-6 py-32 border-t border-white/5 flex flex-col md:flex-row justify-between items-start gap-20">
-        <div className="flex flex-col max-w-sm">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
-              <ShieldCheck size={24} className="text-white" />
+      {/* Bottom Content Area */}
+      <section className="w-full bg-[#F8FAFC] py-16">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          {/* Popular Services Card */}
+          <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 flex flex-col">
+            <div className="flex justify-between items-end mb-6">
+              <h3 className="text-xl font-black text-slate-900">Popular Services</h3>
+              <Link href="/services" className="text-xs font-bold text-[#007749] hover:underline">View all</Link>
             </div>
-            <span className="text-2xl font-black tracking-tighter text-white">SUMBANDILA</span>
+            
+            <div className="flex flex-col gap-2">
+              <Link href="/apply/nsfas" className="flex items-center justify-between p-4 hover:bg-slate-50 rounded-xl transition-colors group border border-transparent hover:border-slate-100">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 rounded-full bg-green-50 text-[#007749] flex items-center justify-center">
+                    <GraduationCap size={16} />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-black text-slate-900">Apply for NSFAS</span>
+                    <span className="text-xs font-semibold text-slate-500">Financial aid for students</span>
+                  </div>
+                </div>
+                <ChevronRight size={18} className="text-slate-400 group-hover:text-[#007749] transition-colors" />
+              </Link>
+              
+              <Link href="/services/clinics" className="flex items-center justify-between p-4 hover:bg-slate-50 rounded-xl transition-colors group border border-transparent hover:border-slate-100">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 rounded-full bg-red-50 text-[#E03C31] flex items-center justify-center">
+                    <HeartPulse size={16} />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-black text-slate-900">Find a Clinic Near You</span>
+                    <span className="text-xs font-semibold text-slate-500">Search public health facilities</span>
+                  </div>
+                </div>
+                <ChevronRight size={18} className="text-slate-400 group-hover:text-[#E03C31] transition-colors" />
+              </Link>
+
+              <Link href="/apply/sassa" className="flex items-center justify-between p-4 hover:bg-slate-50 rounded-xl transition-colors group border border-transparent hover:border-slate-100">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 rounded-full bg-green-50 text-[#007749] flex items-center justify-center">
+                    <HandCoins size={16} />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-black text-slate-900">Apply for SASSA Grants</span>
+                    <span className="text-xs font-semibold text-slate-500">Check eligibility & apply</span>
+                  </div>
+                </div>
+                <ChevronRight size={18} className="text-slate-400 group-hover:text-[#007749] transition-colors" />
+              </Link>
+            </div>
           </div>
-          <p className="text-slate-500 text-sm font-medium leading-relaxed">
-            The National Trust Sentinel of South Africa. Ensuring institutional integrity and citizen protection through real-time registry verification.
-          </p>
+
+          {/* Stay Informed Card */}
+          <div className="bg-[#FEF3C7] rounded-3xl p-8 shadow-sm flex flex-col justify-between relative overflow-hidden">
+            <div className="z-10 relative">
+              <h3 className="text-2xl font-black text-slate-900 mb-3">Stay Informed</h3>
+              <p className="text-sm font-semibold text-slate-700 max-w-[200px] mb-8">
+                Get updates on opportunities, deadlines and important announcements.
+              </p>
+              <button className="px-6 py-3 rounded-xl bg-[#007749] text-white font-bold tracking-widest text-xs uppercase hover:bg-[#0E3B29] transition-all shadow-md">
+                SUBSCRIBE FOR UPDATES
+              </button>
+            </div>
+            {/* Waving Flag Graphic Placeholder */}
+            <div className="absolute right-[-20px] bottom-10 opacity-90 z-0">
+               {/* Decorative SA Flag vector shape */}
+               <svg width="180" height="120" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform rotate-12">
+                <path d="M0 0H100V60H0V0Z" fill="#E03C31"/>
+                <path d="M0 30L30 30L100 30" stroke="white" strokeWidth="12"/>
+                <path d="M0 60L50 30L100 0" stroke="white" strokeWidth="12"/>
+                <path d="M0 0L50 30L100 60" stroke="white" strokeWidth="12"/>
+                <path d="M0 60L50 30L100 0" stroke="#007749" strokeWidth="8"/>
+                <path d="M0 0L50 30L100 60" stroke="#007749" strokeWidth="8"/>
+                <path d="M0 30L30 30L100 30" stroke="#007749" strokeWidth="8"/>
+                <path d="M0 0V60L40 30L0 0Z" fill="black"/>
+                <path d="M0 5V55L33 30L0 5Z" fill="#FFB81C"/>
+              </svg>
+            </div>
+          </div>
+
+          {/* Batho Pele in Action Card */}
+          <div className="bg-[#0E3B29] rounded-3xl p-8 shadow-sm flex flex-col justify-between relative overflow-hidden text-white">
+            <div className="z-10 relative">
+              <h3 className="text-2xl font-black mb-3">Batho Pele in Action</h3>
+              <p className="text-sm font-semibold text-white/80 max-w-[200px] mb-8">
+                Putting people first by delivering services with care, respect and integrity.
+              </p>
+              <Link href="/about" className="inline-block px-6 py-3 rounded-xl bg-transparent border-2 border-white/30 text-white font-bold tracking-widest text-xs uppercase hover:bg-white hover:text-[#0E3B29] transition-all">
+                LEARN MORE
+              </Link>
+            </div>
+            {/* Outline illustration of people */}
+            <div className="absolute right-[-10px] bottom-0 opacity-40 z-0">
+               <Users size={180} strokeWidth={0.5} className="text-white" />
+            </div>
+          </div>
+
         </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-20">
-          <div className="flex flex-col gap-6">
-            <span className="text-[10px] font-black text-white uppercase tracking-widest">Platform</span>
-            <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Registry Engine</Link>
-            <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Enterprise API</Link>
-            <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Verification App</Link>
-          </div>
-          <div className="flex flex-col gap-6">
-            <span className="text-[10px] font-black text-white uppercase tracking-widest">Resources</span>
-            <Link href="/news/bogus-colleges-alert" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Latest News & Alerts</Link>
-            <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Case Studies</Link>
-            <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Transparency Report</Link>
-            <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Help Center</Link>
-          </div>
-          <div className="flex flex-col gap-6">
-            <span className="text-[10px] font-black text-white uppercase tracking-widest">Legal</span>
-            <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">POPIA Policy</Link>
-            <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Terms of Service</Link>
-            <Link href="#" className="text-xs font-bold text-slate-500 hover:text-emerald-500 transition-colors">Compliance</Link>
-          </div>
-        </div>
-      </footer>
+      </section>
+
+      <SiteFooter />
     </div>
   );
 }

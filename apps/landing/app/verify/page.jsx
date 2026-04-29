@@ -48,25 +48,35 @@ export default function Verify() {
     <div className="min-h-screen bg-[#0B1120] text-slate-200 pb-20">
       {/* Header */}
       <header className={`pt-20 pb-16 px-6 transition-all duration-700`}>
-        <div className="max-w-3xl mx-auto">
-          <Link href="/" className="inline-flex items-center gap-3 text-[#94A3B8] hover:text-white transition-colors mb-12 group">
-            <ChevronLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform" />
-            <span className="text-[11px] font-black uppercase tracking-[0.1em]">Back to Portal</span>
-          </Link>
+          <div className="flex items-center justify-between mb-12">
+            <Link href="/" className="inline-flex items-center gap-3 text-[#94A3B8] hover:text-white transition-colors group">
+              <ChevronLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform" />
+              <span className="text-[11px] font-black uppercase tracking-[0.1em]">Back to Portal</span>
+            </Link>
+            <div className="flex items-center gap-4">
+               <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em]">National Sentinel V6.0</span>
+               <img 
+                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/512px-Flag_of_South_Africa.svg.png" 
+                 alt="RSA Flag" 
+                 className="w-6 h-auto rounded-[2px] opacity-80"
+               />
+            </div>
+          </div>
           
-          <div className="flex items-center gap-5 mb-8">
-            <div className="w-14 h-14 bg-[#062F21] rounded-2xl flex items-center justify-center border border-emerald-500/10 shadow-lg shadow-emerald-900/20">
-              <ShieldCheck size={28} className="text-[#10B981]" />
+          <div className="flex items-center gap-5 mb-10">
+            <div className="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center border border-emerald-500/20 shadow-lg shadow-emerald-500/10">
+              <ShieldCheck size={28} className="text-emerald-400" />
             </div>
             <div className="flex flex-col justify-center">
-              <div className="text-[10px] font-black text-[#64748B] uppercase tracking-[0.2em] mb-1">National Registry</div>
-              <h1 className="text-[40px] font-black text-white tracking-tight leading-none">Instant Verification</h1>
+              <div className="text-[10px] font-black text-emerald-500/60 uppercase tracking-[0.3em] mb-1">Republic of South Africa</div>
+              <h1 className="text-4xl font-black text-white tracking-tight leading-none">Instant Verification</h1>
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#007749] via-[#FFB81C] to-[#E03C31] rounded-[26px] blur opacity-10 group-hover:opacity-20 transition-opacity" />
             <input
-              className="w-full bg-[#0F172A] border border-[#1E293B] rounded-[24px] py-6 px-8 text-white font-medium text-lg outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all placeholder:text-[#475569] shadow-2xl"
+              className="relative w-full bg-[#0F172A] border border-[#1E293B] rounded-[24px] py-7 px-8 text-white font-medium text-lg outline-none focus:border-emerald-500/50 focus:ring-0 transition-all placeholder:text-[#475569] shadow-2xl"
               placeholder="Institution name or Reg Number..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -75,10 +85,17 @@ export default function Verify() {
             <button
               onClick={handleVerify}
               disabled={isVerifying}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-14 h-14 bg-[#10B981] rounded-[20px] flex items-center justify-center text-white hover:bg-emerald-500 transition-all disabled:opacity-50 shadow-lg shadow-emerald-500/20"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 w-14 h-14 bg-emerald-500 rounded-[18px] flex items-center justify-center text-white hover:bg-emerald-600 transition-all disabled:opacity-50 shadow-lg shadow-emerald-500/20"
             >
               {isVerifying ? <Activity size={24} className="animate-spin" /> : <Search size={24} strokeWidth={2.5} />}
             </button>
+          </div>
+
+          <div className="flex flex-wrap gap-3 mt-8">
+            <button className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs font-black uppercase tracking-widest text-slate-400 hover:bg-white/10 hover:text-white transition-all">Education</button>
+            <button className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs font-black uppercase tracking-widest text-slate-400 hover:bg-white/10 hover:text-white transition-all">Healthcare</button>
+            <button className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs font-black uppercase tracking-widest text-slate-400 hover:bg-white/10 hover:text-white transition-all">Legal Services</button>
+            <button className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs font-black uppercase tracking-widest text-slate-400 hover:bg-white/10 hover:text-white transition-all">Sipho Audit</button>
           </div>
         </div>
       </header>
