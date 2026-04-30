@@ -403,10 +403,10 @@ export default function LandingPage() {
           {/* Stats bar */}
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/10 pt-12">
             {[
-              { value: "1.2M+", label: "Youth Registered", emoji: "🌟" },
-              { value: "4,208", label: "Verified Institutions", emoji: "🛡️" },
-              { value: "11", label: "Official Languages", emoji: "🗣️" },
-              { value: "9", label: "Provinces Covered", emoji: "🇿🇦" },
+              { value: "1.2M+", label: "Youth Registered", emoji: "🌱" },
+              { value: "4,208", label: "Verified Institutions", emoji: "🏆" },
+              { value: "11", label: "Official Languages", emoji: "🌍" },
+              { value: "9", label: "Provinces Covered", emoji: "📍" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col items-center text-center gap-2">
                 <span className="text-3xl">{s.emoji}</span>

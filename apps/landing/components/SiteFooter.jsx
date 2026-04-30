@@ -81,11 +81,11 @@ export default function SiteFooter() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
           {[
             { label: "Apply NSFAS", href: "/apply/nsfas", emoji: "🎓" },
-            { label: "SASSA Grants", href: "/apply/sassa", emoji: "🫶🏾" },
-            { label: "Verify Institution", href: "/verify", emoji: "🛡️" },
-            { label: "Find a Clinic", href: "/services/clinics", emoji: "🏥" },
-            { label: "Skills & Courses", href: "/skills", emoji: "⚡" },
-            { label: "Job Opportunities", href: "/opportunities", emoji: "🚀" },
+            { label: "SASSA Grants", href: "/apply/sassa", emoji: "💰" },
+            { label: "Verify Institution", href: "/verify", emoji: "🔍" },
+            { label: "Find a Clinic", href: "/services/clinics", emoji: "❤️‍🩹" },
+            { label: "Skills & Courses", href: "/skills", emoji: "💡" },
+            { label: "Job Opportunities", href: "/opportunities", emoji: "🏆" },
           ].map((s) => (
             <Link
               key={s.href}
