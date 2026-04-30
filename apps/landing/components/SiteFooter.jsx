@@ -81,11 +81,11 @@ export default function SiteFooter() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
           {[
             { label: "Apply NSFAS", href: "/apply/nsfas", emoji: "🎓" },
-            { label: "SASSA Grants", href: "/apply/sassa", emoji: "🤝" },
-            { label: "Verify Institution", href: "/verify", emoji: "✅" },
+            { label: "SASSA Grants", href: "/apply/sassa", emoji: "🫶🏾" },
+            { label: "Verify Institution", href: "/verify", emoji: "🛡️" },
             { label: "Find a Clinic", href: "/services/clinics", emoji: "🏥" },
-            { label: "Skills & Courses", href: "/skills", emoji: "📚" },
-            { label: "Job Opportunities", href: "/opportunities", emoji: "💼" },
+            { label: "Skills & Courses", href: "/skills", emoji: "⚡" },
+            { label: "Job Opportunities", href: "/opportunities", emoji: "🚀" },
           ].map((s) => (
             <Link
               key={s.href}
@@ -105,9 +105,9 @@ export default function SiteFooter() {
         {/* Coat of Arms block */}
         <div className="flex flex-col items-center md:items-start gap-4">
           <img
-            src="/sa-logo.png"
-            alt="Official Coat of Arms"
-            className="h-16 w-auto brightness-0 invert opacity-60"
+            src="/sa-coat-of-arms.png"
+            alt="Official South African Coat of Arms"
+            className="h-24 w-auto object-contain drop-shadow-lg"
             onError={(e) => { e.currentTarget.style.display = "none"; }}
           />
           <div className="text-center md:text-left">
@@ -124,34 +124,52 @@ export default function SiteFooter() {
           </Link>
         </div>
 
-        {/* Landmark slideshow */}
-        <div className="flex flex-col items-center gap-3">
-          <h4 className="text-sm font-black text-white uppercase tracking-tighter mb-1">Our Nation, Our Pride</h4>
-          <div className="relative w-72 h-44 rounded-3xl overflow-hidden shadow-2xl border border-white/10">
-            <img
-              key={lm.src}
-              src={lm.src}
-              alt={lm.label}
-              className="w-full h-full object-cover transition-opacity duration-700"
-              onError={(e) => { e.currentTarget.src = "/sa-logo.png"; }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-4">
-              <p className="text-xs font-black text-white leading-tight">{lm.label}</p>
-              <p className="text-[9px] font-semibold text-white/60">{lm.caption}</p>
+        {/* Landmark slideshow + QR Code side by side */}
+        <div className="flex flex-col sm:flex-row items-center gap-8">
+
+          {/* Rotating landmark */}
+          <div className="flex flex-col items-center gap-3">
+            <h4 className="text-sm font-black text-white uppercase tracking-tighter mb-1">Our Nation, Our Pride</h4>
+            <div className="relative w-64 h-40 rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+              <img
+                key={lm.src}
+                src={lm.src}
+                alt={lm.label}
+                className="w-full h-full object-cover transition-opacity duration-700"
+                onError={(e) => { e.currentTarget.src = "/sa-logo.png"; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-4">
+                <p className="text-xs font-black text-white leading-tight">{lm.label}</p>
+                <p className="text-[9px] font-semibold text-white/60">{lm.caption}</p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              {LANDMARKS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSlide(i)}
+                  className={`h-1.5 rounded-full transition-all ${i === slide ? "w-6 bg-emerald-500" : "w-1.5 bg-white/20"}`}
+                  aria-label={`Slide ${i + 1}`}
+                />
+              ))}
             </div>
           </div>
-          {/* dot indicators */}
-          <div className="flex gap-2">
-            {LANDMARKS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setSlide(i)}
-                className={`h-1.5 rounded-full transition-all ${i === slide ? "w-6 bg-emerald-500" : "w-1.5 bg-white/20"}`}
-                aria-label={`Slide ${i + 1}`}
+
+          {/* QR Code */}
+          <div className="flex flex-col items-center gap-3">
+            <h4 className="text-sm font-black text-white uppercase tracking-tighter mb-1">Experience on Mobile</h4>
+            <div className="bg-white p-3 rounded-[24px] shadow-2xl">
+              <img
+                src="/qr-scan.png"
+                alt="Scan QR code to access Sumbandila"
+                className="w-24 h-24 object-cover rounded-2xl"
+                onError={(e) => { e.currentTarget.style.display = "none"; }}
               />
-            ))}
+            </div>
+            <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em]">Scan to Access the Hub</span>
           </div>
+
         </div>
       </div>
 

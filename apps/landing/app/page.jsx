@@ -2,80 +2,140 @@
 
 import { Search, ChevronRight, GraduationCap, HandCoins, HeartPulse, ShieldCheck, Activity, Users, Globe, BookOpen, Star, Sparkles, MapPin, Briefcase, PlayCircle, Scale } from "lucide-react";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import SiteNav from "../components/SiteNav";
 import SiteFooter from "../components/SiteFooter";
 import SiphoFloatingAssistant from "../components/SiphoFloatingAssistant";
 
+const HERO_SLIDES = [
+  { src: "/mandela-bridge.png",      caption: "🌉 Nelson Mandela Bridge — Johannesburg" },
+  { src: "/union-buildings.png",     caption: "🏠 Union Buildings — Pretoria" },
+  { src: "/sa-youth.png",            caption: "🌟 South African Youth — Our Future" },
+  { src: "/elderly-food-parcels.png",caption: "🫶🏾 Batho Pele — Caring for Our Elders" },
+  { src: "/diverse-community.png",   caption: "🤝 Ubuntu — United in Growth" },
+];
+
 export default function LandingPage() {
+  const [heroSlide, setHeroSlide] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setHeroSlide((s) => (s + 1) % HERO_SLIDES.length), 7000);
+    return () => clearInterval(t);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans selection:bg-emerald-500/30">
       <SiteNav />
       <SiphoFloatingAssistant />
 
       {/* ── HERO SECTION ── */}
-      <section className="relative pt-24 pb-32 px-6 md:px-12 overflow-hidden bg-white">
-        {/* Ndebele-inspired background elements */}
-        <div className="absolute top-0 left-0 w-full h-1 flex" style={{ 
-          backgroundImage: "repeating-linear-gradient(90deg, #FFB81C 0px, #FFB81C 20px, #007749 20px, #007749 40px, #E03C31 40px, #E03C31 60px, #002395 60px, #002395 80px, #000 80px, #000 100px)",
+      <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+
+        {/* ── Rotating background images ── */}
+        {HERO_SLIDES.map((slide, i) => (
+          <div
+            key={slide.src}
+            className="absolute inset-0 transition-opacity duration-1000"
+            style={{ opacity: i === heroSlide ? 1 : 0 }}
+          >
+            <img
+              src={slide.src}
+              alt={slide.caption}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
+        {/* Ndebele colour band at top */}
+        <div className="absolute top-0 left-0 w-full h-1.5 z-20" style={{
+          backgroundImage: "repeating-linear-gradient(90deg,#FFB81C 0px,#FFB81C 20px,#007749 20px,#007749 40px,#E03C31 40px,#E03C31 60px,#002395 60px,#002395 80px,#000 80px,#000 100px)",
         }} />
-        
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 relative z-10">
+
+        {/* ── Content ── */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-32 w-full flex flex-col lg:flex-row items-center gap-16">
+
+          {/* Left — text */}
           <div className="w-full lg:w-3/5">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-100 mb-8 animate-fade-in">
-              <Sparkles size={16} className="text-[#007749]" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#007749]">National Youth Growth Ecosystem 2026</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-8">
+              <Sparkles size={16} className="text-emerald-400" />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">National Youth Growth Ecosystem 2026</span>
             </div>
-            
-            <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-[0.95] text-slate-900 mb-8">
-              Grow with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#007749] to-[#002395]">Sumbandila.</span>
+
+            <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-[0.95] text-white mb-8 drop-shadow-xl">
+              Grow with{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#FFB81C]">
+                Sumbandila.
+              </span>
             </h1>
-            
-            <p className="text-xl md:text-2xl font-semibold text-slate-600 mb-12 max-w-2xl leading-relaxed">
+
+            <p className="text-xl md:text-2xl font-semibold text-white/80 mb-12 max-w-2xl leading-relaxed">
               The official gateway to verified opportunities, skills, and national services for the youth of South Africa.
             </p>
 
-            <div className="flex flex-wrap gap-4">
-              <Link href="/opportunities" className="px-8 py-4 rounded-xl bg-[#007749] text-white font-bold tracking-widest text-xs uppercase hover:bg-[#0E3B29] transition-all flex items-center justify-center gap-3 shadow-lg shadow-green-900/20">
+            <div className="flex flex-wrap gap-4 mb-10">
+              <Link href="/opportunities" className="px-8 py-4 rounded-xl bg-emerald-600 text-white font-bold tracking-widest text-xs uppercase hover:bg-emerald-500 transition-all flex items-center gap-3 shadow-xl">
                 <Search size={18} /> EXPLORE OPPORTUNITIES
               </Link>
-              <Link href="/membership" className="px-8 py-4 rounded-xl bg-white border border-slate-200 text-slate-800 font-bold tracking-widest text-xs uppercase hover:bg-slate-50 transition-all flex items-center justify-center gap-3 shadow-sm">
+              <Link href="/membership" className="px-8 py-4 rounded-xl bg-white/10 border border-white/30 backdrop-blur-sm text-white font-bold tracking-widest text-xs uppercase hover:bg-white/20 transition-all flex items-center gap-3">
                 <Users size={18} /> JOIN THE COMMUNITY
               </Link>
             </div>
+
+            {/* Slide caption + dots */}
+            <div className="flex items-center gap-4">
+              <div className="flex gap-2">
+                {HERO_SLIDES.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setHeroSlide(i)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      i === heroSlide ? "w-8 bg-emerald-400" : "w-2 bg-white/30"
+                    }`}
+                    aria-label={`Slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+              <span className="text-[10px] font-bold text-white/50 uppercase tracking-widest">
+                {HERO_SLIDES[heroSlide].caption}
+              </span>
+            </div>
           </div>
 
+          {/* Right — Live Registry Pulse card */}
           <div className="w-full lg:w-2/5">
             <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-tr from-[#007749]/20 to-[#002395]/20 blur-2xl rounded-full" />
-              <div className="relative bg-white p-8 rounded-[40px] shadow-2xl border border-slate-100">
+              <div className="absolute -inset-4 bg-emerald-500/20 blur-2xl rounded-full" />
+              <div className="relative bg-white/10 backdrop-blur-xl p-8 rounded-[40px] shadow-2xl border border-white/20">
                 <div className="flex items-center justify-between mb-8">
-                  <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Live Registry Pulse</div>
+                  <div className="text-[10px] font-black uppercase tracking-[0.3em] text-white/60">Live Registry Pulse</div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[9px] font-bold text-emerald-600">CONNECTED</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[9px] font-bold text-emerald-400">CONNECTED</span>
                   </div>
                 </div>
-                
+
                 <div className="space-y-6">
                   {[
-                    { label: "Verified Institutions", value: "4,208", icon: ShieldCheck, color: "text-[#007749]" },
-                    { label: "Opportunities Listed", value: "12,450", icon: Briefcase, color: "text-[#002395]" },
-                    { label: "Youth Registered", value: "1.2M+", icon: Users, color: "text-[#E03C31]" },
+                    { label: "Verified Institutions", value: "4,208",  icon: ShieldCheck, color: "text-emerald-400" },
+                    { label: "Opportunities Listed",  value: "12,450", icon: Briefcase,   color: "text-blue-300" },
+                    { label: "Youth Registered",      value: "1.2M+",  icon: Users,       color: "text-rose-400" },
                   ].map((stat, i) => (
                     <div key={i} className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <stat.icon size={20} className={stat.color} />
-                        <span className="text-sm font-black text-slate-900">{stat.label}</span>
+                        <span className="text-sm font-black text-white">{stat.label}</span>
                       </div>
-                      <span className="text-lg font-black text-slate-900 tracking-tighter">{stat.value}</span>
+                      <span className="text-lg font-black text-white tracking-tighter">{stat.value}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-10 pt-8 border-t border-slate-100 text-center">
-                   <Link href="/verify" className="text-[10px] font-black text-[#007749] uppercase tracking-widest hover:underline">
-                      Launch National Verification Engine →
-                   </Link>
+                <div className="mt-10 pt-8 border-t border-white/10 text-center">
+                  <Link href="/verify" className="text-[10px] font-black text-emerald-400 uppercase tracking-widest hover:underline">
+                    Launch National Verification Engine →
+                  </Link>
                 </div>
               </div>
             </div>
@@ -343,8 +403,8 @@ export default function LandingPage() {
           {/* Stats bar */}
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/10 pt-12">
             {[
-              { value: "1.2M+", label: "Youth Registered", emoji: "🎓" },
-              { value: "4,208", label: "Verified Institutions", emoji: "✅" },
+              { value: "1.2M+", label: "Youth Registered", emoji: "🌟" },
+              { value: "4,208", label: "Verified Institutions", emoji: "🛡️" },
               { value: "11", label: "Official Languages", emoji: "🗣️" },
               { value: "9", label: "Provinces Covered", emoji: "🇿🇦" },
             ].map((s) => (
