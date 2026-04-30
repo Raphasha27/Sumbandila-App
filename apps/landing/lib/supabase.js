@@ -6,7 +6,7 @@ import { createBrowserClient } from "@supabase/ssr";
  * Maintained for backward compatibility with existing lib files.
  */
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "placeholder-key";
 
 export const supabase = createBrowserClient(supabaseUrl, supabaseKey);
