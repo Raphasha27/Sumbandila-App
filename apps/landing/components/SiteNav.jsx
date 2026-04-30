@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Lock, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const NAV_LINKS = [
   { href: "/opportunities", label: "Opportunities" },
@@ -18,8 +18,17 @@ export default function SiteNav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lang, setLang] = useState("EN");
+  const [time, setTime] = useState("");
 
   const isActive = (href) => pathname === href;
+
+  useEffect(() => {
+    setTime(new Date().toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' }));
+    const timer = setInterval(() => {
+      setTime(new Date().toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' }));
+    }, 60000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="w-full sticky top-0 z-50">
@@ -42,8 +51,8 @@ export default function SiteNav() {
               <span>• DHET Registry Sync: Last Updated 2 mins ago</span>
             </div>
           </div>
-          <div className="text-[10px] font-black text-white/60 uppercase tracking-widest">
-            {new Date().toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' })} SAST
+          <div className="text-[10px] font-black text-white/60 uppercase tracking-widest min-w-[60px] text-right">
+            {time} SAST
           </div>
         </div>
       </div>
@@ -55,10 +64,13 @@ export default function SiteNav() {
         <Link href="/" className="flex items-center gap-3 group">
           {/* Official South African Coat of Arms */}
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Coat_of_arms_of_South_Africa.svg/60px-Coat_of_arms_of_South_Africa.svg.png"
+            src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Coat_of_arms_of_South_Africa.svg"
             alt="Republic of South Africa – Coat of Arms"
             className="h-10 w-auto group-hover:opacity-80 transition-opacity"
             draggable={false}
+            onError={(e) => {
+              e.target.src = "https://www.gov.za/sites/default/files/images/coat-of-arms.png";
+            }}
           />
           <div>
             <span className="text-[20px] font-black tracking-tighter text-slate-900 leading-none block">
@@ -156,8 +168,9 @@ export default function SiteNav() {
           : <Menu size={22} className="text-slate-800" />
         }
       </button>
+    </nav>
 
-      {/* ── Mobile menu ── */}
+    {/* ── Mobile menu ── */}
       {mobileOpen && (
         <div className="absolute top-full left-0 w-full bg-white border-b border-slate-100 shadow-xl z-50 flex flex-col p-6 gap-4">
           {NAV_LINKS.map((link) => (

@@ -48,9 +48,12 @@ export default function SiteFooter() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 flex flex-col md:flex-row justify-between items-center gap-10 border-t border-white/5 mt-10">
         <div className="flex flex-col items-center md:items-start gap-4">
           <img 
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Coat_of_arms_of_South_Africa.svg/100px-Coat_of_arms_of_South_Africa.svg.png" 
+            src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Coat_of_arms_of_South_Africa.svg" 
             alt="Official Coat of Arms"
             className="h-16 w-auto brightness-0 invert opacity-40"
+            onError={(e) => {
+              e.target.src = "https://www.gov.za/sites/default/files/images/coat-of-arms.png";
+            }}
           />
           <div className="text-center md:text-left">
             <h4 className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-1">Government of South Africa</h4>
