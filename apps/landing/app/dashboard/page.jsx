@@ -2,7 +2,7 @@
 
 import SiteNav from "../../components/SiteNav";
 import SiteFooter from "../../components/SiteFooter";
-import { Target, ChevronRight, Video, Users, Briefcase, GraduationCap, ArrowUpRight, MonitorSmartphone } from "lucide-react";
+import { Target, ChevronRight, Video, Users, Briefcase, GraduationCap, ArrowUpRight, MonitorSmartphone, Activity, ShieldCheck, ShieldAlert, Zap, Star, Award, Trophy } from "lucide-react";
 import Link from "next/link";
 
 export default function UserDashboardPage() {
