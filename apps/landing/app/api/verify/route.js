@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 export const MOCK_REGISTRY = [
   {
     id: "phei-01",

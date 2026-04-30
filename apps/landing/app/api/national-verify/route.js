@@ -1,6 +1,8 @@
 import { supabase } from "@/lib/supabase";
 import { nationalVerify } from "@/lib/nationalVerifyEngine";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req) {
   try {
     const { query } = await req.json();
