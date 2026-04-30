@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShieldCheck, Lock, Smile, Facebook, Twitter, Instagram, Youtube, ChevronRight, GraduationCap, HandCoins, Search, HeartPulse, Lightbulb, Trophy, MapPin } from "lucide-react";
+import { ShieldCheck, Lock, Smile, Facebook, Twitter, Instagram, Youtube, ChevronRight, GraduationCap, HandCoins, Search, HeartPulse, Lightbulb, Trophy, Home, Briefcase, Scale, Brain, CreditCard, BookOpen } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const LANDMARKS = [
@@ -78,7 +78,7 @@ export default function SiteFooter() {
       {/* ── Citizen Quick Services ── */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 border-b border-white/10">
         <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-6">Quick Citizen Services</p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
           {[
             { label: "Apply NSFAS",        href: "/apply/nsfas",       Icon: GraduationCap, color: "text-emerald-400", bg: "bg-emerald-900/30" },
             { label: "SASSA Grants",       href: "/apply/sassa",       Icon: HandCoins,      color: "text-amber-400",  bg: "bg-amber-900/30"  },
@@ -86,6 +86,12 @@ export default function SiteFooter() {
             { label: "Find a Clinic",      href: "/services/clinics",  Icon: HeartPulse,     color: "text-rose-400",   bg: "bg-rose-900/30"   },
             { label: "Skills & Courses",   href: "/skills",            Icon: Lightbulb,      color: "text-yellow-400", bg: "bg-yellow-900/30" },
             { label: "Job Opportunities",  href: "/opportunities",     Icon: Trophy,         color: "text-purple-400", bg: "bg-purple-900/30" },
+            { label: "RDP Housing",         href: "/services/housing",  Icon: Home,           color: "text-orange-400", bg: "bg-orange-900/30" },
+            { label: "UIF Benefits",        href: "/services/uif",      Icon: Briefcase,      color: "text-cyan-400",   bg: "bg-cyan-900/30"   },
+            { label: "Legal Aid",           href: "/services/legal",    Icon: Scale,          color: "text-indigo-400", bg: "bg-indigo-900/30" },
+            { label: "Mental Health",       href: "/services/mental-health", Icon: Brain,     color: "text-pink-400",   bg: "bg-pink-900/30"   },
+            { label: "Bursaries",           href: "/skills",            Icon: BookOpen,       color: "text-teal-400",   bg: "bg-teal-900/30"   },
+            { label: "ID & Passport",       href: "/services/id",       Icon: CreditCard,     color: "text-lime-400",   bg: "bg-lime-900/30"   },
           ].map(({ label, href, Icon, color, bg }) => (
             <Link
               key={href}

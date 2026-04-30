@@ -327,6 +327,192 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── AWARENESS & NATIONAL UPDATES ── */}
+      <section className="bg-slate-950 py-24 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto">
+
+          {/* Header */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-14">
+            <div>
+              <span className="text-[10px] font-black text-rose-400 uppercase tracking-[0.3em] mb-3 block">SA Awareness Hub</span>
+              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">Stay Informed.<br/>Stay Safe.</h2>
+            </div>
+            <p className="text-white/50 font-semibold max-w-md text-sm leading-relaxed">
+              Critical awareness campaigns, national events, and health updates for all South Africans — in one place.
+            </p>
+          </div>
+
+          {/* Awareness Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+
+            {/* HIV/AIDS */}
+            <div className="relative rounded-[28px] bg-gradient-to-br from-red-950/80 to-rose-900/40 border border-rose-800/40 p-7 overflow-hidden group hover:border-rose-600/60 transition-all">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-rose-600/10 rounded-full -translate-y-8 translate-x-8" />
+              <div className="relative">
+                <div className="w-12 h-12 rounded-2xl bg-rose-500/20 flex items-center justify-center mb-5">
+                  <HeartPulse size={24} className="text-rose-400" />
+                </div>
+                <span className="text-[9px] font-black text-rose-400 uppercase tracking-widest mb-2 block">Health Awareness</span>
+                <h3 className="text-xl font-black text-white mb-3">HIV & AIDS Awareness</h3>
+                <p className="text-sm text-white/60 font-medium leading-relaxed mb-5">
+                  South Africa has the world's largest HIV programme. Know your status — free testing is available at all public clinics. Treatment is free. Early detection saves lives.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {["Free Testing", "Free ARVs", "All Clinics"].map(t => (
+                    <span key={t} className="px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-[10px] font-black uppercase">{t}</span>
+                  ))}
+                </div>
+                <Link href="/services/clinics" className="text-[11px] font-black text-rose-400 uppercase tracking-widest hover:underline flex items-center gap-1">
+                  Find a Testing Centre <ChevronRight size={12} />
+                </Link>
+              </div>
+            </div>
+
+            {/* TB Awareness */}
+            <div className="relative rounded-[28px] bg-gradient-to-br from-orange-950/80 to-amber-900/40 border border-amber-800/40 p-7 overflow-hidden group hover:border-amber-600/60 transition-all">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-600/10 rounded-full -translate-y-8 translate-x-8" />
+              <div className="relative">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center mb-5">
+                  <Activity size={24} className="text-amber-400" />
+                </div>
+                <span className="text-[9px] font-black text-amber-400 uppercase tracking-widest mb-2 block">Health Awareness</span>
+                <h3 className="text-xl font-black text-white mb-3">TB Awareness</h3>
+                <p className="text-sm text-white/60 font-medium leading-relaxed mb-5">
+                  SA has one of the highest TB rates globally. If you have a persistent cough for 2+ weeks, visit your nearest clinic. TB is curable with free medication available nationwide.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {["Free Treatment", "Curable", "Clinics Nationwide"].map(t => (
+                    <span key={t} className="px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[10px] font-black uppercase">{t}</span>
+                  ))}
+                </div>
+                <Link href="/services/clinics" className="text-[11px] font-black text-amber-400 uppercase tracking-widest hover:underline flex items-center gap-1">
+                  Find a Clinic <ChevronRight size={12} />
+                </Link>
+              </div>
+            </div>
+
+            {/* GBV */}
+            <div className="relative rounded-[28px] bg-gradient-to-br from-purple-950/80 to-violet-900/40 border border-violet-800/40 p-7 overflow-hidden group hover:border-violet-600/60 transition-all">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-violet-600/10 rounded-full -translate-y-8 translate-x-8" />
+              <div className="relative">
+                <div className="w-12 h-12 rounded-2xl bg-violet-500/20 flex items-center justify-center mb-5">
+                  <ShieldCheck size={24} className="text-violet-400" />
+                </div>
+                <span className="text-[9px] font-black text-violet-400 uppercase tracking-widest mb-2 block">Safety Awareness</span>
+                <h3 className="text-xl font-black text-white mb-3">GBV & Safety</h3>
+                <p className="text-sm text-white/60 font-medium leading-relaxed mb-5">
+                  Gender-Based Violence affects millions of South Africans. You are not alone. Report abuse, access shelters, and connect with legal support. GBV Helpline: <span className="text-violet-300 font-black">0800 428 428</span>
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {["24/7 Helpline", "Legal Aid", "Shelters"].map(t => (
+                    <span key={t} className="px-3 py-1 rounded-full bg-violet-500/15 border border-violet-500/30 text-violet-300 text-[10px] font-black uppercase">{t}</span>
+                  ))}
+                </div>
+                <a href="tel:0800428428" className="text-[11px] font-black text-violet-400 uppercase tracking-widest hover:underline flex items-center gap-1">
+                  Call 0800 428 428 <ChevronRight size={12} />
+                </a>
+              </div>
+            </div>
+
+            {/* Mental Health */}
+            <div className="relative rounded-[28px] bg-gradient-to-br from-blue-950/80 to-sky-900/40 border border-sky-800/40 p-7 overflow-hidden group hover:border-sky-600/60 transition-all">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-sky-600/10 rounded-full -translate-y-8 translate-x-8" />
+              <div className="relative">
+                <div className="w-12 h-12 rounded-2xl bg-sky-500/20 flex items-center justify-center mb-5">
+                  <Globe size={24} className="text-sky-400" />
+                </div>
+                <span className="text-[9px] font-black text-sky-400 uppercase tracking-widest mb-2 block">Youth Wellbeing</span>
+                <h3 className="text-xl font-black text-white mb-3">Mental Health Matters</h3>
+                <p className="text-sm text-white/60 font-medium leading-relaxed mb-5">
+                  1 in 6 South Africans suffer from depression or anxiety. Free counselling is available at public health facilities. SADAG helpline: <span className="text-sky-300 font-black">0800 567 567</span>
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {["Free Counselling", "Youth Focus", "24/7 Support"].map(t => (
+                    <span key={t} className="px-3 py-1 rounded-full bg-sky-500/15 border border-sky-500/30 text-sky-300 text-[10px] font-black uppercase">{t}</span>
+                  ))}
+                </div>
+                <a href="tel:0800567567" className="text-[11px] font-black text-sky-400 uppercase tracking-widest hover:underline flex items-center gap-1">
+                  Call SADAG 0800 567 567 <ChevronRight size={12} />
+                </a>
+              </div>
+            </div>
+
+            {/* National Events */}
+            <div className="relative rounded-[28px] bg-gradient-to-br from-emerald-950/80 to-green-900/40 border border-emerald-800/40 p-7 overflow-hidden group hover:border-emerald-600/60 transition-all">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-600/10 rounded-full -translate-y-8 translate-x-8" />
+              <div className="relative">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center mb-5">
+                  <Star size={24} className="text-emerald-400" />
+                </div>
+                <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest mb-2 block">National Calendar</span>
+                <h3 className="text-xl font-black text-white mb-3">Key SA Dates 2026</h3>
+                <div className="flex flex-col gap-3 mb-5">
+                  {[
+                    { date: "27 Apr", event: "Freedom Day — National Holiday" },
+                    { date: "1 May",  event: "Workers' Day — Labour Rights" },
+                    { date: "16 Jun", event: "Youth Day — Soweto Uprising" },
+                    { date: "9 Aug",  event: "National Women's Day" },
+                  ].map(({ date, event }) => (
+                    <div key={date} className="flex items-center gap-3">
+                      <span className="text-[10px] font-black text-emerald-400 min-w-[48px]">{date}</span>
+                      <span className="text-xs font-semibold text-white/70">{event}</span>
+                    </div>
+                  ))}
+                </div>
+                <Link href="/opportunities" className="text-[11px] font-black text-emerald-400 uppercase tracking-widest hover:underline flex items-center gap-1">
+                  View All Events <ChevronRight size={12} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Load Shedding & Utilities */}
+            <div className="relative rounded-[28px] bg-gradient-to-br from-yellow-950/80 to-yellow-900/40 border border-yellow-800/40 p-7 overflow-hidden group hover:border-yellow-600/60 transition-all">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-600/10 rounded-full -translate-y-8 translate-x-8" />
+              <div className="relative">
+                <div className="w-12 h-12 rounded-2xl bg-yellow-500/20 flex items-center justify-center mb-5">
+                  <Lightbulb size={24} className="text-yellow-400" />
+                </div>
+                <span className="text-[9px] font-black text-yellow-400 uppercase tracking-widest mb-2 block">Utilities Alert</span>
+                <h3 className="text-xl font-black text-white mb-3">Load Shedding & Water</h3>
+                <p className="text-sm text-white/60 font-medium leading-relaxed mb-5">
+                  Track load shedding schedules for your area, water outage notifications, and infrastructure updates directly from municipal authorities in real time.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {["Eskom Schedule", "Water Outages", "Your Area"].map(t => (
+                    <span key={t} className="px-3 py-1 rounded-full bg-yellow-500/15 border border-yellow-500/30 text-yellow-300 text-[10px] font-black uppercase">{t}</span>
+                  ))}
+                </div>
+                <Link href="/services" className="text-[11px] font-black text-yellow-400 uppercase tracking-widest hover:underline flex items-center gap-1">
+                  Check Status <ChevronRight size={12} />
+                </Link>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Emergency numbers strip */}
+          <div className="rounded-[20px] bg-white/5 border border-white/10 p-6">
+            <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-5">Emergency Numbers — South Africa</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+              {[
+                { label: "Police",         number: "10111",       color: "text-blue-400"    },
+                { label: "Ambulance",      number: "10177",       color: "text-rose-400"    },
+                { label: "Fire & Rescue",  number: "0800 111 990",color: "text-orange-400"  },
+                { label: "GBV Helpline",   number: "0800 428 428",color: "text-violet-400"  },
+                { label: "Childline SA",   number: "0800 055 555",color: "text-emerald-400" },
+                { label: "SADAG Mental",   number: "0800 567 567",color: "text-sky-400"     },
+              ].map(({ label, number, color }) => (
+                <a key={label} href={`tel:${number.replace(/\s/g,"")}`} className="flex flex-col gap-1 group">
+                  <span className="text-[9px] font-black text-white/30 uppercase tracking-widest">{label}</span>
+                  <span className={`text-lg font-black ${color} group-hover:underline`}>{number}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       {/* ── PEOPLE OF SOUTH AFRICA ── */}
       <section className="bg-[#0E3B29] py-24 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
