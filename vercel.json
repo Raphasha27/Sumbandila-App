@@ -1,7 +1,8 @@
 {
-  "buildCommand": "cd apps/web && npm install && npm run build",
-  "outputDirectory": "apps/web/dist",
-  "cleanUrls": true,
+  "buildCommand": "cd apps/landing && npm install && npm run build",
+  "outputDirectory": "apps/landing/.next",
+  "framework": "nextjs",
+  "installCommand": "cd apps/landing && npm install",
   "headers": [
     {
       "source": "/(.*)",
