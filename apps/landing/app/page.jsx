@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, ChevronRight, GraduationCap, HandCoins, HeartPulse, ShieldCheck, Activity, Users, Globe, BookOpen, Star, Sparkles, MapPin, Briefcase, PlayCircle, Scale } from "lucide-react";
+import { Search, ChevronRight, GraduationCap, HandCoins, HeartPulse, ShieldCheck, Activity, Users, Globe, BookOpen, Star, Sparkles, MapPin, Briefcase, PlayCircle, Scale, Lightbulb, Trophy } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import SiteNav from "../components/SiteNav";
@@ -8,11 +8,11 @@ import SiteFooter from "../components/SiteFooter";
 import SiphoFloatingAssistant from "../components/SiphoFloatingAssistant";
 
 const HERO_SLIDES = [
-  { src: "/mandela-bridge.png",      caption: "🌉 Nelson Mandela Bridge — Johannesburg" },
-  { src: "/union-buildings.png",     caption: "🏠 Union Buildings — Pretoria" },
-  { src: "/sa-youth.png",            caption: "🌟 South African Youth — Our Future" },
-  { src: "/elderly-food-parcels.png",caption: "🫶🏾 Batho Pele — Caring for Our Elders" },
-  { src: "/diverse-community.png",   caption: "🤝 Ubuntu — United in Growth" },
+  { src: "/mandela-bridge.png",      caption: "Nelson Mandela Bridge — Johannesburg" },
+  { src: "/union-buildings.png",     caption: "Union Buildings — Pretoria" },
+  { src: "/sa-youth.png",            caption: "South African Youth — Our Future" },
+  { src: "/elderly-food-parcels.png",caption: "Batho Pele — Caring for Our Elders" },
+  { src: "/diverse-community.png",   caption: "Ubuntu — United in Growth" },
 ];
 
 export default function LandingPage() {
@@ -403,18 +403,17 @@ export default function LandingPage() {
           {/* Stats bar */}
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/10 pt-12">
             {[
-              { value: "1.2M+", label: "Youth Registered", emoji: "🌱" },
-              { value: "4,208", label: "Verified Institutions", emoji: "🏆" },
-              { value: "11", label: "Official Languages", emoji: "🌍" },
-              { value: "9", label: "Provinces Covered", emoji: "📍" },
+              { value: "1.2M+", label: "Youth Registered",    Icon: Users,       color: "text-emerald-400" },
+              { value: "4,208", label: "Verified Institutions", Icon: ShieldCheck, color: "text-blue-400"    },
+              { value: "11",    label: "Official Languages",   Icon: Globe,       color: "text-amber-400"   },
+              { value: "9",     label: "Provinces Covered",    Icon: MapPin,      color: "text-rose-400"    },
             ].map((s) => (
-              <div key={s.label} className="flex flex-col items-center text-center gap-2">
-                <span className="text-3xl">{s.emoji}</span>
+              <div key={s.label} className="flex flex-col items-center text-center gap-3">
+                <s.Icon size={28} className={s.color} />
                 <span className="text-3xl font-black text-white tracking-tighter">{s.value}</span>
                 <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">{s.label}</span>
               </div>
-            ))}
-          </div>
+            ))}          </div>
         </div>
       </section>
 

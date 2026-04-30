@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShieldCheck, Lock, Smile, Facebook, Twitter, Instagram, Youtube, ChevronRight } from "lucide-react";
+import { ShieldCheck, Lock, Smile, Facebook, Twitter, Instagram, Youtube, ChevronRight, GraduationCap, HandCoins, Search, HeartPulse, Lightbulb, Trophy, MapPin } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const LANDMARKS = [
@@ -80,20 +80,22 @@ export default function SiteFooter() {
         <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-6">Quick Citizen Services</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
           {[
-            { label: "Apply NSFAS", href: "/apply/nsfas", emoji: "🎓" },
-            { label: "SASSA Grants", href: "/apply/sassa", emoji: "💰" },
-            { label: "Verify Institution", href: "/verify", emoji: "🔍" },
-            { label: "Find a Clinic", href: "/services/clinics", emoji: "❤️‍🩹" },
-            { label: "Skills & Courses", href: "/skills", emoji: "💡" },
-            { label: "Job Opportunities", href: "/opportunities", emoji: "🏆" },
-          ].map((s) => (
+            { label: "Apply NSFAS",        href: "/apply/nsfas",       Icon: GraduationCap, color: "text-emerald-400", bg: "bg-emerald-900/30" },
+            { label: "SASSA Grants",       href: "/apply/sassa",       Icon: HandCoins,      color: "text-amber-400",  bg: "bg-amber-900/30"  },
+            { label: "Verify Institution", href: "/verify",            Icon: ShieldCheck,    color: "text-blue-400",   bg: "bg-blue-900/30"   },
+            { label: "Find a Clinic",      href: "/services/clinics",  Icon: HeartPulse,     color: "text-rose-400",   bg: "bg-rose-900/30"   },
+            { label: "Skills & Courses",   href: "/skills",            Icon: Lightbulb,      color: "text-yellow-400", bg: "bg-yellow-900/30" },
+            { label: "Job Opportunities",  href: "/opportunities",     Icon: Trophy,         color: "text-purple-400", bg: "bg-purple-900/30" },
+          ].map(({ label, href, Icon, color, bg }) => (
             <Link
-              key={s.href}
-              href={s.href}
-              className="flex flex-col items-center gap-2 bg-white/5 hover:bg-emerald-900/40 border border-white/10 hover:border-emerald-700/50 rounded-2xl p-4 text-center transition-all group"
+              key={href}
+              href={href}
+              className="flex flex-col items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-2xl p-4 text-center transition-all group"
             >
-              <span className="text-2xl">{s.emoji}</span>
-              <span className="text-[10px] font-black text-white/70 group-hover:text-emerald-400 uppercase tracking-wide transition-colors leading-tight">{s.label}</span>
+              <div className={`w-10 h-10 rounded-xl ${bg} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                <Icon size={20} className={color} />
+              </div>
+              <span className="text-[10px] font-black text-white/60 group-hover:text-white uppercase tracking-wide transition-colors leading-tight">{label}</span>
             </Link>
           ))}
         </div>
