@@ -267,6 +267,97 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── PEOPLE OF SOUTH AFRICA ── */}
+      <section className="bg-[#0E3B29] py-24 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.3em] mb-3 block">Ubuntu — I am because we are</span>
+            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Built For Every South African</h2>
+            <p className="text-white/60 font-semibold max-w-2xl mx-auto text-lg leading-relaxed">
+              From the youth finding their first opportunity, to the elderly receiving the support they deserve — Sumbandila is here for everyone.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Youth card */}
+            <div className="relative rounded-[32px] overflow-hidden group h-96 shadow-2xl">
+              <img
+                src="/sa-youth.png"
+                alt="South African youth collaborating"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-7">
+                <span className="inline-block mb-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-[10px] font-black uppercase tracking-widest">Youth First</span>
+                <h3 className="text-xl font-black text-white mb-2 leading-tight">Young, Bold & Verified</h3>
+                <p className="text-xs font-semibold text-white/60 mb-4 leading-relaxed">
+                  Access skills, bursaries, and jobs — all in one verified, trusted platform designed for the next generation.
+                </p>
+                <a href="/opportunities" className="inline-flex items-center gap-1 text-emerald-400 text-[10px] font-black uppercase tracking-widest hover:underline">
+                  Explore Opportunities →
+                </a>
+              </div>
+            </div>
+
+            {/* Elderly / food parcels card */}
+            <div className="relative rounded-[32px] overflow-hidden group h-96 shadow-2xl">
+              <img
+                src="/elderly-food-parcels.png"
+                alt="Elderly South Africans receiving food parcels"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-7">
+                <span className="inline-block mb-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 text-[10px] font-black uppercase tracking-widest">Batho Pele</span>
+                <h3 className="text-xl font-black text-white mb-2 leading-tight">Caring for Our Elders</h3>
+                <p className="text-xs font-semibold text-white/60 mb-4 leading-relaxed">
+                  Connecting pensioners and vulnerable citizens to SASSA grants, food relief programmes, and community support.
+                </p>
+                <a href="/apply/sassa" className="inline-flex items-center gap-1 text-amber-400 text-[10px] font-black uppercase tracking-widest hover:underline">
+                  Apply for SASSA →
+                </a>
+              </div>
+            </div>
+
+            {/* Diverse community card */}
+            <div className="relative rounded-[32px] overflow-hidden group h-96 shadow-2xl">
+              <img
+                src="/diverse-community.png"
+                alt="Diverse South Africans talking together"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-7">
+                <span className="inline-block mb-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/40 text-blue-400 text-[10px] font-black uppercase tracking-widest">One Nation</span>
+                <h3 className="text-xl font-black text-white mb-2 leading-tight">United in Growth</h3>
+                <p className="text-xs font-semibold text-white/60 mb-4 leading-relaxed">
+                  A platform built on ubuntu — where every race, language, and community works together towards a stronger South Africa.
+                </p>
+                <a href="/membership" className="inline-flex items-center gap-1 text-blue-400 text-[10px] font-black uppercase tracking-widest hover:underline">
+                  Join the Community →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats bar */}
+          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/10 pt-12">
+            {[
+              { value: "1.2M+", label: "Youth Registered", emoji: "🎓" },
+              { value: "4,208", label: "Verified Institutions", emoji: "✅" },
+              { value: "11", label: "Official Languages", emoji: "🗣️" },
+              { value: "9", label: "Provinces Covered", emoji: "🇿🇦" },
+            ].map((s) => (
+              <div key={s.label} className="flex flex-col items-center text-center gap-2">
+                <span className="text-3xl">{s.emoji}</span>
+                <span className="text-3xl font-black text-white tracking-tighter">{s.value}</span>
+                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">{s.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <SiteFooter />
     </div>
   );
