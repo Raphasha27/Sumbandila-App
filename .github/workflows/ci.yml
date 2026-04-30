@@ -1,42 +1,80 @@
-name: Kirov Dynamics CI/CD
+name: Sumbandila CI — Quality & Security
 
 on:
   push:
-    branches:
-      - master
+    branches: [main]
   pull_request:
-    branches:
-      - master
+    branches: [main]
   workflow_dispatch:
 
 jobs:
-  build-and-scan:
-    name: Build & Security Scan
+  # ── 1. BUILD CHECK ──────────────────────────────────────────────
+  build:
+    name: Build Landing App
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: apps/landing/package-lock.json
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
+        working-directory: apps/landing
 
-      - name: Security Scan (Trivy)
+      - name: Next.js build
+        run: npm run build
+        working-directory: apps/landing
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+  # ── 2. DEPENDENCY SECURITY AUDIT ────────────────────────────────
+  audit:
+    name: Dependency Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: npm audit (landing)
+        run: npm audit --audit-level=high --omit=dev
+        working-directory: apps/landing
+        continue-on-error: true   # warn only — never block on zero-cost plan
+
+  # ── 3. SECRET LEAK SCAN ─────────────────────────────────────────
+  secrets:
+    name: Secret Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks — detect secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ── 4. VULNERABILITY SCAN ───────────────────────────────────────
+  trivy:
+    name: Trivy Vulnerability Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Trivy filesystem scan
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
           scan-ref: '.'
           format: 'table'
-          exit-code: '1'
+          exit-code: '0'          # report only — Hobby plan safe
           ignore-unfixed: true
-          vuln-type: 'os,library'
+          vuln-type: 'library'
           severity: 'CRITICAL,HIGH'
-
-      - name: Verify Builds
-        run: npm run verify

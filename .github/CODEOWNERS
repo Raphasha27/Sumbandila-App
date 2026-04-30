@@ -1,0 +1,24 @@
+# Sumbandila CODEOWNERS
+# All changes to these paths require review from the project owner.
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# ── Global default owner ─────────────────────────────────────────
+*                               @Raphasha27
+
+# ── Infrastructure & CI ─────────────────────────────────────────
+.github/                        @Raphasha27
+vercel.json                     @Raphasha27
+docker-compose.yml              @Raphasha27
+Makefile                        @Raphasha27
+
+# ── Core landing app ─────────────────────────────────────────────
+apps/landing/                   @Raphasha27
+
+# ── Database & schema ────────────────────────────────────────────
+database/                       @Raphasha27
+supabase-schema.sql             @Raphasha27
+scripts/sentinel_schema.sql     @Raphasha27
+
+# ── Security sensitive files ─────────────────────────────────────
+SECURITY.md                     @Raphasha27
+*.env*                          @Raphasha27
