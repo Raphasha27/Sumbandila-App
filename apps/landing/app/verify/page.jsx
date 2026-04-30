@@ -84,7 +84,7 @@ export default function Verify() {
               </span>
               {/* Official SA Coat of Arms */}
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Coat_of_arms_of_South_Africa.svg/60px-Coat_of_arms_of_South_Africa.svg.png"
+                src="/sa-logo.png"
                 alt="Republic of South Africa Coat of Arms"
                 className="h-8 w-auto opacity-90"
               />

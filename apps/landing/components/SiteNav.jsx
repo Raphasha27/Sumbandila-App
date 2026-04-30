@@ -18,11 +18,13 @@ export default function SiteNav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lang, setLang] = useState("EN");
+  const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState("");
 
   const isActive = (href) => pathname === href;
 
   useEffect(() => {
+    setMounted(true);
     setTime(new Date().toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' }));
     const timer = setInterval(() => {
       setTime(new Date().toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' }));
@@ -52,7 +54,7 @@ export default function SiteNav() {
             </div>
           </div>
           <div className="text-[10px] font-black text-white/60 uppercase tracking-widest min-w-[60px] text-right">
-            {time} SAST
+            {mounted ? time : "--:--"} SAST
           </div>
         </div>
       </div>
@@ -64,13 +66,10 @@ export default function SiteNav() {
         <Link href="/" className="flex items-center gap-3 group">
           {/* Official South African Coat of Arms */}
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Coat_of_arms_of_South_Africa.svg"
+            src="/sa-logo.png"
             alt="Republic of South Africa – Coat of Arms"
             className="h-10 w-auto group-hover:opacity-80 transition-opacity"
             draggable={false}
-            onError={(e) => {
-              e.target.src = "https://www.gov.za/sites/default/files/images/coat-of-arms.png";
-            }}
           />
           <div>
             <span className="text-[20px] font-black tracking-tighter text-slate-900 leading-none block">
