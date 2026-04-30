@@ -138,7 +138,7 @@ export default function SiteNav() {
           <select 
             value={lang} 
             onChange={(e) => setLang(e.target.value)}
-            className="bg-slate-50 border border-slate-200 text-[10px] font-black rounded-lg px-2 py-2 outline-none focus:border-[#007749] transition-all cursor-pointer"
+            className="bg-slate-50 border border-slate-200 text-slate-900 text-[10px] font-black rounded-lg px-2 py-2 outline-none focus:border-[#007749] transition-all cursor-pointer"
           >
             <option value="EN">EN</option>
             <option value="ZU">ZU</option>
