@@ -90,11 +90,11 @@ export default function SiteFooter() {
             { label: "UIF Benefits",        href: "/services/uif",      Icon: Briefcase,      color: "text-cyan-400",   bg: "bg-cyan-900/30"   },
             { label: "Legal Aid",           href: "/services/legal",    Icon: Scale,          color: "text-indigo-400", bg: "bg-indigo-900/30" },
             { label: "Mental Health",       href: "/services/mental-health", Icon: Brain,     color: "text-pink-400",   bg: "bg-pink-900/30"   },
-            { label: "Bursaries",           href: "/skills",            Icon: BookOpen,       color: "text-teal-400",   bg: "bg-teal-900/30"   },
+            { label: "Bursaries",           href: "/bursaries",         Icon: BookOpen,       color: "text-teal-400",   bg: "bg-teal-900/30"   },
             { label: "ID & Passport",       href: "/services/id",       Icon: CreditCard,     color: "text-lime-400",   bg: "bg-lime-900/30"   },
           ].map(({ label, href, Icon, color, bg }) => (
             <Link
-              key={href}
+              key={label}
               href={href}
               className="flex flex-col items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-2xl p-4 text-center transition-all group"
             >
