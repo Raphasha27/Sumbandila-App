@@ -5,12 +5,16 @@
 
 > *"Sumbandila" (Venda) — "The one who leads the way."*
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)](https://sumbandila.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)](https://landing-five-orcin-61.vercel.app)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 [![Security](https://img.shields.io/badge/Security-Sentinel_L5-orange?style=for-the-badge&logo=shield)](SECURITY.md)
 
 </div>
+---
+
+## 🔗 Official Demo
+**Live Platform:** [https://landing-five-orcin-61.vercel.app](https://landing-five-orcin-61.vercel.app)
 
 ---
 
@@ -82,7 +86,7 @@ graph TD
 
 ```mermaid
 flowchart LR
-    Start([🧑 Citizen visits\nsumbandila.vercel.app]) --> Home[Homepage\nHero + Services]
+    Start([🧑 Citizen visits\nlanding-five-orcin-61.vercel.app]) --> Home[Homepage\nHero + Services]
     Home --> Choice{What do\nyou need?}
 
     Choice -->|Student| NSFAS[Apply for NSFAS\n/apply/nsfas]
