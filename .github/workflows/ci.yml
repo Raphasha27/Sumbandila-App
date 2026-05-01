@@ -19,17 +19,17 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: apps/landing/package-lock.json
+          cache-dependency-path: package-lock.json
 
-      - name: Install dependencies
+      - name: Install dependencies (root)
         run: npm ci
-        working-directory: apps/landing
 
       - name: Next.js build
-        run: npm run build
-        working-directory: apps/landing
+        run: npm run build -w landing
         env:
           NEXT_TELEMETRY_DISABLED: 1
+          NEXT_PUBLIC_SUPABASE_URL: "https://placeholder.supabase.co"
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "placeholder-key"
 
   # ── 2. DEPENDENCY SECURITY AUDIT ────────────────────────────────
   audit:
@@ -38,14 +38,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: npm audit (landing)
+      - name: npm audit (root)
         run: npm audit --audit-level=high --omit=dev
-        working-directory: apps/landing
-        continue-on-error: true   # warn only — never block on zero-cost plan
+        continue-on-error: true
 
   # ── 3. SECRET LEAK SCAN ─────────────────────────────────────────
   secrets:
