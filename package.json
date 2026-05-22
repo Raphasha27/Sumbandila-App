@@ -17,6 +17,7 @@
     "verify-deployment": "node scripts/verify-deployment.js",
     "health-monitor": "node scripts/health-monitor.js",
     "daily-commit": "node scripts/daily-commit.js",
+    "github-dashboard": "node scripts/github-dashboard.js",
     "upgrade-all": "npm update --workspaces && npm audit fix",
     "check-updates": "npm outdated --workspaces"
   },
