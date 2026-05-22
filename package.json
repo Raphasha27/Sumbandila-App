@@ -12,7 +12,12 @@
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
-    "check-env": "node scripts/integrity-check.js"
+    "check-env": "node scripts/integrity-check.js",
+    "sync-readme": "node scripts/sync-readme.js",
+    "verify-deployment": "node scripts/verify-deployment.js",
+    "health-monitor": "node scripts/health-monitor.js",
+    "upgrade-all": "npm update --workspaces && npm audit fix",
+    "check-updates": "npm outdated --workspaces"
   },
   "engines": {
     "node": ">=22.0.0",
