@@ -16,6 +16,7 @@
     "sync-readme": "node scripts/sync-readme.js",
     "verify-deployment": "node scripts/verify-deployment.js",
     "health-monitor": "node scripts/health-monitor.js",
+    "daily-commit": "node scripts/daily-commit.js",
     "upgrade-all": "npm update --workspaces && npm audit fix",
     "check-updates": "npm outdated --workspaces"
   },
