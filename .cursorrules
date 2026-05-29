@@ -1,0 +1,285 @@
+# Cursor AI Rules for Sumbandila Project
+
+## Project Context
+This is the Sumbandila verification platform - a microservices-based application for verifying South African institutions and professionals.
+
+## Code Style & Standards
+
+### TypeScript/JavaScript
+- Use TypeScript for all new code
+- Enable strict mode
+- No `any` types without justification
+- Use functional components with hooks
+- Prefer const over let
+- Use async/await over promises
+- Use descriptive variable names
+
+### Python
+- Follow PEP 8 style guide
+- Use type hints for all functions
+- Use Pydantic for data validation
+- Use async/await for I/O operations
+- Write docstrings for all public functions
+- Use Black for formatting (line length: 100)
+
+### General
+- Write self-documenting code
+- Add comments for complex logic
+- Keep functions small and focused
+- Follow SOLID principles
+- Use meaningful commit messages (Conventional Commits)
+
+## Architecture Patterns
+
+### Microservices
+- Each service has a single responsibility
+- Services communicate via REST APIs
+- Use event-driven architecture where appropriate
+- Implement circuit breakers for resilience
+
+### API Design
+- Use RESTful conventions
+- Version all APIs (/api/v1/)
+- Return consistent response formats
+- Include proper error handling
+- Implement rate limiting
+
+### Database
+- Use migrations for schema changes
+- Index frequently queried columns
+- Use connection pooling
+- Implement soft deletes where appropriate
+
+## Security
+
+### Authentication & Authorization
+- Use JWT for authentication
+- Implement RBAC for authorization
+- Rotate secrets regularly
+- Never commit secrets to Git
+
+### Input Validation
+- Validate all user input
+- Sanitize data before database queries
+- Use parameterized queries
+- Implement request size limits
+
+### API Security
+- Use HTTPS in production
+- Implement CORS properly
+- Add security headers
+- Rate limit public endpoints
+
+## Testing
+
+### Unit Tests
+- Test business logic thoroughly
+- Mock external dependencies
+- Aim for 70%+ coverage
+- Use descriptive test names
+
+### Integration Tests
+- Test service interactions
+- Test database operations
+- Test API endpoints
+- Use test databases
+
+### E2E Tests
+- Test critical user flows
+- Test on multiple browsers/devices
+- Automate where possible
+
+## Documentation
+
+### Code Documentation
+- Document public APIs with JSDoc/docstrings
+- Explain "why" not "what" in comments
+- Keep documentation up-to-date
+- Include examples in documentation
+
+### README Files
+- Keep README files current
+- Include setup instructions
+- Document environment variables
+- Add architecture diagrams
+
+## Performance
+
+### Frontend
+- Lazy load components
+- Optimize images
+- Minimize bundle size
+- Use code splitting
+- Implement caching
+
+### Backend
+- Use database indexes
+- Implement caching (Redis)
+- Optimize database queries
+- Use async operations
+- Monitor performance metrics
+
+## Deployment
+
+### CI/CD
+- Run tests on every push
+- Lint and type-check code
+- Build and verify artifacts
+- Deploy to staging first
+- Verify deployments
+
+### Monitoring
+- Log important events
+- Track error rates
+- Monitor response times
+- Set up alerts
+- Use structured logging
+
+## AI Agent Development
+
+### Prompt Engineering
+- Be specific and clear
+- Provide examples
+- Define output format
+- Set boundaries
+- Include context
+
+### Memory Management
+- Implement short-term memory
+- Use vector stores for long-term memory
+- Manage context window
+- Prune old memories
+
+### Tool Integration
+- Define clear tool interfaces
+- Validate tool inputs
+- Handle tool errors gracefully
+- Log tool usage
+
+## Git Workflow
+
+### Branches
+- main: production-ready code
+- feature/*: new features
+- fix/*: bug fixes
+- refactor/*: code improvements
+- docs/*: documentation updates
+
+### Commits
+- Use Conventional Commits format
+- Write descriptive commit messages
+- Keep commits atomic
+- Reference issues in commits
+
+### Pull Requests
+- Write clear PR descriptions
+- Link related issues
+- Request reviews
+- Ensure CI passes
+- Update documentation
+
+## File Organization
+
+### Monorepo Structure
+```
+apps/       - Applications (web, mobile)
+services/   - Backend services
+packages/   - Shared code
+docs/       - Documentation
+scripts/    - Automation scripts
+infrastructure/ - IaC and configs
+```
+
+### Service Structure
+```
+service/
+├── app/
+│   ├── api/        - API routes
+│   ├── models/     - Data models
+│   ├── schemas/    - Validation schemas
+│   ├── services/   - Business logic
+│   └── core/       - Core utilities
+├── tests/          - Test files
+├── main.py         - Entry point
+└── requirements.txt - Dependencies
+```
+
+## Environment Variables
+
+### Required Variables
+- DATABASE_URL
+- REDIS_URL
+- JWT_SECRET
+- OPENAI_API_KEY (for AI features)
+
+### Optional Variables
+- LOG_LEVEL (default: INFO)
+- ENVIRONMENT (development/staging/production)
+- SENTRY_DSN (for error tracking)
+
+## Common Tasks
+
+### Adding a New Feature
+1. Create feature branch
+2. Implement feature with tests
+3. Update documentation
+4. Create pull request
+5. Get code review
+6. Merge to main
+
+### Fixing a Bug
+1. Create fix branch
+2. Write failing test
+3. Fix the bug
+4. Verify test passes
+5. Create pull request
+
+### Deploying
+1. Merge to main
+2. CI/CD runs tests
+3. Build artifacts
+4. Deploy to staging
+5. Verify staging
+6. Deploy to production
+7. Monitor deployment
+
+## Best Practices
+
+### Do
+- Write tests first (TDD)
+- Keep functions small
+- Use meaningful names
+- Handle errors properly
+- Log important events
+- Document complex logic
+- Review your own code first
+- Ask for help when stuck
+
+### Don't
+- Commit secrets
+- Skip tests
+- Ignore linter warnings
+- Leave TODO comments
+- Copy-paste code
+- Commit commented code
+- Push directly to main
+- Ignore security warnings
+
+## Resources
+
+- [Project Standards](./PROJECT_STANDARDS.md)
+- [Architecture Guide](./ARCHITECTURE_GUIDE.md)
+- [AI Agent Rules](./AI_AGENT_RULES.md)
+- [Deployment Checklist](./DEPLOYMENT_CHECKLIST.md)
+- [Contributing Guide](./CONTRIBUTING.md)
+
+## Questions?
+
+If you're unsure about something:
+1. Check the documentation
+2. Look at similar code
+3. Ask the team
+4. Make your best judgment
+5. Document your decision
+
+Remember: It's better to ask than to guess!

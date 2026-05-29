@@ -13,9 +13,20 @@
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
+<<<<<<< HEAD
     "verify": "npm run security-audit && npm run build --workspace=@sumbandila/web",
     "security-audit": "py scripts/local_security_audit.py",
     "check-env": "node scripts/integrity-check.js"
+=======
+    "check-env": "node scripts/integrity-check.js",
+    "sync-readme": "node scripts/sync-readme.js",
+    "verify-deployment": "node scripts/verify-deployment.js",
+    "health-monitor": "node scripts/health-monitor.js",
+    "daily-commit": "node scripts/daily-commit.js",
+    "github-dashboard": "node scripts/github-dashboard.js",
+    "upgrade-all": "npm update --workspaces && npm audit fix",
+    "check-updates": "npm outdated --workspaces"
+>>>>>>> a3f83287d62ab8341fa71e546be959e0eb8cff41
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
