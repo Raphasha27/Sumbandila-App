@@ -3,6 +3,7 @@ Core configuration for the Sumbandila Verification Platform.
 All secrets MUST be set via environment variables in production.
 """
 import os
+from pydantic import Field
 from pydantic_settings import BaseSettings
 
 
@@ -14,16 +15,13 @@ class Settings(BaseSettings):
     DEBUG: bool = ENVIRONMENT == "development"
 
     # Database
-    DATABASE_URL: str = os.getenv(
-        "DATABASE_URL",
-        "postgresql://user:pass@localhost:5432/sumbandila_db"
-    )
+    DATABASE_URL: str = Field(default="postgresql://user:pass@localhost:5432/sumbandila_db", env="DATABASE_URL")
 
     # Redis
     REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6379")
 
     # Security
-    SECRET_KEY: str = os.getenv("SECRET_KEY", "CHANGE-ME-IN-PRODUCTION-USE-ENV-VAR")
+    SECRET_KEY: str = Field(default="CHANGE-ME-IN-PRODUCTION-USE-ENV-VAR", env="SECRET_KEY")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
 
