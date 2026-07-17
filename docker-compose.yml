@@ -8,7 +8,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://admin:admin@db:5432/sumbandila_db
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-sumbandila}:${POSTGRES_PASSWORD:-sumbandila_dev}@db:5432/sumbandila_db
       - REDIS_URL=redis://redis:6379
       - ENV=development
     depends_on:
@@ -34,8 +34,8 @@ services:
   db:
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: ${POSTGRES_USER:-sumbandila}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sumbandila_dev}
       POSTGRES_DB: sumbandila_db
     ports:
       - "5432:5432"

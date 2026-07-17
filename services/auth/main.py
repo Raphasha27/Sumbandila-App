@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import uvicorn
@@ -42,9 +43,11 @@ async def oidc_config():
 @app.post("/auth/login")
 async def login(credentials: LoginRequest):
         # Simulated auth logic with RBAC
+    ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "")
+    ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "")
     if (
-        credentials.email == "admin@sumbandila.com"
-        and credentials.password == "admin123"
+        credentials.email == ADMIN_EMAIL
+        and credentials.password == ADMIN_PASSWORD
     ):
         return {
             "access_token": "mock_token_level_5",

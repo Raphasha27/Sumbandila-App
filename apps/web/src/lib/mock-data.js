@@ -827,11 +827,11 @@ export const MOCK_DATA = {
   ],
   auth: {
     admin: {
-      email: "admin@sumbandila.com",
-      password: "admin123",
-      name: "Dakalo Mashau",
-      avatar: "DM",
-      mobile: "+27 83 123 4567"
+      email: "admin@example.com",
+      password: "change-me-in-production",
+      name: "Admin User",
+      avatar: "AD",
+      mobile: "+27 00 000 0000"
     }
   },
   testimonials: [
