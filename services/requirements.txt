@@ -5,7 +5,7 @@ uvicorn[standard]>=0.29.0
 pydantic==2.13.0
 pydantic-settings>=2.2.0
 sqlalchemy>=2.0.29
-psycopg2-binary>=2.9.9
+psycopg2-binary>=2.9.12
 redis>=5.0.4
 python-jose[cryptography]>=3.3.0
 passlib[argon2]>=1.7.4
