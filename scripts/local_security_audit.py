@@ -12,8 +12,8 @@ def run_security_check():
     # 1. Dependency Audit (Replaces Security Triage)
     print("[*] Checking dependencies for known vulnerabilities...")
     try:
-        # Use shell=True for Windows to find npm
-        audit_res = subprocess.run(["npm", "audit", "--json"], capture_output=True, text=True, shell=True)
+    # Use shell=True for Windows to find npm
+    audit_res = subprocess.run(["npm", "audit", "--json"], capture_output=True, text=True, shell=True)  # nosec B602 — npm.cmd shim requires the shell on Windows
         audit_data = json.loads(audit_res.stdout)
         vulnerabilities = audit_data.get("metadata", {}).get("vulnerabilities", {})
         total_vulns = sum(vulnerabilities.values())

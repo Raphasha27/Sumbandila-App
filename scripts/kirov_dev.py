@@ -17,7 +17,7 @@ REPOS = sorted([d.name for d in GIT_ROOT.iterdir() if d.is_dir() and (d / ".git"
 
 def run_cmd(cmd, cwd=None, shell=True):
     print(f"\n>>> {cmd}")
-    return subprocess.run(cmd, cwd=cwd, shell=shell)
+    return subprocess.run(cmd, cwd=cwd, shell=shell)  # nosec B602 — dev-only tooling; npm/vercel require the shell on Windows
 
 
 def detect_stack(repo_path: Path) -> str:

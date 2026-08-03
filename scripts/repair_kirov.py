@@ -5,7 +5,7 @@ from pathlib import Path
 
 def run_cmd(cmd, cwd=None):
     try:
-        result = subprocess.run(cmd, cwd=cwd, shell=True, check=True, capture_output=True, text=True)
+        result = subprocess.run(cmd, cwd=cwd, check=True, capture_output=True, text=True)
         return True, result.stdout.strip()
     except subprocess.CalledProcessError as e:
         return False, e.stderr.strip()
@@ -146,16 +146,16 @@ def main():
             repair_workflow(wf_file)
             
         # Git Operations
-        ok, status = run_cmd("git status --porcelain", cwd=repo_dir)
+        ok, status = run_cmd(["git", "status", "--porcelain"], cwd=repo_dir)
         if ok and status:
             print(f"  Committing repairs to {repo_dir.name}...")
-            run_cmd("git add .", cwd=repo_dir)
-            run_cmd('git commit -m "chore: repair CI workflow corruption and standardize triggers to master"', cwd=repo_dir)
+            run_cmd(["git", "add", "."], cwd=repo_dir)
+            run_cmd(["git", "commit", "-m", "chore: repair CI workflow corruption and standardize triggers to master"], cwd=repo_dir)
             
-            ok, branch = run_cmd("git branch --show-current", cwd=repo_dir)
+            ok, branch = run_cmd(["git", "branch", "--show-current"], cwd=repo_dir)
             if ok:
                 print(f"  Pushing to origin {branch}...")
-                run_cmd(f"git push origin {branch}", cwd=repo_dir)
+                run_cmd(["git", "push", "origin", branch], cwd=repo_dir)
         else:
             print(f"  OK: No repairs needed for {repo_dir.name}")
 
