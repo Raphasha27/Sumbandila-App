@@ -88,7 +88,7 @@ const OfficialBanner = () => (
 export default function App() {
   console.log("💎 Sumbandila Sentinel Booting...");
   // eslint-disable-next-line react-hooks/purity
-  const certBlockId = useMemo(() => Math.random().toString(36).substring(2, 11).toUpperCase(), []);
+  const certBlockId = useMemo(() => crypto.randomUUID().replace(/-/g, '').slice(0, 9).toUpperCase(), []);
 
   const {
     user, setUser,
