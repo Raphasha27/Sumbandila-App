@@ -1,4 +1,4 @@
-name: 📝 Auto README Sync
+name: ðŸ“ Auto README Sync
 
 on:
   push:
@@ -15,28 +15,28 @@ permissions:
 
 jobs:
   sync-readme:
-    name: 📝 Synchronize README Files
+    name: ðŸ“ Synchronize README Files
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v7
+      - name: ðŸ“¥ Checkout
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v7
+      - name: ðŸŸ¢ Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
       
-      - name: 📦 Install Dependencies
+      - name: ðŸ“¦ Install Dependencies
         run: npm install
       
-      - name: 📝 Run README Sync
+      - name: ðŸ“ Run README Sync
         run: node scripts/sync-readme.js
       
-      - name: 🔍 Check for Changes
+      - name: ðŸ” Check for Changes
         id: check_changes
         run: |
           if [[ -n $(git status --porcelain) ]]; then
@@ -45,7 +45,7 @@ jobs:
             echo "changes=false" >> $GITHUB_OUTPUT
           fi
       
-      - name: 💾 Commit Changes
+      - name: ðŸ’¾ Commit Changes
         if: steps.check_changes.outputs.changes == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"

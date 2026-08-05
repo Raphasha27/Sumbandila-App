@@ -1,4 +1,4 @@
-name: 🔍 Deployment Verification
+name: ðŸ” Deployment Verification
 
 on:
   deployment_status:
@@ -19,29 +19,29 @@ permissions:
 
 jobs:
   verify-deployment:
-    name: 🔍 Verify ${{ github.event.inputs.environment || 'production' }} Deployment
+    name: ðŸ” Verify ${{ github.event.inputs.environment || 'production' }} Deployment
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v7
+      - name: ðŸ“¥ Checkout
+        uses: actions/checkout@v4
       
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v7
+      - name: ðŸŸ¢ Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
       
-      - name: 🔍 Run Verification
+      - name: ðŸ” Run Verification
         run: node scripts/verify-deployment.js ${{ github.event.inputs.environment || 'production' }}
       
-      - name: 📊 Upload Results
+      - name: ðŸ“Š Upload Results
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: verification-results
           path: verification-results.json
       
-      - name: 💬 Comment on PR
+      - name: ðŸ’¬ Comment on PR
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v9
         with:
@@ -50,5 +50,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '✅ Deployment verification passed! All services are healthy.'
+              body: 'âœ… Deployment verification passed! All services are healthy.'
             })

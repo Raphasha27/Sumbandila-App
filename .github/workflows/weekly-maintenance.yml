@@ -1,4 +1,4 @@
-name: 🔧 Weekly Maintenance
+name: ðŸ”§ Weekly Maintenance
 
 on:
   schedule:
@@ -13,38 +13,38 @@ permissions:
 
 jobs:
   dependency-updates:
-    name: 📦 Update Dependencies
+    name: ðŸ“¦ Update Dependencies
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v7
+      - name: ðŸ“¥ Checkout
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v7
+      - name: ðŸŸ¢ Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
       
-      - name: 🐍 Setup Python
-        uses: actions/setup-python@v7
+      - name: ðŸ Setup Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.12'
       
-      - name: 📦 Update Node Dependencies
+      - name: ðŸ“¦ Update Node Dependencies
         run: |
           npm update --workspaces
           npm audit fix --audit-level=moderate
       
-      - name: 🐍 Update Python Dependencies
+      - name: ðŸ Update Python Dependencies
         run: |
           pip install --upgrade pip
           pip install pip-audit
           pip-audit || true
       
-      - name: 🔍 Check for Changes
+      - name: ðŸ” Check for Changes
         id: check_changes
         run: |
           if [[ -n $(git status --porcelain) ]]; then
@@ -53,15 +53,15 @@ jobs:
             echo "changes=false" >> $GITHUB_OUTPUT
           fi
       
-      - name: 📝 Create Pull Request
+      - name: ðŸ“ Create Pull Request
         if: steps.check_changes.outputs.changes == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'chore: weekly dependency updates'
-          title: '🔧 Weekly Dependency Updates'
+          title: 'ðŸ”§ Weekly Dependency Updates'
           body: |
-            ## 📦 Weekly Dependency Updates
+            ## ðŸ“¦ Weekly Dependency Updates
             
             This PR contains automated dependency updates from the weekly maintenance workflow.
             
@@ -81,24 +81,24 @@ jobs:
           delete-branch: true
   
   readme-sync:
-    name: 📝 Sync README Files
+    name: ðŸ“ Sync README Files
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v7
+      - name: ðŸ“¥ Checkout
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v7
+      - name: ðŸŸ¢ Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
       
-      - name: 📝 Sync READMEs
+      - name: ðŸ“ Sync READMEs
         run: node scripts/sync-readme.js
       
-      - name: 💾 Commit Changes
+      - name: ðŸ’¾ Commit Changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -107,23 +107,23 @@ jobs:
           git push
   
   health-check:
-    name: 🏥 Health Check
+    name: ðŸ¥ Health Check
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v7
+      - name: ðŸ“¥ Checkout
+        uses: actions/checkout@v4
       
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v7
+      - name: ðŸŸ¢ Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
       
-      - name: 🔍 Verify Production Deployment
+      - name: ðŸ” Verify Production Deployment
         run: node scripts/verify-deployment.js production
         continue-on-error: true
       
-      - name: 📊 Create Issue if Failed
+      - name: ðŸ“Š Create Issue if Failed
         if: failure()
         uses: actions/github-script@v9
         with:
@@ -131,7 +131,7 @@ jobs:
             github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: '🚨 Production Health Check Failed',
+              title: 'ðŸš¨ Production Health Check Failed',
               body: `## Production Health Check Failed
               
               The weekly health check detected issues with the production deployment.
@@ -147,42 +147,42 @@ jobs:
             })
   
   security-scan:
-    name: 🔒 Security Scan
+    name: ðŸ”’ Security Scan
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v7
+      - name: ðŸ“¥ Checkout
+        uses: actions/checkout@v4
       
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v7
+      - name: ðŸŸ¢ Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
       
-      - name: 🔒 Run npm audit
+      - name: ðŸ”’ Run npm audit
         run: npm audit --audit-level=moderate
         continue-on-error: true
       
-      - name: 🐍 Setup Python
-        uses: actions/setup-python@v7
+      - name: ðŸ Setup Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.12'
       
-      - name: 🔒 Run pip-audit
+      - name: ðŸ”’ Run pip-audit
         run: |
           pip install pip-audit
           pip-audit || true
         continue-on-error: true
   
   cleanup:
-    name: 🧹 Cleanup
+    name: ðŸ§¹ Cleanup
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v7
+      - name: ðŸ“¥ Checkout
+        uses: actions/checkout@v4
       
-      - name: 🧹 Close Stale Issues
+      - name: ðŸ§¹ Close Stale Issues
         uses: actions/stale@v11
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
