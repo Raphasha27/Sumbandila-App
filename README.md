@@ -381,3 +381,9 @@ MIT © 2026 — Sumbandila National Growth Ecosystem · Republic of South Africa
   <br/><br/>
   <img src="https://raw.githubusercontent.com/Raphasha27/Sumbandila-App/main/apps/landing/public/sa-logo.png" height="60" alt="Republic of South Africa – Coat of Arms" />
 </div>
+
+## Contributors
+
+This project is developed and maintained together with the team:
+- [Raphasha27](https://github.com/Raphasha27) — Project lead & maintainer
+- [raphashakoketso99](https://github.com/raphashakoketso99) — Contributor
