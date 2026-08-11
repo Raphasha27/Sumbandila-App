@@ -9,13 +9,13 @@
 
 Opsly is a lightweight Business Operations OS built by Kirov Dynamics. It helps early-stage teams manage users, internal workflows, and basic business operations without juggling multiple tools.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Live_Deployment-Vercel-black?style=for-the-badge&logo=vercel)](https://opsly-saas.vercel.app)
+[![Deployed on Vercel](https://img.shields.io/badge/Live_Deployment-Vercel-black?style=for-the-badge&logo=vercel)](https://opsly-saas-app.vercel.app)
 
 ## 🚀 Live Demo & Testing
 
 Experience the fully functional Opsly Enterprise Dashboard immediately, powered by a resilient frontend architecture that works perfectly even before you connect your database.
 
-**➡️ Live Application:** [**opsly-saas.vercel.app**](https://opsly-saas.vercel.app)
+**➡️ Live Application:** [**opsly-saas-app.vercel.app**](https://opsly-saas-app.vercel.app)
 
 ### 🔑 Instant Test Credentials
 
