@@ -28,7 +28,7 @@ jobs:
           cd apps/web
           npm ci --no-audit --no-fund --legacy-peer-deps || npm install --no-audit --no-fund --legacy-peer-deps
           npm run build --if-present
-          if [ -d /tmp/docs_stage ]; then cp -r /tmp/docs_stage dist/ 2>/dev/null || true; fi
+          if [ -d /tmp/docs_stage ]; then mkdir -p dist/docs && cp -r /tmp/docs_stage/* dist/docs/ 2>/dev/null || true; fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
