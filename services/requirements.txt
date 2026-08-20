@@ -10,7 +10,7 @@ redis>=8.1.0
 python-jose[cryptography]>=3.5.0
 passlib[argon2]>=1.7.4
 python-multipart>=0.0.32
-python-dotenv>=1.2.2
+python-dotenv>=1.2.3
 celery>=5.6.3
 httpx>=0.28.1
 opentelemetry-api
