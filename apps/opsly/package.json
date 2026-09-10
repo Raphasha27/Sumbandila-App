@@ -18,7 +18,7 @@
     "stripe": "^22.5.0",
     "tailwindcss": "^4.3.3",
     "uuid": "^14.0.0",
-    "zustand": "^4.5.4"
+    "zustand": "^5.0.15"
 
   },
   "devDependencies": {
